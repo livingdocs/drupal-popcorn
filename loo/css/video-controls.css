@@ -1,0 +1,73 @@
+#playerControls{
+	width: 720px;
+	margin: 0 auto;
+  background-color: #2c353e;
+}
+
+#theCanvas{
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+#playerPlay, #playerVolume{
+  display: inline-block;
+  width: 50px;
+  vertical-align: middle;
+  cursor: pointer;
+  color: #eac14f;
+}
+
+#playerPlay{
+}
+
+#playerVolume{
+	position: relative;
+}
+
+#playerProgress{
+  display: inline-block;
+	width: 600px;
+	height: 3px;
+	padding: 15px 0;
+	margin: 0 auto;
+	opacity: 0.9;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+#progressBar{
+	background-color: #4b4c52;
+	height: 3px;
+	position: relative;
+}
+
+#progressPosition{
+	background-color: #eac14f;
+	height: 3px;
+	width: 0px;
+}
+
+#volumeControl{
+	display: none;
+	padding: 5px 15px;
+	height: 120px;
+	position: absolute;
+	top: -110px;
+	left: 10px;
+	z-index: 1000;
+  background-color: #2c353e;
+  border: 1px solid #000000;
+}
+
+#volumeBar{
+  background-color: #4b4c52;
+  width: 3px;
+  height: 100%;
+  position: relative;
+}
+
+#volumePosition{
+  background-color: #eac14f;
+  width: 3px;
+  position: relative;
+}

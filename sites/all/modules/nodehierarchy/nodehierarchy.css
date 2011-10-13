@@ -1,0 +1,9 @@
+#menu-overview.nodehierarchy-table-dragging tr {
+  opacity: .25;
+}
+#menu-overview.nodehierarchy-table-dragging tr.nodehierarchy-allowed-parent,
+#menu-overview.nodehierarchy-table-dragging tr.drag,
+#menu-overview.nodehierarchy-table-dragging thead tr
+{
+ opacity: 1;
+}

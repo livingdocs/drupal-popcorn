@@ -1,0 +1,16 @@
+
+name = Node Hierarchy Children Embed
+description = Allows a nodes children to be embedded on the node detail page with Views
+dependencies[] = nodehierarchy
+dependencies[] = views
+package = "Node Hierarchy"
+core = 7.x
+files[] = nodehierarchy_views.install
+files[] = nodehierarchy_views.module
+
+; Information added by drupal.org packaging script on 2011-04-19
+version = "7.x-2.x-dev"
+core = "7.x"
+project = "nodehierarchy"
+datestamp = "1303172843"
+

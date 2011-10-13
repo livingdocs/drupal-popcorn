@@ -1,0 +1,70 @@
+<?php
+
+class DraggableviewsTestCase extends DrupalSeleniumWebTestCase {
+
+  public static function getInfo() {
+    return array(
+      'name' => 'Draggableviews',
+      'description' => 'Tests for draggableviews module.',
+      'group' => 'Draggableviews'
+    );
+  }
+
+  function setUp() {
+    parent::setUp('ctools', 'views', 'draggableviews', 'draggableviews_tests');
+  }
+
+  function testNativeUnlimitedPager() {
+    // Create ten nodes.
+    for ($i = 0; $i < 10; $i++) {
+      $this->drupalCreateNode();
+    }
+
+    // Login user able to reorder draggable view.
+    $user = $this->drupalCreateUser(array('access content', 'Allow Reordering'));
+    $this->drupalLogin($user);
+
+    $this->verifyDraganddropView('native-pager-unlimited', 'native handler, unlimited pager');
+  }
+
+  /**
+   * Verify that view works properly.
+   *
+   * @param string $url
+   *   URL of the view page.
+   * @param string $message
+   *   Message describing the view.
+   */
+  function verifyDraganddropView($url, $message) {
+    // Open view for testing.
+    $this->drupalOpenUrl($url);
+
+    $tr_elements = $this->driver->getAllElements('css=div.content tr.draggable');
+    $first_element_title = $tr_elements[0]->getText();
+    $second_element_title = $tr_elements[1]->getText();
+
+    // Get first element draggable link.
+    $first_element_drag = $this->driver->getElement('css=tr.views-row-first a.tabledrag-handle');
+    $size = $first_element_drag->getSize();
+    // Move element down on its size + 5 pixels.
+    $first_element_drag->dragAndDrop(0, $size['height'] + 5);
+
+    // Wait till drag and drop warning message appear.
+    $this->driver->waitForElements('css=div.tabledrag-changed-warning');
+
+    // Screenshot before we submit the form.
+    $this->verboseScreenshot();
+
+    // Submit.
+    $this->driver->getElement('css=#edit-submit')->submit();
+
+    // Screenshot after we submitted the form.
+    $this->verboseScreenshot();
+
+    $tr_elements = $this->driver->getAllElements('css=div.content tr.draggable');
+    $new_first_element_title = $tr_elements[0]->getText();
+    $new_second_element_title = $tr_elements[1]->getText();
+
+    $this->assertTrue($new_first_element_title == $second_element_title && $new_second_element_title == $first_element_title, t('Rows sorted for view: !message.', array('!message' => $message)), 'Draggableviews');
+  }
+}

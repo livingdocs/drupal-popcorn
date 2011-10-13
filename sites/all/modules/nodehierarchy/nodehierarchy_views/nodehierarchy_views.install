@@ -1,0 +1,76 @@
+<?php
+/**
+ * @file
+ *   Install file for nodehierarchy_views module.
+ */
+
+// Create the database table on install (MySQL only for now)
+/**
+ * @todo Please document this function.
+ * @see http://drupal.org/node/1354
+ */
+function nodehierarchy_views_install() {
+  // TODO The drupal_(un)install_schema functions are called automatically in D7.
+  // drupal_install_schema('nodehierarchy_views')
+}
+
+/**
+ * @todo Please document this function.
+ * @see http://drupal.org/node/1354
+ */
+function nodehierarchy_views_uninstall() {
+  // TODO The drupal_(un)install_schema functions are called automatically in D7.
+  // drupal_uninstall_schema('nodehierarchy_views')
+}
+
+/**
+ * @todo Please document this function.
+ * @see http://drupal.org/node/1354
+ */
+function nodehierarchy_views_update_6200() {
+  $ret = array();
+  // Add more length to the field name to accomodate the
+  db_add_field('nodehierarchy_views', 'nh_children_view_display', array(
+    'type' => 'varchar',
+    'length' => '64',
+    'default' => 'default',
+    'not null' => TRUE,
+    'description' => t('The {views_display}.id of the embedded view.'),
+  ));
+  // hook_update_N() no longer returns a $ret array. Instead, return
+  // nothing or a translated string indicating the update ran successfully.
+  // See http://drupal.org/node/224333#update_sql.
+  return t('TODO Add a descriptive string here to show in the UI.') /* $ret */;
+}
+
+/**
+ * Implements hook_schema().
+ */
+function nodehierarchy_views_schema() {
+  $schema['nodehierarchy_views'] = array(
+    'fields' => array(
+      'nid' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The {node}.nid whose children are being embedded.',
+      ),
+      'nh_children_view' => array(
+        'type' => 'varchar',
+        'length' => '32',
+        'default' => '',
+        'not null' => TRUE,
+        'description' => 'The {views_view}.name of the embedded view.',
+      ),
+      'nh_children_view_display' => array(
+        'type' => 'varchar',
+        'length' => '64',
+        'default' => 'default',
+        'not null' => TRUE,
+        'description' => 'The {views_display}.id of the embedded view.',
+      ),
+    ),
+    'primary key' => array('nid'),
+  );
+  return $schema;
+}

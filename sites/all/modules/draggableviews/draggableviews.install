@@ -1,0 +1,192 @@
+<?php
+/**
+ * @file
+ * Draggableviews defines a new database schema
+ * for saving the collapsed/expand state of views.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function draggableviews_schema() {
+  $schema['draggableviews_collapsed'] = array(
+    'description' => 'The table that knows whether sub-lists are collapsed or expanded.',
+    'fields' => array(
+      'uid' => array(
+        'description' => 'The user.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'parent_nid' => array(
+        'description' => 'The parent node.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'view_name' => array(
+        'description' => 'The view id.',
+        'type' => 'varchar',
+        'length' => 32,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'collapsed' => array(
+        'description' => 'The state.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'primary key' => array('uid', 'parent_nid', 'view_name'),
+  );
+
+  $schema['draggableviews_structure'] = array(
+    'description' => 'The table saves the order settings of an draggableview.',
+    'fields' => array(
+      'view_name' => array(
+        'description' => 'Makes the order unique for each view.',
+        'type' => 'varchar',
+        'length' => 32,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'nid' => array(
+        'description' => 'The node id.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'delta' => array(
+        'description' => 'Makes the order unique for each level.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'args' => array(
+        'description' => 'Makes the order unique for a given set of arguments',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+        'default' => '',
+      ),
+      'value' => array(
+        'description' => 'The value.',
+        'type' => 'int',
+        'unsigned' => FALSE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'primary key' => array('nid', 'view_name', 'delta', 'args'),
+  );
+  return $schema;
+}
+
+/**
+ * Implements hook_install().
+ */
+function draggableviews_install() {
+  // TODO The drupal_(un)install_schema functions are called automatically in D7.
+  // drupal_install_schema('draggableviews')
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function draggableviews_uninstall() {
+  // TODO The drupal_(un)install_schema functions are called automatically in D7.
+  // drupal_uninstall_schema('draggableviews')
+  variable_del('draggableviews_repaired_msg');
+}
+
+/**
+ * Add a schema for structure information
+ */
+function draggableviews_update_6300() {
+  $ret = array();
+  $schemas = draggableviews_schema();
+  db_create_table('draggableviews_structure', $schemas['draggableviews_structure']);
+  // hook_update_N() no longer returns a $ret array. Instead, return
+  // nothing or a translated string indicating the update ran successfully.
+  // See http://drupal.org/node/224333#update_sql.
+  return t('TODO Add a descriptive string here to show in the UI.') /* $ret */;
+}
+
+/**
+ * Add a schema for structure information
+ */
+function draggableviews_update_6301() {
+  $ret = array();
+  db_drop_primary_key('draggableviews_collapsed');
+  db_add_field('draggableviews_collapsed', 'vid', array('type' => 'int', 'not null' => TRUE, 'unsigned' => TRUE));
+  db_add_primary_key('draggableviews_collapsed', array('uid', 'vid', 'parent_nid'));
+  // hook_update_N() no longer returns a $ret array. Instead, return
+  // nothing or a translated string indicating the update ran successfully.
+  // See http://drupal.org/node/224333#update_sql.
+  return t('TODO Add a descriptive string here to show in the UI.') /* $ret */;
+}
+
+/**
+ * Alter schema to add arguments field
+ */
+function draggableviews_update_6400() {
+  $ret = array();
+  // TODO update_sql has been removed. Use the database API for any schema or data changes.
+  $ret[] = array() /* update_sql('ALTER TABLE {draggableviews_structure} DROP PRIMARY KEY') */;
+  db_add_field('draggableviews_structure', 'args', array('type' => 'varchar', 'length' => 255));
+  db_add_primary_key('draggableviews_structure', array('nid', 'vid', 'delta', 'args'));
+  // hook_update_N() no longer returns a $ret array. Instead, return
+  // nothing or a translated string indicating the update ran successfully.
+  // See http://drupal.org/node/224333#update_sql.
+  return t('TODO Add a descriptive string here to show in the UI.') /* $ret */;
+}
+
+/**
+ * Alter schema to add arguments field
+ */
+function draggableviews_update_6401() {
+  $ret = array();
+  db_drop_primary_key('draggableviews_structure');
+  db_add_field('draggableviews_structure', 'view_name', array('type' => 'varchar', 'length' => 32, 'not null' => TRUE, 'default' => ''));
+  // Update code.
+  $result = db_query('SELECT vid FROM {draggableviews_structure}');
+  while ($row = db_fetch_object($result)) {
+    $view = db_fetch_object(db_query('SELECT name FROM {views_view} WHERE vid = :vid', array(':vid' => $row->vid)));
+    // TODO Please review the conversion of this statement to the D7 database API syntax.
+    /* db_query("UPDATE {draggableviews_structure} SET view_name='%s' WHERE vid=%d", $view->name, $row->vid) */
+    db_update('draggableviews_structure')
+  ->fields(array(
+      'view_name' => $view->name,
+    ))
+  ->condition('vid', $row->vid)
+  ->execute();
+  }
+  db_drop_field('draggableviews_structure', 'vid');
+  db_add_primary_key('draggableviews_structure', array('nid', 'view_name', 'delta', 'args'));
+
+  db_drop_primary_key('draggableviews_collapsed');
+  db_add_field('draggableviews_collapsed', 'view_name', array('type' => 'varchar', 'length' => 32, 'not null' => TRUE, 'default' => ''));
+  // Update code.
+  $result = db_query('SELECT vid FROM {draggableviews_collapsed}');
+  while ($row = db_fetch_object($result)) {
+    $view = db_fetch_object(db_query('SELECT name FROM {views_view} WHERE vid = :vid', array(':vid' => $row->vid)));
+    // TODO Please review the conversion of this statement to the D7 database API syntax.
+    /* db_query("UPDATE {draggableviews_collapsed} SET view_name='%s' WHERE vid=%d", $view->name, $row->vid) */
+    db_update('draggableviews_collapsed')
+  ->fields(array(
+      'view_name' => $view->name,
+    ))
+  ->condition('vid', $row->vid)
+  ->execute();
+  }
+  db_drop_field('draggableviews_collapsed', 'vid');
+  db_add_primary_key('draggableviews_collapsed', array('uid', 'parent_nid', 'view_name'));
+
+  // hook_update_N() no longer returns a $ret array. Instead, return
+  // nothing or a translated string indicating the update ran successfully.
+  // See http://drupal.org/node/224333#update_sql.
+  return t('TODO Add a descriptive string here to show in the UI.') /* $ret */;
+}

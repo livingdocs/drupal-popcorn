@@ -1,0 +1,296 @@
+<?php
+/**
+ * @file
+ * Embed a view of children onto a node.
+ *
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function nodehierarchy_views_theme() {
+  return array(
+    'nodehierarchy_children_embed' => array(
+      'render element' => 'element',
+    ),
+  );
+}
+
+/**
+ * Implements hook_permission().
+ */
+function nodehierarchy_views_permission() {
+  return array(
+    'access embedded child view' => array(
+      'title' => t('access embedded child view'),
+      'description' => t('TODO Add a description for \'access embedded child view\''),
+    ),
+    'edit embedded child view' => array(
+      'title' => t('edit embedded child view'),
+      'description' => t('TODO Add a description for \'edit embedded child view\''),
+    ),
+  );
+}
+
+/**
+ * Implements hook_content_extra_fields().
+ */
+function nodehierarchy_views_field_extra_fields() {
+  $extra = array();
+  foreach (node_type_get_names() as $type => $name) {
+    if (nodehierarchy_node_can_be_parent($type)) {
+      $extra['node'][$type] = array(
+        'display' => array(
+          'nodehierarchy_children' => array(
+            'label' => t('Node Hierarchy Children'),
+            'description' => t('Node Hierarchy embedded children view.'),
+            'weight' => 10,
+          ),
+          'nodehierarchy_children_links' => array(
+            'label' => t('Node Hierarchy Add Child Links'),
+            'description' => t('Links to create a new child.'),
+            'weight' => 11,
+          )
+        )
+      );
+    }
+  }
+  return $extra;
+}
+
+/**
+ * Implements hook_node_insert().
+ */
+function nodehierarchy_views_node_insert($node) {
+  return nodehierarchy_views_insert($node);
+}
+
+/**
+ * Implements hook_node_update().
+ */
+function nodehierarchy_views_node_update($node) {
+  return nodehierarchy_views_update($node);
+}
+
+/**
+ * Implements hook_node_prepare().
+ */
+function nodehierarchy_views_node_prepare($node) {
+  return nodehierarchy_views_prepare_node($node);
+}
+
+/**
+ * Implements hook_node_load().
+ */
+function nodehierarchy_views_node_load($node, $types) {
+  return nodehierarchy_views_load_node($node);
+}
+
+/**
+ * Implements hook_node_delete().
+ */
+function nodehierarchy_views_node_delete($node) {
+  nodehierarchy_views_delete_node($node);
+}
+
+/**
+ * Implements hook_node_validate().
+ */
+function nodehierarchy_views_node_validate($node, $form) { }
+
+/**
+ * Implements hook_node_view().
+ */
+function nodehierarchy_views_node_view($node, $view_mode = 'full') {
+  if ($view_mode == 'full' && user_access('access embedded child view')) {
+    nodehierarchy_views_embed_children($node);
+  }
+}
+
+/**
+ * @todo Please document this function.
+ * @see http://drupal.org/node/1354
+ */
+function nodehierarchy_views_nodehierarchy_node_form($node) {
+  $form = array();
+
+  $default_value = NULL;
+  if (!empty($node->nh_children_view)) {
+    $display = !empty($node->nh_children_view_display) ? $node->nh_children_view_display : 'default';
+    $default_value = $node->nh_children_view . ':' . $display;
+  }
+  if ($node && nodehierarchy_node_can_be_parent($node)) {
+    $form['nh_children_view'] = array(
+      '#type' => user_access('edit embedded child view') ? 'select' : 'value',
+      '#title' => t('Embed Children View'),
+      '#multiple' => FALSE,
+      '#options' => _nodehierarchy_views_view_options(),
+      '#required' => FALSE,
+      '#default_value' => $default_value,
+      '#description' => t("Embed a view containing this node's children into the node's page view"),
+    );
+  }
+  return $form;
+}
+
+/**
+ * Implements hook_nodehierarchy_node_type_settings_form().
+ */
+function nodehierarchy_views_nodehierarchy_node_type_settings_form($type) {
+  $form = array();
+  if (nodehierarchy_node_can_be_parent($type)) {
+    $form['nh_default_children_view'] = array(
+      '#type' => 'select',
+      '#title' => t('Default Children View'),
+      '#multiple' => FALSE,
+      '#options' => _nodehierarchy_views_view_options(),
+      '#required' => FALSE,
+      '#default_value' => variable_get('nh_default_children_view_' . $type, NULL),
+      '#description' => t('Default for the embed children view feature.'),
+    );
+  }
+  return $form;
+}
+
+/**
+ * Implements hook_load().
+ */
+function nodehierarchy_views_load_node($nodes) {
+  foreach ($nodes as $node) {
+    if ($results = db_query('SELECT nh_children_view, nh_children_view_display FROM {nodehierarchy_views} WHERE nid = :nid', array(':nid' => $node->nid))->fetchObject()) {
+      $node->nh_children_view = $results->nh_children_view;
+      $node->nh_children_view_display = $results->nh_children_view_display;
+    }
+  }
+}
+
+/**
+ * Set a default embedded view.
+ */
+function nodehierarchy_views_prepare_node(&$node) {
+  // Set the default children view if there is one for this type and if the node has not been saved yet.
+  if (empty($node->nid) && empty($node->nh_children_view) && $children_view = variable_get('nh_default_children_view_' . $node->type, NULL)) {
+    list($node->nh_children_view, $node->nh_children_display) = explode(':', $children_view);
+  }
+}
+
+/**
+ * Delete the node_hierarchy_views row when a node is deleted.
+ */
+function nodehierarchy_views_delete_node($node) {
+  db_delete('nodehierarchy_views')->condition('nid', $node->nid)->execute();
+}
+
+/**
+ * Update the given embedded view.
+ */
+function nodehierarchy_views_update($node) {
+  if (user_access('edit embedded child view')) {
+    db_delete('nodehierarchy_views')->condition('nid', $node->nid)->execute();
+    if (@$node->nh_children_view) {
+      list($view, $display) = explode(':', $node->nh_children_view);
+      $id = db_insert('nodehierarchy_views')
+              ->fields(array(
+                'nid' => $node->nid,
+                'nh_children_view' => $view,
+                'nh_children_view_display' => $display,
+              ))
+              ->execute();
+    }
+  }
+}
+
+/**
+ * Insert the given embedded view.
+ */
+function nodehierarchy_views_insert($node) {
+  // If the user has access to edit the view, update as usual.
+  if ( user_access('edit embedded child view') ) {
+    nodehierarchy_views_update($node);
+  }
+  // Otherwise set it to the default.
+  elseif ($children_view = variable_get('nh_default_children_view_' . $node->type, NULL)) {
+    list($view, $display) = explode(':', $children_view);
+    $id = db_insert('nodehierarchy_views')
+            ->fields(array(
+              'nid' => $node->nid,
+              'nh_children_view' => $view,
+            ))
+            ->execute();
+  }
+}
+
+/**
+ * Add the embedded children view to the node body if appropriate.
+ */
+function nodehierarchy_views_embed_children(&$node) {
+  $display = @$node->nh_children_view_display ? @$node->nh_children_view_display : 'default';
+
+  // Get the arguments to send to the view. This should allow other view arguments to still work.
+  $arguments = explode('/', $_GET['q']);
+
+  // First arg will be 'node', the second will be the node id. Remove them.
+  array_shift($arguments);
+  array_shift($arguments);
+
+  // Add the node id of the given node.
+  array_unshift($arguments, $node->nid);
+
+  // Defer the rendering of the view until the theme function so it can be overriden or altered.
+  $node->content['nodehierarchy_children'] = array(
+    '#theme' => 'nodehierarchy_children_embed',
+    '#nodehierarchy_view' => empty($node->nh_children_view) ? null : $node->nh_children_view,
+    '#nodehierarchy_view_display' => @$node->nh_children_view_display ? @$node->nh_children_view_display : 'default',
+    '#nodehierarchy_view_args' => $arguments,
+  );
+  $node->content['nodehierarchy_children_links'] = theme('nodehierarchy_new_child_links', array('node' => $node));
+}
+
+/**
+ * Prepare a list of views for selection.
+ */
+function _nodehierarchy_views_view_options() {
+  $options = array();
+
+  $options[0] = '-- ' . t('NONE') . ' --';
+  $views = views_get_all_views();
+  foreach ($views as $view_name => $view) {
+    foreach ($view->display as $display_id => $display) {
+      if (_nodehierarchy_views_is_nh_view($view, $display_id)) {
+        $options["$view_name:$display_id"] = $view->name . ': ' . $display->display_title;
+      }
+    }
+  }
+
+  return $options;
+}
+
+/**
+ * Determine if the given view/display is node hierarchy compatible.
+ */
+function _nodehierarchy_views_is_nh_view($view, $display = 'default') {
+  $view->set_display($display);
+  $view->build($display);
+  $arg = ((array) $view->argument !== array()) ? reset($view->argument) : FALSE;
+  if (!empty($arg->table) && ($arg->table == "nh_parent" || $arg->table == "nh_ancestor")) {
+    return TRUE;
+  }
+  return FALSE;
+}
+
+/**
+ * Render the embedded chidren for the given node.
+ */
+function theme_nodehierarchy_children_embed($variables) {
+  $element = $variables['element'];
+
+  if (!empty($element['#nodehierarchy_view']) && $view = views_get_view($element['#nodehierarchy_view'])) {
+    $display = $element['#nodehierarchy_view_display'];
+    $arguments = $element['#nodehierarchy_view_args'];
+
+    $view->override_path = "node";
+    return $view->execute_display($display, $arguments);
+  }
+  return '';
+}
+

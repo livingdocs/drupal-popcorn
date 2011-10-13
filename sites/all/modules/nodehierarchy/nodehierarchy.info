@@ -1,0 +1,18 @@
+name = Node Hierarchy
+description = A module to make nodes hierarchical.
+package = "Node Hierarchy"
+core = 7.x
+
+files[] = nodehierarchy.install
+files[] = nodehierarchy.module
+files[] = nodehierarchy.tokens.inc
+files[] = views/nodehierarchy.views.inc
+files[] = views/nodehierarchy.views_default.inc
+files[] = views/views_plugin_argument_default_ancestor.inc
+
+; Information added by drupal.org packaging script on 2011-04-19
+version = "7.x-2.x-dev"
+core = "7.x"
+project = "nodehierarchy"
+datestamp = "1303172843"
+

@@ -1,0 +1,14 @@
+name = Node Hierarchy Widgets
+description = Provides alternative parent selector widgets for Node Hierarchy including autocomplete (experimental).
+dependencies[] = nodehierarchy
+package = "Node Hierarchy"
+core = 7.x
+
+files[] = nodehierarchy_widgets.module
+
+; Information added by drupal.org packaging script on 2011-04-19
+version = "7.x-2.x-dev"
+core = "7.x"
+project = "nodehierarchy"
+datestamp = "1303172843"
+

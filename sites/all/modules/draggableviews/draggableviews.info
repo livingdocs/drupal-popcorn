@@ -1,0 +1,25 @@
+name = DraggableViews
+description = Makes Views draggable
+dependencies[] = views
+package = Views
+core = 7.x
+
+files[] = draggableviews-view-draggabletable-form.tpl.php
+files[] = draggableviews-view-draggabletable.tpl.php
+files[] = draggableviews.inc
+files[] = draggableviews.install
+files[] = draggableviews.module
+files[] = draggableviews_theme.inc
+files[] = implementations/draggableviews_handler.inc
+files[] = implementations/draggableviews_handler_native.inc
+files[] = views/draggableviews.views.inc
+files[] = views/draggableviews_plugin_style_draggabletable.inc
+files[] = handlers/views_handler_field_draggableviews_structure.inc
+files[] = handlers/views_handler_sort_draggableviews_structure.inc
+
+; Information added by drupal.org packaging script on 2011-07-22
+version = "7.x-1.x-dev"
+core = "7.x"
+project = "draggableviews"
+datestamp = "1311293284"
+

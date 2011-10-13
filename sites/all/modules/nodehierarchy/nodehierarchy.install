@@ -1,0 +1,171 @@
+<?php
+/**
+ * @file
+ *   Install file for nodehierarchy module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function nodehierarchy_install() {
+}
+
+/**
+ * Implements hook uninstall().
+ */
+function nodehierarchy_uninstall() {
+  foreach (node_type_get_types() as $key => $type) {
+    variable_del('nh_allowchild_' . $key);
+    variable_del('nh_parent_' . $key);
+    variable_del('nh_defaultparent_' . $key);
+  }
+}
+
+/**
+ * Implements hook_enable().
+ */
+function nodehierarchy_enable() {
+}
+
+/**
+ * Implements hook_schema().
+ */
+function nodehierarchy_schema() {
+  $schema['nodehierarchy_menu_links'] = array(
+    'fields' => array(
+      'mlid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => "The book page's {menu_links}.mlid.",
+      ),
+      'nid' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The {node}.nid whose parent is being defined.',
+      ),
+    ),
+    'primary key' => array('mlid'),
+    'indexes' => array(
+      'nid' => array('nid'),
+    ),
+  );
+  return $schema;
+}
+
+/**
+ * Update from the 5.x or 6.x-1.x branches.
+ */
+function nodehierarchy_update_6200() {
+  require_once DRUPAL_ROOT . '/' . drupal_get_path('module', 'nodehierarchy') . '/nodehierarchy.module';
+
+  $out = array();
+  $schema = nodehierarchy_schema();
+  db_create_table('nodehierarchy_menu_links', $schema['nodehierarchy_menu_links']);
+
+  $result = db_query("SELECT nh.*, n.title FROM {nodehierarchy} nh LEFT JOIN {node} n ON n.nid = nh.nid ORDER BY nh.parent");
+  while ($node = db_fetch_object($result)) {
+    $plid = (int) _nodehierarchy_get_node_mlid($node->parent);
+    if ($menu_link = db_fetch_array(db_query("SELECT * FROM {menu_links} WHERE plid = :plid AND link_path = :link_path", array(':plid' => $plid, ':link_path' => 'node/%d', '' => $node->nid)))) {
+      $menu_link = _nodehierarchy_prepare_menu_link($menu_link);
+      $menu_link['module'] = 'nodehierarchy';
+    }
+    else {
+      $menu_link = _nodehierarchy_default_menu_link($node->nid, $plid);
+      $menu_link['link_title'] = $node->title;
+    }
+    menu_link_save($menu_link);
+    _nodehierarchy_create_nodehierarchy_menu_link_reference($menu_link);
+    // TODO update_sql has been removed. Use the database API for any schema or data changes.
+    array() /* update_sql("DELETE FROM {nodehierarchy} WHERE nid = %d", $node->nid) */;
+  }
+
+  // Update the old can-be-parent can-be-child settings.
+  $types = node_type_get_types();
+  $can_be_children = array();
+  foreach ($types as $type => $info) {
+    if (variable_get('nh_child_' . $type, FALSE)) {
+      $can_be_children[$type] = $type;
+    }
+    variable_del('nh_child_' . $type);
+  }
+  foreach ($types as $type => $info) {
+    if (variable_get('nh_parent_' . $type, FALSE)) {
+      variable_set('nh_allowchild_' . $type, $can_be_children);
+    }
+    variable_del('nh_parent_' . $type);
+  }
+
+  // Update the default parents.
+  foreach ($types as $type => $info) {
+    if ($pnid = variable_get('nh_defaultparent_' . $type, 0)) {
+      $parent_menus = _nodehierarchy_get_node_menu_links($pnid);
+      if ($parent_menus && @$parent_menus[0]['mlid']) {
+        variable_set('nh_defaultparent_' . $type, $parent_menus[0]['mlid']);
+      }
+    }
+  }
+
+  // Update view handlers etc.
+  $view_translation = array(
+    'order_by' => array('nh_menu_links', 'weight'),
+    'antecedent' => array('nh_ancestor', 'nid'),
+    'parent' => array('nh_parent', 'nid'),
+    'actions' => NULL,
+  );
+  if (module_exists('views')) {
+    $views = views_get_all_views();
+    foreach ($views as $view_name => $view) {
+      $changed = FALSE;
+      foreach ($view->display as $display_id => $display) {
+        foreach (array('arguments', 'filters', 'sorts', 'fields') as $item) {
+          foreach ((array) @$display->display_options[$item] as $key => $info) {
+            if ($info['table'] == 'nodehierarchy' && $trans = @$view_translation[$info['id']]) {
+              if ($trans !== NULL) {
+                $info['table'] = $trans[0];
+                $info['id'] = $info['field'] = $trans[1];
+                unset($view->display[$display_id]->display_options[$item][$key]);
+                $view->display[$display_id]->display_options[$item][$info['id']] = $info;
+              }
+              else {
+                unset($view->display[$display_id]->display_options[$item][$key]);
+              }
+              $changed = TRUE;
+            }
+          }
+        }
+      }
+      if ($changed) {
+        $view->save();
+      }
+    }
+  }
+
+  // hook_update_N() no longer returns a $ret array. Instead, return
+  // nothing or a translated string indicating the update ran successfully.
+  // See http://drupal.org/node/224333#update_sql.
+  return t('TODO Add a descriptive string here to show in the UI.') /* $out */;
+}
+
+/**
+ * Replace the pathauto tokens which have changed format.
+ */
+function nodehierarchy_update_7200() {
+  $replace = array(
+    '[fullhierarchypath]'           => '[node:nodehierarchy:parent:url:alias]/[node:title]',
+    '[hierarchypath]'               => '[node:nodehierarchy:parent:url:alias]',
+    '[hierarchyparenttitle]'        => '[node:nodehierarchy:parent:title]',
+    '[hierarchyparenttitle-raw]'    => '[node:nodehierarchy:parent:title]',
+    '[hierarchyparentnid]'          => '[node:nodehierarchy:parent:nid]',
+    '[hierarchytitlepath]'          => '[node:nodehierarchy:parent:url:alias]',
+    '[hierarchytitlepath-raw]'      => '[node:nodehierarchy:parent:url:alias]',
+    '[fullhierarchytitlepath]'      => '[node:nodehierarchy:parent:url:alias]/[node:title]',
+    '[fullhierarchytitlepath-raw]'  => '[node:nodehierarchy:parent:url:alias]/[node:title]',
+  );
+  foreach (node_type_get_types() as $key => $type) {
+    variable_set("pathauto_node_${key}_pattern", strtr(variable_get("pathauto_node_${key}_pattern", ''), $replace));
+  }
+  variable_set("pathauto_node_pattern", strtr(variable_get("pathauto_node_pattern", ''), $replace));
+}
