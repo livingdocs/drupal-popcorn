@@ -88,6 +88,7 @@
 	    <?php
 	      
         drupal_add_js('sites/all/libraries/popcorn-js/popcorn.js');
+        drupal_add_js('sites/all/libraries/popcorn-js/plugins/drupal/popcorn.drupal.js');
         drupal_add_js('sites/all/themes/landofopportunity/js/video-controls.js');
 	      drupal_add_css('sites/all/themes/landofopportunity/css/video-controls.css');
 	      
@@ -103,9 +104,12 @@
 	      <canvas id='player-controls' height='80' width='760'></canvas>
 	      <canvas id='volume-control' height='150' width='30'></canvas>
       </div>
+      <div id='details'></div>
 	  
 	  
   </div>
+  
+  <div id='junk'></div>
 
 
 </div>

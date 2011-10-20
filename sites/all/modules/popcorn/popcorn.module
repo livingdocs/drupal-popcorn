@@ -1,0 +1,17 @@
+<?php 
+
+function popcorn_menu(){
+  $items['node/%/popcorn/%'] = array(
+    'page callback' => 'popcorn_load_node',
+    'access arguments' => array('access content'),
+    'page arguments' => array(1, 3),
+    'type' => MENU_CALLBACK,
+  );
+  return $items;
+}
+
+
+function popcorn_load_node($nid, $type = 'full'){
+	print drupal_render(node_view(node_load($nid), $type));
+	exit();
+}

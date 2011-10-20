@@ -1,18 +1,104 @@
 jQuery(document).ready(function() {
+	
+	
+	
+    function pEvent (start, end, data) {
+        this.start = start;
+        this.end = end;
+        this.data = data;
+    }
+
+    pEvent.prototype.getInfo = function() {
+        return this.start + ' ' + this.end;
+    };
+
+    pEvent.prototype.getData = function() {
+        return this.data;
+    };
+	
+	
+	
+	
+	
+	function pEventContainer(){
+		this.pEvents = []
+	}
+
+	pEventContainer.prototype.add = function(pEvent) {
+        this.pEvents.push(pEvent);
+    };
+
+	pEventContainer.prototype.getAt = function(property, time) {
+		var events = [];
+        for (var i = 0; i < this.pEvents.length; i++){
+        	if (this.pEvents[i][property] == time){
+        		events.push(this.pEvents[i]);
+        	}
+        }
+        return events;
+    };
+
+	pEventContainer.prototype.getStartAt = function(time) {
+        return this.getAt('start', time);
+    };
+
+	pEventContainer.prototype.getEndAt = function(time) {
+        return this.getAt('end', time);
+    };
+
+	pEventContainer.prototype.getAll = function() {
+        return this.pEvents;
+    };
+    
+    
+    
+    
+    
 
 	var player = document.getElementById('main-player');
 	
 	var popcorn = Popcorn('#main-player');
+	
+	popcorn.drupal({
+		start: 3,
+		end: 15,
+		nid: 4
+	});
+	
+	
+	var pEvents = new pEventContainer();
+
+	//pEvents.add(new pEvent(35, null, '35 second event'));
+	pEvents.add(new pEvent(7, null, '7 second event number 1'));
+	//pEvents.add(new pEvent(7, null, '7 second event number 2'));
+	//pEvents.add(new pEvent(108, null, '108 second event'));
+	
+	
+	
+	var allEvents = pEvents.getAll();
+	
+	for (x in allEvents){
+		//console.log(popcorn.exec(allEvents[x].start, fireEvent));
+	}
+	
+	function fireEvent(){
+		console.log(arguments);
+		var details = document.getElementById('details');
+		var events = pEvents.getStartAt(Math.floor(player.currentTime));
+		for (var i = 0; i < events.length; i++){
+			var x = document.createElement('div');
+			x.innerHTML = events[i].getData();
+			details.appendChild(x);
+		}
+	}
+	
 	
 	player.addEventListener('timeupdate', updateProgress, false); 
 	player.addEventListener('progress', updateProgress, false);  
 	player.addEventListener('volumechange', updateVolume, false);  
 	player.addEventListener('play', drawPauseButton, false);  
 	player.addEventListener('pause', drawPlayButton, false);  
-	
-	
-		
-	
+
 	
 	
 	
@@ -25,6 +111,7 @@ jQuery(document).ready(function() {
 
 
 	updateVolume();
+	
 
 	
 	function updateVolume(){
@@ -58,28 +145,12 @@ jQuery(document).ready(function() {
 	}
 	
 	function volumeClick(event){
-		console.log(event.layerY);
 		var coords = getCoords(event);
-		//click is in the play/pause area
-		if(coords.offsetX < (scrubberStartPos + scrubberLength) && coords.offsetX > scrubberStartPos && coords.offsetY < 66 && coords.offsetY > 44){
-			popcorn.currentTime(((coords.offsetX - scrubberStartPos) / scrubberLength) * popcorn.duration());
-		}
-		player.volume = coords.offsetY / volume.height;
+		player.volume = (volume.height - coords.offsetY) / volume.height;
 	}
 	
 	
 
-	
-	function controlsHover(event){
-		var coords = getCoords(event);
-		//hovering over the volume control    controls.width - 50, 40, 30, 30
-		if (coords.offsetX < controls.width - 20 && coords.offsetX > controls.width - 50 && coords.offsetY < 70 && coords.offsetY > 40){
-			volume.style.display = 'block';
-		}
-		else{
-			volume.style.display = 'none';
-		}
-	}
 	
 	
 	
@@ -94,23 +165,23 @@ jQuery(document).ready(function() {
 	
 	
 	var scrubberHeight = 2;
-	var scrubberLength = controls.width - 120;
-	var scrubberStartPos = 60;
+	var scrubberLength = controls.width - 140;
+	var scrubberStartPos = 70;
 	
 	
 
 	//main scrubber area
 	ctx.fillStyle = "rgba(25, 42, 53, 0.9)";
-	ctx.fillRect(0, 15, controls.width, controls.height);
+	ctx.fillRect(0, 20, controls.width, controls.height);
 	
 	//tapered top
 	ctx.fillStyle = "rgba(25, 42, 53, 0.8)";
 	ctx.strokeStyle = "rgba(25, 42, 53, 0.8)";
 	ctx.beginPath();
-	ctx.moveTo(0, 15);
+	ctx.moveTo(0, 20);
 	ctx.lineTo(20, 0);
 	ctx.lineTo(controls.width - 20, 0);
-	ctx.lineTo(controls.width, 15);
+	ctx.lineTo(controls.width, 20);
 	ctx.fill();
 	ctx.closePath();
 
@@ -120,14 +191,16 @@ jQuery(document).ready(function() {
 	//play button
     function drawPlayButton(){
     	resetPlayPause();
+    	var startX = 20,
+    	startY = 40;
     	ctx.save();
     	ctx.fillStyle = "rgb(234, 194, 82)";
     	ctx.shadowBlur = 5;
     	ctx.shadowColor = "rgb(234, 194, 82)";
     	ctx.beginPath();
-    	ctx.moveTo(15, 40);
-    	ctx.lineTo(40, 55);
-    	ctx.lineTo(15, 70);
+    	ctx.moveTo(startX, startY);
+    	ctx.lineTo(startX + 20, startY + 15);
+    	ctx.lineTo(startX, startY + 30);
     	ctx.fill();
     	ctx.closePath();
         ctx.restore();
@@ -136,12 +209,14 @@ jQuery(document).ready(function() {
 	//pause button
     function drawPauseButton(){
     	resetPlayPause();
+    	var startX = 20,
+    	startY = 40;
     	ctx.save();
     	ctx.fillStyle = "rgb(234, 194, 82)";
     	ctx.shadowBlur = 5;
     	ctx.shadowColor = "rgb(234, 194, 82)";
-    	ctx.fillRect(15, 40, 10, 30);
-    	ctx.fillRect(30, 40, 10, 30);
+    	ctx.fillRect(startX, startY, 10, 30);
+    	ctx.fillRect(startX + 15, startY, 10, 30);
         ctx.restore();
     }
     
@@ -149,8 +224,12 @@ jQuery(document).ready(function() {
     function resetPlayPause(){
     	ctx.save();
     	ctx.fillStyle = "rgba(25, 42, 53, 0.9)";
-    	ctx.clearRect(0, 20, 50, 60);
-    	ctx.fillRect(0, 20, 50, 60);
+    	ctx.clearRect(0, 20, 60, 60);
+    	ctx.fillRect(0, 20, 60, 60);
+
+    	ctx.strokeStyle = "blue";
+    	ctx.strokeRect(0, 20, 60, 60);
+    	
     	ctx.restore();	
     }
     
@@ -184,14 +263,14 @@ jQuery(document).ready(function() {
 	    	ctx.fillStyle = "rgb(234, 194, 82)";
 	    	ctx.shadowBlur = 5;
 	    	ctx.shadowColor = "rgb(234, 194, 82)";
-			var played = (popcorn.currentTime() / this.duration) * scrubberLength;
-			ctx.fillRect(scrubberStartPos, 55 - (scrubberHeight / 2), (popcorn.currentTime() / this.duration) * scrubberLength, scrubberHeight);
+			var played = (this.currentTime / this.duration) * scrubberLength;
+			ctx.fillRect(scrubberStartPos, 55 - (scrubberHeight / 2), (this.currentTime / this.duration) * scrubberLength, scrubberHeight);
 			ctx.restore();	
 			
 			//fill unplayed
 			var percent = this.buffered.end(0) / this.duration;
 			ctx.fillStyle = "rgb(75, 76, 82)";
-			var grayStartX = scrubberStartPos + ((popcorn.currentTime() / this.duration) * scrubberLength);
+			var grayStartX = scrubberStartPos + ((this.currentTime / this.duration) * scrubberLength);
 			var grayLength = ((this.buffered.end(0) / this.duration) * scrubberLength) - played;
 			ctx.fillRect(grayStartX, 55 - (scrubberHeight / 2), grayLength, scrubberHeight);
 		}
@@ -216,7 +295,32 @@ jQuery(document).ready(function() {
 		}
 		//click is in the scrubber area
 		else if(coords.offsetX < (scrubberStartPos + scrubberLength) && coords.offsetX > scrubberStartPos && coords.offsetY < 66 && coords.offsetY > 44){
-			popcorn.currentTime(((coords.offsetX - scrubberStartPos) / scrubberLength) * popcorn.duration());
+			player.currentTime = ((coords.offsetX - scrubberStartPos) / scrubberLength) * player.duration;
+		}
+	}
+	
+	function controlsHover(event){
+		var coords = getCoords(event);
+		//cursor is in a clickable area
+		if (
+			//play button
+			(coords.offsetX < 50 && coords.offsetX > 10 && coords.offsetY < 70 && coords.offsetY > 40) ||
+			//scrubber area
+			(coords.offsetX < (scrubberStartPos + scrubberLength) && coords.offsetX > scrubberStartPos && coords.offsetY < 66 && coords.offsetY > 44)
+		){
+			controls.style.cursor = 'pointer';
+		}
+		//cursor
+		else{
+			controls.style.cursor = 'auto';
+		}
+		
+		//hovering over the volume control    controls.width - 50, 40, 30, 30
+		if (coords.offsetX < controls.width - 20 && coords.offsetX > controls.width - 50 && coords.offsetY < 70 && coords.offsetY > 40){
+			volume.style.display = 'block';
+		}
+		else{
+			volume.style.display = 'none';
 		}
 	}
 
@@ -225,61 +329,52 @@ jQuery(document).ready(function() {
 	function getCoords(event){
 		var x, y;
 
-		canoffset = jQuery(controls).offset();
+		canoffset = jQuery(event.target).offset();
 		x = event.clientX + document.body.scrollLeft + document.documentElement.scrollLeft - Math.floor(canoffset.left);
 		y = event.clientY + document.body.scrollTop + document.documentElement.scrollTop - Math.floor(canoffset.top) + 1;
 
-		if (ev.layerX || ev.layerX == 0) { // Firefox
-			x = ev.layerX;
-			y = ev.layerY;
-		} else if (ev.offsetX || ev.offsetX == 0) { // Opera
-			x = ev.offsetX;
-			y = ev.offsetY;
-		}
-		  
-		return {offsetX: x, offsetY: y}
+		return {offsetX: x, offsetY: y};
 	}
 
     
     //clear volume area
     function resetVolumeButton(){
+    	var startX = controls.width - 45,
+    	startY = 20;
     	ctx.save();
     	ctx.fillStyle = "rgba(25, 42, 53, 0.9)";
-    	ctx.clearRect(controls.width - 50, 20, 50, 60);
-    	ctx.fillRect(controls.width - 50, 20, 50, 60);
+    	ctx.clearRect(startX, startY, 60, 60);
+    	ctx.fillRect(startX, startY, 60, 60);
+    	
     	ctx.strokeStyle = "green";
-    	ctx.strokeRect(controls.width - 50, 40, 30, 30);
+    	ctx.strokeRect(startX, startY + 20, 30, 30);
+
+    	ctx.strokeStyle = "blue";
+    	ctx.strokeRect(startX - 15, startY, 60, 60);
+    	
     	ctx.restore();	
     }
 	
 	//draw volume
     function drawVolumeButton(){
     	resetVolumeButton();
+    	var startX = controls.width - 35,
+    	startY = 51;
     	ctx.save();
     	ctx.fillStyle = "rgb(234, 194, 82)";
     	ctx.shadowBlur = 5;
     	ctx.shadowColor = "rgb(234, 194, 82)";
     	ctx.beginPath();
-    	ctx.moveTo(controls.width - 40, 51);
-    	ctx.lineTo(controls.width - 35, 51);
-    	ctx.lineTo(controls.width - 30, 46);
-    	ctx.lineTo(controls.width - 30, 63);
-    	ctx.lineTo(controls.width - 35, 58);
-    	ctx.lineTo(controls.width - 40, 58);
+    	ctx.moveTo(startX, startY);
+    	ctx.lineTo(startX + 5, startY);
+    	ctx.lineTo(startX + 10, startY - 6);
+    	ctx.lineTo(startX + 10, startY + 12);
+    	ctx.lineTo(startX + 5, startY + 7);
+    	ctx.lineTo(startX, startY + 7);
     	ctx.fill();
     	ctx.closePath();
         ctx.restore();
     }
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	

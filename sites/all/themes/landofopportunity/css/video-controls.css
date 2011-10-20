@@ -4,7 +4,10 @@
 	margin: 0 auto;
 }
 	
-#player-controls{
+#controls{
+  position: relative;
+  width: 760px;
+  margin: 0 auto;
 }
 
 
@@ -14,4 +17,5 @@
   bottom: 30px;
   right: 10px;
   display: none;
+  cursor: pointer;
 }
