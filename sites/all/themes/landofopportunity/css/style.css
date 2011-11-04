@@ -1668,5 +1668,6 @@ div.admin-panel .description {
 /* Doug's Land of Opportunity styles */
 
 #video-container{
-	text-align: center;
+  width: 760px;
+  margin: 0 auto;
 }

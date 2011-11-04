@@ -1,60 +1,5 @@
 jQuery(document).ready(function() {
 	
-	
-	
-    function pEvent (start, end, data) {
-        this.start = start;
-        this.end = end;
-        this.data = data;
-    }
-
-    pEvent.prototype.getInfo = function() {
-        return this.start + ' ' + this.end;
-    };
-
-    pEvent.prototype.getData = function() {
-        return this.data;
-    };
-	
-	
-	
-	
-	
-	function pEventContainer(){
-		this.pEvents = []
-	}
-
-	pEventContainer.prototype.add = function(pEvent) {
-        this.pEvents.push(pEvent);
-    };
-
-	pEventContainer.prototype.getAt = function(property, time) {
-		var events = [];
-        for (var i = 0; i < this.pEvents.length; i++){
-        	if (this.pEvents[i][property] == time){
-        		events.push(this.pEvents[i]);
-        	}
-        }
-        return events;
-    };
-
-	pEventContainer.prototype.getStartAt = function(time) {
-        return this.getAt('start', time);
-    };
-
-	pEventContainer.prototype.getEndAt = function(time) {
-        return this.getAt('end', time);
-    };
-
-	pEventContainer.prototype.getAll = function() {
-        return this.pEvents;
-    };
-    
-    
-    
-    
-    
-
 	var player = document.getElementById('main-player');
 	
 	var popcorn = Popcorn('#main-player');
@@ -64,33 +9,6 @@ jQuery(document).ready(function() {
 		end: 15,
 		nid: 4
 	});
-	
-	
-	var pEvents = new pEventContainer();
-
-	//pEvents.add(new pEvent(35, null, '35 second event'));
-	pEvents.add(new pEvent(7, null, '7 second event number 1'));
-	//pEvents.add(new pEvent(7, null, '7 second event number 2'));
-	//pEvents.add(new pEvent(108, null, '108 second event'));
-	
-	
-	
-	var allEvents = pEvents.getAll();
-	
-	for (x in allEvents){
-		//console.log(popcorn.exec(allEvents[x].start, fireEvent));
-	}
-	
-	function fireEvent(){
-		console.log(arguments);
-		var details = document.getElementById('details');
-		var events = pEvents.getStartAt(Math.floor(player.currentTime));
-		for (var i = 0; i < events.length; i++){
-			var x = document.createElement('div');
-			x.innerHTML = events[i].getData();
-			details.appendChild(x);
-		}
-	}
 	
 	
 	player.addEventListener('timeupdate', updateProgress, false); 

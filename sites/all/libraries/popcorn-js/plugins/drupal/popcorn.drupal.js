@@ -25,12 +25,22 @@
 		    if (xmlhttp.readyState == 4 && xmlhttp.status == 200){
 		    	var nodeDiv = document.createElement('div');
 		    	nodeDiv.id = "popcorn-node-" + nid;
+		    	nodeDiv.className = "popcorn-node";
 		    	nodeDiv.innerHTML = xmlhttp.responseText;
+		    	var anchors = nodeDiv.getElementsByTagName('a');
+		    	for (var i = 0; i < anchors.length; i++){
+		    		anchors[i].addEventListener('click', popcornClickCapture, false);
+		    	}
 		    	nodeData[nid] = nodeDiv;
 		    }
 		  }
-		  xmlhttp.open("GET", "/node/" + nid + "/popcorn/teaser", true);
+		  xmlhttp.open("GET", "/popcorn/" + nid + "/teaser", true);
 		  xmlhttp.send();
+	  }
+	  
+	  function popcornClickCapture(event){
+		  console.log('Popcorn link clicked');
+		  event.preventDefault();
 	  }
 	  
 	  return {
@@ -60,17 +70,21 @@
 	        }
 	      },
 	      _setup : function( options ) {
-	         console.log('Setting up trigger for nid: ' + options.nid);
 	         loadXMLDoc(options.nid);
 	      },
 	      start: function( event, options ){
-	         console.log('starting trigger for:' + options.nid);
-	         document.getElementById('junk').appendChild(nodeData[options.nid]);
+	         
+	         var summary = document.getElementById('poop');
+        	 summary.insertBefore(nodeData[options.nid], summary.firstChild);
+	         if (summary.childNodes.length > 2){
+	        	 document.getElementById('kettle').appendChild(summary.lastChild);
+	         }
 	      },
 	      end: function( event, options ){
-		      console.log('ending trigger for:' + options.nid);
+	    	  /*
 	    	  var nodeDiv = document.getElementById("popcorn-node-" + options.nid);
 	    	  nodeDiv.parentNode.removeChild(nodeDiv);
+	    	  */
 	      }
 	  }
   });

@@ -6,7 +6,6 @@
 	
 #controls{
   position: relative;
-  width: 760px;
   margin: 0 auto;
 }
 
@@ -18,4 +17,33 @@
   right: 10px;
   display: none;
   cursor: pointer;
+}
+
+#info-panel-controls{
+  background: rgba(25, 42, 53, 0.3);
+  padding: 8px 8px 0 8px;
+  text-align: left;
+  margin: 0;
+}
+
+#info-panel-controls li{
+  display: inline-block;
+  padding: 8px 20px;
+  background-color: #666666;
+  color: white;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+#kettle{
+  background: rgba(25, 42, 53, 0.9);
+  padding: 20px;
+  text-align: left;
+  min-height: 500px;
+}
+
+#kettle .node-teaser{
+	width: 300px;
+	margin-right: 40px;
+	
 }
