@@ -11,7 +11,26 @@ function popcorn_menu(){
 }
 
 function _popcorn_load_node($nid, $type = 'full'){
-  print drupal_render(node_view(node_load($nid), $type));
+  $node = node_load($nid);
+  switch ($type){
+    case 'teaser':
+      $output = drupal_render(node_view($node, $type));
+      break;
+    case 'full':
+      if ($node->type == 'film_clip'){
+        
+      }
+      else{
+        $output = drupal_render(node_view($node, $type));
+      }
+      break;
+    case 'kernels':
+      $output = "This is where node event data will be returned";
+      break;
+    default:
+      $output = drupal_render(node_view($node, $type));
+  }
+  print $output;
   exit();
 }
 

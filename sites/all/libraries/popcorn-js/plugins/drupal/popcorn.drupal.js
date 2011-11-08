@@ -74,7 +74,7 @@
 	      },
 	      start: function( event, options ){
 	         
-	         var summary = document.getElementById('poop');
+	         var summary = document.getElementById('highlight');
         	 summary.insertBefore(nodeData[options.nid], summary.firstChild);
 	         if (summary.childNodes.length > 2){
 	        	 document.getElementById('kettle').appendChild(summary.lastChild);
