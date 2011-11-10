@@ -1,0 +1,85 @@
+#main-player{
+	background: rgba(25, 42, 53, 0.9);
+	display: block;
+	margin: 0 auto;
+}
+	
+#controls{
+  position: relative;
+  margin: 0 auto;
+}
+
+
+#volume-control{
+  display: block;
+  position: absolute;
+  bottom: 30px;
+  right: 10px;
+  display: none;
+  cursor: pointer;
+}
+
+#info-panel-controls{
+  background: rgba(25, 42, 53, 0.5);
+  padding: 8px 8px 0 8px;
+  text-align: left;
+  margin: 0;
+}
+
+#info-panel-controls li{
+  display: inline-block;
+  padding: 5px 20px;
+  background-color: rgb(75, 76, 82);
+  color: white;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+#kettle{
+  background: rgba(25, 42, 53, 0.9);
+  padding: 20px;
+  text-align: left;
+  min-height: 500px;
+}
+
+#video-container .popcorn-node{
+  width: 300px;
+  margin-right: 60px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+#video-container .node-teaser{
+  background-color: rgb(75, 76, 82);
+	padding: 5px;
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 12px;
+  border: 0;
+}
+
+#video-container .node-teaser h2{
+  padding: 0;
+}
+
+#video-container .node-teaser a{
+  color: rgb(234, 194, 82);
+  font-style: italic;
+}
+
+#highlight{
+  position: absolute;
+  top: 0;
+  right: -310px;
+  width: 300px;
+  height: 70px;
+  background: rgba(175, 175, 255, .6);
+}
+
+#highlight .content, #highlight .link-wrapper{
+  display: none;
+}
+
+#highlight .node-teaser{
+	margin: 0;
+}
