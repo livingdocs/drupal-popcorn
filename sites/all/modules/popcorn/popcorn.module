@@ -26,6 +26,17 @@ function _popcorn_load_node($nid, $type = 'full'){
       break;
     case 'kernels':
       $output = "This is where node event data will be returned";
+      if ($node->type == 'film_clip'){
+        $kernels = array();
+        foreach ($node->field_events['und'] as $index => $kernel){
+          $kernels[$index] = array(
+            'start' => $index * 5,
+            'end' => $index * 5 + 20,
+            'nid' => $kernel['nid']
+          );
+        }
+        $output = drupal_json_encode($kernels);
+      }
       break;
     default:
       $output = drupal_render(node_view($node, $type));
