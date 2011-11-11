@@ -1,5 +1,7 @@
 var popcorn;
 jQuery(document).ready(function() {
+
+	var KERNELS = 2;
 	
 	var player = document.getElementById('main-player');
 	
@@ -12,8 +14,11 @@ jQuery(document).ready(function() {
 		xmlhttp.onreadystatechange = function(){
 			if (xmlhttp.readyState == 4 && xmlhttp.status == 200){
 				kernels = JSON.parse( xmlhttp.responseText );
-				for (var i = 0; i < kernels.length; i++){
-					popcorn.drupal(kernels[i]);
+				//sanity check
+				if (kernels.type == KERNELS){
+					for (var i = 0; i < kernels.data.length; i++){
+						popcorn.drupal(kernels.data[i]);
+					}
 				}
 			}
 		}

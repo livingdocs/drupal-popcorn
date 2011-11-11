@@ -1,5 +1,15 @@
 <?php 
 
+define("POPCORN_TEASER", 0);
+define("POPCORN_FULL", 1);
+define("POPCORN_KERNELS", 2);
+
+function popcorn_node_view_alter(&$build) {
+  if (isset($build['links']['node']['#links']['node-readmore']['title'])) {
+    $build['links']['node']['#links']['node-readmore']['title'] = 'Read more...';
+  }
+}
+
 function popcorn_menu(){
   $items['popcorn/%'] = array(
     'page callback' => '_popcorn_load_node',
@@ -7,46 +17,71 @@ function popcorn_menu(){
     'page arguments' => array(1, 2),
     'type' => MENU_CALLBACK,
   );
+  /*
+  $items['popcorn/%/kernels'] = array(
+    'page callback' => '_popcorn_load_kernels',
+    'access arguments' => array('access content'),
+    'page arguments' => array(1),
+    'type' => MENU_CALLBACK,
+  );
+  */
   return $items;
+}
+
+function _popcorn_load_kernels($node){
+  $kernels = array();
+  foreach ($node->field_events['und'] as $index => $event){
+    $kernels[$index] = array(
+      'start' => $index * 5,
+      'end' => $index * 5 + 20,
+      'nid' => $event['nid']
+    );
+  }
+  return $kernels;
 }
 
 function _popcorn_load_node($nid, $type = 'full'){
   $node = node_load($nid);
   switch ($type){
+    case 'kernels':
+      $kernels = _popcorn_load_kernels($node);
+      $output = array(
+        'type' => POPCORN_KERNELS,
+        'data' => $kernels
+      );
+      break;
     case 'teaser':
-      $output = drupal_render(node_view($node, $type));
+      $output = array(
+        'type' => POPCORN_TEASER,
+        'data' => drupal_render(node_view($node, $type))
+      );
       break;
     case 'full':
       if ($node->type == 'film_clip'){
-        
-      }
-      else{
-        $output = drupal_render(node_view($node, $type));
-      }
-      break;
-    case 'kernels':
-      $output = "This is where node event data will be returned";
-      if ($node->type == 'film_clip'){
-        $kernels = array();
-        foreach ($node->field_events['und'] as $index => $kernel){
-          $kernels[$index] = array(
-            'start' => $index * 5,
-            'end' => $index * 5 + 20,
-            'nid' => $kernel['nid']
+        $videos = array();
+        foreach ($node->field_video_file['und'] as $video){
+          $videos[] = array(
+            'src' => file_create_url($video['uri']),
+            'mime' => $video['filemime']
           );
         }
-        $output = drupal_json_encode($kernels);
+        $kernels = _popcorn_load_kernels($node);
+        $full = array(
+        	'videos' => $videos,
+        	'kernels' => $kernels
+        );
       }
+      else{
+        $full = drupal_render(node_view($node, $type));
+      }
+      $output = array(
+        'type' => POPCORN_FULL,
+        'data' => $full
+      );
       break;
     default:
       $output = drupal_render(node_view($node, $type));
   }
-  print $output;
+  print drupal_json_encode($output);
   exit();
-}
-
-function popcorn_node_view_alter(&$build) {
-  if (isset($build['links']['node']['#links']['node-readmore']['title'])) {
-    $build['links']['node']['#links']['node-readmore']['title'] = 'Read more...';
-  }
 }
