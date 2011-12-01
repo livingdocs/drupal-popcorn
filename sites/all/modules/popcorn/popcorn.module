@@ -30,12 +30,16 @@ function popcorn_menu(){
 
 function _popcorn_load_kernels($node){
   $kernels = array();
-  foreach ($node->field_events['und'] as $index => $event){
-    $kernels[$index] = array(
-      'start' => $index * 5,
-      'end' => $index * 5 + 20,
-      'nid' => $event['nid']
-    );
+  $poop = field_collection_item_load(1);
+  if (isset($node->field_track_events['und'])){
+    foreach ($node->field_track_events['und'] as $index => $trackEvent){
+      $event = field_collection_item_load($trackEvent['value']);
+      $kernels[$index] = array(
+      'start' => $event->field_start['und'][0]['value'],
+      'end' => $event->field_end['und'][0]['value'],
+      'nid' => $event->field_event['und'][0]['nid']
+      );
+    }
   }
   return $kernels;
 }

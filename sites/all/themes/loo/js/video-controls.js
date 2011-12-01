@@ -21,7 +21,7 @@ jQuery(document).ready(function() {
 					}
 				}
 			}
-		}
+		};
 		xmlhttp.open("GET", "/popcorn/" + nid + "/kernels", true);
 		xmlhttp.send();
 	}
