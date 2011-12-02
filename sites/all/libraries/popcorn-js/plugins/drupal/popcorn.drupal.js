@@ -53,11 +53,26 @@
 		 * Add the node teaser to the DOM
 		 */
 		function popKernel(nid){
-			highlight.insertBefore(nodeData[nid], highlight.firstChild);
+			highlight.insertBefore(nodeData[nid].content, highlight.firstChild);
 			if (highlight.childNodes.length > 2){
-				kettle.appendChild(highlight.lastChild);
+				var moveNid = highlight.lastChild.firstChild.id.match(/node-(\d+)/)[1];
+				var kernelSubject = document.getElementById(nodeData[moveNid].subject.replace(' ', '_'));
+				if (kernelSubject == null){
+					kernelSubject = createNewSubject(nodeData[moveNid].subject);
+					kettle.appendChild(kernelSubject);
+				}
+				kernelSubject.appendChild(highlight.lastChild);
 				//no need to remove the node from highlight in chrome...
 			}
+		}
+		
+		function createNewSubject(subject){
+			var container = document.createElement('div');
+			container.id = subject.replace(' ', '_');
+			var heading = document.createElement('h2');
+			heading.innerHTML = subject;
+			container.appendChild(heading);
+			return container;
 		}
 		
 		function receiveTeaser(teaser, options){
@@ -66,14 +81,16 @@
 			var nodeDiv = document.createElement('div');
 			nodeDiv.id = options._id;
 			nodeDiv.className = "popcorn-node";
-			nodeDiv.innerHTML = teaser;
+			nodeDiv.innerHTML = teaser.content;
 			//override all anchor tag click events
 			var anchors = nodeDiv.getElementsByTagName('a');
 			for (var i = 0; i < anchors.length; i++){
 				anchors[i].addEventListener('click', popcornClickCapture, false);
 			}
-			//add the wrapper div to the internal cache
-			nodeData[options.nid] = nodeDiv;
+			//update the teaser content
+			teaser.content = nodeDiv;
+			//add the data to the internal cache
+			nodeData[options.nid] = teaser;
 
 			//now that the data is loaded, make the kernel pop
 			popKernel(options.nid);

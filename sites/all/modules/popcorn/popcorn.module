@@ -55,9 +55,14 @@ function _popcorn_load_node($nid, $type = 'full'){
       );
       break;
     case 'teaser':
+      $term = taxonomy_term_load($node->field_subject['und'][0]['tid']);
       $output = array(
         'type' => POPCORN_TEASER,
-        'data' => drupal_render(node_view($node, $type))
+        'data' => array(
+          'content' => drupal_render(node_view($node, $type)),
+          'subject' => $term->name,
+          'contentType' => $node->type,
+        )
       );
       break;
     case 'full':
