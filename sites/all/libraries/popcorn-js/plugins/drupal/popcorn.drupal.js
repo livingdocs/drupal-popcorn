@@ -56,6 +56,7 @@
 			highlight.insertBefore(nodeData[nid], highlight.firstChild);
 			if (highlight.childNodes.length > 2){
 				kettle.appendChild(highlight.lastChild);
+				//no need to remove the node from highlight in chrome...
 			}
 		}
 		
