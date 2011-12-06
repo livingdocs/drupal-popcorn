@@ -1,156 +1,37 @@
 <?php
 
-
 /**
- * @file
- * Derives the view style plugin
+ * Implements hook_views_data_alter().
  */
+function draggableviews_views_data_alter(&$data) {
 
-/**
- * Implemening hook_views_plugins
- */
-function draggableviews_views_plugins() {
-  return array(
-    'module' => 'draggableviews', // This just tells our themes are elsewhere.
-    'style' => array(
-      'draggabletable' => array(
-        'path' => drupal_get_path('module', 'draggableviews') . '/views',
-        'title' => t('Draggable Table'),
-        'help' => t('Displays rows in a table and makes them draggable.'),
-        'handler' => 'draggableviews_plugin_style_draggabletable',
-        'theme' => 'draggableviews_view_draggabletable',
-        'theme file' => 'draggableviews_theme.inc',
-        'uses row plugin' => FALSE,
-        'uses fields' => TRUE,
-        'uses options' => TRUE,
-        'uses grouping' => FALSE,
-        'type' => 'normal',
-        'parent' => 'table',
-      ),
+  $data['draggableviews_structure']['weight'] = array(
+    'title' => t('Draggable views weight'),
+    'help' => t('Sort entities by the draggableviews weight teble field.'),
+    'group' => t('Content'), // The group it appears in on the UI. Could be left out.
+    'sort' => array(
+      'handler' => 'draggableviews_handler_sort',
     ),
   );
-}
 
-/**
- * Implements hook_views_data.
-().
- */
-function draggableviews_views_data() {
-  $data = array();
-
-  $base_tables = array(
-    'nid' => 'node',
-    'uid' => 'users',
-    'cid' => 'comments',
-    'vid' => 'node_revisions',
-    'tid' => 'taxonomy_term_data',
-  );
-
-  foreach ($base_tables as $base_field => $base_table) {
-    for ($i = 0; $i < 2; $i++) {
-      $data['draggableviews_structure_' . $base_table . $i]['table'] = array(
-        'group' => t('DraggableViews'),
-        'join' => array(
-          $base_table => array(
-            'table' => 'draggableviews_structure',
-            'left_field' => $base_field,
-            'field' => 'nid',
-            'extra' => array(
-              array(
-                'field' => 'delta',
-                'operator' => '=',
-                'value' => $i,
-                'numeric' => TRUE,
-              ),
-            ),
-          ),
-        ),
-      );
-      $data['draggableviews_structure_' . $base_table . $i]['value' . $i] = array(
-        'real field' => 'value',
-        'title' => t($i == 0 ? 'Order' : 'Parent'),
+  foreach (entity_get_info() as $entity_type => $info) {
+    if (isset($info['base table']) && isset($data[$info['base table']])) {
+      $data[$info['base table']]['draggableviews'] = array(
+        'title' => t('Draggable views'),
+        'help' => t('Provide a draggable functionality.'),
+        'real field' => $info['entity keys']['id'],
         'field' => array(
-          'handler' => 'views_handler_field',
-          'help' => t('This value provided by draggableviews is unique for each view.'),
-          'click sortable' => $i == 0 ? TRUE : FALSE,
-          'draggableviews_delta' => $i,
+          'handler' => 'draggableviews_handler_field_draggable',
+          'click sortable' => FALSE,
         ),
       );
-      if ($i == 0) {
-        $data['draggableviews_structure_' . $base_table . $i]['value' . $i]['sort'] = array(
-          'handler' => 'views_handler_sort',
-          'help' => t('Sort by value'),
-        );
-      }
-    }
-  }
 
-  return $data;
-}
-
-/**
- * @todo Please document this function.
- * @see http://drupal.org/node/1354
- */
-function draggableviews_views_query_alter(&$view, &$query) {
-  $exists = FALSE;
-  for ($i = 0; $i < 2; $i++) {
-    if (isset($query->table_queue['draggableviews_structure_' . $view->base_table . $i])) {
-      $exists = TRUE;
-    }
-  }
-  if (!$exists) {
-    // No "DraggableViews: Order/Parent" fields available.
-
-    return;
-  }
-
-  // We look for a display of this view that uses arguments.
-
-  // If any of the displays uses arguments we'll use arguments for this display too, except the
-
-  // style plugin configuration of this display tells us explicitly something else.
-
-  $use_args = FALSE;
-  if (isset($view->style_plugin->options['draggableviews_arguments']['use_args'])) {
-    $use_args = !empty($view->style_plugin->options['draggableviews_arguments']['use_args']);
-  }
-  else {
-    foreach ($view->display as $display_id => $display) {
-      if (isset($display->display_options['style_plugin'])) {
-        $display_options = $display->display_options;
-        // We don't care about the fact that displays probably don't contain
-
-        // all their information because of inheritance of the default display.
-
-        // We'll check the default display anyway.
-
-        if ($display_options['style_plugin'] == 'draggabletable') {
-          if (!empty($display_options['style_options']['draggableviews_arguments']['use_args'])) {
-            $use_args = TRUE;
-          }
-        }
-      }
-    }
-  }
-
-  for ($i = 0; $i < 2; $i++) {
-    if (isset($query->table_queue['draggableviews_structure_' . $view->base_table . $i])) {
-      $query->table_queue['draggableviews_structure_' . $view->base_table . $i]['join']->extra[] = array(
-        'field' => 'view_name',
-        'operator' => '=',
-        'value' => $view->name,
-      );
-      $args = '';
-      if ($use_args) {
-        if (!empty($view->args)) {
-          $args = implode('/', $view->args);
-        }
-      }
-      $query->table_queue['draggableviews_structure_' . $view->base_table . $i]['join']->extra[] = array(
-        'field' => 'args',
-        'operator' => '=',
-        'value' => $args,
+      // Explain to every entity how to join with draggableviews structure table.
+      $data['draggableviews_structure']['table']['join'][$info['base table']] = array(
+        'handler' => 'draggableviews_join_handler',
+        'left_table' => $info['base table'], // Because this is a direct link it could be left out.
+        'left_field' => $info['entity keys']['id'],
+        'field' => 'entity_id',
       );
     }
   }

@@ -238,7 +238,8 @@ function location_ctools_plugin_directory($module, $plugin) {
 /**
  * Process a location element.
  */
-function _location_process_location($element) {
+function _location_process_location($element, $form_state) {
+  // this is TRUE if we are processing a form that already contains values, such as during an AJAX call
   drupal_add_css(drupal_get_path('module', 'location') . '/location.css');
   $element['#tree'] = TRUE;
 
@@ -297,9 +298,25 @@ function _location_process_location($element) {
     if (!isset($element[$field])) {
       // @@@ Permission check hook?
       if ($fsettings[$field]['collect'] != 0) {
-        $element[$field] = location_invoke_locationapi($fdefaults[$field], 'field_expand', $field, $fsettings[$field]['collect'], $fdefaults);
-        $element[$field]['#weight'] = (int)$fsettings[$field]['weight'];
+        $fsettings[$field]['#parents'] = $element['#parents'];
+        $element[$field] = location_invoke_locationapi($fdefaults[$field], 'field_expand', $field, $fsettings[$field], $fdefaults);
+        $element[$field]['#weight'] = (int) $fsettings[$field]['weight'];
       }
+    }
+    
+    // If State/Province is using the select widget, update the element's options.
+    if ($field == 'province' && $fsettings[$field]['widget'] == 'select') {
+      // We are building the element for the first time
+      if (!isset($element['value']['country'])) {
+        $country = $fdefaults['country'];
+      }
+      else {
+        $country = $element['#value']['country'];
+      }
+      $provinces = location_get_provinces($country);
+      // The submit handler expects to find the full province name, not the
+      // abbreviation. The select options should reflect this expectation.
+      $element[$field]['#options'] = array('' => t('Please select'), 'xx' => t('NOT LISTED')) + $provinces;
     }
   }
 
@@ -426,6 +443,8 @@ function _location_process_location($element) {
   }
 
   $element += element_info('fieldset');
+  
+  drupal_alter('location_element', $element);
   return $element;
 }
 
@@ -481,7 +500,17 @@ function _location_process_location_settings(&$element) {
       '#default_value' => $defaults[$field]['collect'],
       '#options' => $options,
     );
-
+    
+    $dummy = array();
+    $widgets = location_invoke_locationapi($dummy, 'widget', $field);
+    if (!empty($widgets)) {
+      $element[$field]['widget'] = array(
+        '#type' => 'select',
+        '#default_value' => $defaults[$field]['widget'],
+        '#options' => $widgets,
+      );
+    }
+    
     $temp = $defaults[$field]['default'];
     $element[$field]['default'] = location_invoke_locationapi($temp, 'field_expand', $field, 1, $defaults);
     $defaults[$field]['default'] = $temp;
@@ -511,7 +540,11 @@ function theme_location_settings($variables) {
       'data' => t('Name'),
       'colspan' => 2,
     ),
-    t('Collect'), t('Default'), t('Weight'));
+    t('Collect'),
+    t('Widget'),
+    t('Default'),
+    t('Weight'),
+  );
 
   // Force country required.
   $element['country']['default']['#required'] = TRUE;
@@ -524,6 +557,7 @@ function theme_location_settings($variables) {
     $row[] = array('data' => '', 'class' => array('location-settings-drag'));
     $row[] = drupal_render($element[$key]['name']);
     $row[] = drupal_render($element[$key]['collect']);
+    $row[] = !empty($element[$key]['widget']) ? drupal_render($element[$key]['widget']) : ''; 
     $row[] = drupal_render($element[$key]['default']);
     $row[] = array('data' => drupal_render($element[$key]['weight']), 'class' => array('delta-order'));
 
@@ -576,6 +610,17 @@ function location_locationapi(&$obj, $op, $a3 = NULL, $a4 = NULL, $a5 = NULL) {
     case 'fields':
       return array('name' => t('Location name'), 'street' => t('Street location'), 'additional' => t('Additional'), 'city' => t('City'), 'province' => t('State/Province'), 'postal_code' => t('Postal code'), 'country' => t('Country'), 'locpick' => t('Coordinate Chooser'));
 
+    case 'widget':
+      switch ($a3) {
+        case 'province':
+          return array(
+            'autocomplete' => 'Autocomplete',
+            'select' => 'Dropdown',
+          );
+        default:
+          return array();
+      }
+
     case 'virtual fields':
       return array('province_name' => t('Province name'), 'country_name' => t('Country name'), 'map_link' => t('Map link'), 'coords' => t('Coordinates'));
 
@@ -586,7 +631,7 @@ function location_locationapi(&$obj, $op, $a3 = NULL, $a4 = NULL, $a5 = NULL) {
         'street'      => array('default' => '', 'collect' => 1, 'weight' => 4),
         'additional'  => array('default' => '', 'collect' => 1, 'weight' => 6),
         'city'        => array('default' => '', 'collect' => 0, 'weight' => 8),
-        'province'    => array('default' => '', 'collect' => 0, 'weight' => 10),
+        'province'    => array('default' => '', 'collect' => 0, 'weight' => 10, 'widget' => 'autocomplete'),
         'postal_code' => array('default' => '', 'collect' => 0, 'weight' => 12),
         'country'     => array('default' => variable_get('location_default_country', 'us'), 'collect' => 1, 'weight' => 14), // @@@ Fix weight?
         'locpick'     => array('default' => FALSE, 'collect' => 1, 'weight' => 20, 'nodiff' => TRUE),
@@ -599,7 +644,7 @@ function location_locationapi(&$obj, $op, $a3 = NULL, $a4 = NULL, $a5 = NULL) {
 
     case 'validate':
       if (!empty($obj['country'])) {
-        if (!empty($obj['province'])) {
+        if (!empty($obj['province']) && $obj['province'] != 'xx') {
           $provinces = location_get_provinces($obj['country']);
           $found = FALSE;
           $p = strtoupper($obj['province']);
@@ -614,6 +659,8 @@ function location_locationapi(&$obj, $op, $a3 = NULL, $a4 = NULL, $a5 = NULL) {
           }
         }
       }
+      
+      
 
       if (!empty($obj['locpick']) && is_array($obj['locpick'])) {
         // Can't specify just latitude or just longitude.
@@ -629,6 +676,14 @@ function location_locationapi(&$obj, $op, $a3 = NULL, $a4 = NULL, $a5 = NULL) {
       break;
 
     case 'field_expand':
+      if (is_array($a4)) {
+        $settings = $a4;
+      }
+      else {
+        // On this $op, $a4 is now expected to be an array,
+        // but we make an exception for backwards compatibility.
+        $settings = array('default' => NULL, 'weight' => NULL, 'collect' => $a4, 'widget' => NULL);
+      }
       switch ($a3) {
         case 'name':
           return array(
@@ -639,7 +694,7 @@ function location_locationapi(&$obj, $op, $a3 = NULL, $a4 = NULL, $a5 = NULL) {
             '#maxlength'      => 255,
             '#description'    => t('e.g. a place of business, venue, meeting point'),
             '#attributes'     => NULL,
-            '#required'       => ($a4 == 2),
+            '#required'       => ($settings['collect'] == 2),
           );
 
         case 'street':
@@ -649,7 +704,7 @@ function location_locationapi(&$obj, $op, $a3 = NULL, $a4 = NULL, $a5 = NULL) {
             '#default_value'  => $obj,
             '#size'           => 64,
             '#maxlength'      => 255,
-            '#required'       => ($a4 == 2),
+            '#required'       => ($settings['collect'] == 2),
           );
 
         // Additional is linked to street.
@@ -672,11 +727,10 @@ function location_locationapi(&$obj, $op, $a3 = NULL, $a4 = NULL, $a5 = NULL) {
             '#maxlength'      => 255,
             '#description'    => NULL,
             '#attributes'     => NULL,
-            '#required'       => ($a4 == 2),
+            '#required'       => ($settings['collect'] == 2),
           );
 
         case 'province':
-          drupal_add_js(drupal_get_path('module', 'location') . '/location_autocomplete.js');
           if (isset($a5['country']) && is_string($a5['country'])) {
             $country = $a5['country'];
           }
@@ -686,22 +740,48 @@ function location_locationapi(&$obj, $op, $a3 = NULL, $a4 = NULL, $a5 = NULL) {
           else {
             $country = variable_get('site_default_country', 'us');
           }
-          return array(
-            '#type' => 'textfield',
-            '#title' => t('State/Province'),
-            '#autocomplete_path' => 'location/autocomplete/' . $country,
-            '#default_value' => variable_get('location_use_province_abbreviation', 1) ? $obj : location_province_name($country, $obj),
-            '#size' => 64,
-            '#maxlength' => 64,
-            '#description' => NULL,
-            // Used by province autocompletion js.
-            '#attributes' => array('class' => array('location_auto_province')),
-            '#required' => ($a4 == 2),
-          );
+          switch ($settings['widget']) {
+            case 'select':
+
+              // Options are defined once during hook_element implementation.
+              // @see _location_process_location
+              // $options = array_merge(array('' => t('Please select'), 'xx' => t('NOT LISTED')), location_get_provinces($country));
+              if (!empty($settings['#parents'])) {
+                $wrapper_suffix = '-'. implode('-', $settings['#parents']);
+              }
+              else {
+                $wrapper_suffix = '';
+              }
+              return array(
+                '#type'           => 'select',
+                '#title'          => t('State/Province'),
+                '#default_value'  => $obj,
+                '#description'    => NULL,
+                '#required'       => ($settings['collect'] == 2),
+                '#attributes'     => array('class' => array('location_dropdown_province')),
+                '#prefix'         => '<div id="location-dropdown-province-wrapper' . $wrapper_suffix . '">',
+                '#suffix'         => '</div>',
+              );
+            case 'autocomplete':
+            default:
+              drupal_add_js(drupal_get_path('module', 'location') . '/location_autocomplete.js');
+              return array(
+                '#type' => 'textfield',
+                '#title' => t('State/Province'),
+                '#autocomplete_path' => 'location/autocomplete/' . $country,
+                '#default_value' => $obj,
+                //'#default_value' => variable_get('location_use_province_abbreviation', 1) ? $obj : location_province_name($country, $obj),
+                '#size' => 64,
+                '#maxlength' => 64,
+                '#description' => NULL,
+                '#attributes' => array('class' => array('location_auto_province')),
+                '#required' => ($settings['collect'] == 2),
+              );
+          }
 
         case 'country':
           // Force default.
-          if ($a4 == 4) {
+          if ($settings['collect'] == 4) {
             return array(
               '#type' => 'value',
               '#value' => $obj,
@@ -709,15 +789,28 @@ function location_locationapi(&$obj, $op, $a3 = NULL, $a4 = NULL, $a5 = NULL) {
           }
           else {
             $options = array_merge(array('' => t('Please select'), 'xx' => t('NOT LISTED')), location_get_iso3166_list());
+            if (!empty($settings['#parents'])) {
+              $wrapper_suffix = '-' . implode('-', $settings['#parents']);
+            }
+            else {
+              $settings['#parents'] = array();
+              $wrapper_suffix = '';
+            }
             return array(
               '#type'           => 'select',
               '#title'          => t('Country'),
               '#default_value'  => $obj,
               '#options'        => $options,
               '#description'    => NULL,
-              '#required'       => ($a4 == 2),
+              '#required'       => ($settings['collect'] == 2),
               // Used by province autocompletion js.
               '#attributes'     => array('class' => array('location_auto_country')),
+              '#ajax' => array(
+                'callback'      => '_location_country_ajax_callback',
+                'path' 		=> 'system/ajax/'. implode('/', $settings['#parents']),
+                'wrapper'       => 'location-dropdown-province-wrapper' . $wrapper_suffix,
+                'effect'        => 'fade',
+               ),
             );
           }
           break;
@@ -729,7 +822,7 @@ function location_locationapi(&$obj, $op, $a3 = NULL, $a4 = NULL, $a5 = NULL) {
             '#default_value'  => $obj,
             '#size'           => 16,
             '#maxlength'      => 16,
-            '#required'       => ($a4 == 2),
+            '#required'       => ($settings['collect'] == 2),
           );
       }
       break;
@@ -993,6 +1086,23 @@ function _location_autocomplete($country, $string = '') {
 }
 
 /**
+ * AJAX callback for the Country select form, for cases where the province list  
+ * is also a select element and its options need to be updated. Uses the D7 Ajax
+ * Framework to do the select list updating.
+ *
+ * All we do here is select the element of the form that will be rebuilt.
+ *
+ */
+function _location_country_ajax_callback($form, $form_state) {
+  if (arg(2) == 'locations') {
+    return $form['locations'][arg(3)]['province'];
+  }
+  else {
+    return $form[arg(2)][arg(3)][arg(4)]['province']; 
+  }
+}
+
+/**
  * Epsilon test.
  * Helper function for seeing if two floats are equal.  We could use other functions, but all
  * of them belong to libraries that do not come standard with PHP out of the box.
@@ -1214,7 +1324,7 @@ function location_calc_difference($oldloc, $newloc, &$changes) {
       $location_changed = TRUE;
       continue;
     }
-    elseif ($oldloc[$k] == $v) {
+    elseif ($oldloc[$k] === $v) {
       $changes[$k] = FALSE;
       // Exact match, no change.
       continue;

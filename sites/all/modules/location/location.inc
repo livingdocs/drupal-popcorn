@@ -265,8 +265,8 @@ function location_latlon_rough($location = array()) {
   location_load_country($location['country']);
 
   $latlon_function = 'location_latlon_rough_'. $location['country'];
-  if (function_exists($latlon_function)) {
-    return $latlon_function($location);
+  if (function_exists($latlon_function) && $result = $latlon_function($location)) {
+    return $result;
   }
   else {
     return location_latlon_rough_default($location);

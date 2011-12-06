@@ -364,7 +364,10 @@ function location_cck_field_widget_form(&$form, &$form_state, $field, $instance,
     $settings = $field['settings']['location_settings'];
 
     // Load location data for existing locations.
-    if (isset($items[$delta]['lid']) && $items[$delta]['lid']) {
+    if ($form_state['rebuild'] && !empty($form_state['values'][$field['field_name']][$langcode][$delta])) {
+      $location = $form_state['values'][$field['field_name']][$langcode][$delta];
+    }
+    elseif (isset($items[$delta]['lid']) && $items[$delta]['lid']) {
       $location = location_load_location($items[$delta]['lid']);
     }
     // Load location data passed by cck.

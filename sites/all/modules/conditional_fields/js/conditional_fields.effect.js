@@ -7,8 +7,11 @@
 
   Drupal.behaviors.conditionalFields = {
     attach: function (context, settings) {
-      $.each(settings.conditionalFields.effects, function(dependent) {
-        var effect = settings.conditionalFields.effects[dependent];
+      // AJAX is not updating settings.conditionalFields correctly.
+      conditionalFields = settings.conditionalFields || Drupal.settings.conditionalFields;
+
+      $.each(conditionalFields.effects, function(dependent) {
+        var effect = conditionalFields.effects[dependent];
         switch (effect.effect) {
           case 'fade':
             $(dependent, context).unbind('state:visible').bind('state:visible', function(e) {
@@ -51,7 +54,7 @@
 
           default:
             // The "effect" variable is treated as a jQuery plugin.
-            $(e.target)[effect.effect](e, effect.options);
+            $(e.target)[effect.effect](e, effect.options, context);
         }
       });
     }

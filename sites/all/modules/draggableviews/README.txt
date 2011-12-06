@@ -1,14 +1,15 @@
-Draggableviews
+DraggableViews
 ---------------
-This module provides a style plugin for views. This plugin allows dragging nodes and saving the new structure.
+This module provides dragging entities and saving their order.
 
 Quick install:
- 1) Activate Draggableviews module at yoursite?q=admin/build/modules.
- 2) Navigate to views edit-page and Click the "+" at the "Fields" section and
-    choose "Draggableviews: Order" -> Click Add button.
- 3) Click the currently enabled style plugin ("Basic settings" section).
-    Choose Draggable Table and click Update button.
- 4) Enter style plugin settings by clicking the little cogwheel next to "Draggable Table" style plugin
- 5) Set the Order Field from 2) and choose "Native" handler.
-    Click Update button.
+ 1) Activate Draggableviews module at admin/modules
+ 2) Navigate to view edit-page, click on the first link at the Format section and then choose style "table".
+ 3) Click Add button at the "Fields" section and choose field "Content:title", add and apply.
+ 4) Click Add button at the "Fields" section and choose field "Content:Draggable views (Draggable views)", add and apply.
+ 5) Click Add button at the "Sort criteria" section and choose field "Content:Draggable views weight", add and choose sort asc, then apply.
  6) Save the view and you're done.
+
+In the case of table standard drupal tabledrag.js javascript is used.
+
+We also support jQuery UI Sortable javascript. In order to use it please set display style HTML List.

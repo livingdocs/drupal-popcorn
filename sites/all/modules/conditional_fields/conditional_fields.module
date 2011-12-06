@@ -237,6 +237,11 @@ function conditional_fields_element_after_build($element, &$form_state) {
     return $element;
   }
 
+  // Avoid processing fields in fields_ui administration pages.
+  if (drupal_substr($form_state['complete form']['#form_id'], 0, 9) == 'field_ui_') {
+    return $element;    
+  }
+
   // Ensure that the element is a field.
   if (isset($element['#field_name'])) {
     $field = $element;
@@ -419,6 +424,7 @@ function conditional_fields_form_after_build($form, $form_state) {
     return $form;
   }
 
+  $effects = array();
   $state_handlers = conditional_fields_states_handlers();
 
   // Cycle all dependents.
@@ -546,12 +552,14 @@ function conditional_fields_form_after_build($form, $form_state) {
       // Merge this dependency with the states array.
       $states = array_merge_recursive($states, $state);
 
-      // Add effect handler for effects with options.
+      // Build effect settings for effects with options.
+      // TODO: add dependee key to allow different effects on the same selector.
       if ($options['effect'] && $options['effect'] != 'show') {
-        drupal_add_js(drupal_get_path('module', 'conditional_fields') . '/js/conditional_fields.effect.js');
-
         $selector = conditional_fields_field_selector(drupal_array_get_nested_value($form, array($dependent_info['parents'][0])));
-        drupal_add_js(array('conditionalFields' => array('effects' => array($selector => array('effect' => $options['effect'], 'options' => $options['effect_options'])))), 'setting');
+        $effects[$selector] = array(
+          'effect' => $options['effect'],
+          'options' => $options['effect_options']
+        );
       }
     }
 
@@ -572,6 +580,19 @@ function conditional_fields_form_after_build($form, $form_state) {
     $dependent_parents = isset($dependent_form_field['#field_parents']) ? $dependent_form_field['#field_parents'] : array();
     $dependent_container = array_slice($dependent_info['parents'], 0, count($dependent_parents) + 1);
     drupal_array_set_nested_value($form, array_merge($dependent_container, array('#states')), $states);
+  }
+
+  // Add effect settings to the form.
+  if ($effects) {
+    $form['#attached']['js'][] = drupal_get_path('module', 'conditional_fields') . '/js/conditional_fields.effect.js';
+    $form['#attached']['js'][] = array(
+      'data' => array(
+        'conditionalFields' => array(
+          'effects' => $effects,
+        ),
+      ),
+      'type' => 'setting',
+    );
   }
 
   return $form;
@@ -648,7 +669,8 @@ function conditional_fields_behaviors_reset_default_validate(&$elements, &$form_
         $form_state['values'][$instance['field_name']][$elements['#language']] = $default_value;
         break;
       case 'options':
-        $elements['#value'] = $form_state['values'][$instance['field_name']][$elements['#language']] = $default_value[0]['value'];
+        $value = isset($default_value[0]['value']) ? $default_value[0]['value'] : NULL;
+        $elements['#value'] = $form_state['values'][$instance['field_name']][$elements['#language']] = $value;
         break;
     }
   }
@@ -691,29 +713,54 @@ function conditional_fields_entity_view_alter(&$build, $type) {
         continue;
       }
 
-      // Evaluate dependency.
-      // TODO: grouping of dependencies to allow OR. For now, the dependent is "triggered"
-      // only if all its dependencies evaluate to TRUE,
-
-      // This case is handled by the CONDITIONAL_FIELDS_FIELD_VIEW_HIDE_ORPHAN behavior.
-      if (!isset($build[$dependee])) {
-        $evaluated_dependents[$dependent]['AND'][] = TRUE;
-      }
-      else {
-        $items = $build[$dependee]['#items'];
-        $evaluated_dependents[$dependent]['AND'][] = conditional_fields_evaluate_dependency('view', $items, $options);
-      }
-
       // Determine field view behaviors.
       // If this dependent has multiple dependencies, only the logic of the
       // first dependency will be taken into account.
       if (!isset($behaviors)) {
         $behaviors = conditional_fields_field_behaviors('view', $options);
       }
-    }
 
+      // Evaluate dependency.
+      // TODO: grouping of dependencies to allow OR. For now, the dependent is "triggered"
+      // only if all its dependencies evaluate to TRUE,
+      if (!isset($build[$dependee]) || $build[$dependee]['#access'] == FALSE) {
+        if (in_array(CONDITIONAL_FIELDS_FIELD_VIEW_HIDE_UNTRIGGERED_ORPHAN, $behaviors)) {
+          // We have to look for the dependee in the entity object.
+          // TODO: Is it possible to avoid hardcoding this?
+          switch ($type) {
+            case 'node':
+              $entity_property = '#node';
+              break;
+            case 'user':
+              $entity_property = '#account';
+              break;
+            case 'term':
+              $entity_property = '#term';
+              break;
+            case 'field_collection_item':
+            case 'profile2':
+            default:
+              $entity_property = '#entity';
+          }
+          if (!isset($build[$entity_property]->$dependee)) {
+            continue;
+          }
+          $items = $build[$entity_property]->$dependee;
+          // Values are keyed by language here, remove it.
+          $items = array_shift($items);
+        }
+        elseif (in_array(CONDITIONAL_FIELDS_FIELD_VIEW_HIDE_ORPHAN, $behaviors)) {
+          $build[$dependent]['#access'] = FALSE;
+          continue;
+        }
+      }
+      else {
+        $items = $build[$dependee]['#items'];
+      }
+      $evaluated_dependents[$dependent]['AND'][] = conditional_fields_evaluate_dependency('view', $items, $options);
+    }
     if (isset($evaluated_dependents[$dependent])) {
-      $is_triggered = in_array(FALSE, $evaluated_dependents[$dependent]['AND']) ? FALSE : TRUE;
+      $is_triggered = !in_array(FALSE, $evaluated_dependents[$dependent]['AND']);
 
       foreach ($behaviors as $behavior) {
         switch ($behavior) {
@@ -725,10 +772,7 @@ function conditional_fields_entity_view_alter(&$build, $type) {
             break;
 
           case CONDITIONAL_FIELDS_FIELD_VIEW_HIDE_ORPHAN:
-            // Hide the dependent if the dependee is not viewable.
-            if (!isset($build[$dependee]) || $build[$dependee]['#access'] == FALSE) {
-              $build[$dependent]['#access'] = FALSE;
-            }
+            // This case was handled while evaluating dependencies.
             break;
 
           case CONDITIONAL_FIELDS_FIELD_VIEW_HIDE_UNTRIGGERED_ORPHAN:
@@ -1372,7 +1416,7 @@ function conditional_fields_states_handlers() {
   $handlers = array(
     'conditional_fields_states_handler_select' => array(
       '#type' => 'select',
-      '#multiple' => FALSE,
+      '#multiple' => TRUE,
     ),
     'conditional_fields_states_handler_checkbox' => array(
       '#type' => 'checkbox',
@@ -1414,7 +1458,10 @@ function conditional_fields_states_handlers() {
 function conditional_fields_states_handler_select($field, $field_info, $options, &$state) {
   switch ($options['values_set']) {
     case CONDITIONAL_FIELDS_DEPENDENCY_VALUES_WIDGET:
+      return;
+
     case CONDITIONAL_FIELDS_DEPENDENCY_VALUES_AND:
+      $state[$options['state']][$options['selector']]['value'] = (array) $state[$options['state']][$options['selector']]['value'];
       return;
 
     case CONDITIONAL_FIELDS_DEPENDENCY_VALUES_XOR:
@@ -1430,9 +1477,6 @@ function conditional_fields_states_handler_select($field, $field_info, $options,
         );
       }
       break;
-
-    default:
-      return;
   }
 
   $state = $select_states;

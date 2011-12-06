@@ -10,6 +10,7 @@ function location_province_list_my() {
     'ML' => "Malacca",
     'NS' => "Negeri Sembilan",
     'PH' => "Pahang",
+    'PJ' => "Putrajaya",
     'PK' => "Perak",
     'PS' => "Perlis",
     'PG' => "Penang",
