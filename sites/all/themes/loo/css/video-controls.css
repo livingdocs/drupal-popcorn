@@ -35,6 +35,14 @@
   font-size: 12px;
 }
 
+
+/* Doug's Land of Opportunity styles */
+
+#video-container{
+  width: 760px;
+  margin: 0 auto;
+}
+
 #kettle{
   background: rgba(25, 42, 53, 0.9);
   padding: 20px;
@@ -42,9 +50,21 @@
   min-height: 500px;
 }
 
+.popcorn-subject{
+  color: yellow;
+  width: 300px;
+  display: inline-block;
+  padding: 20px;
+  margin-right: 20px;
+}
+
+#kettle .popcorn-subject-heading{
+  border-bottom: 2px solid blue;
+  margin: 10px 0;
+}
+
 #video-container .popcorn-node{
   width: 300px;
-  margin-right: 60px;
   display: inline-block;
   vertical-align: top;
 }
@@ -76,7 +96,7 @@
   background: rgba(175, 175, 255, .6);
 }
 
-#highlight .content, #highlight .link-wrapper{
+.node-teaser .content, .node-teaser .link-wrapper{
   display: none;
 }
 

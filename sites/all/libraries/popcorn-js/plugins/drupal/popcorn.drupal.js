@@ -14,9 +14,10 @@
 	      } )
 	 *
 	 */
+	var nodeData = {};
 
 	Popcorn.plugin( "drupal", function (){
-		
+
 		//constants
 		var TEASER = 0;
 		var TEASER_TEXT = 'teaser';
@@ -25,13 +26,12 @@
 
 		var highlight = document.getElementById('highlight');
 		var kettle = document.getElementById('kettle');
-		var nodeData = {};
 
 		function ajaxLoadData(dataType, options){
 			var xmlhttp = new XMLHttpRequest();
 			xmlhttp.onreadystatechange = function(){
 				if (xmlhttp.readyState == 4 && xmlhttp.status == 200){
-					
+
 					var event = JSON.parse(xmlhttp.responseText);
 
 					switch (event.type){
@@ -42,13 +42,13 @@
 						receiveFull(event.data, options);
 						break;
 					}
-					
+
 				}
 			};
 			xmlhttp.open("GET", "/popcorn/" + options.nid + "/" + dataType, true);
 			xmlhttp.send();
 		}
-		
+
 		/*
 		 * Add the node teaser to the DOM
 		 */
@@ -65,16 +65,18 @@
 				//no need to remove the node from highlight in chrome...
 			}
 		}
-		
+
 		function createNewSubject(subject){
 			var container = document.createElement('div');
 			container.id = subject.replace(' ', '_');
+			container.className = 'popcorn-subject';
 			var heading = document.createElement('h2');
 			heading.innerHTML = subject;
+			heading.className = 'popcorn-subject-heading';
 			container.appendChild(heading);
 			return container;
 		}
-		
+
 		function receiveTeaser(teaser, options){
 			//sanity check to make sure that the returned event is a teaser
 			//create the wrapper div and 
@@ -95,13 +97,13 @@
 			//now that the data is loaded, make the kernel pop
 			popKernel(options.nid);
 		}
-		
+
 		function receiveFull(full, options){
 			if (typeof full == 'object'){
 
 				//  make our video autoplay once it loads
 				//popcorn.media.autoplay = true;
-				
+
 				//remove existing Track Events
 				var kernels = popcorn.getTrackEvents();
 				for (var i = 0; i < kernels.length; i++){
@@ -131,7 +133,7 @@
 				popcorn.load();
 			}
 		}
-		
+
 		/*
 		 * Anchor click event function
 		 */
@@ -184,8 +186,14 @@
 				}
 			},
 			end: function( event, options ){
-	    	  var nodeDiv = document.getElementById(options._id);
-	    	  nodeDiv.parentNode.removeChild(nodeDiv);
+				var nodeDiv = document.getElementById(options._id);
+				nodeDiv.parentNode.removeChild(nodeDiv);
+
+				var subjectContainer = document.getElementById(nodeData[options.nid].subject.replace(' ', '_'));
+				if (subjectContainer != null && subjectContainer.childNodes.length == 1){
+					subjectContainer.parentNode.removeChild(subjectContainer);
+				}
+
 			}
 		};
 	});

@@ -103,6 +103,7 @@
 	      
         drupal_add_js('sites/all/libraries/popcorn-js/popcorn.js');
         drupal_add_js('sites/all/libraries/popcorn-js/plugins/drupal/popcorn.drupal.js');
+        drupal_add_js('sites/all/modules/popcorn/js/controls.js');
         drupal_add_js(path_to_theme() . '/js/video-controls.js');
 	      drupal_add_css(path_to_theme() . '/css/video-controls.css');
         drupal_add_css('modules/contextual/contextual.css');
@@ -119,6 +120,8 @@
 	      <canvas id='player-controls' height='80' width='760'></canvas>
 	      <canvas id='volume-control' height='150' width='30'></canvas>
 	      <div id='highlight'></div>
+	      
+	      <canvas id='player-controls2' height='80' width='760'></canvas>
       </div>
       
       <div id='info-panel'>

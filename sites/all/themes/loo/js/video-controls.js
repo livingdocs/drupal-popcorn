@@ -85,6 +85,46 @@ jQuery(document).ready(function() {
 		var coords = getCoords(event);
 		player.volume = (volume.height - coords.offsetY) / volume.height;
 	}
+
+    
+    //clear volume area
+    function resetVolumeButton(){
+    	var startX = controls.width - 45,
+    	startY = 20;
+    	ctx.save();
+    	ctx.fillStyle = "rgba(25, 42, 53, 0.9)";
+    	ctx.clearRect(startX, startY, 60, 60);
+    	ctx.fillRect(startX, startY, 60, 60);
+    	
+    	ctx.strokeStyle = "green";
+    	ctx.strokeRect(startX, startY + 20, 30, 30);
+
+    	ctx.strokeStyle = "blue";
+    	ctx.strokeRect(startX - 15, startY, 60, 60);
+    	
+    	ctx.restore();	
+    }
+	
+	//draw volume
+    function drawVolumeButton(){
+    	resetVolumeButton();
+    	var startX = controls.width - 35,
+    	startY = 51;
+    	ctx.save();
+    	ctx.fillStyle = "rgb(234, 194, 82)";
+    	ctx.shadowBlur = 5;
+    	ctx.shadowColor = "rgb(234, 194, 82)";
+    	ctx.beginPath();
+    	ctx.moveTo(startX, startY);
+    	ctx.lineTo(startX + 5, startY);
+    	ctx.lineTo(startX + 10, startY - 6);
+    	ctx.lineTo(startX + 10, startY + 12);
+    	ctx.lineTo(startX + 5, startY + 7);
+    	ctx.lineTo(startX, startY + 7);
+    	ctx.fill();
+    	ctx.closePath();
+        ctx.restore();
+    }
 	
 	
 
@@ -272,46 +312,6 @@ jQuery(document).ready(function() {
 
 		return {offsetX: x, offsetY: y};
 	}
-
-    
-    //clear volume area
-    function resetVolumeButton(){
-    	var startX = controls.width - 45,
-    	startY = 20;
-    	ctx.save();
-    	ctx.fillStyle = "rgba(25, 42, 53, 0.9)";
-    	ctx.clearRect(startX, startY, 60, 60);
-    	ctx.fillRect(startX, startY, 60, 60);
-    	
-    	ctx.strokeStyle = "green";
-    	ctx.strokeRect(startX, startY + 20, 30, 30);
-
-    	ctx.strokeStyle = "blue";
-    	ctx.strokeRect(startX - 15, startY, 60, 60);
-    	
-    	ctx.restore();	
-    }
-	
-	//draw volume
-    function drawVolumeButton(){
-    	resetVolumeButton();
-    	var startX = controls.width - 35,
-    	startY = 51;
-    	ctx.save();
-    	ctx.fillStyle = "rgb(234, 194, 82)";
-    	ctx.shadowBlur = 5;
-    	ctx.shadowColor = "rgb(234, 194, 82)";
-    	ctx.beginPath();
-    	ctx.moveTo(startX, startY);
-    	ctx.lineTo(startX + 5, startY);
-    	ctx.lineTo(startX + 10, startY - 6);
-    	ctx.lineTo(startX + 10, startY + 12);
-    	ctx.lineTo(startX + 5, startY + 7);
-    	ctx.lineTo(startX, startY + 7);
-    	ctx.fill();
-    	ctx.closePath();
-        ctx.restore();
-    }
 	
 	
 	
