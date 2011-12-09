@@ -1,48 +1,168 @@
 
 jQuery(document).ready(function() {
+	vidControls = new VideoControls('player-controls', Popcorn('#main-player'));
+	vidControls.init();
+});
 
-//var popcorn = Popcorn('#main-player');
-var controls;
-var ctx;
 
-init();
+function VideoControls(canvas, popcornInstance){
 
-function init(){
+
+	this.popcorn = popcornInstance;
+	this.controls = document.getElementById(canvas);
+	this.ctx = this.controls.getContext("2d");
+
+	this.scrubberHeight = 2;
+	this.scrubberLength = this.controls.width - 140 - 300;
+	this.scrubberStartPos = 70;
 	
-	//get references to the canvas and context
-	controls = document.getElementById('player-controls2');
-	ctx = controls.getContext("2d");
+
+	//init volume controls
+	this.volume = document.getElementById('volume-control');
+	this.volCtx = this.volume.getContext("2d");
+	this.volumeScrubberWidth = 2;
+	this.maxVolScrubLen = this.volume.height - 10;
+}
+
+
+
+VideoControls.prototype.init = function(){
 	
-	drawTaper();
-	
-	initScrubber();
+	this.initScrubber();
 
 	/*
-	popcorn.listen('timeupdate', updateScrubber); 
-	popcorn.listen('progress', updateScrubber);  
-	popcorn.listen('volumechange', updateVolume);  
-	popcorn.listen('play', drawPauseButton);  
-	popcorn.listen('pause', drawPlayButton); 
-	*/
+	this.popcorn.listen('volumechange', updateVolume);  
+	this.popcorn.listen('play', drawPauseButton);  
+	this.popcorn.listen('pause', drawPlayButton); 
+	 */
+	
+
+	//draw the tapered top background
+	this.ctx.fillStyle = "rgba(25, 42, 53, 0.8)";
+	this.ctx.strokeStyle = "rgba(25, 42, 53, 0.8)";
+	this.ctx.beginPath();
+	this.ctx.moveTo(0, 20);
+	this.ctx.lineTo(20, 0);
+	this.ctx.lineTo(this.controls.width - 20, 0);
+	this.ctx.lineTo(this.controls.width, 20);
+	this.ctx.fill();
+	this.ctx.closePath();
+	
+
+	//draw the main scrubber area background
+	this.ctx.fillStyle = "rgba(25, 42, 53, 0.9)";
+	this.ctx.fillRect(0, 20, this.controls.width, this.controls.height);
 }
 
-function initScrubber(){
-	//main scrubber area
-	ctx.fillStyle = "rgba(25, 42, 53, 0.9)";
-	ctx.fillRect(0, 20, controls.width, controls.height);
+/*
+ * Scrubber related functions
+ */
+
+VideoControls.prototype.initScrubber = function(){
+	//register event listeners
+	var self = this;
+	this.popcorn.listen('timeupdate', function(){
+		self.updateScrubber();
+	});
+	this.popcorn.listen('progress', function(){
+		self.updateScrubber();
+	});
 }
 
-function drawTaper(){
+VideoControls.prototype.updateScrubber = function(){
+	if (this.popcorn.buffered().length > 0){
+		//reset the scrubber
+    	this.ctx.save();
+    	this.ctx.fillStyle = "rgba(25, 42, 53, 0.9)";
+    	this.ctx.clearRect(this.scrubberStartPos - 5, 44, this.scrubberLength + 10, 22);
+    	this.ctx.fillRect(this.scrubberStartPos - 5, 44, this.scrubberLength + 10, 22);
+    	this.ctx.restore();	
+		
+		//fill played
+		this.ctx.save();
+    	this.ctx.fillStyle = "rgb(234, 194, 82)";
+    	this.ctx.shadowBlur = 5;
+    	this.ctx.shadowColor = "rgb(234, 194, 82)";
+		var played = (this.popcorn.currentTime() / this.popcorn.duration()) * this.scrubberLength;
+		this.ctx.fillRect(this.scrubberStartPos, 55 - (this.scrubberHeight / 2), (this.popcorn.currentTime() / this.popcorn.duration()) * this.scrubberLength, this.scrubberHeight);
+		this.ctx.restore();	
+		
+		//fill unplayed
+		var percentBuffered = this.popcorn.buffered().end(0) / this.popcorn.duration();
+		this.ctx.fillStyle = "rgb(75, 76, 82)";
+		var grayStartX = this.scrubberStartPos + ((this.popcorn.currentTime() / this.popcorn.duration()) * this.scrubberLength);
+		var grayLength = (percentBuffered * this.scrubberLength) - played;
+		this.ctx.fillRect(grayStartX, 55 - (this.scrubberHeight / 2), grayLength, this.scrubberHeight);
+	}
+}
+
+/*
+ * Volume related functions
+ */
+
+VideoControls.prototype.initVolume = function(){
+	//register event listeners
+	var self = this;
+	this.popcorn.listen('volumechange', function(){
+		self.updateVolume();
+	});
+	
+
+
+
+	updateVolume();
+
+	volume.addEventListener('mouseout', function(){ volume.style.display = 'none'; }, false);
+	volume.addEventListener('click', volumeClick, false);
+}
+
+VideoControls.prototype.updateVolume = function(){
+	//reset volume scrubber area
+	volCtx.save();
+	volCtx.fillStyle = "rgba(25, 42, 53, 0.9)";
+	volCtx.clearRect(0, 0, volume.width, volume.height);
+	volCtx.fillRect(0, 0, volume.width, volume.height);
+	volCtx.restore();
+	
+	var startX = (volume.width / 2) - 1,
+	startY = 5,
+	volLen = maxVolScrubLen * player.volume,
+	volOffset = (maxVolScrubLen - volLen);
+	
+	//fill volume
+	volCtx.save();
+	volCtx.fillStyle = "rgb(234, 194, 82)";
+	volCtx.shadowBlur = 5;
+	volCtx.shadowColor = "rgb(234, 194, 82)";
+	volCtx.fillRect(startX, startY + volOffset, volumeScrubberWidth, maxVolScrubLen * player.volume);
+	volCtx.restore();	
+	
+	//fill scrubber base
+	volCtx.fillStyle = "rgb(75, 76, 82)";
+	volCtx.fillRect(startX, startY, volumeScrubberWidth, volOffset);
+}
+
+
+VideoControls.prototype.drawTaper = function(){
 	//tapered top
-	ctx.fillStyle = "rgba(25, 42, 53, 0.8)";
-	ctx.strokeStyle = "rgba(25, 42, 53, 0.8)";
-	ctx.beginPath();
-	ctx.moveTo(0, 20);
-	ctx.lineTo(20, 0);
-	ctx.lineTo(controls.width - 20, 0);
-	ctx.lineTo(controls.width, 20);
-	ctx.fill();
-	ctx.closePath();
+	this.ctx.fillStyle = "rgba(25, 42, 53, 0.8)";
+	this.ctx.strokeStyle = "rgba(25, 42, 53, 0.8)";
+	this.ctx.beginPath();
+	this.ctx.moveTo(0, 20);
+	this.ctx.lineTo(20, 0);
+	this.ctx.lineTo(this.controls.width - 20, 0);
+	this.ctx.lineTo(this.controls.width, 20);
+	this.ctx.fill();
+	this.ctx.closePath();
 }
 
-});
+//additional function required to determine the relative coordinates of a click event
+VideoControls.prototype.getCoords = function(event){
+	var x, y;
+
+	canoffset = jQuery(event.target).offset();
+	x = event.clientX + document.body.scrollLeft + document.documentElement.scrollLeft - Math.floor(canoffset.left);
+	y = event.clientY + document.body.scrollTop + document.documentElement.scrollTop - Math.floor(canoffset.top) + 1;
+
+	return {offsetX: x, offsetY: y};
+}

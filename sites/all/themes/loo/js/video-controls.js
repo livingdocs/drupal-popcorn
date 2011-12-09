@@ -50,7 +50,7 @@ jQuery(document).ready(function() {
 	updateVolume();
 	
 
-	
+	//TODO
 	function updateVolume(){
 		resetVolume();
 		
@@ -71,7 +71,8 @@ jQuery(document).ready(function() {
 		volCtx.fillStyle = "rgb(75, 76, 82)";
 		volCtx.fillRect(startX, startY, volumeScrubberWidth, volOffset);
 	}
-	
+
+	//TODO
 	//reset volume scrubber
 	function resetVolume(){
 		volCtx.save();
@@ -80,13 +81,15 @@ jQuery(document).ready(function() {
     	volCtx.fillRect(0, 0, volume.width, volume.height);
     	volCtx.restore();	
 	}
-	
+
+	//TODO
 	function volumeClick(event){
 		var coords = getCoords(event);
 		player.volume = (volume.height - coords.offsetY) / volume.height;
 	}
 
-    
+
+	//TODO
     //clear volume area
     function resetVolumeButton(){
     	var startX = controls.width - 45,
@@ -104,7 +107,8 @@ jQuery(document).ready(function() {
     	
     	ctx.restore();	
     }
-	
+
+	//TODO
 	//draw volume
     function drawVolumeButton(){
     	resetVolumeButton();
@@ -164,7 +168,8 @@ jQuery(document).ready(function() {
 
     drawPlayButton();
     drawVolumeButton();
-	
+
+	//TODO
 	//play button
     function drawPlayButton(){
     	resetPlayPause();
@@ -182,7 +187,8 @@ jQuery(document).ready(function() {
     	ctx.closePath();
         ctx.restore();
     }
-	
+
+	//TODO
 	//pause button
     function drawPauseButton(){
     	resetPlayPause();
@@ -196,7 +202,8 @@ jQuery(document).ready(function() {
     	ctx.fillRect(startX + 15, startY, 10, 30);
         ctx.restore();
     }
-    
+
+	//TODO
     //clear controls area
     function resetPlayPause(){
     	ctx.save();
@@ -252,7 +259,8 @@ jQuery(document).ready(function() {
 			ctx.fillRect(grayStartX, 55 - (scrubberHeight / 2), grayLength, scrubberHeight);
 		}
 	}
-	
+
+	//TODO
 	function controlsClick(event){
 		var coords = getCoords(event);
 		//click is in the play/pause area
@@ -275,7 +283,8 @@ jQuery(document).ready(function() {
 			player.currentTime = ((coords.offsetX - scrubberStartPos) / scrubberLength) * player.duration;
 		}
 	}
-	
+
+	//TODO
 	function controlsHover(event){
 		var coords = getCoords(event);
 		//cursor is in a clickable area
