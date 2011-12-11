@@ -1,7 +1,29 @@
 
 jQuery(document).ready(function() {
-	vidControls = new VideoControls('player-controls', Popcorn('#main-player'));
+	var popcorn = Popcorn('#main-player');
+	vidControls = new VideoControls('player-controls', popcorn);
 	vidControls.init();
+	
+
+	function loadKernels(nid){
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.onreadystatechange = function(){
+			if (xmlhttp.readyState == 4 && xmlhttp.status == 200){
+				kernels = JSON.parse( xmlhttp.responseText );
+				//sanity check
+				if (kernels.type == 2){
+					for (var i = 0; i < kernels.data.length; i++){
+						popcorn.drupal(kernels.data[i]);
+					}
+				}
+			}
+		};
+		xmlhttp.open("GET", "/popcorn/" + nid + "/kernels", true);
+		xmlhttp.send();
+	}
+	  
+	loadKernels(2);
+	
 });
 
 
@@ -70,6 +92,27 @@ VideoControls.prototype.initScrubber = function(){
 }
 
 VideoControls.prototype.updateScrubber = function(){
+    var percentBuffered = null;
+    // FF4+, Chrome
+    if (this.popcorn && this.popcorn.buffered() && this.popcorn.buffered().length > 0 && this.popcorn.buffered().end && this.popcorn.duration()) {
+    	percentBuffered = this.popcorn.buffered().end(0) / this.popcorn.duration();
+    } 
+    // Some browsers (e.g., FF3.6 and Safari 5) cannot calculate target.bufferered.end()
+    // to be anything other than 0. If the byte count is available we use this instead.
+    // Browsers that support the else if do not seem to have the bufferedBytes value and
+    // should skip to there. Tested in Safari 5, Webkit head, FF3.6, Chrome 6, IE 7/8.
+    else if (this.popcorn && this.popcorn.bytesTotal != undefined && this.popcorn.bytesTotal > 0 && this.popcorn.bufferedBytes != undefined) {
+    	percentBuffered = this.popcorn.bufferedBytes / this.popcorn.bytesTotal;
+    	console.log('hmm');
+    }
+
+    if (percentBuffered !== null) {
+    	percentBuffered = 100 * Math.min(1, Math.max(0, percentBuffered));
+
+        // ... do something with var percent here (e.g. update the progress bar)
+
+    }
+	
 	if (this.popcorn.buffered().length > 0){
 		//reset the scrubber
     	this.ctx.save();
@@ -78,21 +121,28 @@ VideoControls.prototype.updateScrubber = function(){
     	this.ctx.fillRect(this.scrubberStartPos - 5, 44, this.scrubberLength + 10, 22);
     	this.ctx.restore();	
 		
+		//fill duration
+		this.ctx.save();
+		this.ctx.fillStyle = "rgb(255, 76, 82)";
+		this.ctx.fillRect(this.scrubberStartPos, 55 - (this.scrubberHeight / 2), this.scrubberLength, this.scrubberHeight);
+		this.ctx.restore();	
+		
+		//fill buffered
+		//var percentBuffered = this.popcorn.buffered().end(0) / this.popcorn.duration();
+		this.ctx.fillStyle = "rgb(75, 76, 82)";
+		var grayLength = (percentBuffered * this.scrubberLength);
+		console.log(this.popcorn.buffered().end(0));
+		console.log(this.popcorn.duration());
+		this.ctx.fillRect(this.scrubberStartPos, 55 - (this.scrubberHeight / 2), grayLength, this.scrubberHeight);
+		
 		//fill played
 		this.ctx.save();
     	this.ctx.fillStyle = "rgb(234, 194, 82)";
     	this.ctx.shadowBlur = 5;
     	this.ctx.shadowColor = "rgb(234, 194, 82)";
 		var played = (this.popcorn.currentTime() / this.popcorn.duration()) * this.scrubberLength;
-		this.ctx.fillRect(this.scrubberStartPos, 55 - (this.scrubberHeight / 2), (this.popcorn.currentTime() / this.popcorn.duration()) * this.scrubberLength, this.scrubberHeight);
+		this.ctx.fillRect(this.scrubberStartPos, 55 - (this.scrubberHeight / 2), played, this.scrubberHeight);
 		this.ctx.restore();	
-		
-		//fill unplayed
-		var percentBuffered = this.popcorn.buffered().end(0) / this.popcorn.duration();
-		this.ctx.fillStyle = "rgb(75, 76, 82)";
-		var grayStartX = this.scrubberStartPos + ((this.popcorn.currentTime() / this.popcorn.duration()) * this.scrubberLength);
-		var grayLength = (percentBuffered * this.scrubberLength) - played;
-		this.ctx.fillRect(grayStartX, 55 - (this.scrubberHeight / 2), grayLength, this.scrubberHeight);
 	}
 }
 
