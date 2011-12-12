@@ -100,6 +100,7 @@
 	  <div id="video-container">
 	    <video width="720" height="486" class="video-js" id="main-player" preload>
 	    <?php
+	    
         //drupal_add_js('sites/all/libraries/popcorn-js/popcorn.js');
         //drupal_add_js('sites/all/libraries/popcorn-js/plugins/drupal/popcorn.drupal.js');
         //drupal_add_js('sites/all/modules/popcorn/js/controls.js');
