@@ -98,7 +98,7 @@
     <div class="content clearfix"<?php print $content_attributes; ?>>
   
 	  <div id="video-container">
-	    <video width="720" height="486" class="video-js" id="main-player" preload="auto">
+	    <video width="720" height="486" class="video-js" id="main-player" preload="auto" controls="controls">
 	    <?php
 	    
         drupal_add_js('sites/all/libraries/popcorn-js/popcorn.js');
