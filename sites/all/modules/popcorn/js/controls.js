@@ -1,5 +1,15 @@
 
 jQuery(document).ready(function() {
+
+	var player = document.getElementById('main-player');
+
+	player.addEventListener('progress', function(){
+		if (player.buffered.length)
+	    console.log('buffering: [duration: '+player.duration+'] [buffered: '+player.buffered.end(0)+']');
+		else
+			console.log('boo');
+	}, false);
+	
 	var popcorn = Popcorn('#main-player');
 	vidControls = new VideoControls('player-controls', popcorn);
 	vidControls.init();
@@ -83,10 +93,12 @@ VideoControls.prototype.init = function(){
 VideoControls.prototype.initScrubber = function(){
 	//register event listeners
 	var self = this;
-	this.popcorn.listen('timeupdate', function(){
+	this.popcorn.listen('progress', function(){
+		console.log('progress');
 		self.updateScrubber();
 	});
-	this.popcorn.listen('progress', function(){
+	this.popcorn.listen('timeupdate', function(){
+		console.log('timeupdate');
 		self.updateScrubber();
 	});
 }
@@ -94,38 +106,45 @@ VideoControls.prototype.initScrubber = function(){
 VideoControls.prototype.updateScrubber = function(){
 	
 	if (this.popcorn.buffered().length > 0){
-		//reset the scrubber
-    	this.ctx.save();
-    	this.ctx.fillStyle = "rgba(25, 42, 53, 0.9)";
-    	this.ctx.clearRect(this.scrubberStartPos - 5, 44, this.scrubberLength + 10, 22);
-    	this.ctx.fillRect(this.scrubberStartPos - 5, 44, this.scrubberLength + 10, 22);
-    	this.ctx.restore();	
-		
-		//fill duration
-		this.ctx.save();
-		this.ctx.fillStyle = "rgb(255, 76, 82)";
-		this.ctx.fillRect(this.scrubberStartPos, 55 - (this.scrubberHeight / 2), this.scrubberLength, this.scrubberHeight);
-		this.ctx.restore();	
 		
 		//fill buffered
 		var percentBuffered = this.popcorn.buffered().end(0) / this.popcorn.duration();
-		
-		var doug = document.getElementById('main-player');
-		console.log(percentBuffered + " : " + (doug.buffered.end(0) / doug.duration));
-		
-		this.ctx.fillStyle = "rgb(75, 76, 82)";
-		var grayLength = (percentBuffered * this.scrubberLength);
-		this.ctx.fillRect(this.scrubberStartPos, 55 - (this.scrubberHeight / 2), grayLength, this.scrubberHeight);
-		
 		//fill played
-		this.ctx.save();
-    	this.ctx.fillStyle = "rgb(234, 194, 82)";
-    	this.ctx.shadowBlur = 5;
-    	this.ctx.shadowColor = "rgb(234, 194, 82)";
-		var played = (this.popcorn.currentTime() / this.popcorn.duration()) * this.scrubberLength;
-		this.ctx.fillRect(this.scrubberStartPos, 55 - (this.scrubberHeight / 2), played, this.scrubberHeight);
-		this.ctx.restore();	
+		var percentPlayed = (this.popcorn.currentTime() / this.popcorn.duration()) * this.scrubberLength;
+
+		this.drawScrubber(percentBuffered, percentPlayed);
 	}
+	
+}
+
+VideoControls.prototype.drawScrubber = function(buffered, played){
+
+	//reset the scrubber
+	this.ctx.save();
+	this.ctx.fillStyle = "rgba(25, 42, 53, 0.9)";
+	this.ctx.clearRect(this.scrubberStartPos - 5, 44, this.scrubberLength + 10, 22);
+	this.ctx.fillRect(this.scrubberStartPos - 5, 44, this.scrubberLength + 10, 22);
+	this.ctx.restore();	
+	
+	//fill duration
+	this.ctx.save();
+	this.ctx.fillStyle = "rgb(255, 76, 82)";
+	this.ctx.fillRect(this.scrubberStartPos, 55 - (this.scrubberHeight / 2), this.scrubberLength, this.scrubberHeight);
+	this.ctx.restore();	
+
+	//fill buffered
+	this.ctx.fillStyle = "rgb(75, 76, 82)";
+	var grayLength = (buffered * this.scrubberLength);
+	this.ctx.fillRect(this.scrubberStartPos, 55 - (this.scrubberHeight / 2), grayLength, this.scrubberHeight);
+	
+	//fill played
+	this.ctx.save();
+	this.ctx.fillStyle = "rgb(234, 194, 82)";
+	this.ctx.shadowBlur = 5;
+	this.ctx.shadowColor = "rgb(234, 194, 82)";
+	this.ctx.fillRect(this.scrubberStartPos, 55 - (this.scrubberHeight / 2), played, this.scrubberHeight);
+	this.ctx.restore();	
+	
 }
 
 /*
