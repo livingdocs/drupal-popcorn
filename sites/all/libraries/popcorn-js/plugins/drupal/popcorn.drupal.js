@@ -147,10 +147,10 @@
 					},
 				}
 			},
-			_setup : function( options ) {
+			_setup: function( options ) {
 				//loadXMLDoc(options.nid);
 			},
-			_teardown : function( options ) {
+			_teardown: function( options ) {
 				delete nodeData[options.nid];
 			},
 			start: function( event, options ){
