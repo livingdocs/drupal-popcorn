@@ -98,53 +98,27 @@
 			popKernel(options.nid);
 		}
 
-		function receiveFull(full, options){
-			if (typeof full == 'object'){
-
-				//  make our video autoplay once it loads
-				//popcorn.media.autoplay = true;
-
-				//remove existing Track Events
-				var kernels = popcorn.getTrackEvents();
-				for (var i = 0; i < kernels.length; i++){
-					popcorn.removeTrackEvent(kernels[i]._id);
-				}
-				//then add the new track events in full.kernels
-				for (var i = 0; i < full.kernels.length; i++){
-					popcorn.drupal(full.kernels.data[i]);
-				}
-
-
-				//remove existing media sources
-				while (popcorn.media.hasChildNodes()) {
-					popcorn.media.removeChild(popcorn.media.lastChild);
-				}
-				//Add new media source
-				var source;
-				for (var i = 0; i < full.videos.length; i++){
-					source = document.createElement('source');
-					source.src = full.videos[i].src;
-					source.type = full.videos[i].mime;
-					popcorn.media.appendChild(source);
-
-				}
-
-				//load the new video
-				popcorn.load();
-			}
-		}
-
 		/*
 		 * Anchor click event function
 		 */
 		function popcornClickCapture(event){
+			//prevent the default behavior of the anchor click
+			event.preventDefault();
+			
 			var parent = this.parentNode;
 			while (!parent.classList.contains('node')){
 				parent = parent.parentNode;
 			}
-			ajaxLoadData(FULL_TEXT, {nid: parent.id.match(/node-(\d+)/)[1]});
-			//prevent the default behavior of the anchor
-			event.preventDefault();
+
+			if (parent.classList.contains('preview')){
+				//trigger a popcorn event to allow custom handling of the click event
+				popcorn.trigger('kernelPop', {nid: parent.id.match(/node-(\d+)/)[1]});
+			}
+			else{
+				parent.className += ' preview';
+			}
+			
+			
 		}
 
 		return {
@@ -175,6 +149,9 @@
 			},
 			_setup : function( options ) {
 				//loadXMLDoc(options.nid);
+			},
+			_teardown : function( options ) {
+				delete nodeData[options.nid];
 			},
 			start: function( event, options ){
 				//use the cached data for the kernel if available

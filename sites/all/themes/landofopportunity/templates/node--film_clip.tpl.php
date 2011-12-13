@@ -82,6 +82,7 @@
 
   <div class="content clearfix"<?php print $content_attributes; ?>>
   
+  <div id='history'><a id='history-back' href='#'>&laquo; History</a></div>
   
 	  <div id="video-container">
 	    <video width="720" height="486" class="video-js" id="main-player" preload>
@@ -90,7 +91,7 @@
         drupal_add_js('sites/all/libraries/popcorn-js/popcorn.js');
         drupal_add_js('sites/all/libraries/popcorn-js/plugins/drupal/popcorn.drupal.js');
         drupal_add_js('sites/all/themes/landofopportunity/js/video-controls.js');
-	      drupal_add_css('sites/all/themes/landofopportunity/css/video-controls.css');
+	    drupal_add_css('sites/all/themes/landofopportunity/css/video-controls.css');
         drupal_add_css('modules/contextual/contextual.css');
         
 	      foreach ($node->field_video_file['und'] as $video) {

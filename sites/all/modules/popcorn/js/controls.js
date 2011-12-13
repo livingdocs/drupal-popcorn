@@ -1,18 +1,28 @@
-
+var popcorn;
 jQuery(document).ready(function() {
-
-	var player = document.getElementById('main-player');
-
-	player.addEventListener('progress', function(){
-		if (player.buffered.length)
-	    console.log('buffering: [duration: '+player.duration+'] [buffered: '+player.buffered.end(0)+']');
-		else
-			console.log('boo');
-	}, false);
 	
-	var popcorn = Popcorn('#main-player');
-	vidControls = new VideoControls('player-controls', popcorn);
-	vidControls.init();
+	popcorn = Popcorn('#main-player');
+	var controller = new Controller();
+	
+
+	
+});
+
+function Controller(){
+	
+	this.history = new HistoryManager();
+	this.vidControls = new VideoControls('player-controls');
+	
+	
+	this.vidControls.init();
+	
+	//register listeners for kernelPop(click) events
+	var self = this;
+	popcorn.listen('kernelPop', function(data){
+		self.history.saveHistory();
+		self.catchKernel(data);
+		self.vidControls.reset();
+	});
 	
 
 	function loadKernels(nid){
@@ -34,13 +44,116 @@ jQuery(document).ready(function() {
 	  
 	loadKernels(2);
 	
-});
+	//development code
+	this.historyBack = document.getElementById('history-back');
+	this.historyBack.addEventListener('click', function(event){
+		event.preventDefault();
+		
+		var vidData = self.history.loadHistory();
+
+		//remove existing Track Events
+		var kernels = popcorn.getTrackEvents();
+		for (var i = 0; i < kernels.length; i++){
+			popcorn.removeTrackEvent(kernels[i]._id);
+		}
+
+		//remove existing media sources
+		while (popcorn.media.hasChildNodes()) {
+			popcorn.media.removeChild(popcorn.media.lastChild);
+		}
+		//Add new media sources
+		for (var i = 0; i < vidData.videoUrls.length; i++){
+			popcorn.media.appendChild(vidData.videoUrls[i]);
+		}
+
+		//load the new video
+		popcorn.load();
+		//popcorn.currentTime(vidData.currentTime);
+
+		
+		//add the new track events in full.kernels
+		for (var i = 0; i < vidData.kernels.length; i++){
+			popcorn.drupal(vidData.kernels[i]);
+		}
+		
+	}); 
+}
+
+Controller.prototype.catchKernel = function(data){
+	//data only contains the nid
+
+	//ajax call to load video urls and track data
+	jQuery.getJSON("/popcorn/" + data.nid + "/full", function(response, textStatus, jqXHR){
+
+		var full = response.data;
+		
+		//make the video autoplay once it loads
+		//popcorn.media.autoplay = true;
+
+		//remove existing Track Events
+		var kernels = popcorn.getTrackEvents();
+		for (var i = 0; i < kernels.length; i++){
+			popcorn.removeTrackEvent(kernels[i]._id);
+		}
+
+		//remove existing media sources
+		while (popcorn.media.hasChildNodes()) {
+			popcorn.media.removeChild(popcorn.media.lastChild);
+		}
+		//Add new media source
+		var source;
+		for (var i = 0; i < full.videos.length; i++){
+			source = document.createElement('source');
+			source.src = full.videos[i].src;
+			source.type = full.videos[i].mime;
+			popcorn.media.appendChild(source);
+
+		}
+
+		//load the new video
+		popcorn.load();
+		
+		//add the new track events in full.kernels
+		for (var i = 0; i < full.kernels.length; i++){
+			popcorn.drupal(full.kernels[i]);
+		}
+		
+	});
+}
+
+function HistoryManager(){
+	
+	this.historyList = [];
+	
+}
+
+HistoryManager.prototype.loadHistory = function(){
+	return this.historyList.pop();
+};
+
+HistoryManager.prototype.saveHistory = function(){
+	var history = {};
+	history.videoUrls = [];
+	for (var i = 0; i < popcorn.media.children.length; i++){
+		history.videoUrls[i] = popcorn.media.children[i].cloneNode(false);
+	}
+	
+	history.kernels = [];
+	var kernels = popcorn.getTrackEvents();
+	for (var i = 0; i < kernels.length; i++){
+		history.kernels[i] = {nid: kernels[i].nid, start: kernels[i].start, end: kernels[i].end};
+	}
+	
+	history.currentTime = popcorn.currentTime();
+	
+	this.historyList.push(history);
+};
 
 
-function VideoControls(canvas, popcornInstance){
+
+function VideoControls(canvas){
 
 
-	this.popcorn = popcornInstance;
 	this.controls = document.getElementById(canvas);
 	this.ctx = this.controls.getContext("2d");
 
@@ -63,9 +176,9 @@ VideoControls.prototype.init = function(){
 	this.initScrubber();
 
 	/*
-	this.popcorn.listen('volumechange', updateVolume);  
-	this.popcorn.listen('play', drawPauseButton);  
-	this.popcorn.listen('pause', drawPlayButton); 
+	popcorn.listen('volumechange', updateVolume);  
+	popcorn.listen('play', drawPauseButton);  
+	popcorn.listen('pause', drawPlayButton); 
 	 */
 	
 
@@ -86,6 +199,32 @@ VideoControls.prototype.init = function(){
 	this.ctx.fillRect(0, 20, this.controls.width, this.controls.height);
 }
 
+
+
+VideoControls.prototype.reset = function(){
+
+	this.controls.height = this.controls.height;
+	this.controls.width = this.controls.width;
+	
+
+	//draw the tapered top background
+	this.ctx.fillStyle = "rgba(25, 42, 53, 0.8)";
+	this.ctx.strokeStyle = "rgba(25, 42, 53, 0.8)";
+	this.ctx.beginPath();
+	this.ctx.moveTo(0, 20);
+	this.ctx.lineTo(20, 0);
+	this.ctx.lineTo(this.controls.width - 20, 0);
+	this.ctx.lineTo(this.controls.width, 20);
+	this.ctx.fill();
+	this.ctx.closePath();
+	
+
+	//draw the main scrubber area background
+	this.ctx.fillStyle = "rgba(25, 42, 53, 0.9)";
+	this.ctx.fillRect(0, 20, this.controls.width, this.controls.height);
+	
+}
+
 /*
  * Scrubber related functions
  */
@@ -93,24 +232,22 @@ VideoControls.prototype.init = function(){
 VideoControls.prototype.initScrubber = function(){
 	//register event listeners
 	var self = this;
-	this.popcorn.listen('progress', function(){
-		console.log('progress');
+	popcorn.listen('progress', function(){
 		self.updateScrubber();
 	});
-	this.popcorn.listen('timeupdate', function(){
-		console.log('timeupdate');
+	popcorn.listen('timeupdate', function(){
 		self.updateScrubber();
 	});
 }
 
 VideoControls.prototype.updateScrubber = function(){
 	
-	if (this.popcorn.buffered().length > 0){
+	if (popcorn.buffered().length > 0){
 		
 		//fill buffered
-		var percentBuffered = this.popcorn.buffered().end(0) / this.popcorn.duration();
+		var percentBuffered = popcorn.buffered().end(0) / popcorn.duration();
 		//fill played
-		var percentPlayed = (this.popcorn.currentTime() / this.popcorn.duration()) * this.scrubberLength;
+		var percentPlayed = (popcorn.currentTime() / popcorn.duration()) * this.scrubberLength;
 
 		this.drawScrubber(percentBuffered, percentPlayed);
 	}
@@ -154,7 +291,7 @@ VideoControls.prototype.drawScrubber = function(buffered, played){
 VideoControls.prototype.initVolume = function(){
 	//register event listeners
 	var self = this;
-	this.popcorn.listen('volumechange', function(){
+	popcorn.listen('volumechange', function(){
 		self.updateVolume();
 	});
 	
