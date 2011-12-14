@@ -68,13 +68,17 @@ function Controller(){
 
 		//load the new video
 		popcorn.load();
-		//popcorn.currentTime(vidData.currentTime);
-
 		
-		//add the new track events in full.kernels
+		//add the new track events from the vidData
 		for (var i = 0; i < vidData.kernels.length; i++){
 			popcorn.drupal(vidData.kernels[i]);
 		}
+
+		//advance the video to the previous timestamp
+		popcorn.listen('loadeddata', function(){
+			popcorn.currentTime(vidData.currentTime);
+			popcorn.unlisten('loadeddata');
+		});
 		
 	}); 
 }
