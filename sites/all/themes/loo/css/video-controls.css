@@ -39,7 +39,7 @@
 /* Doug's Land of Opportunity styles */
 
 #video-container{
-  width: 760px;
+  width: 893px;
   margin: 0 auto;
 }
 
@@ -98,6 +98,10 @@
 
 .node-teaser .content, .node-teaser .link-wrapper{
   display: none;
+}
+
+.node-teaser.preview .content, .node-teaser.preview .link-wrapper{
+  display: block;
 }
 
 #highlight .node-teaser{

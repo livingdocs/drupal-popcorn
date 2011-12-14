@@ -100,7 +100,7 @@
   <div id='history'><a id='history-back' href='#'>&laquo; History</a></div>
   
 	  <div id="video-container">
-	    <video width="720" height="486" class="video-js" id="main-player" preload="auto" controls="controls">
+	    <video width="853" height="480" id="main-player" preload="auto" controls="controls">
 	    <?php
 	    
         drupal_add_js('sites/all/libraries/popcorn-js/popcorn.js');
@@ -119,7 +119,7 @@
 	    ?>
 	    </video>
 	    <div id='controls'>
-	      <canvas id='player-controls' height='80' width='760'></canvas>
+	      <canvas id='player-controls' height='80' width='893'></canvas>
 	      <canvas id='volume-control' height='150' width='30'></canvas>
 	      <div id='highlight'></div>
       </div>

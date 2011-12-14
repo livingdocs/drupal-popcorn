@@ -1,3 +1,5 @@
+//I need to add a throbber to the stage until the 'canplay' event is received from popcorn
+
 var popcorn;
 jQuery(document).ready(function() {
 	
