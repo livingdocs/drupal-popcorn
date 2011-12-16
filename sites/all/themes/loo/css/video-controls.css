@@ -114,9 +114,8 @@
     overflow: hidden;
 }
 
-canvas{
-	padding: 0;
-	margin: 0;
+#player-controls-taper{
+	display: block;
 }
 
 #highlight .node-teaser .content, #highlight .node-teaser .link-wrapper{
