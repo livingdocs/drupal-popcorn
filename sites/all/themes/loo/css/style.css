@@ -518,8 +518,6 @@ h1#site-name {
 /* ------------------- Main ------------------- */
 
 #main {
-  margin-top: 20px;
-  margin-bottom: 40px;
 }
 
 /* ----------------- Featured ----------------- */
@@ -563,7 +561,6 @@ h1#site-name {
 /* ----------------- Content ------------------ */
 
 .content {
-  margin-top: 10px;
 }
 h1#page-title {
   font-size: 2em;
@@ -1653,7 +1650,7 @@ div.admin-panel .description {
 
 #header{
 	text-align: center;
-	padding-top: 20px;
+	padding-top: 5px;
 }
 
 .tabs, .tabs h2 {

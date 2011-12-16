@@ -78,15 +78,26 @@
  * @see template_process()
  */
 ?>
-<div id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
+<div id="node-<?php print $node->nid; ?>"
+	class="<?php print $classes; ?> clearfix" <?php print $attributes; ?>>
 
-  
-  <?php if ($teaser): ?>
-    <?php print render($title_prefix); ?>
-    <?php if (!$page): ?>
-      <h2<?php print $title_attributes; ?>>
-        <a href="<?php print $node_url; ?>"><?php print $title; ?></a>
-      </h2>
+
+
+
+	<?php if ($teaser): ?>
+
+
+	<?php print render($title_prefix); ?>
+
+
+	<?php if (!$page): ?>
+	<h2  <?php print $title_attributes; ?>>
+		<a href="<?php print $node_url; ?>"><?php print $title; ?> </a>
+	</h2>
+	
+	
+	
+	
     <?php endif; ?>
     <?php print render($title_suffix); ?>
     
@@ -99,8 +110,9 @@
   
   <div id='history'><a id='history-back' href='#'>&laquo; History</a></div>
   
+	    <div id='player-history'></canvas></div>
 	  <div id="video-container">
-	    <video width="853" height="480" id="main-player" preload="auto" controls="controls">
+	    <video width="720" height="405" id="main-player" preload="auto" controls="controls">
 	    <?php
 	    
         drupal_add_js('sites/all/libraries/popcorn-js/popcorn.js');
@@ -119,9 +131,10 @@
 	    ?>
 	    </video>
 	    <div id='controls'>
-	      <canvas id='player-controls' height='80' width='893'></canvas>
+			<div><canvas id='player-controls-taper' height='20' width='760'></canvas></div>
+	      <div><button id='play-button' class='player-button'></button><canvas id='player-controls' height='60' width='360'></canvas><button id='volume-button' class='player-button'></button><div id='highlight'></div></div>
 	      <canvas id='volume-control' height='150' width='30'></canvas>
-	      <div id='highlight'></div>
+	      
       </div>
       
       <div id='info-panel'>

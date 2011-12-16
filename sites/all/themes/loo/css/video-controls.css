@@ -4,9 +4,27 @@
 	margin: 0 auto;
 }
 	
-#controls{
-  position: relative;
-  margin: 0 auto;
+#player-history{
+  
+}
+
+.player-button{
+	margin: 0;
+	height: 60px;
+	width: 50px;
+	border: none;
+	background: rgba(25, 42, 53, 0.9);
+    background-repeat: no-repeat;
+    background-position: 10px 15px;
+	vertical-align: top;
+}
+
+#play-button{
+    background-image: url(/sites/all/themes/loo/images/play.png);
+}
+
+#volume-button{
+    background-image: url(/sites/all/themes/loo/images/music-on.png);
 }
 
 
@@ -39,13 +57,13 @@
 /* Doug's Land of Opportunity styles */
 
 #video-container{
-  width: 893px;
+  width: 760px;
   margin: 0 auto;
 }
 
 #kettle{
   background: rgba(25, 42, 53, 0.9);
-  padding: 20px;
+  padding: 0 20px;
   text-align: left;
   min-height: 500px;
 }
@@ -54,8 +72,9 @@
   color: yellow;
   width: 300px;
   display: inline-block;
-  padding: 20px;
+  padding: 0 20px;
   margin-right: 20px;
+  vertical-align: top;
 }
 
 #kettle .popcorn-subject-heading{
@@ -65,7 +84,6 @@
 
 #video-container .popcorn-node{
   width: 300px;
-  display: inline-block;
   vertical-align: top;
 }
 
@@ -88,22 +106,35 @@
 }
 
 #highlight{
-  position: absolute;
-  top: 0;
-  right: -310px;
   width: 300px;
-  height: 70px;
-  background: rgba(175, 175, 255, .6);
+  height: 60px;
+  display: inline-block;
+  vertical-align: top;
+  background: rgba(25, 42, 53, 0.9);
+    overflow: hidden;
 }
 
-.node-teaser .content, .node-teaser .link-wrapper{
+canvas{
+	padding: 0;
+	margin: 0;
+}
+
+#highlight .node-teaser .content, #highlight .node-teaser .link-wrapper{
   display: none;
 }
 
-.node-teaser.preview .content, .node-teaser.preview .link-wrapper{
+#highlight .node-teaser.preview .content, #highlight .node-teaser.preview .link-wrapper{
   display: block;
 }
 
 #highlight .node-teaser{
 	margin: 0;
+}
+
+#highlight .node-teaser h2{
+	font-size: 13px;
+}
+
+#highlight .popcorn-node{
+	height: 30px;
 }

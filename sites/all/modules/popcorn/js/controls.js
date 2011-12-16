@@ -23,7 +23,7 @@ function Controller(){
 	popcorn.listen('kernelPop', function(data){
 		self.history.saveHistory();
 		self.catchKernel(data);
-		self.vidControls.reset();
+		self.vidControls.resetScrubber();
 	});
 	
 
@@ -164,8 +164,7 @@ function VideoControls(canvas){
 	this.ctx = this.controls.getContext("2d");
 
 	this.scrubberHeight = 2;
-	this.scrubberLength = this.controls.width - 140 - 300;
-	this.scrubberStartPos = 70;
+	this.scrubberStartPos = 0;
 	
 
 	//init volume controls
@@ -186,48 +185,36 @@ VideoControls.prototype.init = function(){
 	popcorn.listen('play', drawPauseButton);  
 	popcorn.listen('pause', drawPlayButton); 
 	 */
-	
 
 	//draw the tapered top background
-	this.ctx.fillStyle = "rgba(25, 42, 53, 0.8)";
-	this.ctx.strokeStyle = "rgba(25, 42, 53, 0.8)";
-	this.ctx.beginPath();
-	this.ctx.moveTo(0, 20);
-	this.ctx.lineTo(20, 0);
-	this.ctx.lineTo(this.controls.width - 20, 0);
-	this.ctx.lineTo(this.controls.width, 20);
-	this.ctx.fill();
-	this.ctx.closePath();
+	var taper = document.getElementById('player-controls-taper');
+	var taperCtx = taper.getContext("2d");
+	taperCtx.fillStyle = "rgba(25, 42, 53, 0.8)";
+	taperCtx.strokeStyle = "rgba(25, 42, 53, 0.8)";
+	taperCtx.beginPath();
+	taperCtx.moveTo(0, 20);
+	taperCtx.lineTo(20, 0);
+	taperCtx.lineTo(taper.width - 20, 0);
+	taperCtx.lineTo(taper.width, 20);
+	taperCtx.fill();
+	taperCtx.closePath();
 	
 
 	//draw the main scrubber area background
 	this.ctx.fillStyle = "rgba(25, 42, 53, 0.9)";
-	this.ctx.fillRect(0, 20, this.controls.width, this.controls.height);
+	this.ctx.fillRect(0, 0, this.controls.width, this.controls.height);
 }
 
 
 
-VideoControls.prototype.reset = function(){
+VideoControls.prototype.resetScrubber = function(){
 
 	this.controls.height = this.controls.height;
 	this.controls.width = this.controls.width;
-	
-
-	//draw the tapered top background
-	this.ctx.fillStyle = "rgba(25, 42, 53, 0.8)";
-	this.ctx.strokeStyle = "rgba(25, 42, 53, 0.8)";
-	this.ctx.beginPath();
-	this.ctx.moveTo(0, 20);
-	this.ctx.lineTo(20, 0);
-	this.ctx.lineTo(this.controls.width - 20, 0);
-	this.ctx.lineTo(this.controls.width, 20);
-	this.ctx.fill();
-	this.ctx.closePath();
-	
 
 	//draw the main scrubber area background
 	this.ctx.fillStyle = "rgba(25, 42, 53, 0.9)";
-	this.ctx.fillRect(0, 20, this.controls.width, this.controls.height);
+	this.ctx.fillRect(0, 00, this.controls.width, this.controls.height);
 	
 }
 
@@ -253,7 +240,7 @@ VideoControls.prototype.updateScrubber = function(){
 		//fill buffered
 		var percentBuffered = popcorn.buffered().end(0) / popcorn.duration();
 		//fill played
-		var percentPlayed = (popcorn.currentTime() / popcorn.duration()) * this.scrubberLength;
+		var percentPlayed = (popcorn.currentTime() / popcorn.duration()) * this.controls.width;
 
 		this.drawScrubber(percentBuffered, percentPlayed);
 	}
@@ -263,29 +250,25 @@ VideoControls.prototype.updateScrubber = function(){
 VideoControls.prototype.drawScrubber = function(buffered, played){
 
 	//reset the scrubber
-	this.ctx.save();
-	this.ctx.fillStyle = "rgba(25, 42, 53, 0.9)";
-	this.ctx.clearRect(this.scrubberStartPos - 5, 44, this.scrubberLength + 10, 22);
-	this.ctx.fillRect(this.scrubberStartPos - 5, 44, this.scrubberLength + 10, 22);
-	this.ctx.restore();	
+	this.resetScrubber();
 	
 	//fill duration
 	this.ctx.save();
 	this.ctx.fillStyle = "rgb(255, 76, 82)";
-	this.ctx.fillRect(this.scrubberStartPos, 55 - (this.scrubberHeight / 2), this.scrubberLength, this.scrubberHeight);
+	this.ctx.fillRect(this.scrubberStartPos, 40 - (this.scrubberHeight / 2), this.controls.width, this.scrubberHeight);
 	this.ctx.restore();	
 
 	//fill buffered
 	this.ctx.fillStyle = "rgb(75, 76, 82)";
-	var grayLength = (buffered * this.scrubberLength);
-	this.ctx.fillRect(this.scrubberStartPos, 55 - (this.scrubberHeight / 2), grayLength, this.scrubberHeight);
+	var grayLength = (buffered * this.controls.width);
+	this.ctx.fillRect(this.scrubberStartPos, 40 - (this.scrubberHeight / 2), grayLength, this.scrubberHeight);
 	
 	//fill played
 	this.ctx.save();
 	this.ctx.fillStyle = "rgb(234, 194, 82)";
 	this.ctx.shadowBlur = 5;
 	this.ctx.shadowColor = "rgb(234, 194, 82)";
-	this.ctx.fillRect(this.scrubberStartPos, 55 - (this.scrubberHeight / 2), played, this.scrubberHeight);
+	this.ctx.fillRect(this.scrubberStartPos, 40 - (this.scrubberHeight / 2), played, this.scrubberHeight);
 	this.ctx.restore();	
 	
 }
