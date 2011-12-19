@@ -108,10 +108,8 @@
     
     <div class="content clearfix"<?php print $content_attributes; ?>>
   
-  <div id='history'><a id='history-back' href='#'>&laquo; History</a></div>
-  
-	    <div id='player-history'></canvas></div>
 	  <div id="video-container">
+	    <div id='player-history'></div>
 	    <video width="720" height="405" id="main-player" preload="auto" controls="controls">
 	    <?php
 	    

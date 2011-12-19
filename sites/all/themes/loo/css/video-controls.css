@@ -137,3 +137,18 @@
 #highlight .popcorn-node{
 	height: 30px;
 }
+
+#player-history{
+	padding: 0 20px;
+}
+
+.history-node{
+	margin: 0 30px;
+	height: 15px;
+	background: rgba(25, 42, 53, 0.9);
+}
+
+.history-node a{
+	display: block;
+	height: 100%;
+}

@@ -12,7 +12,7 @@ jQuery(document).ready(function() {
 
 function Controller(){
 	
-	this.history = new HistoryManager();
+	this.history = new HistoryManager(this);
 	this.vidControls = new VideoControls('player-controls');
 	
 	
@@ -45,45 +45,43 @@ function Controller(){
 	}
 	  
 	loadKernels(2);
-	
-	//development code
-	this.historyBack = document.getElementById('history-back');
-	this.historyBack.addEventListener('click', function(event){
-		event.preventDefault();
-		
-		var vidData = self.history.loadHistory();
-
-		//remove existing Track Events
-		var kernels = popcorn.getTrackEvents();
-		for (var i = 0; i < kernels.length; i++){
-			popcorn.removeTrackEvent(kernels[i]._id);
-		}
-
-		//remove existing media sources
-		while (popcorn.media.hasChildNodes()) {
-			popcorn.media.removeChild(popcorn.media.lastChild);
-		}
-		//Add new media sources
-		for (var i = 0; i < vidData.videoUrls.length; i++){
-			popcorn.media.appendChild(vidData.videoUrls[i]);
-		}
-
-		//load the new video
-		popcorn.load();
-		
-		//add the new track events from the vidData
-		for (var i = 0; i < vidData.kernels.length; i++){
-			popcorn.drupal(vidData.kernels[i]);
-		}
-
-		//advance the video to the previous timestamp
-		popcorn.listen('loadeddata', function(){
-			popcorn.currentTime(vidData.currentTime);
-			popcorn.unlisten('loadeddata');
-		});
-		
-	}); 
 }
+
+Controller.prototype.catchHistory = function(index){
+	
+	var vidData = this.history.loadHistory(index);
+
+	//remove existing Track Events
+	var kernels = popcorn.getTrackEvents();
+	for (var i = 0; i < kernels.length; i++){
+		popcorn.removeTrackEvent(kernels[i]._id);
+	}
+
+	//remove existing media sources
+	while (popcorn.media.hasChildNodes()) {
+		popcorn.media.removeChild(popcorn.media.lastChild);
+	}
+	//Add new media sources
+	for (var i = 0; i < vidData.videoUrls.length; i++){
+		popcorn.media.appendChild(vidData.videoUrls[i]);
+	}
+
+	//load the new video
+	popcorn.load();
+	
+	//add the new track events from the vidData
+	for (var i = 0; i < vidData.kernels.length; i++){
+		popcorn.drupal(vidData.kernels[i]);
+	}
+
+	//advance the video to the previous timestamp
+	popcorn.listen('loadeddata', function(){
+		popcorn.currentTime(vidData.currentTime);
+		popcorn.unlisten('loadeddata');
+	});
+	
+	this.history.updateHistory();
+};
 
 Controller.prototype.catchKernel = function(data){
 	//data only contains the nid
@@ -127,14 +125,18 @@ Controller.prototype.catchKernel = function(data){
 	});
 }
 
-function HistoryManager(){
+function HistoryManager(controller){
 	
+	this.controller = controller;
 	this.historyList = [];
+	this.historyDisplay = document.getElementById('player-history');
 	
 }
 
-HistoryManager.prototype.loadHistory = function(){
-	return this.historyList.pop();
+HistoryManager.prototype.loadHistory = function(i){
+	var selected = this.historyList[i];
+	this.historyList = this.historyList.slice(0, i);
+	return selected;
 };
 
 HistoryManager.prototype.saveHistory = function(){
@@ -153,6 +155,38 @@ HistoryManager.prototype.saveHistory = function(){
 	history.currentTime = popcorn.currentTime();
 	
 	this.historyList.push(history);
+	
+	this.updateHistory();
+};
+
+HistoryManager.prototype.updateHistory = function(){
+	this.resetHistory();
+	var len = this.historyList.length;
+	var historyNode;
+	var historyNodeLink;
+	for (var i = 0; i < len; i++){
+		historyNode = document.createElement('div');
+		historyNode.className = "history-node";
+		historyNode.id = "history-node-" + i;
+		
+		historyNodeLink = document.createElement('a');
+		historyNodeLink.href = '#'
+		var self = this;
+		var j = i;
+		historyNodeLink.addEventListener('click', function(event){
+			event.preventDefault();
+			self.controller.catchHistory(j);
+		});
+		historyNode.appendChild(historyNodeLink);
+		
+		this.historyDisplay.appendChild(historyNode);
+	}
+};
+
+HistoryManager.prototype.resetHistory = function(){
+	while (this.historyDisplay.hasChildNodes()){
+		this.historyDisplay.removeChild(this.historyDisplay.firstChild);
+	}
 };
 
 
@@ -214,7 +248,7 @@ VideoControls.prototype.resetScrubber = function(){
 
 	//draw the main scrubber area background
 	this.ctx.fillStyle = "rgba(25, 42, 53, 0.9)";
-	this.ctx.fillRect(0, 00, this.controls.width, this.controls.height);
+	this.ctx.fillRect(0, 0, this.controls.width, this.controls.height);
 	
 }
 
@@ -254,20 +288,20 @@ VideoControls.prototype.drawScrubber = function(buffered, played){
 	
 	//fill duration
 	this.ctx.save();
-	this.ctx.fillStyle = "rgb(255, 76, 82)";
+	this.ctx.fillStyle = "rgb(71, 85, 86)";
 	this.ctx.fillRect(this.scrubberStartPos, 40 - (this.scrubberHeight / 2), this.controls.width, this.scrubberHeight);
 	this.ctx.restore();	
 
 	//fill buffered
-	this.ctx.fillStyle = "rgb(75, 76, 82)";
+	this.ctx.fillStyle = "rgb(148, 127, 83)";
 	var grayLength = (buffered * this.controls.width);
 	this.ctx.fillRect(this.scrubberStartPos, 40 - (this.scrubberHeight / 2), grayLength, this.scrubberHeight);
 	
 	//fill played
 	this.ctx.save();
-	this.ctx.fillStyle = "rgb(234, 194, 82)";
+	this.ctx.fillStyle = "rgb(255, 205, 51)";
 	this.ctx.shadowBlur = 5;
-	this.ctx.shadowColor = "rgb(234, 194, 82)";
+	this.ctx.shadowColor = "rgb(255, 205, 51)";
 	this.ctx.fillRect(this.scrubberStartPos, 40 - (this.scrubberHeight / 2), played, this.scrubberHeight);
 	this.ctx.restore();	
 	
@@ -301,6 +335,12 @@ VideoControls.prototype.updateVolume = function(){
 	volCtx.fillRect(0, 0, volume.width, volume.height);
 	volCtx.restore();
 	
+
+	
+	//fill scrubber base
+	volCtx.fillStyle = "rgb(75, 76, 82)";
+	volCtx.fillRect(startX, startY, volumeScrubberWidth, maxVolScrubLen);
+	
 	var startX = (volume.width / 2) - 1,
 	startY = 5,
 	volLen = maxVolScrubLen * player.volume,
@@ -308,15 +348,11 @@ VideoControls.prototype.updateVolume = function(){
 	
 	//fill volume
 	volCtx.save();
-	volCtx.fillStyle = "rgb(234, 194, 82)";
+	volCtx.fillStyle = "rgb(255, 205, 51)";
 	volCtx.shadowBlur = 5;
-	volCtx.shadowColor = "rgb(234, 194, 82)";
+	volCtx.shadowColor = "rgb(255, 205, 51)";
 	volCtx.fillRect(startX, startY + volOffset, volumeScrubberWidth, maxVolScrubLen * player.volume);
 	volCtx.restore();	
-	
-	//fill scrubber base
-	volCtx.fillStyle = "rgb(75, 76, 82)";
-	volCtx.fillRect(startX, startY, volumeScrubberWidth, volOffset);
 }
 
 
