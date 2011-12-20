@@ -277,18 +277,19 @@ VideoControls.prototype.resetScrubber = function(){
 VideoControls.prototype.initScrubber = function(){
 	//register event listeners
 	var self = this;
-	popcorn.listen('progress', function(){
-		self.updateScrubber();
-	});
-	/*popcorn.listen('timeupdate', function(){
+	/*popcorn.listen('progress', function(){
 		self.updateScrubber();
 	});*/
-	var timeoutID = window.setTimeout(function(){
+	popcorn.listen('timeupdate', function(){
 		self.updateScrubber();
+	});
+	var intervalId = window.setInterval(function(){
 		if (popcorn.buffered().length && popcorn.buffered().end(0) == popcorn.duration()){
-			window.clearTimeout(timeoutId);
+			window.clearInterval(intervalId);
 		}
-		console.log('wee');
+		self.updateScrubber();
+		var x = document.getElementById('main-player');
+		console.log(x.buffered.end(0));
 	}, 1000);
 	
 }
