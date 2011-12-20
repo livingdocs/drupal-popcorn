@@ -21,7 +21,6 @@ function Controller(){
 	//register listeners for kernelPop(click) events
 	var self = this;
 	popcorn.listen('kernelPop', function(data){
-		self.history.saveHistory();
 		self.catchKernel(data);
 		self.vidControls.resetScrubber();
 	});
@@ -84,46 +83,65 @@ Controller.prototype.catchHistory = function(index){
 };
 
 Controller.prototype.catchKernel = function(data){
-	//data only contains the nid
+	var self = this;
 
 	//ajax call to load video urls and track data
 	jQuery.getJSON("/popcorn/" + data.nid + "/full", function(response, textStatus, jqXHR){
 
 		var full = response.data;
 		
-		//make the video autoplay once it loads
-		//popcorn.media.autoplay = true;
-
-		//remove existing Track Events
-		var kernels = popcorn.getTrackEvents();
-		for (var i = 0; i < kernels.length; i++){
-			popcorn.removeTrackEvent(kernels[i]._id);
+		if (typeof full == "object"){
+			self.loadVideo(full);
 		}
-
-		//remove existing media sources
-		while (popcorn.media.hasChildNodes()) {
-			popcorn.media.removeChild(popcorn.media.lastChild);
-		}
-		//Add new media source
-		var source;
-		for (var i = 0; i < full.videos.length; i++){
-			source = document.createElement('source');
-			source.src = full.videos[i].src;
-			source.type = full.videos[i].mime;
-			popcorn.media.appendChild(source);
-
-		}
-
-		//load the new video
-		popcorn.load();
-		
-		//add the new track events in full.kernels
-		for (var i = 0; i < full.kernels.length; i++){
-			popcorn.drupal(full.kernels[i]);
+		else{
+			self.loadModal(full);
 		}
 		
 	});
-}
+};
+
+Controller.prototype.loadModal = function(nodeData){
+	var modalFrame = document.createElement('div');
+	modalFrame.id = 'modal-frame';
+	modalFrame.innerHTML = nodeData;
+	document.getElementsByTagName('body')[0].appendChild(modalFrame);
+};
+
+Controller.prototype.loadVideo = function(vidData){
+
+	this.history.saveHistory();
+	
+	//make the video autoplay once it loads
+	//popcorn.media.autoplay = true;
+
+	//remove existing Track Events
+	var kernels = popcorn.getTrackEvents();
+	for (var i = 0; i < kernels.length; i++){
+		popcorn.removeTrackEvent(kernels[i]._id);
+	}
+
+	//remove existing media sources
+	while (popcorn.media.hasChildNodes()) {
+		popcorn.media.removeChild(popcorn.media.lastChild);
+	}
+	//Add new media source
+	var source;
+	for (var i = 0; i < vidData.videos.length; i++){
+		source = document.createElement('source');
+		source.src = vidData.videos[i].src;
+		source.type = vidData.videos[i].mime;
+		popcorn.media.appendChild(source);
+
+	}
+
+	//load the new video
+	popcorn.load();
+	
+	//add the new track events in full.kernels
+	for (var i = 0; i < vidData.kernels.length; i++){
+		popcorn.drupal(vidData.kernels[i]);
+	}
+};
 
 function HistoryManager(controller){
 	

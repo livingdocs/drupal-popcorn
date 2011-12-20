@@ -118,11 +118,11 @@
 	display: block;
 }
 
-#highlight .node-teaser .content, #highlight .node-teaser .link-wrapper{
+.node-teaser .content, .node-teaser .link-wrapper{
   display: none;
 }
 
-#highlight .node-teaser.preview .content, #highlight .node-teaser.preview .link-wrapper{
+.node-teaser.preview .content, .node-teaser.preview .link-wrapper{
   display: block;
 }
 
@@ -151,4 +151,14 @@
 .history-node a{
 	display: block;
 	height: 100%;
+}
+
+#modal-frame{
+    background: rgba(0, 0, 0, 0.9);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+	
 }

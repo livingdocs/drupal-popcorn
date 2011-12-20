@@ -81,7 +81,7 @@ function _popcorn_load_node($nid, $type = 'full'){
         );
       }
       else{
-        $full = drupal_render(node_view($node, $type));
+        $full = drupal_render(node_view($node, 'full'));
       }
       $output = array(
         'type' => POPCORN_FULL,
