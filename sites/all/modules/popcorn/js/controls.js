@@ -280,9 +280,17 @@ VideoControls.prototype.initScrubber = function(){
 	popcorn.listen('progress', function(){
 		self.updateScrubber();
 	});
-	popcorn.listen('timeupdate', function(){
+	/*popcorn.listen('timeupdate', function(){
 		self.updateScrubber();
-	});
+	});*/
+	var timeoutID = window.setTimeout(function(){
+		self.updateScrubber();
+		if (popcorn.buffered().length && popcorn.buffered().end(0) == popcorn.duration()){
+			window.clearTimeout(timeoutId);
+		}
+		console.log('wee');
+	}, 1000);
+	
 }
 
 VideoControls.prototype.updateScrubber = function(){
@@ -293,7 +301,7 @@ VideoControls.prototype.updateScrubber = function(){
 		var percentBuffered = popcorn.buffered().end(0) / popcorn.duration();
 		//fill played
 		var percentPlayed = (popcorn.currentTime() / popcorn.duration()) * this.controls.width;
-
+		//draw the updated scrubber
 		this.drawScrubber(percentBuffered, percentPlayed);
 	}
 	
