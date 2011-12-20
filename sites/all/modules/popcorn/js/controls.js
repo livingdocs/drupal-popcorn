@@ -212,8 +212,8 @@ HistoryManager.prototype.resetHistory = function(){
 function VideoControls(canvas){
 
 
-	this.controls = document.getElementById(canvas);
-	this.ctx = this.controls.getContext("2d");
+	this.scrubber = document.getElementById(canvas);
+	this.ctx = this.scrubber.getContext("2d");
 	
 	this.playButton = document.getElementById('play-button');
 
@@ -259,7 +259,7 @@ VideoControls.prototype.init = function(){
 
 	//draw the main scrubber area background
 	this.ctx.fillStyle = "rgba(25, 42, 53, 0.9)";
-	this.ctx.fillRect(0, 0, this.controls.width, this.controls.height);
+	this.ctx.fillRect(0, 0, this.scrubber.width, this.scrubber.height);
 }
 
 VideoControls.prototype.initVolumeButton = function(){
@@ -317,17 +317,6 @@ VideoControls.prototype.updatePlayButton = function(){
 
 
 
-VideoControls.prototype.resetScrubber = function(){
-
-	this.controls.height = this.controls.height;
-	this.controls.width = this.controls.width;
-
-	//draw the main scrubber area background
-	this.ctx.fillStyle = "rgba(25, 42, 53, 0.9)";
-	this.ctx.fillRect(0, 0, this.controls.width, this.controls.height);
-	
-};
-
 /*
  * Scrubber related functions
  */
@@ -335,20 +324,26 @@ VideoControls.prototype.resetScrubber = function(){
 VideoControls.prototype.initScrubber = function(){
 	//register event listeners
 	var self = this;
-	/*popcorn.listen('progress', function(){
+	popcorn.listen('progress', function(){
 		self.updateScrubber();
-	});*/
+	});
 	popcorn.listen('timeupdate', function(){
 		self.updateScrubber();
 	});
-	var intervalId = window.setInterval(function(){
-		if (popcorn.buffered().length && popcorn.buffered().end(0) == popcorn.duration()){
-			window.clearInterval(intervalId);
-		}
-		self.updateScrubber();
-		var x = document.getElementById('main-player');
-		//console.log(x.buffered.end(0));
-	}, 1000);
+	this.scrubber.addEventListener('click', function(event){
+		self.scrubberClick(event);
+	}, false);
+	
+};
+
+VideoControls.prototype.resetScrubber = function(){
+
+	this.scrubber.height = this.scrubber.height;
+	this.scrubber.width = this.scrubber.width;
+
+	//draw the main scrubber area background
+	this.ctx.fillStyle = "rgba(25, 42, 53, 0.9)";
+	this.ctx.fillRect(0, 0, this.scrubber.width, this.scrubber.height);
 	
 };
 
@@ -359,7 +354,7 @@ VideoControls.prototype.updateScrubber = function(){
 		//fill buffered
 		var percentBuffered = popcorn.buffered().end(0) / popcorn.duration();
 		//fill played
-		var percentPlayed = (popcorn.currentTime() / popcorn.duration()) * this.controls.width;
+		var percentPlayed = (popcorn.currentTime() / popcorn.duration()) * this.scrubber.width;
 		//draw the updated scrubber
 		this.drawScrubber(percentBuffered, percentPlayed);
 	}
@@ -374,23 +369,32 @@ VideoControls.prototype.drawScrubber = function(buffered, played){
 	//fill duration
 	this.ctx.save();
 	this.ctx.fillStyle = "rgb(71, 85, 86)";
-	this.ctx.fillRect(this.scrubberStartPos, 40 - (this.scrubberHeight / 2), this.controls.width, this.scrubberHeight);
+	this.ctx.fillRect(0, 40 - (this.scrubberHeight / 2), this.scrubber.width, this.scrubberHeight);
 	this.ctx.restore();	
 
 	//fill buffered
 	this.ctx.fillStyle = "rgb(148, 127, 83)";
-	var grayLength = (buffered * this.controls.width);
-	this.ctx.fillRect(this.scrubberStartPos, 40 - (this.scrubberHeight / 2), grayLength, this.scrubberHeight);
+	var grayLength = (buffered * this.scrubber.width);
+	this.ctx.fillRect(0, 40 - (this.scrubberHeight / 2), grayLength, this.scrubberHeight);
 	
 	//fill played
 	this.ctx.save();
 	this.ctx.fillStyle = "rgb(255, 205, 51)";
 	this.ctx.shadowBlur = 5;
 	this.ctx.shadowColor = "rgb(255, 205, 51)";
-	this.ctx.fillRect(this.scrubberStartPos, 40 - (this.scrubberHeight / 2), played, this.scrubberHeight);
+	this.ctx.fillRect(0, 40 - (this.scrubberHeight / 2), played, this.scrubberHeight);
 	this.ctx.restore();	
 	
 };
+
+VideoControls.prototype.scrubberClick = function(event){
+	var coords = this.getCoords(event);
+	
+	//click is in the scrubber area
+	if(coords.offsetY < 50 && coords.offsetY > 30){
+		popcorn.currentTime(((coords.offsetX) / this.scrubber.width) * popcorn.duration());
+	}
+}
 
 VideoControls.prototype.drawTaper = function(){
 	//tapered top
@@ -399,8 +403,8 @@ VideoControls.prototype.drawTaper = function(){
 	this.ctx.beginPath();
 	this.ctx.moveTo(0, 20);
 	this.ctx.lineTo(20, 0);
-	this.ctx.lineTo(this.controls.width - 20, 0);
-	this.ctx.lineTo(this.controls.width, 20);
+	this.ctx.lineTo(this.scrubber.width - 20, 0);
+	this.ctx.lineTo(this.scrubber.width, 20);
 	this.ctx.fill();
 	this.ctx.closePath();
 };
