@@ -79,6 +79,7 @@ Controller.prototype.catchHistory = function(index){
 		popcorn.unlisten('loadeddata');
 	});
 	
+	this.vidControls.updatePlayButton();
 	this.history.updateHistory();
 };
 
@@ -141,6 +142,8 @@ Controller.prototype.loadVideo = function(vidData){
 	for (var i = 0; i < vidData.kernels.length; i++){
 		popcorn.drupal(vidData.kernels[i]);
 	}
+	
+	this.vidControls.updatePlayButton();
 };
 
 function HistoryManager(controller){
