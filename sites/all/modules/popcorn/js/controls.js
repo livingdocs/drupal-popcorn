@@ -214,6 +214,8 @@ function VideoControls(canvas){
 
 	this.controls = document.getElementById(canvas);
 	this.ctx = this.controls.getContext("2d");
+	
+	this.playButton = document.getElementById('play-button');
 
 	this.scrubberHeight = 2;
 	this.scrubberStartPos = 0;
@@ -231,6 +233,9 @@ function VideoControls(canvas){
 VideoControls.prototype.init = function(){
 	
 	this.initScrubber();
+
+	this.initPlayButton();
+	this.initVolumeButton();
 
 	/*
 	popcorn.listen('volumechange', updateVolume);  
@@ -257,6 +262,59 @@ VideoControls.prototype.init = function(){
 	this.ctx.fillRect(0, 0, this.controls.width, this.controls.height);
 }
 
+VideoControls.prototype.initVolumeButton = function(){
+	//register event listeners
+	var self = this;
+	popcorn.listen('volumechange', function(){
+		self.updateVolumeButton();
+	});
+	document.getElementById('volume-button').addEventListener('click', function(){
+		if (document.getElementById('volume-button').className == "player-button muted"){
+			popcorn.unmute();
+		}
+		else{
+			popcorn.mute();
+		}
+	}, false);
+};
+
+VideoControls.prototype.updateVolumeButton = function(){
+	if (popcorn.muted()){
+		document.getElementById('volume-button').className = "player-button muted";
+	}
+	else{
+		document.getElementById('volume-button').className = "player-button";
+	}
+};
+
+VideoControls.prototype.initPlayButton = function(){
+	//register event listeners
+	var self = this;
+	popcorn.listen('pause', function(){
+		self.updatePlayButton();
+	});
+	popcorn.listen('play', function(){
+		self.updatePlayButton();
+	});
+	document.getElementById('play-button').addEventListener('click', function(){
+		if (document.getElementById('play-button').className == "player-button paused"){
+			popcorn.play();
+		}
+		else{
+			popcorn.pause();
+		}
+	}, false);
+};
+
+VideoControls.prototype.updatePlayButton = function(){
+	if (popcorn.paused()){
+		document.getElementById('play-button').className = "player-button paused";
+	}
+	else{
+		document.getElementById('play-button').className = "player-button";
+	}
+};
+
 
 
 VideoControls.prototype.resetScrubber = function(){
@@ -268,7 +326,7 @@ VideoControls.prototype.resetScrubber = function(){
 	this.ctx.fillStyle = "rgba(25, 42, 53, 0.9)";
 	this.ctx.fillRect(0, 0, this.controls.width, this.controls.height);
 	
-}
+};
 
 /*
  * Scrubber related functions
@@ -289,10 +347,10 @@ VideoControls.prototype.initScrubber = function(){
 		}
 		self.updateScrubber();
 		var x = document.getElementById('main-player');
-		console.log(x.buffered.end(0));
+		//console.log(x.buffered.end(0));
 	}, 1000);
 	
-}
+};
 
 VideoControls.prototype.updateScrubber = function(){
 	
@@ -306,7 +364,7 @@ VideoControls.prototype.updateScrubber = function(){
 		this.drawScrubber(percentBuffered, percentPlayed);
 	}
 	
-}
+};
 
 VideoControls.prototype.drawScrubber = function(buffered, played){
 
@@ -332,56 +390,7 @@ VideoControls.prototype.drawScrubber = function(buffered, played){
 	this.ctx.fillRect(this.scrubberStartPos, 40 - (this.scrubberHeight / 2), played, this.scrubberHeight);
 	this.ctx.restore();	
 	
-}
-
-/*
- * Volume related functions
- */
-
-VideoControls.prototype.initVolume = function(){
-	//register event listeners
-	var self = this;
-	popcorn.listen('volumechange', function(){
-		self.updateVolume();
-	});
-	
-
-
-
-	updateVolume();
-
-	volume.addEventListener('mouseout', function(){ volume.style.display = 'none'; }, false);
-	volume.addEventListener('click', volumeClick, false);
-}
-
-VideoControls.prototype.updateVolume = function(){
-	//reset volume scrubber area
-	volCtx.save();
-	volCtx.fillStyle = "rgba(25, 42, 53, 0.9)";
-	volCtx.clearRect(0, 0, volume.width, volume.height);
-	volCtx.fillRect(0, 0, volume.width, volume.height);
-	volCtx.restore();
-	
-
-	
-	//fill scrubber base
-	volCtx.fillStyle = "rgb(75, 76, 82)";
-	volCtx.fillRect(startX, startY, volumeScrubberWidth, maxVolScrubLen);
-	
-	var startX = (volume.width / 2) - 1,
-	startY = 5,
-	volLen = maxVolScrubLen * player.volume,
-	volOffset = (maxVolScrubLen - volLen);
-	
-	//fill volume
-	volCtx.save();
-	volCtx.fillStyle = "rgb(255, 205, 51)";
-	volCtx.shadowBlur = 5;
-	volCtx.shadowColor = "rgb(255, 205, 51)";
-	volCtx.fillRect(startX, startY + volOffset, volumeScrubberWidth, maxVolScrubLen * player.volume);
-	volCtx.restore();	
-}
-
+};
 
 VideoControls.prototype.drawTaper = function(){
 	//tapered top
@@ -394,7 +403,7 @@ VideoControls.prototype.drawTaper = function(){
 	this.ctx.lineTo(this.controls.width, 20);
 	this.ctx.fill();
 	this.ctx.closePath();
-}
+};
 
 //additional function required to determine the relative coordinates of a click event
 VideoControls.prototype.getCoords = function(event){
@@ -405,4 +414,4 @@ VideoControls.prototype.getCoords = function(event){
 	y = event.clientY + document.body.scrollTop + document.documentElement.scrollTop - Math.floor(canoffset.top) + 1;
 
 	return {offsetX: x, offsetY: y};
-}
+};

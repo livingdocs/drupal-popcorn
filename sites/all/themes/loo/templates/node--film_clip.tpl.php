@@ -130,7 +130,7 @@
 	    </video>
 	    <div id='controls'>
 			<canvas id='player-controls-taper' height='20' width='760'></canvas>
-	      <div><button id='play-button' class='player-button'></button><canvas id='player-controls' height='60' width='360'></canvas><button id='volume-button' class='player-button'></button><div id='highlight'></div></div>
+	      <div><button id='play-button' class='player-button paused'></button><canvas id='player-controls' height='60' width='360'></canvas><button id='volume-button' class='player-button'></button><div id='highlight'></div></div>
 	      <canvas id='volume-control' height='150' width='30'></canvas>
 	      
       </div>

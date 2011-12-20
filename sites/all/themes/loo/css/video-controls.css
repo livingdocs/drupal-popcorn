@@ -20,11 +20,19 @@
 }
 
 #play-button{
+    background-image: url(/sites/all/themes/loo/images/pause.png);
+}
+
+#play-button.paused{
     background-image: url(/sites/all/themes/loo/images/play.png);
 }
 
 #volume-button{
     background-image: url(/sites/all/themes/loo/images/music-on.png);
+}
+
+#volume-button.muted{
+    background-image: url(/sites/all/themes/loo/images/music-muted.png);
 }
 
 
