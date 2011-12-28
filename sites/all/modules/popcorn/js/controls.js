@@ -109,12 +109,13 @@ Controller.prototype.loadModal = function(nodeData){
 	modalDialog.id = 'modal-dialog';
 	modalDialog.innerHTML = nodeData;
 	
-	var poop = document.createElement('div');
-	poop.id = 'modal-close';
-	poop.addEventListener('click', function(){
+	var closeButton = document.createElement('button');
+	closeButton.id = 'modal-close';
+	closeButton.innerHTML = "X";
+	closeButton.addEventListener('click', function(){
 		document.getElementsByTagName('body')[0].removeChild(modalFrame);
 	}, false);
-	modalDialog.appendChild(poop);
+	modalDialog.appendChild(closeButton);
 	
 	modalFrame.appendChild(modalDialog);
 	
