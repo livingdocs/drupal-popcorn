@@ -54,7 +54,7 @@
 		 */
 		function popKernel(nid){
 			highlight.insertBefore(nodeData[nid].content, highlight.firstChild);
-			if (highlight.childNodes.length > 2){
+			while (highlight.childNodes.length > 2){
 				var moveNid = highlight.lastChild.firstChild.id.match(/node-(\d+)/)[1];
 				var kernelSubject = document.getElementById(nodeData[moveNid].subject.replace(' ', '_'));
 				if (kernelSubject == null){

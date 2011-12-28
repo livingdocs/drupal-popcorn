@@ -104,7 +104,20 @@ Controller.prototype.catchKernel = function(data){
 Controller.prototype.loadModal = function(nodeData){
 	var modalFrame = document.createElement('div');
 	modalFrame.id = 'modal-frame';
-	modalFrame.innerHTML = nodeData;
+	
+	var modalDialog = document.createElement('div');
+	modalDialog.id = 'modal-dialog';
+	modalDialog.innerHTML = nodeData;
+	
+	var poop = document.createElement('div');
+	poop.id = 'modal-close';
+	poop.addEventListener('click', function(){
+		document.getElementsByTagName('body')[0].removeChild(modalFrame);
+	}, false);
+	modalDialog.appendChild(poop);
+	
+	modalFrame.appendChild(modalDialog);
+	
 	document.getElementsByTagName('body')[0].appendChild(modalFrame);
 };
 
