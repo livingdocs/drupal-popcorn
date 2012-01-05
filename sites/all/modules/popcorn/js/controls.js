@@ -22,7 +22,6 @@ function Controller(){
 	var self = this;
 	popcorn.listen('kernelPop', function(data){
 		self.catchKernel(data);
-		self.vidControls.resetScrubber();
 	});
 	
 
@@ -104,6 +103,9 @@ Controller.prototype.catchKernel = function(data){
 Controller.prototype.loadModal = function(nodeData){
 	var modalFrame = document.createElement('div');
 	modalFrame.id = 'modal-frame';
+	modalFrame.addEventListener('click', function(){
+		//document.getElementsByTagName('body')[0].removeChild(modalFrame);
+	}, false);
 	
 	var modalDialog = document.createElement('div');
 	modalDialog.id = 'modal-dialog';
@@ -113,12 +115,14 @@ Controller.prototype.loadModal = function(nodeData){
 	closeButton.id = 'modal-close';
 	closeButton.innerHTML = "X";
 	closeButton.addEventListener('click', function(){
+        popcorn.play();
 		document.getElementsByTagName('body')[0].removeChild(modalFrame);
 	}, false);
 	modalDialog.appendChild(closeButton);
 	
 	modalFrame.appendChild(modalDialog);
 	
+    popcorn.pause();
 	document.getElementsByTagName('body')[0].appendChild(modalFrame);
 };
 
@@ -127,7 +131,7 @@ Controller.prototype.loadVideo = function(vidData){
 	this.history.saveHistory();
 	
 	//make the video autoplay once it loads
-	//popcorn.media.autoplay = true;
+	popcorn.media.autoplay = true;
 
 	//remove existing Track Events
 	var kernels = popcorn.getTrackEvents();
@@ -151,6 +155,7 @@ Controller.prototype.loadVideo = function(vidData){
 
 	//load the new video
 	popcorn.load();
+	this.vidControls.resetScrubber();
 	
 	//add the new track events in full.kernels
 	for (var i = 0; i < vidData.kernels.length; i++){
