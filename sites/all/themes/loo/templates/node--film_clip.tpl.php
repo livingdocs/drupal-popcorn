@@ -110,7 +110,7 @@
   
 	  <div id="video-container">
 	    <div id='player-history'></div>
-	    <video width="720" height="405" id="main-player" preload="auto" controls="controls">
+	    <video width="720" height="405" id="main-player" preload="auto" controls="controls" poster="/sites/all/themes/loo/images/macho1.gif" autoplay="autoplay">
 	    <?php
 	    
         drupal_add_js('sites/all/libraries/popcorn-js/popcorn.js');
