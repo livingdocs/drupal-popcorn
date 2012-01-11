@@ -34,10 +34,12 @@ function _popcorn_load_kernels($node){
   if (isset($node->field_track_events['und'])){
     foreach ($node->field_track_events['und'] as $index => $trackEvent){
       $event = field_collection_item_load($trackEvent['value']);
+      $eventNode = node_load($event->field_event['und'][0]['nid']);
       $kernels[$index] = array(
       'start' => $event->field_start['und'][0]['value'],
       'end' => $event->field_end['und'][0]['value'],
-      'nid' => $event->field_event['und'][0]['nid']
+      'nid' => $event->field_event['und'][0]['nid'],
+      'type' => $eventNode->type
       );
     }
   }

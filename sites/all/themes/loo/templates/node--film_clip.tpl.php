@@ -79,31 +79,36 @@
  */
 ?>
 <div id="node-<?php print $node->nid; ?>"
-	class="<?php print $classes; ?> clearfix" <?php print $attributes; ?>>
+	class="<?php print $classes; ?> clearfix"  <?php print $attributes; ?>>
+
+
 
 
 
 
 	<?php if ($teaser): ?>
 
+	<div class='preview-short'>
+		<span class='trigger-icon'></span>
+		<img src='' alt='' />
+		<h2  <?php print $title_attributes; ?>>
+    		<a href="<?php print $node_url; ?>"><?php print $title; ?> </a>
+    	</h2>
+	</div>
 
-	<?php print render($title_prefix); ?>
 
-
-	<?php if (!$page): ?>
 	<h2  <?php print $title_attributes; ?>>
 		<a href="<?php print $node_url; ?>"><?php print $title; ?> </a>
 	</h2>
 	
 	
-	
-	
-    <?php endif; ?>
-    <?php print render($title_suffix); ?>
     
     <div class="content clearfix"<?php print $content_attributes; ?>>
     
   	<?php print render($content); ?>
+	  
+	</div>
+  
   <?php else: ?>
     
     <div class="content clearfix"<?php print $content_attributes; ?>>
@@ -143,9 +148,29 @@
         <div id='kettle'></div>
       </div>
 	  
-  <?php endif; ?>
+	</div>
 	  
-  </div>
+  <?php endif; ?>
 
 
+</div>
+
+<div style='display: none;'>
+	<img src='/sites/all/themes/loo/images/information.png' id='information-trigger-icon' alt='' />
+	<img src='/sites/all/themes/loo/images/information-dim.png' id='information-trigger-icon-dim' alt='' />
+
+	<img src='/sites/all/themes/loo/images/map.png' id='map-trigger-icon' alt='' />
+	<img src='/sites/all/themes/loo/images/map-dim.png' id='map-trigger-icon-dim' alt='' />
+
+	<img src='/sites/all/themes/loo/images/data.png' id='data-trigger-icon' alt='' />
+	<img src='/sites/all/themes/loo/images/data-dim.png' id='data-trigger-icon-dim' alt='' />
+
+	<img src='/sites/all/themes/loo/images/action.png' id='action-trigger-icon' alt='' />
+	<img src='/sites/all/themes/loo/images/action-dim.png' id='action-trigger-icon-dim' alt='' />
+
+	<img src='/sites/all/themes/loo/images/film_clip.png' id='film_clip-trigger-icon' alt='' />
+	<img src='/sites/all/themes/loo/images/film_clip-dim.png' id='film_clip-trigger-icon-dim' alt='' />
+
+	<img src='/sites/all/themes/loo/images/ugc.png' id='ugc-trigger-icon' alt='' />
+	<img src='/sites/all/themes/loo/images/ugc-dim.png' id='ugc-trigger-icon-dim' alt='' />
 </div>

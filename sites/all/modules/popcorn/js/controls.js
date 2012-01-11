@@ -1,4 +1,4 @@
-//I need to add a throbber to the stage until the 'canplay' event is received from popcorn
+
 
 var popcorn;
 jQuery(document).ready(function() {
@@ -34,7 +34,9 @@ function Controller(){
 				if (kernels.type == 2){
 					for (var i = 0; i < kernels.data.length; i++){
 						popcorn.drupal(kernels.data[i]);
+						self.vidControls.addTrigger(kernels.data[i]);
 					}
+					self.vidControls.drawTriggers();
 				}
 			}
 		};
@@ -233,6 +235,7 @@ HistoryManager.prototype.resetHistory = function(){
 
 function VideoControls(canvas){
 
+	this.triggers = [];
 
 	this.scrubber = document.getElementById(canvas);
 	this.ctx = this.scrubber.getContext("2d");
@@ -250,20 +253,43 @@ function VideoControls(canvas){
 	this.maxVolScrubLen = this.volume.height - 10;
 }
 
+VideoControls.prototype.addTrigger = function(data){
+	this.triggers[data.start] = data;
+};
+
+VideoControls.prototype.drawTriggers = function(){
+	var drawTriggerImage = function(image, startPos, context){
+	      return function(){
+	    	  context.drawImage(image, startPos, 5);
+	      };
+	}
+	
+	for (var index in this.triggers){
+		
+		var current = this.triggers[index];
+		var startPos = (current.start / popcorn.duration()) * this.scrubber.width - 15;
+		
+		var image;
+	    if (popcorn.currentTime() >= current.start){
+	    	image = document.getElementById(current.type + '-trigger-icon');
+	    }
+	    else{
+	    	image = document.getElementById(current.type + '-trigger-icon-dim');
+	    }
+	    
+	    this.ctx.drawImage(image, startPos, 5);
+		
+	}
+};
+
 
 
 VideoControls.prototype.init = function(){
 	
 	this.initScrubber();
-
 	this.initPlayButton();
 	this.initVolumeButton();
 
-	/*
-	popcorn.listen('volumechange', updateVolume);  
-	popcorn.listen('play', drawPauseButton);  
-	popcorn.listen('pause', drawPlayButton); 
-	 */
 
 	//draw the tapered top background
 	var taper = document.getElementById('player-controls-taper');
@@ -387,6 +413,9 @@ VideoControls.prototype.drawScrubber = function(buffered, played){
 
 	//reset the scrubber
 	this.resetScrubber();
+	
+
+	this.drawTriggers();
 	
 	//fill duration
 	this.ctx.save();
