@@ -344,8 +344,11 @@ VideoControls.prototype.initPlayButton = function(){
 	popcorn.listen('play', function(){
 		self.updatePlayButton();
 	});
+	popcorn.listen('ended', function(){
+		popcorn.pause();
+	});
 	document.getElementById('play-button').addEventListener('click', function(){
-		if (document.getElementById('play-button').className == "player-button paused"){
+		if (popcorn.paused() || popcorn.ended()){
 			popcorn.play();
 		}
 		else{
