@@ -1,0 +1,83 @@
+.full-teaser {
+	display: none;
+}
+
+.preview .full-teaser {
+	display: block;
+}
+
+.kernel-icon {
+	vertical-align: middle;
+}
+
+#video-container .node-teaser .close-preview {
+	display: none;
+}
+
+#video-container .full-teaser {
+	padding: 5px;
+}
+
+#video-container .node-teaser {
+	color: #ffffff;
+	font-weight: bold;
+	font-size: 12px;
+	border: 0;
+	padding: 0;
+    background-color: rgb(75, 76, 82);
+}
+
+#video-container .node-teaser h2 {
+	padding: 0;
+	margin: 0;
+	line-height: 30px;
+    padding-left: 30px;
+}
+
+#video-container .node-teaser a {
+	color: rgb(234, 194, 82);
+	font-style: italic;
+}
+
+#video-container .node-teaser.node-information {
+	background-image: url(/sites/all/themes/loo/images/information.png);
+	background-repeat: no-repeat;
+}
+
+#video-container .node-teaser.node-data {
+	background-image: url(/sites/all/themes/loo/images/data.png);
+	background-repeat: no-repeat;
+}
+
+#video-container .node-teaser.node-map {
+	background-image: url(/sites/all/themes/loo/images/map.png);
+	background-repeat: no-repeat;
+}
+
+#video-container .node-teaser.node-action {
+	background-image: url(/sites/all/themes/loo/images/action.png);
+	background-repeat: no-repeat;
+}
+
+#video-container .node-teaser.node-ugc {
+	background-image: url(/sites/all/themes/loo/images/ugc.png);
+	background-repeat: no-repeat;
+}
+
+#video-container .node-teaser.node-film-clip {
+	background-image: url(/sites/all/themes/loo/images/film-clip.png);
+	background-repeat: no-repeat;
+}
+
+#video-container #highlight .node-teaser.preview{
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    left: 5px;
+    background-color: rgb(75, 76, 82);
+}
+
+#video-container .node-teaser.preview .close-preview {
+	display: inline;
+    float: right;
+}

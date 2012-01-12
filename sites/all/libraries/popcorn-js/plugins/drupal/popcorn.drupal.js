@@ -78,7 +78,6 @@
 		}
 
 		function receiveTeaser(teaser, options){
-			//sanity check to make sure that the returned event is a teaser
 			//create the wrapper div and 
 			var nodeDiv = document.createElement('div');
 			nodeDiv.id = options._id;
@@ -111,8 +110,13 @@
 			}
 
 			if (parent.classList.contains('preview')){
-				//trigger a popcorn event to allow custom handling of the click event
-				popcorn.trigger('kernelPop', {nid: parent.id.match(/node-(\d+)/)[1]});
+				if (this.classList.contains('close-preview')){
+					parent.className = parent.className.replace(' preview', '');
+				}
+				else{
+					//trigger a popcorn event to allow custom handling of the click event
+					popcorn.trigger('kernelPop', {nid: parent.id.match(/node-(\d+)/)[1]});
+				}
 			}
 			else{
 				parent.className += ' preview';

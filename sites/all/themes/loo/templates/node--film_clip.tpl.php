@@ -87,8 +87,8 @@
 	
 	
 	<?php if ($teaser): ?>
-		<a class='close-preview' href='javascript:void();'>close</a>
-		<h2><a href='javascript:void();'><?php print $title; ?></a></h2>
+		<a class='close-preview' href='#'>close</a>
+		<h2><a href='#'><?php print $title; ?></a></h2>
 	
 		<div class='full-teaser'>
 			<div class="content clearfix"<?php print $content_attributes; ?>>
@@ -134,7 +134,8 @@
         </ul>
         <div id='kettle'>
         	<?php 
-        	 
+        	//add subject sections on page load?
+        	//how to make them hidden until populated?
         	if (isset($node->field_track_events['und'])){
         	    foreach ($node->field_track_events['und'] as $index => $trackEvent){
         	        $event = field_collection_item_load($trackEvent['value']);
