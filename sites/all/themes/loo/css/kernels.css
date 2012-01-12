@@ -15,7 +15,12 @@
 }
 
 #video-container .full-teaser {
-	padding: 5px;
+    padding: 5px;
+}
+
+#video-container .full-teaser img{
+    margin: 0;
+    padding: 0;
 }
 
 #video-container .node-teaser {

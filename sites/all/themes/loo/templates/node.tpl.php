@@ -89,6 +89,11 @@
             <?php print render($content); ?>
 		</div>
 	</div>
+<?php else: ?>
+	<div class="content clearfix" <?php print $content_attributes; ?>>
+        <?php print render($content); ?>
+	</div>
+	
 <?php endif; ?>
 
 </div>

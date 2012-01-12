@@ -153,11 +153,12 @@
     left: 0;
     right: 0;
     padding-right: 30px;
+    z-index: 1000;
 }
 
 #modal-dialog{
 	max-width: 960px;
-	margin: 0 auto;
+	margin: 20px auto;
 	position: relative;
 	background-color: white;
 }
