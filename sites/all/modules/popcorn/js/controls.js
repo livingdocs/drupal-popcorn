@@ -65,13 +65,19 @@ Controller.prototype.catchHistory = function(index){
 	for (var i = 0; i < vidData.videoUrls.length; i++){
 		popcorn.media.appendChild(vidData.videoUrls[i]);
 	}
+	
+	if (vidData.paused){
+		popcorn.media.autoplay = false;
+	}
 
 	//load the new video
 	popcorn.load();
 	
 	//add the new track events from the vidData
+	this.vidControls.removeTriggers();
 	for (var i = 0; i < vidData.kernels.length; i++){
 		popcorn.drupal(vidData.kernels[i]);
+		this.vidControls.addTrigger(vidData.kernels[i]);
 	}
 
 	//advance the video to the previous timestamp
@@ -103,6 +109,11 @@ Controller.prototype.catchKernel = function(data){
 };
 
 Controller.prototype.loadModal = function(nodeData){
+	var wasPlaying = false;
+	if (!popcorn.paused()){
+		wasPlaying = true;
+	    popcorn.pause();
+	}
 	var modalFrame = document.createElement('div');
 	modalFrame.id = 'modal-frame';
 	modalFrame.addEventListener('click', function(){
@@ -117,14 +128,15 @@ Controller.prototype.loadModal = function(nodeData){
 	closeButton.id = 'modal-close';
 	closeButton.innerHTML = "X";
 	closeButton.addEventListener('click', function(){
-        popcorn.play();
+		if (wasPlaying){
+			popcorn.play();
+		}
 		document.getElementsByTagName('body')[0].removeChild(modalFrame);
 	}, false);
 	modalDialog.appendChild(closeButton);
 	
 	modalFrame.appendChild(modalDialog);
 	
-    popcorn.pause();
 	document.getElementsByTagName('body')[0].appendChild(modalFrame);
 };
 
@@ -160,8 +172,10 @@ Controller.prototype.loadVideo = function(vidData){
 	this.vidControls.resetScrubber();
 	
 	//add the new track events in full.kernels
+	this.vidControls.removeTriggers();
 	for (var i = 0; i < vidData.kernels.length; i++){
 		popcorn.drupal(vidData.kernels[i]);
+		this.vidControls.addTrigger(vidData.kernels[i]);
 	}
 	
 	this.vidControls.updatePlayButton();
@@ -191,10 +205,12 @@ HistoryManager.prototype.saveHistory = function(){
 	history.kernels = [];
 	var kernels = popcorn.getTrackEvents();
 	for (var i = 0; i < kernels.length; i++){
-		history.kernels[i] = {nid: kernels[i].nid, start: kernels[i].start, end: kernels[i].end};
+		history.kernels[i] = {nid: kernels[i].nid, start: kernels[i].start, end: kernels[i].end, type: kernels[i].type};
 	}
 	
 	history.currentTime = popcorn.currentTime();
+	
+	history.paused = popcorn.paused();
 	
 	this.historyList.push(history);
 	
@@ -255,6 +271,10 @@ function VideoControls(canvas){
 
 VideoControls.prototype.addTrigger = function(data){
 	this.triggers[data.start] = data;
+};
+
+VideoControls.prototype.removeTriggers = function(){
+	this.triggers = [];
 };
 
 VideoControls.prototype.drawTriggers = function(){
