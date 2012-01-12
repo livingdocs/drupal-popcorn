@@ -277,7 +277,7 @@ VideoControls.prototype.drawTriggers = function(){
 	    	image = document.getElementById(current.type + '-trigger-icon-dim');
 	    }
 	    
-	    this.ctx.drawImage(image, startPos, 5);
+	    this.ctx.drawImage(image, startPos, 25);
 		
 	}
 };
@@ -423,20 +423,20 @@ VideoControls.prototype.drawScrubber = function(buffered, played){
 	//fill duration
 	this.ctx.save();
 	this.ctx.fillStyle = "rgb(71, 85, 86)";
-	this.ctx.fillRect(0, 40 - (this.scrubberHeight / 2), this.scrubber.width, this.scrubberHeight);
+	this.ctx.fillRect(0, 60 - (this.scrubberHeight / 2), this.scrubber.width, this.scrubberHeight);
 	this.ctx.restore();	
 
 	//fill buffered
 	this.ctx.fillStyle = "rgb(148, 127, 83)";
 	var grayLength = (buffered * this.scrubber.width);
-	this.ctx.fillRect(0, 40 - (this.scrubberHeight / 2), grayLength, this.scrubberHeight);
+	this.ctx.fillRect(0, 60 - (this.scrubberHeight / 2), grayLength, this.scrubberHeight);
 	
 	//fill played
 	this.ctx.save();
 	this.ctx.fillStyle = "rgb(255, 205, 51)";
 	this.ctx.shadowBlur = 5;
 	this.ctx.shadowColor = "rgb(255, 205, 51)";
-	this.ctx.fillRect(0, 40 - (this.scrubberHeight / 2), played, this.scrubberHeight);
+	this.ctx.fillRect(0, 60 - (this.scrubberHeight / 2), played, this.scrubberHeight);
 	this.ctx.restore();	
 	
 };
@@ -445,7 +445,7 @@ VideoControls.prototype.scrubberClick = function(event){
 	var coords = this.getCoords(event);
 	
 	//click is in the scrubber area
-	if(coords.offsetY < 50 && coords.offsetY > 30){
+	if(coords.offsetY < 70 && coords.offsetY > 50){
 		popcorn.currentTime(((coords.offsetX) / this.scrubber.width) * popcorn.duration());
 	}
 }

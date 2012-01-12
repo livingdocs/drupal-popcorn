@@ -10,12 +10,12 @@
 
 .player-button{
 	margin: 0;
-	height: 60px;
+	height: 80px;
 	width: 50px;
 	border: none;
 	background: rgba(25, 42, 53, 0.9);
     background-repeat: no-repeat;
-    background-position: 10px 15px;
+    background-position: 10px 35px;
 	vertical-align: top;
 	outline: 0;
 }
@@ -75,6 +75,7 @@
   padding: 0 20px;
   text-align: left;
   min-height: 200px;
+  position: relative;
 }
 
 .popcorn-subject{
@@ -92,35 +93,16 @@
 }
 
 #video-container .popcorn-node{
-  width: 300px;
   vertical-align: top;
-}
-
-#video-container .node-teaser{
-  background-color: rgb(75, 76, 82);
-	padding: 5px;
-  color: #ffffff;
-  font-weight: bold;
-  font-size: 12px;
-  border: 0;
-}
-
-#video-container .node-teaser h2{
-  padding: 0;
-}
-
-#video-container .node-teaser a{
-  color: rgb(234, 194, 82);
-  font-style: italic;
 }
 
 #highlight{
   width: 300px;
-  height: 60px;
+  height: 80px;
   display: inline-block;
   vertical-align: top;
   background: rgba(25, 42, 53, 0.9);
-    overflow: hidden;
+  position: relative;
 }
 
 #player-controls-taper{
@@ -137,6 +119,7 @@
 
 #highlight .node-teaser{
 	margin: 0;
+	padding: 0;
 }
 
 #highlight .node-teaser h2{
@@ -144,7 +127,7 @@
 }
 
 #highlight .popcorn-node{
-	height: 30px;
+	margin: 5px;
 }
 
 #player-history{

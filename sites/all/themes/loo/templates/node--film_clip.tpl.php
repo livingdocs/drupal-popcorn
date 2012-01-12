@@ -78,36 +78,23 @@
  * @see template_process()
  */
 ?>
-<div id="node-<?php print $node->nid; ?>"
-	class="<?php print $classes; ?> clearfix"  <?php print $attributes; ?>>
+<div id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?> clearfix"  <?php print $attributes; ?>>
 
 
 
 
 
-
+	
+	
 	<?php if ($teaser): ?>
-
-	<div class='preview-short'>
-		<span class='trigger-icon'></span>
-		<img src='' alt='' />
-		<h2  <?php print $title_attributes; ?>>
-    		<a href="<?php print $node_url; ?>"><?php print $title; ?> </a>
-    	</h2>
-	</div>
-
-
-	<h2  <?php print $title_attributes; ?>>
-		<a href="<?php print $node_url; ?>"><?php print $title; ?> </a>
-	</h2>
+		<a class='close-preview' href='javascript:void();'>close</a>
+		<h2><a href='javascript:void();'><?php print $title; ?></a></h2>
 	
-	
-    
-    <div class="content clearfix"<?php print $content_attributes; ?>>
-    
-  	<?php print render($content); ?>
-	  
-	</div>
+		<div class='full-teaser'>
+			<div class="content clearfix"<?php print $content_attributes; ?>>
+	            <?php print render($content); ?>
+			</div>
+		</div>
   
   <?php else: ?>
     
@@ -115,14 +102,14 @@
   
 	  <div id="video-container">
 	    <div id='player-history'></div>
-	    <video width="720" height="405" id="main-player" preload="auto" controls="controls" poster="/sites/all/themes/loo/images/macho1.gif" autoplay="autoplay">
+	    <video width="720" height="405" id="main-player" preload="auto" poster="/sites/all/themes/loo/images/macho1.gif" autoplay="autoplay">
 	    <?php
 	    
         drupal_add_js('sites/all/libraries/popcorn-js/popcorn.js');
         drupal_add_js('sites/all/libraries/popcorn-js/plugins/drupal/popcorn.drupal.js');
         drupal_add_js('sites/all/modules/popcorn/js/controls.js');
-        //drupal_add_js(path_to_theme() . '/js/video-controls.js');
         drupal_add_css(path_to_theme() . '/css/video-controls.css');
+        drupal_add_css(path_to_theme() . '/css/kernels.css');
         drupal_add_css('modules/contextual/contextual.css');
         
 	      foreach ($node->field_video_file['und'] as $video) {
@@ -135,7 +122,7 @@
 	    </video>
 	    <div id='controls'>
 			<canvas id='player-controls-taper' height='20' width='760'></canvas>
-	      <div><button id='play-button' class='player-button paused'></button><canvas id='player-controls' height='60' width='360'></canvas><button id='volume-button' class='player-button'></button><div id='highlight'></div></div>
+	      <div><button id='play-button' class='player-button paused'></button><canvas id='player-controls' height='80' width='360'></canvas><button id='volume-button' class='player-button'></button><div id='highlight'></div></div>
 	      <canvas id='volume-control' height='150' width='30'></canvas>
 	      
       </div>
@@ -145,7 +132,19 @@
           <li>by subject</li>
           <li>by type</li>
         </ul>
-        <div id='kettle'></div>
+        <div id='kettle'>
+        	<?php 
+        	 
+        	if (isset($node->field_track_events['und'])){
+        	    foreach ($node->field_track_events['und'] as $index => $trackEvent){
+        	        $event = field_collection_item_load($trackEvent['value']);
+        	        $eventNode = node_load($event->field_event['und'][0]['nid']);
+        	        $term = taxonomy_term_load($eventNode->field_subject['und'][0]['tid']);
+        	        //print '<div id="' . str_replace(' ', '-', $term->name) . '"></div>';
+        	    }
+        	}
+        	?>
+        </div>
       </div>
 	  
 	</div>
@@ -168,8 +167,8 @@
 	<img src='/sites/all/themes/loo/images/action.png' id='action-trigger-icon' alt='' />
 	<img src='/sites/all/themes/loo/images/action-dim.png' id='action-trigger-icon-dim' alt='' />
 
-	<img src='/sites/all/themes/loo/images/film_clip.png' id='film_clip-trigger-icon' alt='' />
-	<img src='/sites/all/themes/loo/images/film_clip-dim.png' id='film_clip-trigger-icon-dim' alt='' />
+	<img src='/sites/all/themes/loo/images/film-clip.png' id='film-clip-trigger-icon' alt='' />
+	<img src='/sites/all/themes/loo/images/film-clip-dim.png' id='film-clip-trigger-icon-dim' alt='' />
 
 	<img src='/sites/all/themes/loo/images/ugc.png' id='ugc-trigger-icon' alt='' />
 	<img src='/sites/all/themes/loo/images/ugc-dim.png' id='ugc-trigger-icon-dim' alt='' />

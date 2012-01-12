@@ -39,7 +39,7 @@ function _popcorn_load_kernels($node){
       'start' => $event->field_start['und'][0]['value'],
       'end' => $event->field_end['und'][0]['value'],
       'nid' => $event->field_event['und'][0]['nid'],
-      'type' => $eventNode->type
+      'type' => str_replace('_', '-', $eventNode->type)
       );
     }
   }

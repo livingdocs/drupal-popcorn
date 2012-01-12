@@ -56,7 +56,7 @@
 			highlight.insertBefore(nodeData[nid].content, highlight.firstChild);
 			while (highlight.childNodes.length > 2){
 				var moveNid = highlight.lastChild.firstChild.id.match(/node-(\d+)/)[1];
-				var kernelSubject = document.getElementById(nodeData[moveNid].subject.replace(' ', '_'));
+				var kernelSubject = document.getElementById(nodeData[moveNid].subject.replace(' ', '-'));
 				if (kernelSubject == null){
 					kernelSubject = createNewSubject(nodeData[moveNid].subject);
 					kettle.appendChild(kernelSubject);
@@ -68,7 +68,7 @@
 
 		function createNewSubject(subject){
 			var container = document.createElement('div');
-			container.id = subject.replace(' ', '_');
+			container.id = subject.replace(' ', '-');
 			container.className = 'popcorn-subject';
 			var heading = document.createElement('h2');
 			heading.innerHTML = subject;
