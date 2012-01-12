@@ -1,0 +1,89 @@
+<?php
+
+/**
+ * @file
+ *
+ * Provide integration with Google Chrome Frame
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function chrome_frame_menu() {
+  $items['admin/config/services/chrome_frame'] = array(
+    'title' => 'Chrome Frame',
+    'description' => 'Configure Chrome Frame Settings',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('chrome_frame_settings'),
+    'access arguments' => array('administer site configuration'),
+    'file' => 'chrome_frame.admin.inc',
+  );
+  
+  return $items;
+}
+
+/**
+ * Implements hook_init().
+ *
+ * Add the chrome meta tag, and all the javascript
+ */
+function chrome_frame_init() {
+  $element = array(
+    '#type' => 'html_tag',
+    '#tag' => 'meta',
+    '#attributes' => array(
+      'content' => 'chrome=1',
+      'http-equiv' => 'X-UA-Compatible',
+    ),
+  );
+  drupal_add_html_head($element, 'chrome_frame_meta_tag');
+}
+
+
+/**
+ * Implements hook_page_build
+ */
+function chrome_frame_page_build(&$page) {
+  global $base_url;
+  
+  $options = drupal_json_encode(array(
+    'node' => 'chrome-frame',
+    'mode' => variable_get('chrome_frame_mode', 'inline'),
+    'destination' => $base_url . $_SERVER['REQUEST_URI'],
+  ));
+  
+  switch (variable_get('chrome_frame_prompt')) {  
+    case 'all':
+      $page['page_bottom']['chrome_frame']= array(
+        '#type' => 'markup',
+        '#markup' => '<div id="chrome-frame"></div><script src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js" type="text/javascript"></script><script type="text/javascript">CFInstall.check('. $options .');</script>',
+      );
+      break;
+    
+    case 'ie6orless':
+      $page['page_bottom']['chrome_frame']= array(
+        '#type' => 'markup',
+        '#markup' => '<div id="chrome-frame"></div><!--[if lte IE 6]><script src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js" type="text/javascript"></script><script type="text/javascript">CFInstall.check('. $options .');</script><![endif]-->',
+      );
+      break;
+
+    case 'ie7orless':
+      $page['page_bottom']['chrome_frame']= array(
+        '#type' => 'markup',
+        '#markup' => '<div id="chrome-frame"></div><!--[if lte IE 7]><script src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js" type="text/javascript"></script><script type="text/javascript">CFInstall.check('. $options .');</script><![endif]-->',
+      );
+      break;
+      
+    case 'ie8orless':
+      $page['page_bottom']['chrome_frame']= array(
+        '#type' => 'markup',
+        '#markup' => '<div id="chrome-frame"></div><!--[if lte IE 8]><script src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js" type="text/javascript"></script><script type="text/javascript">CFInstall.check('. $options .');</script><![endif]-->',
+      );
+      break;
+      
+    case 'disabled':
+      break;
+  }
+}
+
+
