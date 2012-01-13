@@ -77,6 +77,8 @@
  * @see template_preprocess_node()
  * @see template_process()
  */
+hide($content['links']);
+$links = render($content['links']);
 ?>
 <div id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 
@@ -87,6 +89,9 @@
 	<div class='full-teaser'>
 		<div class="content clearfix"<?php print $content_attributes; ?>>
             <?php print render($content); ?>
+		</div>
+		<div class="link-wrapper">
+			<?php print $links; ?>
 		</div>
 	</div>
 <?php else: ?>

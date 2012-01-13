@@ -21,8 +21,6 @@
 		//constants
 		var TEASER = 0;
 		var TEASER_TEXT = 'teaser';
-		var FULL = 1;
-		var FULL_TEXT = 'full';
 
 		var highlight = document.getElementById('highlight');
 		var kettle = document.getElementById('kettle');
@@ -36,9 +34,6 @@
 					switch (event.type){
 					case TEASER:
 						receiveTeaser(event.data, options);
-						break;
-					case FULL:
-						receiveFull(event.data, options);
 						break;
 					}
 
