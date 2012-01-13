@@ -102,24 +102,15 @@
   
 	  <div id="video-container">
 	    <div id='player-history'></div>
-	    <video width="720" height="405" id="main-player" preload="auto" poster="/sites/all/themes/loo/images/macho1.gif" autoplay="autoplay">
-	    <?php
+	    <div id='main-player-wrapper'><video width="720" height="405" id="main-player" preload="auto" poster="/sites/all/themes/loo/images/macho1.gif" autoplay="autoplay">
 	    
-        drupal_add_js('sites/all/libraries/popcorn-js/popcorn.js');
-        drupal_add_js('sites/all/libraries/popcorn-js/plugins/drupal/popcorn.drupal.js');
-        drupal_add_js('sites/all/modules/popcorn/js/controls.js');
-        drupal_add_css(path_to_theme() . '/css/video-controls.css');
-        drupal_add_css(path_to_theme() . '/css/kernels.css');
-        drupal_add_css('modules/contextual/contextual.css');
-        
-	      foreach ($node->field_video_file['und'] as $video) {
+	    <?php foreach ($node->field_video_file['und'] as $video): ?>
 	      	
-	      	print "<source src='" . file_create_url($video['uri']) . "' type='{$video['filemime']}' />";
+	      	<source src='<?php print file_create_url($video['uri']); ?>' type='<?php print $video['filemime']; ?>' />
 	        
-	      }
-	      
-	    ?>
-	    </video>
+	    <?php endforeach; ?>
+	    
+	    </video></div>
 	    <div id='controls'>
 			<canvas id='player-controls-taper' height='20' width='760'></canvas>
 	      <div><button id='play-button' class='player-button paused'></button><canvas id='player-controls' height='80' width='360'></canvas><button id='volume-button' class='player-button'></button><div id='highlight'></div></div>
@@ -129,8 +120,8 @@
       
       <div id='info-panel'>
         <ul id='info-panel-controls'>
-          <li>by subject</li>
-          <li>by type</li>
+          <li><a href='#' id='by-subject'>by subject</a></li>
+          <li><a href='#' id='by-type'>by type</a></li>
         </ul>
         <div id='kettle'>
         	<?php 

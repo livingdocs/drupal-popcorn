@@ -5,6 +5,69 @@ Date Module 7.x
 Version 7.x-2.x-dev
 ===================
 
+======================
+Version 7.x-2.0-rc1
+======================
+
+Notes:
+The Date Browser has been removed. Please use the Date Pager instead. If you have existing views using the Date
+Browser the navigation will just disappear from them. If you add a Date Pager to the view you should get it back.
+Then delete the Date Browser attachment from the view, since it doesn't do anything any more.
+
+The UNTIL date was not getting included in repeating results and that is now fixed. This is an API change of sorts 
+for anyone who worked around the issue by setting it ahead.
+
+The All Day checkbox and All Day themes were moved into a separate module, using new hooks added to the date
+processing. This module should serve as an example of how other modules can inject functionality into date fields.
+
+A new module has been added for integrating the Date Repeat API into date fields. Some of this code has been
+moved into the new module, more of it will be moved later as I figure out how to unwind it from the base
+processing. An update hook has been added to enable this module by default for existing sites. If you don't
+use Repeating dates you can disable it.
+
+New Features/Major Changes
+
+- Issue #1229378 by ksenzee, Sync the end date with the start date on new dates using select widgets.
+- Issue #1236216, Move the repeating date integration out of the Date module and into a separate, Date Repeat Field module.
+- Issue #874322, The All Day functionality has been moved into a separate module and hooks were added to make it easier for other modules to inject steps into date processing.
+- Issue #1267046, Include the UNTIL date in repeating results..
+- Issue #1354606 by temaruk, Rework the repeating date UI to make it more user-friendly.
+- Issue #1362654, Remove Advanced Help integration, it needs a total rewrite.
+- Issue #1357362, Remove Date Browser, use Date Pager instead.
+- Issue #1354606, Make sure COUNT option without UNTIL date can be handled correctly by repeating date computations.
+
+Bugfixes
+
+- Fix to new default date handling, the default date has to set a date in the database timezone, not the display timezone.
+- Issue #1245106 by Gábor Hojtsy, Hide the option to add the delta into the view for single value fields.
+- Issue #1370876, Make sure new Date All Day code does not try to set the popup values if Date Popup is disabled.
+- Issue #874322, Add back the date_field_all_day() function to avoid breaking other modules that are using it.
+- Fix Date text placeholder to display a formatted date instead of a format. Follow up to Date repeat UI changes.
+- Issue #1248520 by fearlsgroove, Use attribute selector on all day and end day checkboxes.
+- Issue #952446 and #1031690, Select dates with only year and month were not working.
+- Issue #1292152 by pfrenssen, Remove debug functions.
+- Issue #1338976 by Josh Benner, Adjust iCal unwrap to allow for leading spaces, per standard.
+- Issue #1352486 by d.novikov, Rework date SQL formatting for Microsoft SQL.
+- Issue #1266536, Keep timezone adjustments from altering the values for repeating date EXCEPTIONS and ADDITIONS.
+- Issue #1353488, Some repeating date calculations using PHP 5.3.6+ were not computing correctly.
+- Issue #1364026, Fix link to documentation, also move help to Date API module.
+- Issue #1276270, Fix fatal error when using repeat date on user.
+- Issue #1362758, Add empty file for the date_plugin_display_attachment.inc file that was removed, to avoid fatal errors if it is missing on a site that formerly used it.
+- Issue #1363460, Make sure widget dates do not end up with the current date when they should be empty.
+- Issue #1353488, Attempt to fix problem using date_date_set() in PHP 5.3.6+.
+- Date Migrate tests needed some fixes to conform to latest code.
+- Issue #1353790, Hide missing index notice if the value in the Date Popup does not match the expected value, it will still get trapped as a validation error.
+- Issue #1353790, Make sure Date Popup properly translates the default value if it includes month or day names.
+- Issue #1217796, Make sure that All Day formatting works correctly even if the All Day label is empty.
+- The repeat description was lost by a recent change to the theme that sent the element through the theme twice.
+- Remove date_get_nested_elements() function. Not being used and I don't want other code to start expecting it.
+- Issue #1266144, The end date should get set to blank if it is optional and matches the start date, but only if it is not populated by default values.
+- Issue #1349510, Make sure default values get populated before processing so they still get set on hidden fields.
+
+======================
+Version 7.x-2.0-alpha5
+======================
+
 Notes:
 The date repeat widgets have been removed to keep users from trying to change repeating dates into non-repeating dates.
 There are now just three widgets, Date Select, Date Text, and Date Popup. Whether or not a date is a repeating date

@@ -240,7 +240,7 @@ function theme_location_de($location = array(), $hide = array()) {
  *
  */
 function location_get_postalcode_data_de($location = array()) {
-  $dash_index == strpos($location['postal_code'], '-');
+  $dash_index = strpos($location['postal_code'], '-');
   // First we strip slash off if we're dealing with a 9-digit US zipcode
   if ($dash_index === FALSE) {
     $location['postal_code'] = substr($location['postal_code'], 0, $dash_index);

@@ -75,9 +75,8 @@ function date_devel_generate($entity, $field, $instance, $bundle) {
   date_timezone_set($start2, timezone_open($timezone));
   $entity_field['offset2'] = date_offset_get($start2);
 
-  if (!empty($field['settings']['repeat'])) {
+  if (module_exists('date_repeat_field') && !empty($field['settings']['repeat'])) {
     module_load_include('inc', 'date_repeat', 'date_repeat_calc');
-    module_load_include('inc', 'date', 'date_repeat');
     module_load_include('inc', 'date_api', 'date_api_ical');
 
     // Create a repeating date.

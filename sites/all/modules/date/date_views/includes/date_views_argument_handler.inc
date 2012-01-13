@@ -68,7 +68,6 @@ class date_views_argument_handler extends date_views_argument_handler_simple {
       '#type' => 'hidden',
       '#value' => $this->options['date_group'],
     );
-
   }
 
   function options_validate(&$form, &$form_state) {

@@ -132,3 +132,19 @@ function date_update_7001() {
   field_cache_clear();
   drupal_set_message(t('The widgets for repeating dates have changed. Please check the Display Fields page for each content type that has repeating date fields and confirm that the right widget has been selected.'), 'warning');
 }
+
+/**
+ * Add a notification that there is a new Date All Day module, and enable it.
+ */
+function date_update_7002() {
+  drupal_set_message(t("The <em>All Day</em> functionality has been moved into a separate module. This new module provides the option to add an <em>All Day</em> checkbox to toggle time on and off for date fields. It also contains the theme that displays the <em>All Day</em> text on fields that have no time. For consistency with prior code, it has been automatically enabled. If you don't want the <em>All Day</em> functionality you can disable this module."));
+  module_enable(array('date_all_day'));
+}
+
+/**
+ * Add a notification that there is a new Date Repeat Field module, and enable it.
+ */
+function date_update_7003() {
+  drupal_set_message(t("The <em>Date Repeat</em> integration for Date fields is being moved into a separate module. For consistency with prior code, it has been automatically enabled if the Date Repeat API module is enabled. If you don't use <em>Date Repeat</em> functionality in your fields, you can disable this module."));
+  if (module_exists('date_repeat')) module_enable(array('date_repeat_field'));
+}

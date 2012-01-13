@@ -42,6 +42,17 @@ define('DATE_REGEX_ICAL_DATETIME', '/(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})
  */
 
 /**
+ * Implement hook_help().
+ */
+function date_help($path, $arg) {
+  switch ($path) {
+    case 'admin/help#date':
+      return '<p>' . t('Complete documentation for the Date and Date API modules is available at <a href="@link">http://drupal.org/node/92460</a>.', array('@link' => 'http://drupal.org/node/262062')) . '</p>';
+      break;
+  }
+}
+
+/**
  * Extend PHP DateTime class with granularity handling, merge functionality and
  * slightly more flexible initialization parameters.
  *
@@ -399,12 +410,12 @@ class DateObject extends DateTime {
           break;
         case 'F':
           $array_month_long = array_flip(date_month_names());
-          $final_date['month'] = $array_month_long[$value];
+          $final_date['month'] = array_key_exists($value, $array_month_long) ? $array_month_long[$value] : '';
           $this->addGranularity('month');
           break;
         case 'M':
           $array_month = array_flip(date_month_names_abbr());
-          $final_date['month'] = $array_month[$value];
+          $final_date['month'] = array_key_exists($value, $array_month) ? $array_month[$value] : '';
           $this->addGranularity('month');
           break;
         case 'Y':
@@ -2146,65 +2157,4 @@ function date_is_date($date) {
     return FALSE;
   }
   return TRUE;
-}
-
-/**
- * Return the nested form elements for a field by name.
- * This can be used either to retrieve the entire sub-element
- * for a field by name, no matter how deeply nested it is within
- * fieldgroups or multigroups, or to find the multiple value
- * sub-elements within a field element by name (i.e. 'value' or
- * 'rrule'). You can also use this function to see if an item exists
- * in a form (the return will be an empty array if it does not exist).
- *
- * The function returns an array of results. A field will generally
- * only exist once in a form but the function can also be used to
- * locate all the 'value' elements within a multiple value field,
- * so the result is always returned as an array of values.
- *
- * For example, for a field named field_custom,  the following will
- * pluck out the form elements for this field from the node form,
- * no matter how deeply it is nested within fieldgroups or fieldsets:
- *
- * $elements = content_get_nested_elements($node_form, 'field_custom');
- *
- * You can prefix the function with '&' to retrieve the element by
- * reference to alter it directly:
- *
- * $elements = &content_get_nested_elements($form, 'field_custom');
- * foreach ($elements as $element) {
- *   $element['#after_build'][] = 'my_field_afterbuild';
- * }
- *
- * During the #after_build you could then do something like the
- * following to alter each individual part of a multiple value field:
- *
- * $sub_elements = &content_get_nested_elements($element, 'value');
- * foreach ($sub_elements as $sub_element) {
- *   $sub_element['#element_validate'][] = 'custom_validation';
- * }
- *
- * @param $form
- *   The form array to search.
- * @param $field_name
- *   The name or key of the form elements to return.
- * @return
- *   An array of all matching form elements, returned by reference.
- */
-function &date_get_nested_elements(&$form, $field_name) {
-  $elements = array();
-
-  foreach (element_children($form) as $key) {
-    if ($key === $field_name) {
-      $elements[] = &$form[$key];
-    }
-    else if (is_array($form[$key])) {
-      $nested_form = &$form[$key];
-      if ($sub_elements = &date_get_nested_elements($nested_form, $field_name)) {
-        $elements = array_merge($elements, $sub_elements);
-      }
-    }
-  }
-
-  return $elements;
 }

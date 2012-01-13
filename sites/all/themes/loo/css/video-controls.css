@@ -1,7 +1,11 @@
+#main-player-wrapper{
+    background: rgba(25, 42, 53, 0.9);
+    margin: 0 auto;
+    width: 720px;
+}
+
 #main-player{
-	background: rgba(25, 42, 53, 0.9);
-	display: block;
-	margin: 0 auto;
+    display: block;
 }
 	
 #player-history{
@@ -127,7 +131,7 @@
 }
 
 #highlight .popcorn-node{
-	margin: 5px;
+	padding: 5px;
 }
 
 #player-history{

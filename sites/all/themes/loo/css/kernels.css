@@ -1,3 +1,7 @@
+#info-panel-controls a {
+    color: rgb(255, 255, 255);
+}
+
 .full-teaser {
 	display: none;
 }
@@ -8,6 +12,14 @@
 
 .kernel-icon {
 	vertical-align: middle;
+}
+
+.field-name-field-thumbnail{
+	float: right;
+}
+
+#video-container .links {
+	margin: 0;
 }
 
 #video-container .node-teaser .close-preview {
@@ -40,7 +52,11 @@
 }
 
 #video-container .node-teaser a {
-	color: rgb(234, 194, 82);
+    color: rgb(234, 194, 82);
+}
+
+#video-container .node-teaser h2 a {
+    color: rgb(255, 255, 255);
 	font-style: italic;
 }
 

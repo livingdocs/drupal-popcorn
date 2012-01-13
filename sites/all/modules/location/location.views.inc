@@ -525,7 +525,7 @@ function location_views_proximity_get_reference_location($view, $options) {
           else {
             if (isset($tempnode->$field_name)) {
               $cck_location = $tempnode->$field_name;
-              if (isset($cck_location[LANGUAGE_NONE][0]['longitude']) && isset($cck_location[0]['latitude'])) {
+              if (isset($cck_location[LANGUAGE_NONE][0]['longitude']) && isset($cck_location[LANGUAGE_NONE][0]['latitude'])) {
                 $coordinates['latitude'] = (float) $cck_location[LANGUAGE_NONE][0]['latitude'];
                 $coordinates['longitude'] = (float) $cck_location[LANGUAGE_NONE][0]['longitude'];
               }

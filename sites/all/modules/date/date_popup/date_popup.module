@@ -244,8 +244,8 @@ function date_popup_element_value_callback($element, $input = FALSE, &$form_stat
   elseif (!empty($element['#default_value'])) {
     $date = date_default_date($element);
   }
-  $return['date'] = date_is_date($date) && !$date->timeOnly ? $date->format(date_popup_date_format($element)) : '';
-  $return['time'] = date_is_date($date) && $has_time ? $date->format(date_popup_time_format($element)) : '';
+  $return['date'] = date_is_date($date) && !$date->timeOnly ? date_format_date($date, 'custom', date_popup_date_format($element)) : '';
+  $return['time'] = date_is_date($date) && $has_time ? date_format_date($date, 'custom', date_popup_time_format($element)) : '';
   return $return;
 
 }
@@ -281,6 +281,9 @@ function date_popup_element_process($element, $form_state, $form) {
   else {
     $element['#element_validate'] = array('date_popup_validate');
   }
+
+  drupal_alter('date_popup_process', $element);
+
   return $element;
 }
 
@@ -341,6 +344,7 @@ function date_popup_process_date_part(&$element) {
   $sub_element['#value'] = $sub_element['#default_value'];
   // TODO, figure out exactly when we want this description. In many places it is not desired.
   $sub_element['#description'] = ' '. t('E.g., @date', array('@date' => date_format_date(date_now(), 'custom', date_popup_date_format($element))));
+
   return $sub_element;
 }
 
@@ -351,7 +355,6 @@ function date_popup_process_time_part(&$element) {
   $granularity = date_format_order($element['#date_format']);
   $has_time = date_has_time($granularity);
   if (empty($has_time)) return array();
-  $all_day_id = !empty($element['#date_all_day_id']) ? $element['#date_all_day_id'] : '';
 
   switch ($element['#timepicker']) {
     case 'default':
@@ -412,19 +415,13 @@ function date_popup_process_time_part(&$element) {
     '#ajax' => !empty($element['#ajax']) ? $element['#ajax'] : FALSE,
   );
 
-  if ($all_day_id != '') {
-    $sub_element['#states'] = array(
-      'visible' => array(
-        '#' . $all_day_id => array('checked' => FALSE),
-      ));
-  }
-
   $sub_element['#value'] = $sub_element['#default_value'];
 
   // TODO, figure out exactly when we want this description. In many places it is not desired.
   $example_date = date_now();
   date_increment_round($example_date, $element['#date_increment']);
   $sub_element['#description'] = t('E.g., @date', array('@date' => date_format_date($example_date, 'custom', date_popup_time_format($element))));
+
   return ($sub_element);
 }
 
@@ -449,6 +446,11 @@ function date_popup_validate($element, &$form_state) {
   module_load_include('inc', 'date_api', 'date_api_elements');
   date_popup_add();
 
+  $input_exists = NULL;
+  $input = drupal_array_get_nested_value($form_state['values'], $element['#parents'], $input_exists);
+
+  drupal_alter('date_popup_pre_validate', $element, $form_state, $input);
+
   $granularity = date_format_order($element['#date_format']);
   $date_granularity = date_popup_date_granularity($element);
   $time_granularity = date_popup_time_granularity($element);
@@ -456,17 +458,6 @@ function date_popup_validate($element, &$form_state) {
 
   $label = !empty($element['#date_title']) ? $element['#date_title'] : (!empty($element['#title']) ? $element['#title'] : '');
   $label = t($label);
-
-  $input_exists = NULL;
-  $input = drupal_array_get_nested_value($form_state['values'], $element['#parents'], $input_exists);
-
-  // Let Date module massage the format for all day values so they will pass validation.
-  // The All day flag, if used, actually exists on the parent element.
-  // @TODO Make this into a generic hook instead of a specific Date module function.
-  if (function_exists('date_all_day_value')) {
-    date_all_day_value($element, $form_state);
-  }
-
 
   $date = date_popup_input_date($element, $input);
 

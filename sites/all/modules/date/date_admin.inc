@@ -42,7 +42,7 @@ function date_default_formatter_settings_form($field, $instance, $view_mode, $fo
     '#type' => 'textfield',
     '#title' => t('Multiple values:'),
     '#size' => 5,
-    '#field_prefix' => theme('advanced_help_topic', 'date_api', 'date-display') . $prefix,
+    '#field_prefix' => $prefix,
     '#field_suffix' => $suffix,
     '#default_value' => $settings['multiple_number'],
     '#weight' => 2,
@@ -72,17 +72,6 @@ function date_default_formatter_settings_form($field, $instance, $view_mode, $fo
     '#access' => ($field['cardinality'] === FIELD_CARDINALITY_UNLIMITED) || ($field['cardinality'] > 1),
     '#description' => t('Identify specific start and/or end dates in the format YYYY-MM-DDTHH:MM:SS, or leave blank for all available dates.'),
    );
-
-  $form['show_repeat_rule'] = array(
-    '#title' => t('Repeat rule:'),
-    '#type' => 'select',
-    '#options' => array(
-      'show' => t('Display repeat rule'),
-      'hide' => t('Hide repeat rule')),
-    '#default_value' => $settings['show_repeat_rule'],
-    '#access' => $field['settings']['repeat'],
-    '#weight' => 5,
-  );
 
   return $form;
 }
@@ -114,7 +103,7 @@ function date_default_formatter_settings_summary($field, $instance, $view_mode) 
   $formatter = $display['type'];
   $format_types = date_format_type_options();
   $summary = array();
-  switch($formatter) {
+  switch ($formatter) {
     case 'date_plain':
       $format = t('Plain');
       break;
@@ -143,16 +132,7 @@ function date_default_formatter_settings_summary($field, $instance, $view_mode) 
     ));
   }
 
-  if (array_key_exists('show_repeat_rule', $settings) && !empty($field['repeat'])) {
-    if (!empty($settings['show_repeat_rule'])) {
-      $summary[] = t('Show repeat rule');
-    }
-    else {
-      $summary[] = t('Do not show repeat rule');
-    }
-  }
-
-  return implode('<br />', $summary);
+  return $summary;
 }
 
 /**
@@ -164,8 +144,9 @@ function date_interval_formatter_settings_summary($field, $instance, $view_mode)
   $display = $instance['display'][$view_mode];
   $settings = $display['settings'];
   $formatter = $display['type'];
-  return t('Display time ago, showing @interval units.', array('@interval' => $settings['interval']));
+  $summary[] = t('Display time ago, showing @interval units.', array('@interval' => $settings['interval']));
 
+  return $summary;
 }
 
 function _date_field_instance_settings_form($field, $instance) {
@@ -217,6 +198,13 @@ function _date_field_instance_settings_form($field, $instance) {
     );
 
   $form['#element_validate'] = array('date_field_instance_settings_form_validate');
+
+  $context = array(
+    'field' => $field,
+    'instance' => $instance,
+  );
+  drupal_alter('date_field_instance_settings_form', $form, $context);
+
   return $form;
 }
 
@@ -324,20 +312,6 @@ function _date_field_widget_settings_form($field, $instance) {
     );
   }
 
-  $form['display_all_day'] = array(
-    '#type' => 'checkbox',
-    '#title' => t('Display all day checkbox'),
-    '#default_value' => $settings['display_all_day'],
-    '#description' => t('Determines whether to display the \'All Day\' checkbox to the user.'),
-    '#weight' => 8,
-    '#fieldset' => 'date_format',
-  );
-  // Hide the option to use the all day checkbox for dates with no time.
-  if (!date_has_time($field['settings']['granularity'])) {
-    $form['display_all_day']['#type'] = 'hidden';
-    $form['display_all_day']['#value'] = 0;
-  }
-
   $form['label_position'] = array(
     '#type' => 'value',
     '#value' => $settings['label_position'],
@@ -388,16 +362,13 @@ function _date_field_widget_settings_form($field, $instance) {
         );
     }
   }
-  if (module_exists('date_repeat') && date_is_repeat_field($field, $instance)) {
-    $form['repeat_collapsed'] = array(
-      '#type' => 'radios',
-      '#default_value' => $settings['repeat_collapsed'],
-      '#options' => array(0 => t('Expanded'), 1 => t('Collapsed')),
-      '#title' => t('Repeat display'),
-      '#description' => t("Should the repeat options form start out expanded or collapsed? Set to 'Collapsed' to make those options less obtrusive."),
-      '#fieldset' => 'date_format',
-      );
-  }
+
+  $context = array(
+    'field' => $field,
+    'instance' => $instance,
+  );
+  drupal_alter('date_field_widget_settings_form', $form, $context);
+
   return $form;
 }
 
@@ -426,24 +397,6 @@ function _date_field_settings_form($field, $instance, $has_data) {
     '#element_validate' => array('date_field_settings_validate'),
   );
 
-  if (module_exists('date_repeat')) {
-    $form['repeat'] = array(
-      '#type' => 'select',
-      '#title' => t('Repeating date'),
-      '#default_value' => $field['settings']['repeat'],
-      '#options' => array(0 => t('No'), 1 => t('Yes')),
-      '#attributes' => array('class' => array('container-inline')),
-      '#description' => t("Repeating dates use an 'Unlimited' number of values. Instead of the 'Add more' button, they include a form to select when and how often the date should repeat."),
-      '#disabled' => $has_data,
-    );
-  }
-  else {
-    $form['repeat'] = array(
-      '#type' => 'hidden',
-      '#value' => 0,
-    );
-  }
-
   // Make sure granularity is in the right format and has no empty values.
   if (!empty($settings['granularity']) && is_array($settings['granularity'])) {
     $granularity = array_filter($settings['granularity']);
@@ -454,7 +407,7 @@ function _date_field_settings_form($field, $instance, $has_data) {
   $options = date_granularity_names();
   $checkbox_year = array(
     '#type' => 'checkbox',
-    '#title' => $options['year'],
+    '#title' => check_plain($options['year']),
     '#value' => 'year',
     '#return_value' => 'year',
     '#disabled' => TRUE,
@@ -508,6 +461,13 @@ function _date_field_settings_form($field, $instance, $has_data) {
     '#type' => 'hidden',
     '#value' => date_get_timezone_db($tz_handling),
     );
+
+  $context = array(
+    'field' => $field,
+    'instance' => $instance,
+    'has_data' => $has_data,
+  );
+  drupal_alter('date_field_settings_form', $form, $context);
 
   return $form;
 }

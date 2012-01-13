@@ -77,9 +77,8 @@ function theme_date_display_combination($vars) {
   // Check the formatter settings to see if the repeat rule should be
   // displayed. Show it only with the first multiple value date.
   list($id) = entity_extract_ids($entity_type, $entity);
-  if (!in_array($id, $repeating_ids) && module_exists('date_repeat')
+  if (!in_array($id, $repeating_ids) && module_exists('date_repeat_field')
   && !empty($item['rrule']) && $options['show_repeat_rule'] == 'show') {
-    module_load_include('inc', 'date', 'date_repeat');
     $repeat_vars = array(
       'field' => $field,
       'item' => $item,
@@ -300,83 +299,6 @@ function theme_date_display_interval($vars) {
     'interval' => $options['interval'],
   );
   return '<span class="date-display-interval"' . drupal_attributes($attributes) . '>' .theme('date_time_ago', $time_ago_vars) . '</span>';
-}
-
-/**
- * Theme the human-readable description for a Date Repeat rule.
- *
- * TODO -
- * add in ways to store the description in the date so it isn't regenerated
- * over and over and find a way to allow description to be shown or hidden.
- */
-function theme_date_repeat_display($vars) {
-  $field = $vars['field'];
-  $item = $vars['item'];
-  $entity = !empty($vars['node']) ? $vars['node'] : NULL;
-  $output = '';
-  if (!empty($item['rrule'])) {
-    $output = date_repeat_rrule_description($item['rrule']);
-    $output = '<div>' . $output . '</div>';
-  }
-  return $output;
-}
-
-/**
- * Adjust start/end date format to account for 'all day' .
- *
- * @param array $field, the field definition for this date field.
- * @param string $which, which value to return, 'date1' or 'date2' .
- * @param object $date1, a date/time object for the 'start' date.
- * @param object $date2, a date/time object for the 'end' date.
- * @param string $format
- * @param object $entity, the node this date comes from (may be incomplete, always contains nid).
- * @param object $view, the view this node comes from, if applicable.
- * @return formatted date.
- */
-function theme_date_all_day($vars) {
-  $field    = $vars['field'];
-  $instance = $vars['instance'];
-  $which    = $vars['which'];
-  $date1    = $vars['date1'];
-  $date2    = $vars['date2'];
-  $format   = $vars['format'];
-  $entity   = $vars['entity'];
-  $view     = !empty($vars['view']) ? $vars['view'] : NULL;
-
-  if (empty($date1) || !is_object($date1) || $format == 'format_interval') {
-    return;
-  }
-  if (empty($date2)) {
-    $date2 = $date1;
-  }
-
-  if (!date_has_time($field['settings']['granularity'])) {
-    $format = date_limit_format($format, array('year', 'month', 'day'));
-    return date_format_date($$which, 'custom', $format);
-  }
-
-  $format_granularity = date_format_order($format);
-  $format_has_time = FALSE;
-  if (in_array('hour', $format_granularity)) {
-    $format_has_time = TRUE;
-  }
-  $all_day = date_field_all_day($field, $instance, $date1, $date2);
-
-  if ($all_day && $format_has_time) {
-    $format = date_limit_format($format, array('year', 'month', 'day'));
-    return trim(date_format_date($$which, 'custom', $format) .' '. theme('date_all_day_label'));
-  }
-  else {
-    return date_format_date($$which, 'custom', $format);
-  }
-
-}
-
-/**
- * Theme the way an 'all day' label will look.
- */
-function theme_date_all_day_label() {
-  return '(' . t('All day', array(), array('context' => 'datetime')) .')';
 }
 
 /**

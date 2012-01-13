@@ -1094,10 +1094,16 @@ function _location_autocomplete($country, $string = '') {
  *
  */
 function _location_country_ajax_callback($form, $form_state) {
-  if (arg(2) == 'locations') {
+  // The isset() checks, ideally, wouldn't ever have to happen because, ideally,
+  // this code would never get called, because, ideally, we wouldn't add an
+  // ajax call to the country field.  Unfortunately, however, there's no easy
+  // way to check whether or not the province is being collected when putting
+  // together the country form element in location_locationapi() when that
+  // function is called with $op == 'field_expand'
+  if (arg(2) == 'locations' && isset($form['locations'][arg(3)]['province'])) {
     return $form['locations'][arg(3)]['province'];
   }
-  else {
+  elseif (isset($form['locations'][arg(2)][arg(3)][arg(4)])) {
     return $form[arg(2)][arg(3)][arg(4)]['province']; 
   }
 }
@@ -1468,7 +1474,10 @@ function _location_geo_logic(&$location, $changed, $filled, $inhibit_geocode = F
   if (!$inhibit_geocode) {
     // Have any of the fields possibly affecting geocoding changed?
     // Or, was the location previously user submitted but is no longer?
-    if ($changed['street'] || $changed['additional'] || $changed['city'] || $changed['province'] || $changed['country'] || $changed['postal_code'] || $location['source'] == LOCATION_LATLON_USER_SUBMITTED) {
+    if (  !empty($changed['street']) || !empty($changed['additional']) ||
+          !empty($changed['city']) || !empty($changed['province']) ||
+          !empty($changed['country']) || !empty($changed['postal_code']) ||
+          $location['source'] == LOCATION_LATLON_USER_SUBMITTED  ) {
 
       // Attempt exact geocoding.
       if ($data = location_latlon_exact($location)) {

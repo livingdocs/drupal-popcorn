@@ -10,120 +10,6 @@ module_load_include('inc', 'date', '/date.field');
 module_load_include('inc', 'date', '/date_elements');
 
 /**
- * Implements hook_menu().
- *
- * Add menu tabs to display pages with details about repeating date values.
- */
-function date_menu() {
-  $items = array();
-  // Repeat dates tab on entity
-  if (!module_exists('date_repeat')) {
-    return $items;
-  }
-
-  $values = date_repeat_bundles();
-  foreach ($values as $entity_type => $bundles) {
-    if (module_exists('field_collection') && $entity_type == 'field_collection_item') {
-      foreach ($bundles as $bundle => $fields) {
-        $field = field_info_field($bundle);
-        if ($field['type'] == 'field_collection') {
-          $path = field_collection_field_get_path($field);
-          $count = count(explode('/', $path));
-          $items[$path . '/%field_collection_item/repeats'] = array(
-           'title' => 'Repeats',
-           'page callback' => 'date_repeat_page',
-           'page arguments' => array($entity_type, $count),
-           'access callback' => 'date_repeat_show',
-           'access arguments' => array($entity_type, $count),
-           'type' => MENU_LOCAL_TASK,
-           'context' => MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE,
-          );
-        }
-      }
-    }
-    else {
-      $path = $entity_type . '/%' . $entity_type;
-      $items[$path . '/repeats'] = array(
-       'title' => 'Repeats',
-       'page callback' => 'date_repeat_page',
-       'page arguments' => array($entity_type, 1),
-       'access callback' => 'date_repeat_show',
-       'access arguments' => array($entity_type, 1),
-       'type' => MENU_LOCAL_TASK,
-       'context' => MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE,
-      );
-    }
-  }
-  return $items;
-}
-
-/**
- * Implements hook_permission().
- */
-function date_permission() {
-  return array('view date repeats' => array(
-    'title' => t('View Repeating Dates'),
-    'description' => t('Allow user to see a page with all the times a date repeats.'),
-  ));
-}
-
-/**
- * See if the user can access repeat date info for this field.
- */
-function date_repeat_show($entity_type = 'node', $entity = NULL) {
-  $bundle = date_get_entity_bundle($entity_type, $entity);
-  $fields = field_info_instances($entity_type, $bundle);
-  foreach ($fields as $field_name => $data) {
-    $field = field_info_field($field_name);
-    if (in_array($field['type'], array('date', 'datestamp', 'datetime'))) {
-      return user_access('view date repeats');
-    }
-  }
-  return FALSE;
-}
-
-/**
- * A page to list all values for a repeating date.
- */
-function date_repeat_page($entity_type = 'node', $entity = NULL) {
-  $bundle = date_get_entity_bundle($entity_type, $entity);
-  $info = entity_get_info($entity_type);
-  $key = $info['entity keys']['id'];
-  drupal_set_title(t('Repeats'));
-  $entity->date_repeat_show_all = TRUE;
-  $entity->content = array();
-  $output = '';
-  $fields = field_info_instances($entity_type, $bundle);
-  foreach ($fields as $field_name => $data) {
-    $field = field_info_field($field_name);
-    if (in_array($field['type'], array('date', 'datestamp', 'datetime'))) {
-      $field = field_view_field($entity_type, $entity, $field_name, 'full');
-      $output .= drupal_render($field);
-    }
-  }
-  return $output;
-}
-
-/**
- * Return an array of all entity types and bundles that have repeating date fields.
- */
-function date_repeat_bundles() {
-  $values = array();
-  $items = field_info_instances();
-  foreach ($items as $entity_type => $bundles) {
-    foreach ($bundles as $bundle => $widgets) {
-      foreach ($widgets as $field_name => $widget) {
-        $field = field_info_field($field_name);
-        if (in_array($field['type'], array('date', 'datestamp', 'datetime')) && $field['settings']['repeat']) {
-          $values[$entity_type][$bundle][] = $field_name;
-        }
-      }
-    }
-  }
-  return $values;
-}
-
-/**
  * Helper function to figure out the bundle name for an entity.
  */
 function date_get_entity_bundle($entity_type, $entity) {
@@ -140,26 +26,6 @@ function date_get_entity_bundle($entity_type, $entity) {
     $bundle = $entity_type;
   }
   return $bundle;
-}
-
-function date_is_repeat_field($field, $instance = NULL) {
-  if (is_string($field)) {
-    $field = field_info_field($field);
-  }
-
-  if (!isset($field['settings']['repeat'])) {
-    return FALSE;
-  }
-
-  $value = $field['settings']['repeat'];
-
-  // This might be either a field form or a real field.
-  if (is_array($value)) {
-    return $value['#value'];
-  }
-  else {
-    return $value;
-  }
 }
 
 function date_default_format($type) {
@@ -189,24 +55,6 @@ function date_input_date($field, $instance, $element, $input) {
 }
 
 /**
- * A helper function to check if the all day flag is set on the parent of an
- * element, and adjust the date_format accordingly so the missing time will
- * not cause validation errors.
- */
-function date_all_day_value(&$element, $form_state) {
-  if (!empty($element['#date_all_day_id'])) {
-    $parents = $element['#parents'];
-    array_pop($parents);
-    $parent_element = drupal_array_get_nested_value($form_state['values'], $parents);
-    if (!empty($parent_element) && !empty($parent_element['all_day'])) {
-      $element['#date_format'] = date_part_format('date', $element['#date_format']);
-      return $parent_element['all_day'];
-    }
-  }
-  return FALSE;
-}
-
-/**
  * Implements hook_theme().
  */
 function date_theme() {
@@ -221,20 +69,6 @@ function date_theme() {
     'date_combo' => $base + array('render element' => 'element'),
     'date_text_parts' => $base + array('render element' => 'element'),
     'date' => $base + array('render element' => 'element'),
-    'date_all_day' => $base + array(
-      'variables' => array(
-        'field' => NULL,
-        'instance' => NULL,
-        'which' => NULL,
-        'date1' => NULL,
-        'date2' => NULL,
-        'format' => NULL,
-        'entity_type' => NULL,
-        'entity' => NULL,
-        'view' => NULL
-      )
-    ),
-    'date_all_day_label' => $base + array('variables' => array()),
     'date_display_single' => $base + array('variables' => array(
         'date' => NULL,
         'timezone' => NULL,
@@ -259,16 +93,6 @@ function date_theme() {
         'rdf_mapping' => NULL,
         'add_rdf' => NULL,
     )),
-    'date_repeat_display' => $base + array(
-      'variables' => array(
-        'field' => NULL,
-        'item' => NULL,
-        'entity_type' => NULL,
-        'entity' => NULL,
-        'dates' => NULL
-      ),
-      'function' => 'theme_date_repeat_display',
-    ),
     'date_display_combination' => $base + array(
       'variables' => array(
         'entity_type' => NULL,
@@ -416,38 +240,20 @@ function date_formatter_process($formatter, $entity_type, $entity, $field, $inst
   if (empty($dates['value2'])) {
     $dates['value2'] = $dates['value'];
   }
-  $date1 = $dates['value']['local']['object'];
-  $date2 = $dates['value2']['local']['object'];
 
-  $all_day = '';
-  $all_day2 = '';
-  if ($format != 'format_interval') {
-    $all_day1 = theme('date_all_day', array(
-      'field' => $field,
-      'instance' => $instance,
-      'which' => 'date1',
-      'date1' => $date1,
-      'date2' => $date2,
-      'format' => $format,
-      'entity_type' => $entity_type,
-      'entity' => $entity));
-    $all_day2 = theme('date_all_day', array(
-      'field' => $field,
-      'instance' => $instance,
-      'which' => 'date2',
-      'date1' => $date1,
-      'date2' => $date2,
-      'format' => $format,
-      'entity_type' => $entity_type,
-      'entity' => $entity));
-  }
-  if ((!empty($all_day1) && $all_day1 != $dates['value']['formatted'])
-  || (!empty($all_day2) && $all_day2 != $dates['value2']['formatted'])) {
-    $dates['value']['formatted_time'] = theme('date_all_day_label');
-    $dates['value2']['formatted_time'] = theme('date_all_day_label');
-    $dates['value']['formatted'] = $all_day1;
-    $dates['value2']['formatted'] = $all_day2;
-  }
+  // Allow other modules to alter the date values.
+  $context = array(
+    'field' => $field,
+    'instance' => $instance,
+    'format' => $format,
+    'entity_type' => $entity_type,
+    'entity' => $entity,
+    'langcode' => $langcode,
+    'item' => $item,
+    'display' => $display,
+  );
+  drupal_alter('date_formatter_dates', $dates, $context);
+
   $dates['format'] = $format;
   return $dates;
 }
@@ -473,17 +279,6 @@ function date_process_values($field) {
 }
 
 /**
- * Implement hook_help().
- */
-function date_help($path, $arg) {
-  switch ($path) {
-    case 'admin/help#date':
-      return '<p>' . t('Complete documentation for the Date and Date API modules is available at <a href="@link">http://drupal.org/node/92460</a>.', array('@link' => 'http://drupal.org/node/92460')) . '</p>';
-      break;
-  }
-}
-
-/**
  * Implements hook_form_FORM_ID_alter().
  */
 function date_form_field_ui_field_edit_form_alter(&$form, &$form_state, $form_id) {
@@ -492,12 +287,6 @@ function date_form_field_ui_field_edit_form_alter(&$form, &$form_state, $form_id
 
   if (!in_array($field['type'], array('date', 'datetime', 'datestamp'))) {
     return;
-  }
-
-  // If using repeating dates, override the Field module's handling of the multiple values option.
-  if (module_exists('date_repeat') && date_is_repeat_field($field, $instance)) {
-    $form['field']['cardinality']['#disabled'] = TRUE;
-    $form['field']['cardinality']['#value'] = FIELD_CARDINALITY_UNLIMITED;
   }
 
   // Reorganize the instance settings and widget settings sections into a more
@@ -627,7 +416,7 @@ function date_format_type_format($format_type, $langcode = NULL) {
         $default = 'D, m/d/Y - H:i';
         break;
     }
-    $format = variable_get('date_format_'. $format_type, $default);
+    $format = variable_get('date_format_' . $format_type, $default);
   }
   return $format;
 }
@@ -875,13 +664,13 @@ function date_entity_metadata_struct_setter(&$item, $name, $value, $langcode, $t
   }
 }
 
+
 /**
- * Determine if a Start/End date combination qualify as 'All day'.
+ * Duplicate functionality of what is now date_all_day_field() in
+ * the Date All Day module. Copy left here to avoid breaking other
+ * modules that use this function.
  *
- * @param array $field, the field definition for this date field.
- * @param object $date1, a date/time object for the 'Start' date.
- * @param object $date2, a date/time object for the 'End' date.
- * @return TRUE or FALSE.
+ * Deprecated, will be removed at some time in the future.
  */
 function date_field_all_day($field, $instance, $date1, $date2 = NULL) {
   if (empty($date1) || !is_object($date1)) {

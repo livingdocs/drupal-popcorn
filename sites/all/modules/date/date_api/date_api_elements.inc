@@ -302,6 +302,8 @@ function date_text_element_process($element, $form_state, $form) {
   $element['date']['#type'] = 'textfield';
   $element['date']['#weight'] = !empty($element['date']['#weight']) ? $element['date']['#weight'] : $element['#weight'];
   $element['date']['#attributes'] = array('class' => isset($element['#attributes']['class']) ? $element['#attributes']['class'] += array('date-date') : array('date-date'));
+  $now = date_example_date();
+  $element['date']['#attributes']['placeholder'] = array(date_format_date($now, 'custom', $element['#date_format']));
   $element['date']['#description'] = ' ' . t('Format: @date', array('@date' => date_now()->format($element['#date_format'])));
 
   // Keep the system from creating an error message for the sub-element.
@@ -317,6 +319,8 @@ function date_text_element_process($element, $form_state, $form) {
   if (!empty($element['#force_value'])) {
     $element['date']['#value'] = $element['date']['#default_value'];
   }
+
+  drupal_alter('date_text_process', $element);
 
   return $element;
 }
@@ -341,12 +345,7 @@ function date_text_validate($element, &$form_state) {
   $input_exists = NULL;
   $input = drupal_array_get_nested_value($form_state['values'], $element['#parents'], $input_exists);
 
-  // Let Date module massage the format for all day values so they will pass validation.
-  // The All day flag, if used, actually exists on the parent element.
-  // @TODO Make this into a generic hook instead of a specific Date module function.
-  if (function_exists('date_all_day_value')) {
-    date_all_day_value($element, $form_state);
-  }
+  drupal_alter('date_text_pre_validate', $element, $form_state, $input);
 
   $label = !empty($element['#date_title']) ? $element['#date_title'] : (!empty($element['#title']) ? $element['#title'] : '');
   $date = date_text_input_date($element, $input);
@@ -388,7 +387,7 @@ function date_text_input_date($element, $input) {
   $date = new DateObject($input['date'], $element['#date_timezone'], $element['#date_format']);
   if (is_object($date)) {
     $date->limitGranularity($granularity);
-    if ($date->validGranularity($granularity, $element['#date_flexible'])){
+    if ($date->validGranularity($granularity, $element['#date_flexible'])) {
       date_increment_round($date, $element['#date_increment']);
     }
     return $date;
@@ -469,6 +468,8 @@ function date_select_element_process($element, $form_state, $form) {
     $element['#element_validate'] = array('date_select_validate');
   }
 
+  drupal_alter('date_select_process', $element);
+
   return $element;
 }
 
@@ -497,8 +498,6 @@ function date_parts_element($element, $date, $format) {
   $month_function  = strpos($element['#date_format'], 'F') !== FALSE ? 'date_month_names' : 'date_month_names_abbr';
   $count = 0;
   $increment = min(intval($element['#date_increment']), 1);
-
-  $all_day_id = !empty($element['#date_all_day_id']) ? $element['#date_all_day_id'] : '';
 
   foreach ($granularity as $field) {
     // Allow empty value as option if date is not required
@@ -539,12 +538,6 @@ function date_parts_element($element, $date, $format) {
           $sub_element[$field]['#options'] = drupal_map_assoc(date_hours($hours_format, $part_required));
         }
         $sub_element[$field]['#prefix'] = theme('date_part_hour_prefix', $element);
-        if ($all_day_id != '') {
-          $sub_element[$field]['#states'] = array(
-            'visible' => array(
-              '#' . $all_day_id => array('checked' => FALSE),
-            ));
-        }
         break;
       case 'minute':
         $sub_element[$field]['#default_value'] = is_object($date) ? $date->format('i') : '';
@@ -552,12 +545,6 @@ function date_parts_element($element, $date, $format) {
           $sub_element[$field]['#options'] = drupal_map_assoc(date_minutes('i', $part_required, $element['#date_increment']));
         }
         $sub_element[$field]['#prefix'] = theme('date_part_minsec_prefix', $element);
-        if ($all_day_id != '') {
-          $sub_element[$field]['#states'] = array(
-            'visible' => array(
-              '#' . $all_day_id => array('checked' => FALSE),
-            ));
-        }
         break;
       case 'second':
         $sub_element[$field]['#default_value'] = is_object($date) ? $date->format('s') : '';
@@ -565,12 +552,6 @@ function date_parts_element($element, $date, $format) {
           $sub_element[$field]['#options'] = drupal_map_assoc(date_seconds('s', $part_required, $element['#date_increment']));
         }
         $sub_element[$field]['#prefix'] = theme('date_part_minsec_prefix', $element);
-        if ($all_day_id != '') {
-          $sub_element[$field]['#states'] = array(
-            'visible' => array(
-              '#' . $all_day_id => array('checked' => FALSE),
-            ));
-        }
         break;
     }
 
@@ -623,12 +604,6 @@ function date_parts_element($element, $date, $format) {
       '#weight' => 8,
       '#attributes' => array('class' => array('date-ampm')),
     );
-    if ($all_day_id != '') {
-      $sub_element['ampm']['#states'] = array(
-        'visible' => array(
-          '#' . $all_day_id => array('checked' => FALSE),
-        ));
-    }
     if ($element['#date_label_position'] == 'within') {
       $sub_element['ampm']['#options'] = array('' => '-' . theme('date_part_label_ampm', array('part_type' => 'ampm', 'eleement' => $element))) + $sub_element['ampm']['#options'];
     }
@@ -636,6 +611,7 @@ function date_parts_element($element, $date, $format) {
       $sub_element['ampm']['#title'] = theme('date_part_label_ampm', array('part_type' => 'ampm', 'element' => $element));
     }
   }
+
   return $sub_element;
 }
 
@@ -659,6 +635,7 @@ function date_select_validate($element, &$form_state) {
 
   $input_exists = NULL;
   $input = drupal_array_get_nested_value($form_state['values'], $element['#parents'], $input_exists);
+
   // Strip field labels out of the results.
   foreach ($element['#value'] as $field => $field_value) {
     if (substr($field_value, 0, 1) == '-') {
@@ -666,12 +643,7 @@ function date_select_validate($element, &$form_state) {
     }
   }
 
-  // Let Date module massage the format for all day values so they will pass validation.
-  // The All day flag, if used, actually exists on the parent element.
-  // @TODO Make this into a generic hook instead of a specific Date module function.
-  if (function_exists('date_all_day_value')) {
-    date_all_day_value($element, $form_state);
-  }
+  drupal_alter('date_select_pre_validate', $element, $form_state, $input);
 
   $label = !empty($element['#date_title']) ? $element['#date_title'] : (!empty($element['#title']) ? $element['#title'] : '');
   if (isset($input['ampm'])) {
@@ -728,6 +700,12 @@ function date_select_input_date($element, $input) {
     }
   }
   unset($input['ampm']);
+
+  // Make the input match the granularity.
+  foreach (date_nongranularity($granularity) as $part) {
+    unset($input[$part]);
+  }
+
   $date = new DateObject($input, $element['#date_timezone']);
   if (is_object($date)) {
     $date->limitGranularity($granularity);

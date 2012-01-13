@@ -425,45 +425,50 @@ class date_sql_handler {
         return "strftime('$format', $field)";
       case 'sqlsrv':
         $replace = array(
-          'Y' => 'yyyy', // 4 digit year number
-          'y' => 'yy', // 2 digit year number
-          'M' => 'm', // no format for 3 letter month name
-          'm' => 'mm', // month number with leading zeros
-          'n' => 'm', // month number without leading zeros
-          'F' => 'm', // no format for full month name
-          'D' => 'd', // no format for 3 letter day name
-          'd' => 'dd', // day of month number with leading zeros
-          'l' => 'd', // no format for full day name
-          'j' => 'd', // day of month number without leading zeros
-          'W' => 'wk', // ISO week number
-          'H' => 'hh', // 24 hour hour with leading zeros
-          'h' => 'hh', // no format for 12 hour hour with leading zeros
-          'i' => 'mi', // minutes with leading zeros
-          's' => 'ss', // seconds with leading zeros
-          'A' => '', // no format for  AM/PM
-          '\WW' => '', // Week number
+          // 4 digit year number
+          'Y' => "' + CAST(DATEPART(year, $field) AS nvarchar) + '",
+          // 2 digit year number
+          'y' => "' + RIGHT(DATEPART(year, $field), 2) + '",
+          // 3 letter month name
+          'M' => "' + LEFT(DATENAME(month, $field), 3) + '",
+          // month number with leading zeros
+          'm' => "' + RIGHT('0' + CAST(DATEPART(month, $field) AS nvarchar), 2) + '",
+          // month number without leading zeros
+          'n' => "' + CAST(DATEPART(month, $field) AS nvarchar) + '",
+          // full month name
+          'F' => "' + DATENAME(month, $field) + '",
+          // 3 letter day name
+          'D' => "' + LEFT(DATENAME(day, $field), 3) + '",
+          // day of month number with leading zeros
+          'd' => "' + RIGHT('0' + CAST(DATEPART(day, $field) AS nvarchar), 2) + '",
+          // full day name
+          'l' => "' + DATENAME(day, $field) + '",
+          // day of month number without leading zeros
+          'j' => "' + CAST(DATEPART(day, $field) AS nvarchar) + '",
+          // ISO week number
+          'W' => "' + CAST(DATEPART(iso_week, $field) AS nvarchar) + '",
+          // 24 hour with leading zeros
+          'H' => "' + RIGHT('0' + CAST(DATEPART(hour, $field) AS nvarchar), 2) + '",
+          // 12 hour with leading zeros
+          // conversion to 'mon dd yyyy hh:miAM/PM' format (corresponds to style 100 in MSSQL)
+          // hour position is fixed, so we use SUBSTRING to extract it
+          'h' => "' + RIGHT('0' + LTRIM(SUBSTRING(CONVERT(nvarchar, $field, 100), 13, 2)), 2) + '",
+          // minutes with leading zeros
+          'i' => "' + RIGHT('0' + CAST(DATEPART(minute, $field) AS nvarchar), 2) + '",
+          // seconds with leading zeros
+          's' => "' + RIGHT('0' + CAST(DATEPART(second, $field) AS nvarchar), 2) + '",
+          // AM/PM
+          // conversion to 'mon dd yyyy hh:miAM/PM' format (corresponds to style 100 in MSSQL)
+          'A' => "' + RIGHT(CONVERT(nvarchar, $field, 100), 2) + '",
+          // Week number
+          '\WW' => "' + CAST(DATEPART(week, $field) AS nvarchar) + '",
+          '\T' => 'T',
+          // MS SQL uses single quote as escape symbol
+          '\'' => '\'\'',
           );
         $format = strtr($format, $replace);
-        $formatters = explode(' ', $format);
-        $month_formatters = explode('-', $formatters[0]);
-        $output = '';
-        foreach($month_formatters as $formatter) {
-          $output .= "CAST(DATEPART($formatter, $field) as varchar)+";
-        }
-
-        if (isset($formatters[1])) {
-          $time_formatters = explode(':', $formatters[1]);
-          $output .= ' ';
-          foreach($time_formatters as $formatter) {
-            $output .= "CAST(DATEPART($formatter, $field) as varchar)+':'+";
-          }
-          $output = substr($output, 0, strlen($output)-5);
-        }
-        else {
-          $output = substr($output, 0, strlen($output)-1);
-        }
-
-        return $output;
+        $format = "'$format'";
+        return $format;
     }
   }
 
@@ -561,7 +566,7 @@ class date_sql_handler {
         $date->setTimezone(timezone_open($this->db_timezone));
         $this->local_timezone = $this->db_timezone;
       }
-      $value = "'" . $date->format(DATE_FORMAT_DATETIME, true) . "'";
+      $value = "'" . $date->format(DATE_FORMAT_DATETIME, TRUE) . "'";
     }
     if ($this->local_timezone != $this->db_timezone) {
       $field = $this->sql_field($field);

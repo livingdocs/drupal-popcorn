@@ -192,7 +192,6 @@ class date_views_plugin_pager extends views_plugin_pager {
                 // min and max dates as placeholders.
                 $date = ($count == 2) ? $this->view->date_info->min_date : $this->view->date_info->max_date;
                 $next_placeholder = array_shift($placeholders);
-                //dsm('resetting '. $placeholder . ' from ' . $next_placeholder . ' to '. $date->format($format));
                 $this->view->query->where[$group]['conditions'][$delta]['value'][$placeholder] = $date->format($format);
                 $count--;
               }

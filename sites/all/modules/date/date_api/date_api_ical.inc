@@ -143,7 +143,8 @@ function date_ical_parse($icaldatafolded = array()) {
     // The regex is to ensure that wrapped QUOTED-PRINTABLE data
     // is kept intact.
     if (!preg_match('/([A-Z]+)[:;](.*)/', $line, $out)) {
-      $line = array_pop($icaldata) . ($line);
+      // Trim up to 1 leading space from wrapped line per iCalendar standard.
+      $line = array_pop($icaldata) . (ltrim(substr($line, 0, 1)) . substr($line, 1));
     }
     $icaldata[] = $line;
   }
@@ -347,6 +348,7 @@ function date_ical_parse($icaldatafolded = array()) {
  *   It will take more work to figure how to support that.
  */
 function date_ical_parse_date($field, $data) {
+
   $items = array('datetime' => '', 'all_day' => '', 'tz' => '');
   if (empty($data)) {
     return $items;
@@ -468,7 +470,7 @@ function date_ical_parse_rrule($field, $data) {
  *   an array of date value arrays.
  */
 function date_ical_parse_exceptions($field, $data) {
-  $data = str_replace($field.':', '', $data);
+  $data = str_replace($field . ':', '', $data);
   $items = array('DATA' => $data);
   $ex_dates = explode(',', $data);
   foreach ($ex_dates as $ex_date) {
@@ -571,6 +573,7 @@ function date_ical_parse_location($field, $data) {
  *    a timezone-adjusted date object
  */
 function date_ical_date($ical_date, $to_tz = FALSE) {
+
   // If the ical date has no timezone, must assume it is stateless
   // so treat it as a local date.
   if (empty($ical_date['datetime'])) {
@@ -582,7 +585,11 @@ function date_ical_date($ical_date, $to_tz = FALSE) {
   else {
     $from_tz = $ical_date['tz'];
   }
+  if (strlen($ical_date['datetime']) < 11) {
+    $ical_date['datetime'] .= ' 00:00:00';
+  }
   $date = new DateObject($ical_date['datetime'], new DateTimeZone($from_tz));
+
   if ($to_tz && $ical_date['tz'] != '' && $to_tz != $ical_date['tz']) {
     date_timezone_set($date, timezone_open($to_tz));
   }
@@ -607,7 +614,7 @@ function date_ical_escape_text($text) {
   // this and see if anything breaks.
   //$text = str_replace('"', '\"', $text);
   //$text = str_replace(":", "\:", $text);
-  $text = preg_replace("/\\\b/","\\\\", $text);
+  $text = preg_replace("/\\\b/", "\\\\", $text);
   $text = str_replace(",", "\,", $text);
   $text = str_replace(";", "\;", $text);
   $text = str_replace("\n", "\\n ", $text);
@@ -688,7 +695,17 @@ function date_api_ical_build_rrule($form_values) {
   // The input date values may already have been converted to a date
   // object on a previous pass, so check for that.
   if (array_key_exists('UNTIL', $form_values) && array_key_exists('datetime', $form_values['UNTIL']) && !empty($form_values['UNTIL']['datetime'])) {
-    $until = !is_object($form_values['UNTIL']['datetime']) ? date_ical_date($form_values['UNTIL'], 'UTC') : $form_values['UNTIL']['datetime'];
+    // We only collect a date for UNTIL, but we need it to be inclusive,
+    // so force it to a full datetime element at the last possible second of the day.
+    if (!is_object($form_values['UNTIL']['datetime'])) {
+      $form_values['UNTIL']['datetime'] .= ' 23:59:59';
+      $form_values['UNTIL']['granularity'] = serialize(drupal_map_assoc(array('year', 'month', 'day', 'hour', 'minute', 'second')));
+      $form_values['UNTIL']['all_day'] = 0;
+      $until = date_ical_date($form_values['UNTIL'], 'UTC');
+    }
+    else {
+      $until = $form_values['UNTIL']['datetime'];
+    }
     $RRULE .= ';UNTIL=' . date_format($until, DATE_FORMAT_ICAL) . 'Z';
   }
   // Our form doesn't allow a value for COUNT, but it may be needed by
@@ -714,7 +731,7 @@ function date_api_ical_build_rrule($form_values) {
     foreach ($form_values['EXDATE'] as $value) {
       if (!empty($value['datetime'])) {
         $date = !is_object($value['datetime']) ? date_ical_date($value, 'UTC') : $value['datetime'];
-        $ex_date = !empty($date) ? $date->format(DATE_FORMAT_ICAL) : '';
+        $ex_date = !empty($date) ? $date->format(DATE_FORMAT_ICAL) . 'Z': '';
         if (!empty($ex_date)) {
           $ex_dates[] = $ex_date;
         }
@@ -734,18 +751,18 @@ function date_api_ical_build_rrule($form_values) {
     $ex_dates = array();
     foreach ($form_values['RDATE'] as $value) {
       $date = !is_object($value['datetime']) ? date_ical_date($value, 'UTC') : $value['datetime'];
-      $ex_date = !empty($date) ? $date->format(DATE_FORMAT_ICAL) : '';
+      $ex_date = !empty($date) ? $date->format(DATE_FORMAT_ICAL) . 'Z': '';
       if (!empty($ex_date)) {
         $ex_dates[] = $ex_date;
       }
     }
     if (!empty($ex_dates)) {
       sort($ex_dates);
-      $RRULE .= chr(13) . chr(10) .'RDATE:'. implode(',', $ex_dates);
+      $RRULE .= chr(13) . chr(10) . 'RDATE:' . implode(',', $ex_dates);
     }
   }
   elseif (!empty($form_values['RDATE'])) {
-    $RRULE .= chr(13) . chr(10) .'RDATE:'. $form_values['RDATE'];
+    $RRULE .= chr(13) . chr(10) . 'RDATE:' . $form_values['RDATE'];
   }
 
   return $RRULE;
