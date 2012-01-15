@@ -136,7 +136,6 @@ Controller.prototype.loadVideo = function(vidData){
 
 	//remove existing media sources
 	while (popcorn.media.hasChildNodes()) {
-		console.log(popcorn.media.lastChild);
 		popcorn.media.removeChild(popcorn.media.lastChild);
 	}
 	//Add new media source
@@ -146,7 +145,6 @@ Controller.prototype.loadVideo = function(vidData){
 		source.src = vidData.videos[i].src;
 		source.type = vidData.videos[i].mime;
 		popcorn.media.appendChild(source);
-		console.log(source);
 
 	}
 
