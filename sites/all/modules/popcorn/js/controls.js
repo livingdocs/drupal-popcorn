@@ -27,7 +27,7 @@ function Controller(){
 	});
 	popcorn.listen('kernelDestroy', function(options){
 		var kernel = document.getElementById(self.shelfState + "-" + options[self.shelfState].replace(" ", "-"));
-		if (kernel.childNodes.length == 1){
+		if (kernel && kernel.childNodes && kernel.childNodes.length == 1){
 			kernel.parentNode.removeChild(kernel);
 		}
 	});
