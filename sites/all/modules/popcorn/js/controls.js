@@ -28,7 +28,7 @@ function Controller(){
 	popcorn.listen('kernelDestroy', function(options){
 		var groupNode = document.getElementById(self.shelfState + "-" + options[self.shelfState].replace(" ", "-"));
 		if (groupNode && groupNode.childNodes && groupNode.childNodes.length == 1){
-			groupNode.parentNode.removeChild(kernel);
+			groupNode.parentNode.removeChild(groupNode);
 		}
 	});
 	
