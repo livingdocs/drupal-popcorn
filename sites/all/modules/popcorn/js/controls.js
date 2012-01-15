@@ -172,7 +172,7 @@ function HistoryManager(controller){
 }
 
 HistoryManager.prototype.loadHistory = function(i){
-	console.log(this.historyList);
+	console.log(this.historyList.length);
 	var selected = this.historyList[i];
 	this.historyList = this.historyList.slice(0, i);
 	return selected;
