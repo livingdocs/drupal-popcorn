@@ -98,18 +98,19 @@ Controller.prototype.catchKernel = function(options){
 	while (destination.childNodes.length > 2){
 		var moveNode = destination.lastChild;
 		console.log(moveNode);
-		var target = getTarget(moveNode.classList, this.shelfState);
+		var target = getTarget(moveNode.className, this.shelfState);
 		target.appendChild(destination.lastChild);
 		//create correct container and append to 
 	}
 	
-	function getTarget(list, type){
-		var i, target
+	function getTarget(classes, type){
+		var i, target,
+		list = classes.split(" ");
 		targetId = '',
 		l = list.length;
 		for (i = 0; i < l; i++){
-			if (list.item(i).match('^' + type + '(.*)$')){
-				targetId = list.item(i);
+			if (list[i].match('^' + type + '(.*)$')){
+				targetId = list[i];
 				target = document.getElementById(targetId);
 				break;
 			}
