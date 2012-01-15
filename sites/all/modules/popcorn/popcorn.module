@@ -46,10 +46,13 @@ function _popcorn_load_kernels($node){
     foreach ($node->field_track_events['und'] as $index => $trackEvent){
       $event = field_collection_item_load($trackEvent['value']);
       $eventNode = node_load($event->field_event['und'][0]['nid']);
+      $term = taxonomy_term_load($eventNode->field_subject['und'][0]['tid']);
       $kernels[$index] = array(
       'start' => $event->field_start['und'][0]['value'],
       'end' => $event->field_end['und'][0]['value'],
       'nid' => $event->field_event['und'][0]['nid'],
+      'dest' => 'highlight',
+      'subject' => $term->name,
       'type' => str_replace('_', '-', $eventNode->type)
       );
     }

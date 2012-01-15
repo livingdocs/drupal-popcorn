@@ -17,9 +17,11 @@ function Controller(){
 	
 	
 	this.vidControls.init();
+
+	var self = this;
 	
 	//register listeners for kernelPop(click) events
-	var self = this;
+	this.shelfState = 'subject';
 	popcorn.listen('kernelPop', function(data){
 		self.catchKernel(data);
 	});
@@ -45,6 +47,7 @@ function Controller(){
 	}
 	  
 	loadKernels(2);
+	
 }
 
 Controller.prototype.catchHistory = function(index){
@@ -90,22 +93,44 @@ Controller.prototype.catchHistory = function(index){
 	this.history.updateHistory();
 };
 
-Controller.prototype.catchKernel = function(data){
-	var self = this;
-
-	//ajax call to load video urls and track data
-	jQuery.getJSON("/popcorn/" + data.nid + "/full", function(response, textStatus, jqXHR){
-
-		var full = response.data;
-		
-		if (typeof full == "object"){
-			self.loadVideo(full);
+Controller.prototype.catchKernel = function(options){
+	var destination = document.getElementById(options.dest);
+	while (destination.childNodes.length > 2){
+		var moveNode = destination.lastChild;
+		var target = getTarget(moveNode.classList, this.shelfState);
+		target.appendChild(destination.lastChild);
+		//create correct container and append to 
+	}
+	
+	function getTarget(list, type){
+		var i, target
+		targetId = '',
+		l = list.length;
+		for (i = 0; i < l; i++){
+			if (list.item(i).match('^' + type + '(.*)$')){
+				targetId = list.item(i);
+				target = document.getElementById(targetId);
+				break;
+			}
 		}
-		else{
-			self.loadModal(full);
+		if (target == null){
+			target = document.createElement('div');
+			target.id = targetId;
+			target.className = 'popcorn-subject';
+
+			var heading = document.createElement('h2');
+			var re = new RegExp("^" + type + "-");
+			heading.innerHTML = targetId.replace(re, '').replace('-', ' ');
+			heading.className = 'popcorn-subject-heading';
+			target.appendChild(heading);
+			
+			document.getElementById('kettle').appendChild(target);
 		}
 		
-	});
+		return target;
+
+	}
+	
 };
 
 Controller.prototype.loadModal = function(nodeData){

@@ -10,6 +10,8 @@
 	      .drupal({
 	        start: 5, // seconds
 	        end: 15, // seconds
+	        type: 'film_clip', //drupal node content-type
+	        dest: 'highlight', //target div id
 	        nid: 17 // drupal node id
 	      } )
 	 *
@@ -18,105 +20,22 @@
 
 	Popcorn.plugin( "drupal", function (){
 
-		//constants
-		var TEASER = 0;
-		var TEASER_TEXT = 'teaser';
-
-		var highlight = document.getElementById('highlight');
-		var kettle = document.getElementById('kettle');
-
-		function ajaxLoadData(dataType, options){
+		function ajaxLoadData(options){
 			var xmlhttp = new XMLHttpRequest();
 			xmlhttp.onreadystatechange = function(){
 				if (xmlhttp.readyState == 4 && xmlhttp.status == 200){
 					var event = JSON.parse(xmlhttp.responseText);
 
-					switch (event.type){
-					case TEASER:
-						receiveTeaser(event.data, options);
-						break;
-					}
+					nodeData[options.nid] = event.data;
+					
+					var nodeDiv = document.getElementById('popcorn-node-' + options.nid);
+					//insert the loaded html
+					nodeDiv.innerHTML = nodeData[options.nid].content;
 
 				}
 			};
-			xmlhttp.open("GET", "/popcorn/" + options.nid + "/" + dataType, true);
+			xmlhttp.open("GET", "/popcorn/" + options.nid + "/teaser", true);
 			xmlhttp.send();
-		}
-
-		/*
-		 * Add the node teaser to the DOM
-		 */
-		function popKernel(nid){
-			highlight.insertBefore(nodeData[nid].content, highlight.firstChild);
-			while (highlight.childNodes.length > 2){
-				var moveNid = highlight.lastChild.firstChild.id.match(/node-(\d+)/)[1];
-				var kernelSubject = document.getElementById(nodeData[moveNid].subject.replace(' ', '-'));
-				if (kernelSubject == null){
-					kernelSubject = createNewSubject(nodeData[moveNid].subject);
-					kettle.appendChild(kernelSubject);
-				}
-				kernelSubject.appendChild(highlight.lastChild);
-				//no need to remove the node from highlight in chrome...
-			}
-		}
-
-		function createNewSubject(subject){
-			var container = document.createElement('div');
-			container.id = subject.replace(' ', '-');
-			container.className = 'popcorn-subject';
-			var heading = document.createElement('h2');
-			heading.innerHTML = subject;
-			heading.className = 'popcorn-subject-heading';
-			container.appendChild(heading);
-			return container;
-		}
-
-		function receiveTeaser(teaser, options){
-			//create the wrapper div and 
-			var nodeDiv = document.createElement('div');
-			nodeDiv.id = options._id;
-			nodeDiv.className = "popcorn-node";
-			nodeDiv.innerHTML = teaser.content;
-			//override all anchor tag click events
-			var anchors = nodeDiv.getElementsByTagName('a');
-			for (var i = 0; i < anchors.length; i++){
-				anchors[i].addEventListener('click', popcornClickCapture, false);
-			}
-			//update the teaser content
-			teaser.content = nodeDiv;
-			//add the data to the internal cache
-			nodeData[options.nid] = teaser;
-
-			//now that the data is loaded, make the kernel pop
-			popKernel(options.nid);
-		}
-
-		/*
-		 * Anchor click event function
-		 */
-		function popcornClickCapture(event){
-			//prevent the default behavior of the anchor click
-			event.preventDefault();
-			
-			var parent = this.parentNode;
-			while (!parent.classList.contains('node')){
-				parent = parent.parentNode;
-			}
-
-			if (parent.classList.contains('preview')){
-				if (this.classList.contains('close-preview')){
-					parent.className = parent.className.replace(' preview', '');
-				}
-				else{
-					//trigger a popcorn event to allow custom handling of the click event
-					popcorn.trigger('kernelPop', {nid: parent.id.match(/node-(\d+)/)[1]});
-				}
-			}
-			else{
-				parent.className += ' preview';
-			}
-			
-			
 		}
 
 		return {
@@ -143,6 +62,21 @@
 						type: "number",
 						label: "Node ID"
 					},
+					dest: {
+						elem: "input",
+						type: "string",
+						label: "Destination Element"
+					},
+					subject: {
+						elem: "input",
+						type: "string",
+						label: "Nnode Subject"
+					},
+					type: {
+						elem: "input",
+						type: "string",
+						label: "Node Type"
+					},
 				}
 			},
 			_setup: function( options ) {
@@ -152,23 +86,33 @@
 				delete nodeData[options.nid];
 			},
 			start: function( event, options ){
+				
+				var destination = document.getElementById(options.dest);
+				//create the wrapper div 
+				var nodeDiv = document.createElement('div');
+				nodeDiv.id = 'popcorn-node-' + options.nid;
+				nodeDiv.className = "popcorn-node";
+				nodeDiv.className += " subject-" + options.subject.replace(' ', '-');
+				nodeDiv.className += " type-" + options.type.replace(' ', '-');
+				//add the new div to the destination
+				destination.insertBefore(nodeDiv, highlight.firstChild);
+				
 				//use the cached data for the kernel if available
 				if (options.nid in nodeData){
-					popKernel(options.nid);
+					nodeDiv.innerHTML = nodeData[options.nid].content;
 				}
 				else{
-					ajaxLoadData(TEASER_TEXT, options);
+					ajaxLoadData(options);
 				}
+
+				this.trigger('kernelPop', {nid: options.nid, subject: options.subject, type: options.type, dest: options.dest});
 			},
 			end: function( event, options ){
-				var nodeDiv = document.getElementById(options._id);
+				var nodeDiv = document.getElementById('popcorn-node-' + options.nid);
 				nodeDiv.parentNode.removeChild(nodeDiv);
 
-				var subjectContainer = document.getElementById(nodeData[options.nid].subject.replace(' ', '_'));
-				if (subjectContainer != null && subjectContainer.childNodes.length == 1){
-					subjectContainer.parentNode.removeChild(subjectContainer);
-				}
 
+				this.trigger('kernelShrink', {nid: options.nid, subject: options.subject, type: options.type, dest: options.dest});
 			}
 		};
 	});

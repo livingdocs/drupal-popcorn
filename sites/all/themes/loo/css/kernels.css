@@ -6,7 +6,7 @@
 	display: none;
 }
 
-.preview .full-teaser {
+.preview .full-teaser, #video-container #highlight .node-teaser:hover .full-teaser {
 	display: block;
 }
 
@@ -90,7 +90,7 @@
 	background-repeat: no-repeat;
 }
 
-#video-container #highlight .node-teaser.preview{
+#video-container #highlight .node-teaser.preview, #video-container #highlight .node-teaser:hover{
     position: absolute;
     bottom: 5px;
     right: 5px;
@@ -98,7 +98,7 @@
     background-color: rgb(75, 76, 82);
 }
 
-#video-container .node-teaser.preview .close-preview {
+#video-container .node-teaser.preview .close-preview, #video-container .node-teaser:hover .close-preview {
 	display: inline;
     float: right;
 }

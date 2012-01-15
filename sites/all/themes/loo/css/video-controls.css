@@ -96,10 +96,6 @@
   margin: 10px 0;
 }
 
-#video-container .popcorn-node{
-  vertical-align: top;
-}
-
 #highlight{
   width: 300px;
   height: 80px;
@@ -111,14 +107,6 @@
 
 #player-controls-taper{
 	display: block;
-}
-
-.node-teaser .content, .node-teaser .link-wrapper{
-  display: none;
-}
-
-.node-teaser.preview .content, .node-teaser.preview .link-wrapper{
-  display: block;
 }
 
 #highlight .node-teaser{
