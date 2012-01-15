@@ -21,9 +21,15 @@ function Controller(){
 	var self = this;
 	
 	//register listeners for kernelPop(click) events
-	this.shelfState = 'subject';
+	this.shelfState = 'type';
 	popcorn.listen('kernelPop', function(data){
 		self.catchKernel(data);
+	});
+	popcorn.listen('kernelDestroy', function(options){
+		var kernel = document.getElementById(self.shelfState + "-" + options[self.shelfState].replace(" ", "-"));
+		if (kernel.childNodes.length == 1){
+			kernel.parentNode.removeChild(kernel);
+		}
 	});
 	
 
@@ -97,7 +103,6 @@ Controller.prototype.catchKernel = function(options){
 	var destination = document.getElementById(options.dest);
 	while (destination.childNodes.length > 2){
 		var moveNode = destination.lastChild;
-		console.log(moveNode);
 		var target = getTarget(moveNode.className, this.shelfState);
 		target.appendChild(destination.lastChild);
 		//create correct container and append to 

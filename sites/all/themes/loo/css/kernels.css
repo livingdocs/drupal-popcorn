@@ -49,6 +49,8 @@
 	margin: 0;
 	line-height: 30px;
     padding-left: 30px;
+    overflow: hidden;
+    max-height: 30px;
 }
 
 #video-container .node-teaser a {
@@ -98,7 +100,7 @@
     background-color: rgb(75, 76, 82);
 }
 
-#video-container .node-teaser.preview .close-preview, #video-container .node-teaser:hover .close-preview {
-	display: inline;
-    float: right;
+#video-container #highlight .node-teaser:hover h2 {
+    overflow: visible;
+    max-height: auto;
 }

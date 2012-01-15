@@ -139,11 +139,6 @@ $links = render($content['links']);
       </div>
 	  
 	</div>
-	  
-  <?php endif; ?>
-
-
-</div>
 
 <div style='display: none;'>
 	<img src='/sites/all/themes/loo/images/information.png' id='information-trigger-icon' alt='' />
@@ -163,4 +158,9 @@ $links = render($content['links']);
 
 	<img src='/sites/all/themes/loo/images/ugc.png' id='ugc-trigger-icon' alt='' />
 	<img src='/sites/all/themes/loo/images/ugc-dim.png' id='ugc-trigger-icon-dim' alt='' />
+</div>
+	  
+  <?php endif; ?>
+
+
 </div>

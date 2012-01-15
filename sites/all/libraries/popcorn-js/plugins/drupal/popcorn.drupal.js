@@ -95,7 +95,7 @@
 				nodeDiv.className += " subject-" + options.subject.replace(' ', '-');
 				nodeDiv.className += " type-" + options.type.replace(' ', '-');
 				//add the new div to the destination
-				destination.insertBefore(nodeDiv, highlight.firstChild);
+				destination.insertBefore(nodeDiv, destination.firstChild);
 				
 				//use the cached data for the kernel if available
 				if (options.nid in nodeData){
@@ -112,7 +112,7 @@
 				nodeDiv.parentNode.removeChild(nodeDiv);
 
 
-				this.trigger('kernelShrink', {nid: options.nid, subject: options.subject, type: options.type, dest: options.dest});
+				this.trigger('kernelDestroy', {nid: options.nid, subject: options.subject, type: options.type, dest: options.dest});
 			}
 		};
 	});
