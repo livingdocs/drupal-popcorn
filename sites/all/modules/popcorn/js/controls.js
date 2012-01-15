@@ -14,7 +14,7 @@ function Controller(){
 	
 	this.history = new HistoryManager(this);
 	this.vidControls = new VideoControls('player-controls');
-	this.shelfState = new ShelfController('subject');
+	this.shelfState = new ShelfController('subject', this);
 	
 	
 	this.vidControls.init();
@@ -50,6 +50,7 @@ function Controller(){
 Controller.prototype.catchHistory = function(index){
 	
 	var vidData = this.history.loadHistory(index);
+	console.log(vidData);
 
 	//remove existing Track Events
 	var kernels = popcorn.getTrackEvents();
@@ -187,7 +188,7 @@ HistoryManager.prototype.saveHistory = function(){
 	history.kernels = [];
 	var kernels = popcorn.getTrackEvents();
 	for (var i = 0; i < kernels.length; i++){
-		history.kernels[i] = {nid: kernels[i].nid, start: kernels[i].start, end: kernels[i].end, type: kernels[i].type};
+		history.kernels[i] = {nid: kernels[i].nid, start: kernels[i].start, end: kernels[i].end, type: kernels[i].type, dest: kernels[i].dest, subject: kernels[i].subject};
 	}
 	
 	history.currentTime = popcorn.currentTime();
@@ -479,9 +480,10 @@ VideoControls.prototype.getCoords = function(event){
 
 
 
-function ShelfController(state){
+function ShelfController(state, controller){
 	var self = this;
 	
+	this.controller = controller;
 	this.shelfState = state;
 	
 	this.initControls();
@@ -502,33 +504,58 @@ function ShelfController(state){
 }
 
 ShelfController.prototype.catchKernelData = function(options){
+	var self = this;
 	//attach click handlers to the anchor tags
 	var kernel = document.getElementById("popcorn-node-" + options.nid);
 	var anchor,
 	previewAnchors = kernel.getElementsByClassName("popcorn-preview");
 	for (var i = 0; i < previewAnchors.length; i++){
 		anchor = previewAnchors.item(i);
-		anchor.addEventListener('click', function(event){
-			event.preventDefault();
+		anchor.addEventListener('click', togglePreview, false);
+	}
+	
+	var actionAnchors = kernel.getElementsByClassName("popcorn-action");
+	for (var i = 0; i < actionAnchors.length; i++){
+		anchor = actionAnchors.item(i);
+		anchor.addEventListener('click', catchKernel, false);
+	}
+	
+	function catchKernel(event){
+		event.preventDefault();
 
-			var node = document.getElementById("popcorn-node-" + options.nid);
-			var inPreview = false;
-			var classList = node.className.split(" ");
-			var newClassName = [];
-			for (var i = 0; i < classList.length; i++){
-				if (classList[i] == "preview"){
-					inPreview = true;
-				}
-				else{
-					newClassName.push(classList[i]);
-				}
+		//ajax call to load video urls and track data
+		jQuery.getJSON("/popcorn/" + options.nid + "/full", function(response, textStatus, jqXHR){
+
+			var full = response.data;
+
+			if (typeof full == "object"){
+				self.controller.loadVideo(full);
 			}
-			if (!inPreview){
-				newClassName.push("preview");
+			else{
+				self.controller.loadModal(full);
 			}
-			node.className = newClassName.join(" ");
-			
-		}, false);
+		});
+	}
+
+	function togglePreview(event){
+		event.preventDefault();
+		
+		var node = document.getElementById("popcorn-node-" + options.nid);
+		var inPreview = false;
+		var classList = node.className.split(" ");
+		var newClassName = [];
+		for (var i = 0; i < classList.length; i++){
+			if (classList[i] == "preview"){
+				inPreview = true;
+			}
+			else{
+				newClassName.push(classList[i]);
+			}
+		}
+		if (!inPreview){
+			newClassName.push("preview");
+		}
+		node.className = newClassName.join(" ");
 	}
 };
 

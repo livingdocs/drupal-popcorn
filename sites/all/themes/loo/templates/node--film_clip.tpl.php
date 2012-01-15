@@ -78,7 +78,6 @@
  * @see template_process()
  */
 hide($content['links']);
-$links = render($content['links']);
 ?>
 <div id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?> clearfix"  <?php print $attributes; ?>>
 
@@ -90,7 +89,7 @@ $links = render($content['links']);
 	            <?php print render($content); ?>
 			</div>    
             <div class="link-wrapper">
-              <?php print $links; ?>
+              <?php print l(t('Read more...'), 'node/' . $nid, array('attributes' => array('class' => t('popcorn-action')))); ?>
             </div>
 			
 		</div>
