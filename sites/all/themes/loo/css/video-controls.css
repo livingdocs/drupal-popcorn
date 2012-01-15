@@ -50,14 +50,14 @@
   cursor: pointer;
 }
 
-#info-panel-controls{
+#shelf-controls{
   background: rgba(25, 42, 53, 0.5);
   padding: 8px 8px 0 8px;
   text-align: left;
   margin: 0;
 }
 
-#info-panel-controls li{
+#shelf-controls li{
   display: inline-block;
   padding: 5px 20px;
   background-color: rgb(75, 76, 82);
@@ -82,7 +82,7 @@
   position: relative;
 }
 
-.popcorn-subject{
+.popcorn-subject, .popcorn-type{
   color: yellow;
   width: 300px;
   display: inline-block;
@@ -91,7 +91,7 @@
   vertical-align: top;
 }
 
-#kettle .popcorn-subject-heading{
+#kettle .popcorn-subject-heading, #kettle .popcorn-type-heading{
   border-bottom: 2px solid blue;
   margin: 10px 0;
 }

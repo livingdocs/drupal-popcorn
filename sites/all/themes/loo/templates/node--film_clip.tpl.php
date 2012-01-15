@@ -117,8 +117,8 @@ $links = render($content['links']);
 	      
       </div>
       
-      <div id='info-panel'>
-        <ul id='info-panel-controls'>
+      <div id='shelf'>
+        <ul id='shelf-controls'>
           <li><a href='#' id='by-subject'>by subject</a></li>
           <li><a href='#' id='by-type'>by type</a></li>
         </ul>

@@ -26,11 +26,72 @@ function Controller(){
 		self.catchKernel(data);
 	});
 	popcorn.listen('kernelDestroy', function(options){
-		var kernel = document.getElementById(self.shelfState + "-" + options[self.shelfState].replace(" ", "-"));
-		if (kernel && kernel.childNodes && kernel.childNodes.length == 1){
-			kernel.parentNode.removeChild(kernel);
+		var groupNode = document.getElementById(self.shelfState + "-" + options[self.shelfState].replace(" ", "-"));
+		if (groupNode && groupNode.childNodes && groupNode.childNodes.length == 1){
+			groupNode.parentNode.removeChild(kernel);
 		}
 	});
+	
+	var shelfControls = document.getElementById("shelf-controls").getElementsByTagName("a");
+	for (var i = 0; i< shelfControls.length; i++){
+		shelfControls[i].addEventListener('click', function(event){
+			
+			event.preventDefault();
+			
+			if (this.id != "by-" + self.shelfState){
+			
+				var newState = (self.shelfState == "subject") ? "type" : "subject";
+				
+				var subject, 
+				subjects = document.getElementsByClassName("popcorn-" + self.shelfState);
+				
+				while (subjects.length){
+					var target, kernel
+					subject = subjects.item(0),
+					kernels = subject.getElementsByClassName("popcorn-node");
+					while (kernels.length){
+						kernel = kernels.item(0);
+						target = getTarget(kernel.className, newState);
+						target.appendChild(kernel);
+					}
+					subject.parentNode.removeChild(subject);
+				}
+				
+				self.shelfState = newState;
+				
+			}
+			
+			function getTarget(classes, type){
+				var i, target,
+				list = classes.split(" ");
+				targetId = '',
+				l = list.length;
+				for (i = 0; i < l; i++){
+					if (list[i].match('^' + type + '(.*)$')){
+						targetId = list[i];
+						target = document.getElementById(targetId);
+						break;
+					}
+				}
+				if (target == null){
+					target = document.createElement('div');
+					target.id = targetId;
+					target.className = 'popcorn-' + type;
+
+					var heading = document.createElement('h2');
+					var re = new RegExp("^" + type + "-");
+					heading.innerHTML = targetId.replace(re, '').replace('-', ' ');
+					heading.className = 'popcorn-' + type + '-heading';
+					target.appendChild(heading);
+					
+					document.getElementById('kettle').appendChild(target);
+				}
+				
+				return target;
+
+			}
+		}, false);
+	}
 	
 
 	function loadKernels(nid){
@@ -123,12 +184,12 @@ Controller.prototype.catchKernel = function(options){
 		if (target == null){
 			target = document.createElement('div');
 			target.id = targetId;
-			target.className = 'popcorn-subject';
+			target.className = 'popcorn-' + type;
 
 			var heading = document.createElement('h2');
 			var re = new RegExp("^" + type + "-");
 			heading.innerHTML = targetId.replace(re, '').replace('-', ' ');
-			heading.className = 'popcorn-subject-heading';
+			heading.className = 'popcorn-' + type + '-heading';
 			target.appendChild(heading);
 			
 			document.getElementById('kettle').appendChild(target);
