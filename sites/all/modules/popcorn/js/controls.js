@@ -97,6 +97,7 @@ Controller.prototype.catchKernel = function(options){
 	var destination = document.getElementById(options.dest);
 	while (destination.childNodes.length > 2){
 		var moveNode = destination.lastChild;
+		console.log(moveNode);
 		var target = getTarget(moveNode.classList, this.shelfState);
 		target.appendChild(destination.lastChild);
 		//create correct container and append to 
