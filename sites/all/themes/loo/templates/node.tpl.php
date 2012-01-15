@@ -83,7 +83,7 @@ $links = render($content['links']);
 <div id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 
 <?php if ($teaser): ?>
-	<h2><a href='#'><?php print $title; ?></a></h2>
+	<h2><a href='#' class='popcorn-preview'><?php print $title; ?></a></h2>
 
 	<div class='full-teaser'>
 		<div class="content clearfix"<?php print $content_attributes; ?>>

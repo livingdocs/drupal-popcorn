@@ -20,7 +20,7 @@
 
 	Popcorn.plugin( "drupal", function (){
 
-		function ajaxLoadData(options){
+		function ajaxLoadData(options, popcorn){
 			var xmlhttp = new XMLHttpRequest();
 			xmlhttp.onreadystatechange = function(){
 				if (xmlhttp.readyState == 4 && xmlhttp.status == 200){
@@ -31,6 +31,9 @@
 					var nodeDiv = document.getElementById('popcorn-node-' + options.nid);
 					//insert the loaded html
 					nodeDiv.innerHTML = nodeData[options.nid].content;
+					
+					//trigger event to attach the click events
+					popcorn.trigger('kernelData', {nid: options.nid, subject: options.subject, type: options.type, dest: options.dest})
 
 				}
 			};
@@ -100,9 +103,11 @@
 				//use the cached data for the kernel if available
 				if (options.nid in nodeData){
 					nodeDiv.innerHTML = nodeData[options.nid].content;
+					//trigger event to attach the click events
+					popcorn.trigger('kernelData', {nid: options.nid, subject: options.subject, type: options.type, dest: options.dest})
 				}
 				else{
-					ajaxLoadData(options);
+					ajaxLoadData(options, this);
 				}
 
 				this.trigger('kernelPop', {nid: options.nid, subject: options.subject, type: options.type, dest: options.dest});

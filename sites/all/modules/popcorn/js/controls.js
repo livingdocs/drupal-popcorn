@@ -14,84 +14,14 @@ function Controller(){
 	
 	this.history = new HistoryManager(this);
 	this.vidControls = new VideoControls('player-controls');
+	this.shelfState = new ShelfController('subject');
 	
 	
 	this.vidControls.init();
 
 	var self = this;
 	
-	//register listeners for kernelPop(click) events
-	this.shelfState = 'type';
-	popcorn.listen('kernelPop', function(data){
-		self.catchKernel(data);
-	});
-	popcorn.listen('kernelDestroy', function(options){
-		var groupNode = document.getElementById(self.shelfState + "-" + options[self.shelfState].replace(" ", "-"));
-		if (groupNode && groupNode.childNodes && groupNode.childNodes.length == 1){
-			groupNode.parentNode.removeChild(groupNode);
-		}
-	});
 	
-	var shelfControls = document.getElementById("shelf-controls").getElementsByTagName("a");
-	for (var i = 0; i< shelfControls.length; i++){
-		shelfControls[i].addEventListener('click', function(event){
-			
-			event.preventDefault();
-			
-			if (this.id != "by-" + self.shelfState){
-			
-				var newState = (self.shelfState == "subject") ? "type" : "subject";
-				
-				var subject, 
-				subjects = document.getElementsByClassName("popcorn-" + self.shelfState);
-				
-				while (subjects.length){
-					var target, kernel
-					subject = subjects.item(0),
-					kernels = subject.getElementsByClassName("popcorn-node");
-					while (kernels.length){
-						kernel = kernels.item(0);
-						target = getTarget(kernel.className, newState);
-						target.appendChild(kernel);
-					}
-					subject.parentNode.removeChild(subject);
-				}
-				
-				self.shelfState = newState;
-				
-			}
-			
-			function getTarget(classes, type){
-				var i, target,
-				list = classes.split(" ");
-				targetId = '',
-				l = list.length;
-				for (i = 0; i < l; i++){
-					if (list[i].match('^' + type + '(.*)$')){
-						targetId = list[i];
-						target = document.getElementById(targetId);
-						break;
-					}
-				}
-				if (target == null){
-					target = document.createElement('div');
-					target.id = targetId;
-					target.className = 'popcorn-' + type;
-
-					var heading = document.createElement('h2');
-					var re = new RegExp("^" + type + "-");
-					heading.innerHTML = targetId.replace(re, '').replace('-', ' ');
-					heading.className = 'popcorn-' + type + '-heading';
-					target.appendChild(heading);
-					
-					document.getElementById('kettle').appendChild(target);
-				}
-				
-				return target;
-
-			}
-		}, false);
-	}
 	
 
 	function loadKernels(nid){
@@ -158,47 +88,6 @@ Controller.prototype.catchHistory = function(index){
 	
 	this.vidControls.updatePlayButton();
 	this.history.updateHistory();
-};
-
-Controller.prototype.catchKernel = function(options){
-	var destination = document.getElementById(options.dest);
-	while (destination.childNodes.length > 2){
-		var moveNode = destination.lastChild;
-		var target = getTarget(moveNode.className, this.shelfState);
-		target.appendChild(destination.lastChild);
-		//create correct container and append to 
-	}
-	
-	function getTarget(classes, type){
-		var i, target,
-		list = classes.split(" ");
-		targetId = '',
-		l = list.length;
-		for (i = 0; i < l; i++){
-			if (list[i].match('^' + type + '(.*)$')){
-				targetId = list[i];
-				target = document.getElementById(targetId);
-				break;
-			}
-		}
-		if (target == null){
-			target = document.createElement('div');
-			target.id = targetId;
-			target.className = 'popcorn-' + type;
-
-			var heading = document.createElement('h2');
-			var re = new RegExp("^" + type + "-");
-			heading.innerHTML = targetId.replace(re, '').replace('-', ' ');
-			heading.className = 'popcorn-' + type + '-heading';
-			target.appendChild(heading);
-			
-			document.getElementById('kettle').appendChild(target);
-		}
-		
-		return target;
-
-	}
-	
 };
 
 Controller.prototype.loadModal = function(nodeData){
@@ -585,4 +474,154 @@ VideoControls.prototype.getCoords = function(event){
 	y = event.clientY + document.body.scrollTop + document.documentElement.scrollTop - Math.floor(canoffset.top) + 1;
 
 	return {offsetX: x, offsetY: y};
+};
+
+
+
+
+function ShelfController(state){
+	var self = this;
+	
+	this.shelfState = state;
+	
+	this.initControls();
+
+	popcorn.listen('kernelData', function(data){
+		self.catchKernelData(data);
+	});
+	popcorn.listen('kernelPop', function(data){
+		self.catchKernelPop(data);
+	});
+	popcorn.listen('kernelDestroy', function(options){
+		var groupNode = document.getElementById(self.shelfState + "-" + options[self.shelfState].replace(" ", "-"));
+		if (groupNode && groupNode.childNodes && groupNode.childNodes.length == 1){
+			groupNode.parentNode.removeChild(groupNode);
+		}
+	});
+	
+}
+
+ShelfController.prototype.catchKernelData = function(options){
+	//attach click handlers to the anchor tags
+	var kernel = document.getElementById("popcorn-node-" + options.nid);
+	var anchor,
+	previewAnchors = kernel.getElementsByClassName("popcorn-preview");
+	for (var i = 0; i < previewAnchors.length; i++){
+		anchor = previewAnchors.item(i);
+		anchor.addEventListener('click', function(event){
+			event.preventDefault();
+
+			var node = document.getElementById("popcorn-node-" + options.nid);
+			var inPreview = false;
+			var classList = node.className.split(" ");
+			var newClassName = [];
+			for (var i = 0; i < classList.length; i++){
+				if (classList[i] == "preview"){
+					inPreview = true;
+				}
+				else{
+					newClassName.push(classList[i]);
+				}
+			}
+			if (!inPreview){
+				newClassName.push("preview");
+			}
+			node.className = newClassName.join(" ");
+			
+		}, false);
+	}
+};
+
+Controller.prototype.catchKernel = function(data){
+	var self = this;
+
+	//ajax call to load video urls and track data
+	jQuery.getJSON("/popcorn/" + data.nid + "/full", function(response, textStatus, jqXHR){
+
+		var full = response.data;
+
+		if (typeof full == "object"){
+			self.loadVideo(full);
+		}
+		else{
+			self.loadModal(full);
+		}
+	});
+}
+
+ShelfController.prototype.catchKernelPop = function(options){
+	//move kernels to the shelf if the destination is full
+	var destination = document.getElementById(options.dest);
+	while (destination.childNodes.length > 2){
+		var moveNode = destination.lastChild;
+		var target = this.getGroupContainer(moveNode.className, this.shelfState);
+		target.appendChild(destination.lastChild);
+	}
+	
+};
+
+ShelfController.prototype.getGroupContainer = function(classes, type){
+	var i, target, targetId,
+	list = classes.split(" "),
+	l = list.length;
+	for (i = 0; i < l; i++){
+		if (list[i].match('^' + type + '(.*)$')){
+			targetId = list[i];
+			target = document.getElementById(targetId);
+			break;
+		}
+	}
+	if (target == null){
+		target = document.createElement('div');
+		target.id = targetId;
+		target.className = 'popcorn-' + type;
+
+		//add group heading
+		var heading = document.createElement('h2');
+		var re = new RegExp("^" + type + "-");
+		heading.innerHTML = targetId.replace(re, '').replace('-', ' ');
+		heading.className = 'popcorn-' + type + '-heading';
+		target.appendChild(heading);
+		
+		document.getElementById('kettle').appendChild(target);
+	}
+	
+	return target;
+	
+};
+
+ShelfController.prototype.initControls = function(){
+	
+	var self = this;
+
+	var shelfControls = document.getElementById("shelf-controls").getElementsByTagName("a");
+	for (var i = 0; i< shelfControls.length; i++){
+		shelfControls[i].addEventListener('click', function(event){
+			
+			event.preventDefault();
+			
+			if (this.id != "by-" + self.shelfState){
+			
+				var newState = (self.shelfState == "subject") ? "type" : "subject";
+				
+				var subject, 
+				subjects = document.getElementsByClassName("popcorn-" + self.shelfState);
+				
+				while (subjects.length){
+					var target, kernel
+					subject = subjects.item(0),
+					kernels = subject.getElementsByClassName("popcorn-node");
+					while (kernels.length){
+						kernel = kernels.item(0);
+						target = self.getGroupContainer(kernel.className, newState);
+						target.appendChild(kernel);
+					}
+					subject.parentNode.removeChild(subject);
+				}
+				
+				self.shelfState = newState;
+				
+			}
+		}, false);
+	}
 };

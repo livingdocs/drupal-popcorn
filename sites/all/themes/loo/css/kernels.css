@@ -6,7 +6,7 @@
 	display: none;
 }
 
-.preview .full-teaser, #video-container #highlight .node-teaser:hover .full-teaser {
+ #video-container #shelf .preview .full-teaser, #video-container #highlight .node-teaser:hover .full-teaser {
 	display: block;
 }
 
@@ -20,10 +20,6 @@
 
 #video-container .links {
 	margin: 0;
-}
-
-#video-container .node-teaser .close-preview {
-	display: none;
 }
 
 #video-container .full-teaser {
@@ -92,7 +88,7 @@
 	background-repeat: no-repeat;
 }
 
-#video-container #highlight .node-teaser.preview, #video-container #highlight .node-teaser:hover{
+#video-container #highlight .node-teaser:hover{
     position: absolute;
     bottom: 5px;
     right: 5px;
