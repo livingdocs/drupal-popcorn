@@ -123,7 +123,6 @@ Controller.prototype.loadModal = function(nodeData){
 };
 
 Controller.prototype.loadVideo = function(vidData){
-
 	this.history.saveHistory();
 	
 	//make the video autoplay once it loads
@@ -137,6 +136,7 @@ Controller.prototype.loadVideo = function(vidData){
 
 	//remove existing media sources
 	while (popcorn.media.hasChildNodes()) {
+		console.log(popcorn.media.lastChild);
 		popcorn.media.removeChild(popcorn.media.lastChild);
 	}
 	//Add new media source
@@ -146,6 +146,7 @@ Controller.prototype.loadVideo = function(vidData){
 		source.src = vidData.videos[i].src;
 		source.type = vidData.videos[i].mime;
 		popcorn.media.appendChild(source);
+		console.log(source);
 
 	}
 
@@ -557,23 +558,6 @@ ShelfController.prototype.catchKernelData = function(options){
 		node.className = newClassName.join(" ");
 	}
 };
-
-Controller.prototype.catchKernel = function(data){
-	var self = this;
-
-	//ajax call to load video urls and track data
-	jQuery.getJSON("/popcorn/" + data.nid + "/full", function(response, textStatus, jqXHR){
-
-		var full = response.data;
-
-		if (typeof full == "object"){
-			self.loadVideo(full);
-		}
-		else{
-			self.loadModal(full);
-		}
-	});
-}
 
 ShelfController.prototype.catchKernelPop = function(options){
 	//move kernels to the shelf if the destination is full
