@@ -119,7 +119,7 @@ if (isset($node->field_thumbnail['und'][0])){
       
       <div id='shelf'>
         <ul id='shelf-controls'>
-          <li><a href='#' id='by-subject'>by subject</a></li>
+          <li><a href='#' id='by-subject' class='current-control'>by subject</a></li>
           <li><a href='#' id='by-type'>by type</a></li>
         </ul>
         <div id='kettle'>

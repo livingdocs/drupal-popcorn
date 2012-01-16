@@ -628,6 +628,10 @@ ShelfController.prototype.initControls = function(){
 			event.preventDefault();
 			
 			if (this.id != "by-" + self.shelfState){
+				
+				var otherControl = document.getElementById("by-" + self.shelfState);
+				otherControl.className = "";
+				this.className = "current-control";
 			
 				var newState = (self.shelfState == "subject") ? "type" : "subject";
 				
