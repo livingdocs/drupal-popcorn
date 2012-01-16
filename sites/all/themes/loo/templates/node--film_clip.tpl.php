@@ -78,6 +78,10 @@
  * @see template_process()
  */
 hide($content['links']);
+hide($content['field_thumbnail']);
+if (isset($node->field_thumbnail['und'][0])){
+    $thumbnail = theme('image_style', array('style_name' => 'teaser-thumbnail', 'path' => $node->field_thumbnail['und'][0]['uri']));
+}
 ?>
 <div id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?> clearfix"  <?php print $attributes; ?>>
 
@@ -85,6 +89,7 @@ hide($content['links']);
 		<h2><a href='#' class='popcorn-preview'><?php print $title; ?></a></h2>
 	
 		<div class='full-teaser'>
+		<?php if (isset($thumbnail)) print l("<div class='field-thumbnail'>$thumbnail</div>", "node/" . $node->nid, array('html' => true, 'attributes' => array('class' => array('popcorn-action')))); ?>
 			<div class="content clearfix"<?php print $content_attributes; ?>>
 	            <?php print render($content); ?>
 			</div>    

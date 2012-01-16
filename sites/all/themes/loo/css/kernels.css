@@ -6,6 +6,10 @@
 	display: none;
 }
 
+#video-container .field-thumbnail{
+	float: right;
+}
+
  #video-container #shelf .preview .full-teaser, #video-container #highlight .node-teaser:hover .full-teaser {
 	display: block;
 }
