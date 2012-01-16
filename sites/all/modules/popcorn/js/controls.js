@@ -98,7 +98,7 @@ Controller.prototype.loadModal = function(nodeData){
 	}
 	
 	TINY.box.show({
-		html: nodeData+nodeData,
+		html: nodeData,
 		boxid: 'frameless',
 		maskid: 'blackmask',
 		fixed: false,
