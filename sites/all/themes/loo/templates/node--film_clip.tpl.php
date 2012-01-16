@@ -94,7 +94,7 @@ if (isset($node->field_thumbnail['und'][0])){
 	            <?php print render($content); ?>
 			</div>    
             <div class="link-wrapper">
-              <?php print l(t('Read more...'), 'node/' . $nid, array('attributes' => array('class' => t('popcorn-action')))); ?>
+              <?php print l(t('Watch video...'), 'node/' . $nid, array('attributes' => array('class' => t('popcorn-action')))); ?>
             </div>
 			
 		</div>
