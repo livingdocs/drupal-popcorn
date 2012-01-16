@@ -49,13 +49,17 @@
 	margin: 0;
 	line-height: 30px;
     padding-left: 30px;
+    padding-right: 5px;
     overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     max-height: 30px;
 }
 
 #video-container #highlight .node-teaser:hover h2, #video-container .preview .node-teaser h2{
 	max-height: none;
 	overflow: auto;
+    white-space: normal;
 }
 
 #video-container .node-teaser a {
