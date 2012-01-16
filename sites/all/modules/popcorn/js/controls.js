@@ -537,23 +537,29 @@ ShelfController.prototype.catchKernelData = function(options){
 
 	function togglePreview(event){
 		event.preventDefault();
-		
+
 		var node = document.getElementById("popcorn-node-" + options.nid);
-		var inPreview = false;
-		var classList = node.className.split(" ");
-		var newClassName = [];
-		for (var i = 0; i < classList.length; i++){
-			if (classList[i] == "preview"){
-				inPreview = true;
-			}
-			else{
-				newClassName.push(classList[i]);
-			}
+
+		if (node.parentNode.id == options.dest){
+			catchKernel(event);
 		}
-		if (!inPreview){
-			newClassName.push("preview");
+		else{
+			var inPreview = false;
+			var classList = node.className.split(" ");
+			var newClassName = [];
+			for (var i = 0; i < classList.length; i++){
+				if (classList[i] == "preview"){
+					inPreview = true;
+				}
+				else{
+					newClassName.push(classList[i]);
+				}
+			}
+			if (!inPreview){
+				newClassName.push("preview");
+			}
+			node.className = newClassName.join(" ");
 		}
-		node.className = newClassName.join(" ");
 	}
 };
 

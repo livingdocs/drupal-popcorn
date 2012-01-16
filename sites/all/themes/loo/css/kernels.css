@@ -53,6 +53,11 @@
     max-height: 30px;
 }
 
+#video-container #highlight .node-teaser:hover h2, #video-container .preview .node-teaser h2{
+	max-height: none;
+	overflow: auto;
+}
+
 #video-container .node-teaser a {
     color: rgb(234, 194, 82);
 }
