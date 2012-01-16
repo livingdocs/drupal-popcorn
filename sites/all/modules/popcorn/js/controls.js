@@ -100,8 +100,8 @@ Controller.prototype.loadModal = function(nodeData){
 	TINY.box.show({
 		html: nodeData+nodeData,
 		boxid: 'frameless',
-		fixed: false,
 		maskid: 'blackmask',
+		fixed: false,
 		opacity: 80,
 		width: '930',
 		closejs: function(){if (wasPlaying){popcorn.play();}}
