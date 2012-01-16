@@ -408,12 +408,12 @@ VideoControls.prototype.updateScrubber = function(){
 		//fill played
 		var percentPlayed = (popcorn.currentTime() / popcorn.duration()) * this.scrubber.width;
 		//draw the updated scrubber
-		this.drawScrubber(percentBuffered, percentPlayed);
+		this.drawScrubber(popcorn.buffered().start(0), percentBuffered, percentPlayed);
 	}
 	
 };
 
-VideoControls.prototype.drawScrubber = function(buffered, played){
+VideoControls.prototype.drawScrubber = function(start, buffered, played){
 
 	//reset the scrubber
 	this.resetScrubber();
@@ -430,14 +430,14 @@ VideoControls.prototype.drawScrubber = function(buffered, played){
 	//fill buffered
 	this.ctx.fillStyle = "rgb(148, 127, 83)";
 	var grayLength = (buffered * this.scrubber.width);
-	this.ctx.fillRect(0, 60 - (this.scrubberHeight / 2), grayLength, this.scrubberHeight);
+	this.ctx.fillRect(start, 60 - (this.scrubberHeight / 2), grayLength, this.scrubberHeight);
 	
 	//fill played
 	this.ctx.save();
 	this.ctx.fillStyle = "rgb(255, 205, 51)";
 	this.ctx.shadowBlur = 5;
 	this.ctx.shadowColor = "rgb(255, 205, 51)";
-	this.ctx.fillRect(0, 60 - (this.scrubberHeight / 2), played, this.scrubberHeight);
+	this.ctx.fillRect(start, 60 - (this.scrubberHeight / 2), played, this.scrubberHeight);
 	this.ctx.restore();	
 	
 };
