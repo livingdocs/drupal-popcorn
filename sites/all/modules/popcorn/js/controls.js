@@ -96,6 +96,18 @@ Controller.prototype.loadModal = function(nodeData){
 		wasPlaying = true;
 	    popcorn.pause();
 	}
+	
+	TINY.box.show({
+		html: nodeData+nodeData,
+		boxid: 'frameless',
+		fixed: false,
+		maskid: 'blackmask',
+		opacity: 80,
+		width: '930',
+		closejs: function(){if (wasPlaying){popcorn.play();}}
+	})
+	
+	/*
 	var modalFrame = document.createElement('div');
 	modalFrame.id = 'modal-frame';
 	modalFrame.addEventListener('click', function(){
@@ -120,6 +132,7 @@ Controller.prototype.loadModal = function(nodeData){
 	modalFrame.appendChild(modalDialog);
 	
 	document.getElementsByTagName('body')[0].appendChild(modalFrame);
+	*/
 };
 
 Controller.prototype.loadVideo = function(vidData){
