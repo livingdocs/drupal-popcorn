@@ -403,7 +403,8 @@ VideoControls.prototype.updateScrubber = function(){
 	
 	if (popcorn.buffered().length > 0){
 		
-		var bufferStart = (popcorn.buffered().start(0));// / popcorn.duration()) * this.scrubber.width;
+		var bufferStart = (popcorn.buffered().start(0) / popcorn.duration()) * this.scrubber.width;
+		console.log(bufferStart);
 		//fill buffered
 		var percentBuffered = popcorn.buffered().end(0) / popcorn.duration();
 		//fill played
