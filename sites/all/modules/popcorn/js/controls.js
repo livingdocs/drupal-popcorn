@@ -100,12 +100,16 @@ Controller.prototype.loadModal = function(nodeData){
 	TINY.box.show({
 		html: nodeData,
 		boxid: 'frameless',
-		maskid: 'blackmask',
+		mask: 'blackmask',
 		fixed: false,
+		animate: false,
+		top: 20,
 		opacity: 80,
 		width: '930',
 		closejs: function(){if (wasPlaying){popcorn.play();}}
-	})
+	});
+	
+	window.scrollTo(0, 0);
 	
 	/*
 	var modalFrame = document.createElement('div');
