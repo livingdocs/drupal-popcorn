@@ -1648,6 +1648,7 @@ div.admin-panel .description {
 
 #page-wrapper {
   background: #E6DCC3 url('../images/opportunity-back-3.jpg') no-repeat center top;
+  overflow: hidden;
 }
 
 #header{
