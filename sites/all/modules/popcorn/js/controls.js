@@ -373,6 +373,7 @@ VideoControls.prototype.initPlayButton = function(){
 			popcorn.pause();
 		}
 	}, false);
+	this.updatePlayButton();
 };
 
 VideoControls.prototype.updatePlayButton = function(){
