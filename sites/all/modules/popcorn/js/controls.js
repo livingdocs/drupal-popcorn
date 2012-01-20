@@ -168,7 +168,7 @@ Controller.prototype.loadVideo = function(vidData){
 
 	//load the new video
 	popcorn.load();
-	poop();
+	this.transitionVideo();
 	this.vidControls.resetScrubber();
 	
 	//add the new track events in full.kernels
@@ -180,6 +180,28 @@ Controller.prototype.loadVideo = function(vidData){
 	
 	this.vidControls.updatePlayButton();
 };
+
+Controller.prototype.transitionVideo = function(){
+	var wrapper = document.getElementById('player-wrapper');
+	var vidWrapper = document.getElementById('main-player-wrapper');
+
+	vidWrapper.style.position = 'absolute';
+	vidWrapper.style.top = '405px';
+	vidWrapper.style.left = '0';
+	
+	var videoInt = setInterval(function(){
+		var increment = 25;
+		var top = parseInt(vidWrapper.style.top.replace('px', ''), 10);
+		if (top == 0){
+			clearInterval(videoInt);
+		}
+		else{
+			var newTop = ((top - increment) >= 0) ? (top - increment) : 0;
+			vidWrapper.style.top = newTop + "px";
+		}
+	}, 25);
+
+}
 
 function HistoryManager(controller){
 	
@@ -682,27 +704,6 @@ ShelfController.prototype.initControls = function(){
 
 
 
-function poop(){
-	var wrapper = document.getElementById('player-wrapper');
-	var vidWrapper = document.getElementById('main-player-wrapper');
-
-	vidWrapper.style.position = 'absolute';
-	vidWrapper.style.top = '405px';
-	vidWrapper.style.left = '0';
-	
-	var videoInt = setInterval(function(){
-		var increment = 25;
-		var top = parseInt(vidWrapper.style.top.replace('px', ''), 10);
-		if (top == 0){
-			clearInterval(videoInt);
-		}
-		else{
-			var newTop = ((top - increment) >= 0) ? (top - increment) : 0;
-			vidWrapper.style.top = newTop + "px";
-		}
-	}, 25);
-
-}
 
 
 
