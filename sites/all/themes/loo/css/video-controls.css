@@ -1,7 +1,13 @@
-#main-player-wrapper{
-    background: rgba(25, 42, 53, 0.9);
+#player-wrapper{
     margin: 0 auto;
     width: 720px;
+    height: 405px;
+    position: relative;
+    overflow: hidden;
+}
+
+#main-player-wrapper{
+    background: rgba(25, 42, 53, 0.9);
 }
 
 #main-player{
@@ -151,12 +157,20 @@ border-top-right-radius: 6px;
 
 #player-history{
 	padding: 0 20px;
+	position: relative;
+	height: 15px;
+	width: 720px;
+	margin: 0 auto;
 }
 
 .history-node{
 	margin: 0 30px;
-	height: 15px;
+	height: 382px;
+	width: 680px;
 	background: rgba(25, 42, 53, 0.9);
+	position: absolute;
+	top: 0;
+	left: 10px;
 }
 
 .history-node a{

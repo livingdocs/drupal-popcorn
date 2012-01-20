@@ -72,6 +72,7 @@ Controller.prototype.catchHistory = function(index){
 
 	//load the new video
 	popcorn.load();
+	//poop();
 	
 	//add the new track events from the vidData
 	this.vidControls.removeTriggers();
@@ -167,6 +168,7 @@ Controller.prototype.loadVideo = function(vidData){
 
 	//load the new video
 	popcorn.load();
+	poop();
 	this.vidControls.resetScrubber();
 	
 	//add the new track events in full.kernels
@@ -661,3 +663,98 @@ ShelfController.prototype.initControls = function(){
 		}, false);
 	}
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function poop(){
+	var wrapper = document.getElementById('player-wrapper');
+	var vidWrapper = document.getElementById('main-player-wrapper');
+	var video = document.getElementById('main-player');
+	
+
+	var history = document.createElement('canvas');
+	history.style.position = 'absolute';
+	history.style.top = '0';
+	history.style.left = '0';
+	history.width = 720;
+	history.height = 405;
+	
+	var context = history.getContext('2d');
+	context.drawImage(video, 0, 0);
+	//vidWrapper.insertBefore(history, video);
+	
+	
+	
+	vidWrapper.style.position = 'absolute';
+	vidWrapper.style.top = '405px';
+	vidWrapper.style.left = '0';
+	
+	var videoInt = setInterval(function(){
+		var increment = 25;
+		var top = parseInt(vidWrapper.style.top.replace('px', ''), 10);
+		if (top == 0){
+			clearInterval(videoInt);
+		}
+		else{
+			var newTop = ((top - increment) >= 0) ? (top - increment) : 0;
+			vidWrapper.style.top = newTop + "px";
+		}
+	}, 25);
+	
+	
+
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -105,11 +105,13 @@ if (isset($node->field_thumbnail['und'][0])){
   
 	  <div id="video-container">
 	    <div id='player-history'></div>
+	    <div id='player-wrapper'>
 	    <div id='main-player-wrapper'><video width="720" height="405" id="main-player" preload="auto" poster="/sites/all/themes/loo/images/macho1.gif" autoplay="autoplay"><?php 
 	    foreach ($node->field_video_file['und'] as $video){
 	      	print "<source src='" . file_create_url($video['uri']) . "' type='{$video['filemime']}' />";
 	    } 
 	    ?></video></div>
+	    </div>
 	    <div id='controls'>
 			<canvas id='player-controls-taper' height='20' width='760'></canvas>
 	      <div><button id='play-button' class='player-button paused'></button><canvas id='player-controls' height='80' width='360'></canvas><button id='volume-button' class='player-button'></button><div id='highlight'></div></div>
