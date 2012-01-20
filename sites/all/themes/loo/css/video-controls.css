@@ -171,6 +171,7 @@ border-top-right-radius: 6px;
 	position: absolute;
 	top: 0;
 	left: 10px;
+	cursor: pointer;
 }
 
 .history-node a{
