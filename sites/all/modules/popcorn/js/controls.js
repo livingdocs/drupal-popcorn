@@ -111,33 +111,6 @@ Controller.prototype.loadModal = function(nodeData){
 	});
 	
 	window.scrollTo(0, 0);
-	
-	/*
-	var modalFrame = document.createElement('div');
-	modalFrame.id = 'modal-frame';
-	modalFrame.addEventListener('click', function(){
-		//document.getElementsByTagName('body')[0].removeChild(modalFrame);
-	}, false);
-	
-	var modalDialog = document.createElement('div');
-	modalDialog.id = 'modal-dialog';
-	modalDialog.innerHTML = nodeData;
-	
-	var closeButton = document.createElement('button');
-	closeButton.id = 'modal-close';
-	closeButton.innerHTML = "X";
-	closeButton.addEventListener('click', function(){
-		if (wasPlaying){
-			popcorn.play();
-		}
-		document.getElementsByTagName('body')[0].removeChild(modalFrame);
-	}, false);
-	modalDialog.appendChild(closeButton);
-	
-	modalFrame.appendChild(modalDialog);
-	
-	document.getElementsByTagName('body')[0].appendChild(modalFrame);
-	*/
 };
 
 Controller.prototype.loadVideo = function(vidData){
@@ -182,6 +155,9 @@ Controller.prototype.loadVideo = function(vidData){
 };
 
 Controller.prototype.transitionVideo = function(){
+	
+	window.scrollTo(0, 0);
+	
 	var wrapper = document.getElementById('player-wrapper');
 	var vidWrapper = document.getElementById('main-player-wrapper');
 
@@ -426,6 +402,9 @@ VideoControls.prototype.initScrubber = function(){
 	this.scrubber.addEventListener('click', function(event){
 		self.scrubberClick(event);
 	}, false);
+	this.scrubber.addEventListener('mousemove', function(event){
+		self.scrubberHover(event, this);
+	}, false);
 	
 };
 
@@ -490,6 +469,45 @@ VideoControls.prototype.scrubberClick = function(event){
 	if(coords.offsetY < 70 && coords.offsetY > 50){
 		popcorn.currentTime(((coords.offsetX) / this.scrubber.width) * popcorn.duration());
 	}
+
+	
+	for (var index in this.triggers){
+		
+		var current = this.triggers[index];
+		var startPos = (current.start / popcorn.duration()) * this.scrubber.width - 15;
+		
+		if ((coords.offsetX < (startPos + 30) && coords.offsetX > startPos)
+			&& (coords.offsetY < 50 && coords.offsetY > 25)){
+			popcorn.currentTime(current.start);
+		}
+		
+	}
+}
+
+VideoControls.prototype.scrubberHover = function(event, target){
+	var coords = this.getCoords(event);
+	
+	target.style.cursor = "auto";
+	
+	//hover is in the scrubber area
+	if(coords.offsetY < 70 && coords.offsetY > 50){
+		target.style.cursor = "pointer";
+	}
+
+	
+	for (var index in this.triggers){
+		
+		var current = this.triggers[index];
+		var startPos = (current.start / popcorn.duration()) * this.scrubber.width - 15;
+		
+		if ((coords.offsetX < (startPos + 30) && coords.offsetX > startPos)
+			&& (coords.offsetY < 50 && coords.offsetY > 25)){
+			target.style.cursor = "pointer";
+		}
+		
+	}
+	
+	
 }
 
 VideoControls.prototype.drawTaper = function(){
@@ -509,7 +527,7 @@ VideoControls.prototype.drawTaper = function(){
 VideoControls.prototype.getCoords = function(event){
 	var x, y;
 
-	canoffset = jQuery(event.target).offset();
+	var canoffset = jQuery(event.target).offset();
 	x = event.clientX + document.body.scrollLeft + document.documentElement.scrollLeft - Math.floor(canoffset.left);
 	y = event.clientY + document.body.scrollTop + document.documentElement.scrollTop - Math.floor(canoffset.top) + 1;
 

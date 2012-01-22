@@ -153,6 +153,8 @@ border-top-right-radius: 6px;
 
 #highlight .popcorn-node{
 	padding: 5px;
+	position: relative;
+	height: 30px;
 }
 
 #player-history{
