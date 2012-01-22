@@ -303,6 +303,8 @@ VideoControls.prototype.drawTriggers = function(){
 
 VideoControls.prototype.init = function(){
 	
+	this.mouseDown = false;
+	
 	this.initScrubber();
 	this.initPlayButton();
 	this.initVolumeButton();
@@ -399,11 +401,14 @@ VideoControls.prototype.initScrubber = function(){
 	popcorn.listen('timeupdate', function(){
 		self.updateScrubber();
 	});
-	this.scrubber.addEventListener('click', function(event){
+	this.scrubber.addEventListener('mousedown', function(event){
 		self.scrubberClick(event);
 	}, false);
 	this.scrubber.addEventListener('mousemove', function(event){
 		self.scrubberHover(event, this);
+	}, false);
+	this.scrubber.addEventListener('mouseup', function(event){
+		self.mouseDown = false;
 	}, false);
 	
 };
@@ -468,6 +473,7 @@ VideoControls.prototype.scrubberClick = function(event){
 	//click is in the scrubber area
 	if(coords.offsetY < 70 && coords.offsetY > 50){
 		popcorn.currentTime(((coords.offsetX) / this.scrubber.width) * popcorn.duration());
+		this.mouseDown = true;
 	}
 
 	
@@ -486,6 +492,10 @@ VideoControls.prototype.scrubberClick = function(event){
 
 VideoControls.prototype.scrubberHover = function(event, target){
 	var coords = this.getCoords(event);
+	
+	if (this.mouseDown){
+		popcorn.currentTime(((coords.offsetX) / this.scrubber.width) * popcorn.duration());
+	}
 	
 	target.style.cursor = "auto";
 	
