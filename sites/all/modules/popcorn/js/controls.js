@@ -476,7 +476,7 @@ VideoControls.prototype.scrubberClick = function(event){
 		this.mouseDown = true;
 	}
 
-	
+	//click is on a trigger icon
 	for (var index in this.triggers){
 		
 		var current = this.triggers[index];

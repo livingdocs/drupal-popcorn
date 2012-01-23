@@ -124,8 +124,23 @@ border-top-right-radius: 6px;
   vertical-align: top;
 }
 
-#kettle .popcorn-subject-heading, #kettle .popcorn-type-heading{
+#kettle .popcorn-subject:nth-child(4n+1) .popcorn-subject-heading, #kettle .popcorn-type:nth-child(4n+1) .popcorn-type-heading{
   border-bottom: 2px solid blue;
+  margin: 10px 0;
+}
+
+#kettle .popcorn-subject:nth-child(4n+2) .popcorn-subject-heading, #kettle .popcorn-type:nth-child(4n+2) .popcorn-type-heading{
+  border-bottom: 2px solid green;
+  margin: 10px 0;
+}
+
+#kettle .popcorn-subject:nth-child(4n+3) .popcorn-subject-heading, #kettle .popcorn-type:nth-child(4n+3) .popcorn-type-heading{
+  border-bottom: 2px solid red;
+  margin: 10px 0;
+}
+
+#kettle .popcorn-subject:nth-child(4n+4) .popcorn-subject-heading, #kettle .popcorn-type:nth-child(4n+4) .popcorn-type-heading{
+  border-bottom: 2px solid yellow;
   margin: 10px 0;
 }
 
