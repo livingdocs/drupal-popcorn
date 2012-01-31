@@ -1,5 +1,7 @@
-name = Popcorn.js
-description = Enables the use of the Popcorn.js library
-core = 7.x
-package = Popcorn.js
+name = "Popcorn.js"
+description = "Enables the use of the Popcorn.js library"
+core = "7.x"
+package = "Popcorn.js"
+
+dependencies[] = "popcorn_features"
 
