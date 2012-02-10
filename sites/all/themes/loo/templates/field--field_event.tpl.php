@@ -49,9 +49,10 @@
   <div class="field-items"<?php print $content_attributes; ?>>
     <?php foreach ($items as $delta => $item): ?>
 <?php 
-
-$node = $item['#node']; 
-$subject = str_replace(' ', '-', taxonomy_term_load($node->field_subject['und'][0]->tid));
+if (isset($item['#node'])){
+    $node = $item['#node']; 
+    $subject = str_replace(' ', '-', taxonomy_term_load($node->field_subject['und'][0]->tid));
+}
 
 ?>
     <div id="popcorn-modal-<?php print $node->nid; ?>" class="popcorn-node subject-<?php print $subject; ?> type-<?php print $node->type; ?>">

@@ -123,6 +123,11 @@ console.log(this.history.historyList);
 			for (var i = 0; i < kernelData.data.length; i++){
 				self.shelfState.catchKernelData(kernelData.data[i], 'popcorn-modal-');
 			}
+
+			if (typeof kernelData.data.js !== "undefined"){
+				//jQuery.getScript("//maps.google.com/maps?file=api&amp;v=2&amp;key=AIzaSyAVkTFPWaejdP6soprnHjxxG1C8h7SOtJk");
+				jQuery.getScript(kernelData.data.js);
+			}
 		}
 
 		window.scrollTo(0, 0);

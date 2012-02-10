@@ -1,30 +1,34 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Popcorn tagthisperson test</title>
+  <title>Popcorn Tumblr Plug-in Test</title>
   <link rel="stylesheet" href="../../test/qunit/qunit.css" type="text/css" media="screen">
   <script src="../../test/qunit/qunit.js"></script>
   <!--
     do not move - this must be called immediately prior to
     popcorn-api-draft.js
   -->
-
   <script src="../../popcorn.js"></script>
-  <script src="popcorn.tagthisperson.js"></script>
-  <script src="popcorn.tagthisperson.unit.js"></script>
+  <script src="popcorn.tumblr.js"></script>
+  <script src="popcorn.tumblr.unit.js"></script>
   <script src="../../test/inject.js"></script>
 </head>
 <body>
-  <h1 id="qunit-header">Popcorn tagthisperson Plugin</h1>
+  <h1 id="qunit-header">Popcorn Tumblr Plugin</h1>
   <h2 id="qunit-banner"></h2>
   <div id="qunit-testrunner-toolbar"></div>
   <h2 id="qunit-userAgent"></h2>
   <ol id="qunit-tests"></ol>
   <div id="qunit-fixture">  </div>
 
+  <div style="position:absolute;left:300px;">
+    <div id="bloginfodiv"></div>
+    <div id="avatardiv"></div>
+    <div id="testsdiv"></div>
+  </div>
   <video id="video"
     controls 
-    width= "250px"
+    width="250px"
     poster="../../test/poster.png">
 
     <source id="mp4"
@@ -40,10 +44,12 @@
       type='video/webm; codecs="vp8, vorbis"'>
 
     <p>Your user agent does not support the HTML5 Video element.</p>
-
   </video>
-  <div id="tagdiv"></div>
-  <div id="tagdiv2"></div>
+  <div>
+    <div id="photoblogdiv"></div>
+    <div id="audioblogdiv"></div>
+    <div id="textblogdiv"></div>
+    <div id="videoblogdiv"></div>
+  </div>
 </body>
 </html>
-

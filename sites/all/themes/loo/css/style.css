@@ -1673,3 +1673,8 @@ div.admin-panel .description {
 .node-type-film-clip .node{
 	background: none;
 }
+
+.map-link{
+	display: inline-block;
+	margin: 10px 50px;
+}

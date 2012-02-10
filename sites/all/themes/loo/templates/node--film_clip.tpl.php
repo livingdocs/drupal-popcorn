@@ -166,3 +166,5 @@ if (isset($node->field_thumbnail['und'][0])){
 
 
 </div>
+
+<script src="//maps.google.com/maps?file=api&amp;v=2&amp;key=AIzaSyAVkTFPWaejdP6soprnHjxxG1C8h7SOtJk" type="text/javascript"></script>
