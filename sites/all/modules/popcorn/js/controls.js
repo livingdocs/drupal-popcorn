@@ -270,7 +270,6 @@ console.log(this.history.historyList);
 		this.triggers = [];
 
 		this.scrubber = document.getElementById(canvas);
-		console.log(this.scrubber);
 		this.ctx = this.scrubber.getContext("2d");
 
 		this.playButton = document.getElementById('play-button');
