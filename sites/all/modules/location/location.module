@@ -1520,8 +1520,8 @@ function _location_geo_logic(&$location, $changed, $filled, $inhibit_geocode = F
   if (!empty($location['postal_code'])) {
     if (empty($location['city']) || empty($location['province'])) {
       if ($data = location_get_postalcode_data($location)) {
-        $location['city'] = $data['city'];
-        $location['province'] = $data['province'];
+        $location['city'] = empty($location['city']) ? $data['city'] : $location['city'];
+        $location['province'] = empty($location['province']) ? $data['province'] : $location['province'];
       }
     }
   }

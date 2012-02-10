@@ -10,12 +10,12 @@
 }
 
 .field-collection-container .field-items .field-items .field-item {
-  margin-bottom: 0px;
+  margin-bottom: 0;
 }
 
 .field-collection-view {
-  padding: 1em 0em 0.3em 0em;
-  margin: 0em 1em 0em 1em;
+  padding: 1em 0 0.3em 0;
+  margin: 0 1em 0 1em;
   border-bottom: 1px dotted #D3D7D9;
 }
 
@@ -25,7 +25,7 @@
 }
 
 .field-collection-view .entity-field-collection-item {
-  float: left; 
+  float: left;
 }
 
 .field-collection-view ul.field-collection-view-links {
@@ -33,8 +33,8 @@
   font-size: 0.821em;
   list-style-type: none;
   width: auto;
-  margin: 0em 1em;
-  padding: 0em;
+  margin: 0 1em;
+  padding: 0;
 }
 
 .field-collection-view .field-label {
@@ -42,7 +42,7 @@
 }
 
 .field-collection-view .content {
-  margin-top: 0em;
+  margin-top: 0;
   width: 100%;
 }
 
@@ -60,7 +60,7 @@ ul.field-collection-view-links li a {
 
 .field-collection-container ul.action-links-field-collection-add {
   float: right;
-  padding: 0em 0.5em 0em 0em;
-  margin: 0em 0em 1em 2em;
+  padding: 0 0.5em 0 0;
+  margin: 0 0 1em 2em;
   font-size: 0.821em;
 }

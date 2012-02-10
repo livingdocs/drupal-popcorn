@@ -76,7 +76,9 @@ class location_handler_field_location_distance extends views_handler_field {
       '#default_value' => $this->options['postal_code'],
       '#process' => array('ctools_dependent_process'),
       '#dependency' => array('edit-options-origin' => array('postal', 'postal_default')),
+      '#maxlength' => 16
     );
+
     $form['country'] = array(
       '#type' => 'select',
       '#title' => t('Country'),

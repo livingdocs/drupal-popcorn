@@ -154,7 +154,13 @@ border-top-right-radius: 6px;
 }
 
 #player-controls-taper{
-	display: block;
+	width: 760px;
+	height: 20px;
+	background-image: url(../images/taper.png);
+}
+
+#player-controls{
+	background-color: rgba(25, 42, 53, 0.9);
 }
 
 #highlight .node-teaser{

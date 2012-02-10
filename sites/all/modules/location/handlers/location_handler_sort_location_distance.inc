@@ -64,7 +64,9 @@ class location_handler_sort_location_distance extends views_handler_sort {
       '#default_value' => $this->options['postal_code'],
       '#process' => array('ctools_dependent_process'),
       '#dependency' => array('edit-options-origin' => array('postal', 'postal_default')),
+      '#maxlength' => 16
     );
+
     $form['country'] = array(
       '#type' => 'select',
       '#title' => t('Country'),

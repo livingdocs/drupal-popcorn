@@ -48,7 +48,6 @@ function popcorn_menu(){
 
 function _popcorn_load_kernels($node){
   $kernels = array();
-  $poop = field_collection_item_load(1);
   if (isset($node->field_track_events['und'])){
     foreach ($node->field_track_events['und'] as $index => $trackEvent){
       $event = field_collection_item_load($trackEvent['value']);

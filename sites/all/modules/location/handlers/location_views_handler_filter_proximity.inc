@@ -140,7 +140,9 @@ class location_views_handler_filter_proximity extends views_handler_filter {
       '#process' => array('ctools_dependent_process'),
       '#dependency' => array('edit-options-origin' => array('postal', 'postal_default')),
       '#weight' => 3,
+      '#maxlength' => 16
     );
+
     $form['value']['country'] = array(
       '#type' => 'select',
       '#title' => t('Country'),

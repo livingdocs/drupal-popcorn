@@ -104,7 +104,7 @@
 				if (options.nid in nodeData){
 					nodeDiv.innerHTML = nodeData[options.nid].content;
 					//trigger event to attach the click events
-					popcorn.trigger('kernelData', {nid: options.nid, subject: options.subject, type: options.type, dest: options.dest})
+					this.trigger('kernelData', {nid: options.nid, subject: options.subject, type: options.type, dest: options.dest})
 				}
 				else{
 					ajaxLoadData(options, this);

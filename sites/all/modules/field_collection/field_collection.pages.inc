@@ -2,13 +2,13 @@
 
 /**
  * @file
- * Provides the field-collection item view / edit / delete pages.
+ * Provides the field collection item view / edit / delete pages.
  */
 
 // TODO: fix being embedded in a host with revisions.
 
 /**
- * Field-collection item view page.
+ * Field collection item view page.
  */
 function field_collection_item_page_view($field_collection_item) {
   // @todo: Set breadcrumb including the host.
@@ -17,7 +17,7 @@ function field_collection_item_page_view($field_collection_item) {
 }
 
 /**
- * Form for editing a field-collection item.
+ * Form for editing a field collection item.
  * @todo implement hook_forms().
  */
 function field_collection_item_form($form, &$form_state, $field_collection_item) {
@@ -67,7 +67,7 @@ function field_collection_item_form_submit($form, &$form_state) {
 }
 
 /**
- * Form for deleting a field-collection item.
+ * Form for deleting a field collection item.
  */
 function field_collection_item_delete_confirm($form, &$form_state, $field_collection_item) {
   $form_state += array('field_collection_item' => $field_collection_item);
@@ -81,7 +81,7 @@ function field_collection_item_delete_confirm($form, &$form_state, $field_collec
 }
 
 /**
- * Submit callback for deleting a field-collection item.
+ * Submit callback for deleting a field collection item.
  */
 function field_collection_item_delete_confirm_submit($form, &$form_state) {
   $field_collection_item = $form_state['field_collection_item'];
@@ -91,7 +91,7 @@ function field_collection_item_delete_confirm_submit($form, &$form_state) {
 }
 
 /**
- * Add a new field-collection item.
+ * Add a new field collection item.
  *
  * @todo: Support optionally passing in the revision_id and langcode parameters.
  */
@@ -124,8 +124,8 @@ function field_collection_item_add($field_name, $entity_type, $entity_id, $revis
   drupal_set_title($title);
 
   $field_collection_item = entity_create('field_collection_item', array('field_name' => $field_name));
-  // Do not link the field-collection item with the host entity at this point,
-  // as during the form-workflow we have multiple field-collection item entity
+  // Do not link the field collection item with the host entity at this point,
+  // as during the form-workflow we have multiple field collection item entity
   // instances, which we don't want link all with the host.
   // That way the link is going to be created when the item is saved.
   $field_collection_item->setHostEntity($entity_type, $entity, LANGUAGE_NONE, FALSE);
