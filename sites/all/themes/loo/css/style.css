@@ -1667,14 +1667,54 @@ div.admin-panel .description {
 }
 
 .node{
-	background: white;
+	background: #F5F9E9;
+	padding: 10px;
 }
 
-.node-type-film-clip .node{
-	background: none;
+div.node-film-clip{
+    background: none;
+    padding: 0;
+}
+
+.field-name-body{
+    width: 650px;
+    display: inline-block;
+}
+
+.popcorn-node .field-name-body{
+    width: auto;
+}
+
+.field-collection-container{
+    width: 260px;
+    display: inline-block;
+    background: rgba(25, 42, 53, 0.9);
+    vertical-align: top;
 }
 
 .map-link{
 	display: inline-block;
 	margin: 10px 50px;
+}
+
+
+
+@font-face {
+    font-family: Clarendon;
+    src: url(../fonts/Clarendon.otf) format('otf'), url(../fonts/Clarendon.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: Gloucester;
+    src: url(../fonts/Gloucester.otf) format('otf'), url(../fonts/Gloucester.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: Dokument;
+    src: url(../fonts/Dokument.otf) format('otf'), url(../fonts/Dokument.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: Donatora;
+    src: url(../fonts/Donatora.otf) format('otf'), url(../fonts/Donatora.ttf) format('truetype');
 }
