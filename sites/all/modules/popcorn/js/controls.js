@@ -44,7 +44,14 @@
 
 		loadKernels(nid);
 
+		this.popcorn.listen('loadeddata', function(){
+			self.processQueuedTasks();
+		});
 	}
+	
+	Controller.prototype.processQueuedTasks = function(){
+		this.vidControls.drawQueuedTriggers();
+	};
 
 	Controller.prototype.catchHistory = function(index){
 		var vidData = this.history.loadHistory(index);
@@ -149,7 +156,7 @@
 		while (this.popcorn.media.hasChildNodes()) {
 			this.popcorn.media.removeChild(this.popcorn.media.lastChild);
 		}
-		//Add new media source
+		//Add new media sources
 		var source;
 		for (var i = 0; i < vidData.videos.length; i++){
 			source = document.createElement('source');
@@ -205,7 +212,7 @@
 		this.historyList = [];
 		this.historyDisplay = document.getElementById('player-history');
 
-	}
+	};
 
 	HistoryManager.prototype.loadHistory = function(i){
 		var selected = this.historyList[i];
@@ -286,7 +293,7 @@
 		this.maxVolScrubLen = this.volume.height - 10;
 		
 		this.init();
-	}
+	};
 
 	VideoControls.prototype.addTrigger = function(data){
 		this.triggers[data.start] = data;
@@ -301,20 +308,29 @@
 		}
 	};
 
+	VideoControls.prototype.drawQueuedTriggers = function(){
+		for(var i in this.triggers){
+			this.drawTrigger(this.triggers[i]);
+		}
+	};
+
 	VideoControls.prototype.drawTrigger = function(trigger){
 		var self = this;
 		var iconRadius = 15;
-
-		var startPos = (trigger.start / this.controller.popcorn.duration()) * document.getElementById('trigger-zone').offsetWidth - iconRadius;
-
-		var button = document.createElement("button");
-		button.className = trigger.type + "-trigger-icon trigger-icon trigger-icon-" + trigger.nid;
-		button.style.left = startPos + "px";
-		button.addEventListener("click", function(){
-			self.controller.popcorn.currentTime(trigger.start);
-		});
-
-		document.getElementById("trigger-zone").appendChild(button);
+		
+		if (this.controller.popcorn.duration()){
+	
+			var startPos = (trigger.start / this.controller.popcorn.duration()) * document.getElementById('trigger-zone').offsetWidth - iconRadius;
+	
+			var button = document.createElement("button");
+			button.className = trigger.type + "-trigger-icon trigger-icon trigger-icon-" + trigger.nid;
+			button.style.left = startPos + "px";
+			button.addEventListener("click", function(){
+				self.controller.popcorn.currentTime(trigger.start);
+			});
+	
+			document.getElementById("trigger-zone").appendChild(button);
+		}
 
 	};
 
@@ -464,6 +480,11 @@
 			document.getElementById('played').style.width = percentPlayed + "%";
 		}
 
+	};
+
+	VideoControls.prototype.resetScrubber = function(){
+		document.getElementById('buffered').style.width = 0;
+		document.getElementById('played').style.width = 0;
 	};
 
 	VideoControls.prototype.scrubberDown = function(event, target){
