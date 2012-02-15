@@ -229,3 +229,147 @@ border-top-right-radius: 6px;
 	top: 10px;
 	right: -30px;
 }
+
+
+
+
+
+/** new scrubber **/
+
+#scrubb{
+    height: 5px;
+    padding: 5px 0;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.scrubber-bar{
+    height: 3px;
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0;
+}
+
+#scrubber-length{
+    background: rgb(71, 85, 86);
+    height: 3px;
+    position: relative;
+}
+
+#buffered{
+    background: rgb(148, 127, 83);
+}
+
+#played{
+    background: rgb(255, 205, 51);
+    box-shadow: 0 0 5px rgb(255, 205, 51);
+}
+
+#player-controls{
+	height: 80px;
+	width: 360px;
+	display: inline-block;
+	background: rgba(25, 42, 53, 0.9);
+}
+
+
+
+/** new trigger zone */
+
+#trigger-zone{
+    height: 50px;
+    margin: 0 5px;
+    position: relative;
+}
+
+.trigger-icon{
+	display: inline-block;
+    position: absolute;
+    top: 20px;
+    left: 0;
+    background-image: url(../images/icon-sprite.png);
+    background-repeat: no-repeat;
+    background-color: transparent;
+    border: 0;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.data-trigger-icon{
+    background-position: 0px -30px;
+}
+
+.data-trigger-icon.dim{
+    background-position: 0px 0px;
+}
+
+.map-trigger-icon{
+    background-position: -30px -30px;
+}
+
+.map-trigger-icon.dim{
+    background-position: -30px 0px;
+}
+
+.ugc-trigger-icon{
+    background-position: -60px -30px;
+}
+
+.ugc-trigger-icon.dim{
+    background-position: -60px 0px;
+}
+
+.film-clip-trigger-icon{
+    background-position: -90px -30px;
+}
+
+.film-clip-trigger-icon.dim{
+    background-position: -90px 0px;
+}
+
+.action-trigger-icon{
+    background-position: -120px -30px;
+}
+
+.action-trigger-icon.dim{
+    background-position: -120px 0px;
+}
+
+.information-trigger-icon{
+    background-position: -150px 30px;
+}
+
+.information-trigger-icon.dim{
+    background-position: -150px 0px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

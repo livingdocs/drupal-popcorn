@@ -35,7 +35,6 @@
 							self.popcorn.drupal(kernels.data[i]);
 							self.vidControls.addTrigger(kernels.data[i]);
 						}
-						self.vidControls.drawTriggers();
 					}
 				}
 			};
@@ -48,9 +47,7 @@
 	}
 
 	Controller.prototype.catchHistory = function(index){
-console.log(this.history.historyList);
 		var vidData = this.history.loadHistory(index);
-		var self = this;
 
 		//remove existing Track Events
 		var kernels = this.popcorn.getTrackEvents();
@@ -84,8 +81,8 @@ console.log(this.history.historyList);
 
 		//advance the video to the previous timestamp
 		this.popcorn.listen('loadeddata', function(){
-			self.popcorn.currentTime(vidData.currentTime);
-			self.popcorn.unlisten('loadeddata');
+			this.currentTime(vidData.currentTime);
+			this.unlisten('loadeddata');
 		});
 
 		this.vidControls.updatePlayButton();
@@ -200,7 +197,7 @@ console.log(this.history.historyList);
 			}
 		}, 25);
 
-	}
+	};
 
 	function HistoryManager(controller){
 
@@ -275,7 +272,6 @@ console.log(this.history.historyList);
 		this.triggers = [];
 
 		this.scrubber = document.getElementById(canvas);
-		this.ctx = this.scrubber.getContext("2d");
 
 		this.playButton = document.getElementById('play-button');
 
@@ -294,34 +290,59 @@ console.log(this.history.historyList);
 
 	VideoControls.prototype.addTrigger = function(data){
 		this.triggers[data.start] = data;
+		this.drawTrigger(data);
 	};
 
 	VideoControls.prototype.removeTriggers = function(){
 		this.triggers = [];
+		var triggerZone = document.getElementById('trigger-zone');
+		while (triggerZone.hasChildNodes()) {
+			triggerZone.removeChild(triggerZone.lastChild);
+		}
 	};
 
-	VideoControls.prototype.drawTriggers = function(){
-		var drawTriggerImage = function(image, startPos, context){
-			return function(){
-				context.drawImage(image, startPos, 5);
-			};
-		}
+	VideoControls.prototype.drawTrigger = function(trigger){
+		var self = this;
+		var iconRadius = 15;
 
+		var startPos = (trigger.start / this.controller.popcorn.duration()) * document.getElementById('trigger-zone').offsetWidth - iconRadius;
+
+		var button = document.createElement("button");
+		button.className = trigger.type + "-trigger-icon trigger-icon trigger-icon-" + trigger.nid;
+		button.style.left = startPos + "px";
+		button.addEventListener("click", function(){
+			self.controller.popcorn.currentTime(trigger.start);
+		});
+
+		document.getElementById("trigger-zone").appendChild(button);
+
+	};
+
+	VideoControls.prototype.updateTriggers = function(){
 		for (var index in this.triggers){
-
 			var current = this.triggers[index];
-			var startPos = (current.start / this.controller.popcorn.duration()) * this.scrubber.width - 15;
-
-			var image;
-			if (this.controller.popcorn.currentTime() >= current.start){
-				image = document.getElementById(current.type + '-trigger-icon');
+			var nodes = document.getElementsByClassName("trigger-icon-" + current.nid);
+			if (current.start <= this.controller.popcorn.currentTime()){
+				for (var j = 0; j < nodes.length; j++){
+					if (nodes[j].className.indexOf("dim") == -1){
+						nodes[j].className += " dim";
+					}
+				}
 			}
 			else{
-				image = document.getElementById(current.type + '-trigger-icon-dim');
+				for (var j = 0; j < nodes.length; j++){
+					if (nodes[j].className.indexOf("dim")){
+						var classList = nodes[j].className.split(" ");
+						var newClassName = [];
+						for (var k = 0; k < classList.length; k++){
+							if (classList[k] != "dim"){
+								newClassName.push(classList[k]);
+							}
+						}
+						nodes[j].className = newClassName.join(" ");
+					}
+				}
 			}
-
-			this.ctx.drawImage(image, startPos, 25);
-
 		}
 	};
 
@@ -334,12 +355,7 @@ console.log(this.history.historyList);
 		this.initScrubber();
 		this.initPlayButton();
 		this.initVolumeButton();
-
-
-		//draw the main scrubber area background
-		this.ctx.fillStyle = "rgba(25, 42, 53, 0.9)";
-		this.ctx.fillRect(0, 0, this.scrubber.width, this.scrubber.height);
-	}
+	};
 
 	VideoControls.prototype.initVolumeButton = function(){
 		//register event listeners
@@ -422,30 +438,17 @@ console.log(this.history.historyList);
 		});
 		this.controller.popcorn.listen('timeupdate', function(){
 			self.updateScrubber();
+			self.updateTriggers();
 		});
-		this.scrubber.addEventListener('mousedown', function(event){
-			self.scrubberClick(event);
+		document.getElementById('scrubb').addEventListener('mousedown', function (event){
+			self.scrubberDown(event, this);
 		}, false);
-		this.scrubber.addEventListener('mousemove', function(event){
-			self.scrubberHover(event, this);
+		document.getElementById('scrubb').addEventListener('mousemove', function(event){
+			self.scrubberDrag(event, this);
 		}, false);
 		document.addEventListener('mouseup', function(event){
 			self.mouseDown = false;
 		}, false);
-
-		//remove default background color
-		this.scrubber.style.backgroundColor = 'transparent';
-	};
-
-	VideoControls.prototype.resetScrubber = function(){
-
-		this.scrubber.height = this.scrubber.height;
-		this.scrubber.width = this.scrubber.width;
-
-		//draw the main scrubber area background
-		this.ctx.fillStyle = "rgba(25, 42, 53, 0.9)";
-		this.ctx.fillRect(0, 0, this.scrubber.width, this.scrubber.height);
-
 	};
 
 	VideoControls.prototype.updateScrubber = function(){
@@ -453,125 +456,60 @@ console.log(this.history.historyList);
 		if (this.controller.popcorn.buffered().length > 0){
 
 			//calculate buffered
-			var percentBuffered = this.controller.popcorn.buffered().end(0) / this.controller.popcorn.duration();
+			var percentBuffered = (this.controller.popcorn.buffered().end(0) / this.controller.popcorn.duration()) * 100;
 			//calculate played
-			var percentPlayed = (this.controller.popcorn.currentTime() / this.controller.popcorn.duration()) * this.scrubber.width;
+			var percentPlayed = (this.controller.popcorn.currentTime() / this.controller.popcorn.duration()) * 100;
 			//draw the updated scrubber
-			this.drawScrubber(percentBuffered, percentPlayed);
+			document.getElementById('buffered').style.width = percentBuffered + "%";
+			document.getElementById('played').style.width = percentPlayed + "%";
 		}
 
 	};
 
-	VideoControls.prototype.drawScrubber = function(buffered, played){
+	VideoControls.prototype.scrubberDown = function(event, target){
+		var coords = this.getCoords(event, target);
 
-		//reset the scrubber
-		this.resetScrubber();
-
-
-		this.drawTriggers();
-
-		//fill duration
-		this.ctx.save();
-		this.ctx.fillStyle = "rgb(71, 85, 86)";
-		this.ctx.fillRect(0, 60 - (this.scrubberHeight / 2), this.scrubber.width, this.scrubberHeight);
-		this.ctx.restore();	
-
-		//fill buffered
-		this.ctx.fillStyle = "rgb(148, 127, 83)";
-		var grayLength = (buffered * this.scrubber.width);
-		this.ctx.fillRect(0, 60 - (this.scrubberHeight / 2), grayLength, this.scrubberHeight);
-
-		//fill played
-		this.ctx.save();
-		this.ctx.fillStyle = "rgb(255, 205, 51)";
-		this.ctx.shadowBlur = 5;
-		this.ctx.shadowColor = "rgb(255, 205, 51)";
-		this.ctx.fillRect(0, 60 - (this.scrubberHeight / 2), played, this.scrubberHeight);
-		this.ctx.restore();	
-
+		this.controller.popcorn.currentTime(((coords.offsetX) / target.offsetWidth) * this.controller.popcorn.duration());
+		this.mouseDown = true;
 	};
 
-	VideoControls.prototype.scrubberClick = function(event){
-		var coords = this.getCoords(event);
-
-		//click is in the scrubber area
-		if(coords.offsetY < 70 && coords.offsetY > 50){
-			this.controller.popcorn.currentTime(((coords.offsetX) / this.scrubber.width) * this.controller.popcorn.duration());
-			this.mouseDown = true;
-		}
-
-		//click is on a trigger icon
-		for (var index in this.triggers){
-
-			var current = this.triggers[index];
-			var startPos = (current.start / this.controller.popcorn.duration()) * this.scrubber.width - 15;
-
-			if ((coords.offsetX < (startPos + 30) && coords.offsetX > startPos)
-					&& (coords.offsetY < 50 && coords.offsetY > 25)){
-				this.controller.popcorn.currentTime(current.start);
-			}
-
-		}
-	}
-
-	VideoControls.prototype.scrubberHover = function(event, target){
-		var coords = this.getCoords(event);
-
+	VideoControls.prototype.scrubberDrag = function(event, target){
+		//the mousemove is only a drag event if this.mouseDown is true
 		if (this.mouseDown){
-			this.controller.popcorn.currentTime(((coords.offsetX) / this.scrubber.width) * this.controller.popcorn.duration());
-		}
-
-		target.style.cursor = "auto";
-
-		//hover is in the scrubber area
-		if(coords.offsetY < 70 && coords.offsetY > 50){
-			target.style.cursor = "pointer";
+			var coords = this.getCoords(event, target);
+			this.controller.popcorn.currentTime(((coords.offsetX) / target.offsetWidth) * this.controller.popcorn.duration());
 		}
 
 
-		for (var index in this.triggers){
-
-			var current = this.triggers[index];
-			var startPos = (current.start / this.controller.popcorn.duration()) * this.scrubber.width - 15;
-
-			if ((coords.offsetX < (startPos + 30) && coords.offsetX > startPos)
-					&& (coords.offsetY < 50 && coords.offsetY > 25)){
-				target.style.cursor = "pointer";
-			}
-
-		}
-
-
-	}
-
-	VideoControls.prototype.drawTaper = function(){
-		//tapered top
-		this.ctx.fillStyle = "rgba(25, 42, 53, 0.8)";
-		this.ctx.strokeStyle = "rgba(25, 42, 53, 0.8)";
-		this.ctx.beginPath();
-		this.ctx.moveTo(0, 20);
-		this.ctx.lineTo(20, 0);
-		this.ctx.lineTo(this.scrubber.width - 20, 0);
-		this.ctx.lineTo(this.scrubber.width, 20);
-		this.ctx.fill();
-		this.ctx.closePath();
 	};
 
-	//additional function required to determine the relative coordinates of a click event
-	VideoControls.prototype.getCoords = function(event){
-		var x, y;
+	//required to determine the relative coordinates of a click event
+	VideoControls.prototype.getCoords = function(event, target){
+		var totalOffsetX = 0;
+	    var totalOffsetY = 0;
+	    var canvasX = 0;
+	    var canvasY = 0;
+	    var currentElement = target;
 
-		var canoffset = jQuery(event.target).offset();
-		x = event.clientX + document.body.scrollLeft + document.documentElement.scrollLeft - Math.floor(canoffset.left);
-		y = event.clientY + document.body.scrollTop + document.documentElement.scrollTop - Math.floor(canoffset.top) + 1;
+	    do{
+	        totalOffsetX += currentElement.offsetLeft;
+	        totalOffsetY += currentElement.offsetTop;
+	    }
+	    while(currentElement = currentElement.offsetParent)
 
-		return {offsetX: x, offsetY: y};
+	    canvasX = event.pageX - totalOffsetX;
+	    canvasY = event.pageY - totalOffsetY;
+
+	    return {offsetX: canvasX, offsetY: canvasY};
 	};
 
+	
+	
 
 
 
 	function ShelfController(state, controller){
+		
 		var self = this;
 
 		this.controller = controller;
@@ -592,7 +530,7 @@ console.log(this.history.historyList);
 			}
 		});
 
-	}
+	};
 
 	ShelfController.prototype.catchKernelData = function(options, nodePrefix){
 		var self = this;
