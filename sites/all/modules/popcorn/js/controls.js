@@ -316,7 +316,7 @@
 
 	VideoControls.prototype.drawTrigger = function(trigger){
 		var self = this;
-		var iconRadius = 15;
+		var iconRadius = 8;
 		
 		if (this.controller.popcorn.duration()){
 	
@@ -340,18 +340,18 @@
 			var nodes = document.getElementsByClassName("trigger-icon-" + current.nid);
 			if (current.start <= this.controller.popcorn.currentTime()){
 				for (var j = 0; j < nodes.length; j++){
-					if (nodes[j].className.indexOf("dim") == -1){
-						nodes[j].className += " dim";
+					if (nodes[j].className.indexOf("active") == -1){
+						nodes[j].className += " active";
 					}
 				}
 			}
 			else{
 				for (var j = 0; j < nodes.length; j++){
-					if (nodes[j].className.indexOf("dim")){
+					if (nodes[j].className.indexOf("active")){
 						var classList = nodes[j].className.split(" ");
 						var newClassName = [];
 						for (var k = 0; k < classList.length; k++){
-							if (classList[k] != "dim"){
+							if (classList[k] != "active"){
 								newClassName.push(classList[k]);
 							}
 						}

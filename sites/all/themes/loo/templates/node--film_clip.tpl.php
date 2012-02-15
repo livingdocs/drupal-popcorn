@@ -106,7 +106,7 @@ if (isset($node->field_thumbnail['und'][0])){
 	  <div id="video-container">
 	    <div id='player-history'></div>
 	    <div id='player-wrapper'>
-	    <div id='main-player-wrapper'><video width="720" height="405" id="main-player" preload="auto" poster="/sites/all/themes/loo/images/macho1.gif" autoplay="autoplay"><?php 
+	    <div id='main-player-wrapper'><video width="720" height="405" id="main-player" preload="auto" poster="/sites/all/themes/loo/images/throbber.gif" autoplay="autoplay"><?php 
 	    foreach ($node->field_video_file['und'] as $video){
 	      	print "<source src='" . file_create_url($video['uri']) . "' type='{$video['filemime']}' />";
 	    } 
