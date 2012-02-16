@@ -1678,13 +1678,9 @@ div.node-film-clip{
     padding: 0;
 }
 
-.field-name-body{
+.tbox .field-name-body{
     width: 570px;
     display: inline-block;
-}
-
-.popcorn-node .field-name-body{
-    width: auto;
 }
 
 .field-collection-container{
@@ -1692,6 +1688,10 @@ div.node-film-clip{
     display: inline-block;
     background: rgba(25, 42, 53, 0.9);
     vertical-align: top;
+}
+
+.field-collection-container .field-name-body{
+    width: 100%;
 }
 
 .field-collection-view{

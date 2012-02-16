@@ -115,7 +115,7 @@ if (isset($node->field_thumbnail['und'][0])){
 	    <div id='controls'>
 			<div id='player-controls-taper'></div>
 	      <div>
-    	      <button id='play-button' class='player-button paused'></button><div id='player-controls'>
+    	      <button id='play-button' type='button' class='player-button paused'></button><div id='player-controls'>
         	      <div id='trigger-zone'>
     	      
         	      </div>
@@ -126,9 +126,9 @@ if (isset($node->field_thumbnail['und'][0])){
                 	      <div id='played' class='scrubber-bar'></div>
             	      </div>
         	      </div>
-        	  </div><button id='volume-button' class='player-button'></button><div id='highlight'></div>
+        	  </div><button id='volume-button' type='button' class='player-button'><canvas id='volume-control' height='150' width='30'></canvas></button><div id='highlight'></div>
 	      </div>
-	      <canvas id='volume-control' height='150' width='30'></canvas>
+	      
 	      
       </div>
       

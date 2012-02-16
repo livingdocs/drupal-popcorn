@@ -40,6 +40,7 @@
 
 #volume-button {
 	background-image: url(/sites/all/themes/loo/images/music-on.png);
+	position: relative;
 }
 
 #volume-button.muted {
@@ -51,7 +52,7 @@
 	position: absolute;
 	bottom: 30px;
 	right: 10px;
-	display: none;
+	background: green;
 	cursor: pointer;
 }
 
@@ -80,7 +81,7 @@
 	height: 100%;
 	padding: 5px 20px;
 	border: 0;
-	background-color: rgba(75, 76, 82, 0.6);
+	background-color: rgba(75, 76, 82, 0.8);
 	-khtml-border-radius-topleft: 6px;
 	-moz-border-radius-topleft: 6px;
 	-webkit-border-top-left-radius: 6px;

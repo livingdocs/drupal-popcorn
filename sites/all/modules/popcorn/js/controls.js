@@ -337,6 +337,7 @@
 			var button = document.createElement("button");
 			button.className = trigger.type + "-trigger-icon trigger-icon trigger-icon-" + trigger.nid;
 			button.style.left = startPos + "px";
+			button.type = "button";
 			button.addEventListener("click", function(){
 				self.controller.popcorn.currentTime(trigger.start);
 				console.log(341);
@@ -392,7 +393,8 @@
 		this.controller.popcorn.listen('volumechange', function(){
 			self.updateVolumeButton();
 		});
-		document.getElementById('volume-button').addEventListener('click', function(){
+		document.getElementById('volume-button').addEventListener('click', function(event){
+			console.log(self.getCoords(event, event.target));
 			if (document.getElementById('volume-button').className == "player-button muted"){
 				self.controller.popcorn.unmute();
 			}
