@@ -3,7 +3,9 @@
 
 body {
   line-height: 1.5;
-  font-size: 87.5%;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #343537;
+  font-size: 14px;
   word-wrap: break-word;
   margin: 0;
   padding: 0;
@@ -1677,7 +1679,7 @@ div.node-film-clip{
 }
 
 .field-name-body{
-    width: 650px;
+    width: 570px;
     display: inline-block;
 }
 
@@ -1686,15 +1688,27 @@ div.node-film-clip{
 }
 
 .field-collection-container{
-    width: 260px;
+    width: 340px;
     display: inline-block;
     background: rgba(25, 42, 53, 0.9);
     vertical-align: top;
 }
 
+.field-collection-view{
+	padding: 0;
+	margin: 0;
+}
+
 .map-link{
 	display: inline-block;
 	margin: 10px 50px;
+}
+
+.node h1{
+	font-family: Clarendon, Georgia, serif;
+	font-size: 30px;
+	font-weight: bold;
+	color: #414042;
 }
 
 

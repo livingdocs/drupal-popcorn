@@ -5,7 +5,7 @@ define("POPCORN_FULL", 1);
 define("POPCORN_KERNELS", 2);
 
 function popcorn_node_view($node, $view_mode, $langcode){
-    if ($node->type == 'film_clip'){
+    if ($node->type == 'film_clip' && $view_mode == 'full'){
         drupal_add_js('sites/all/libraries/popcorn-js/popcorn.js');
         drupal_add_js('sites/all/libraries/popcorn-js/plugins/drupal/popcorn.drupal.js');
         drupal_add_css(path_to_theme() . '/css/video-controls.css');

@@ -6,7 +6,7 @@
 	display: none;
 }
 
-#video-container .field-thumbnail{
+.popcorn-node .field-thumbnail{
 	float: right;
 }
 
@@ -22,22 +22,22 @@
 	float: right;
 }
 
-#video-container .links {
+.popcorn-node .links {
 	margin: 0;
 }
 
-#video-container .full-teaser {
+.popcorn-node .full-teaser {
     padding: 5px;
     font-size: 12px;
-    font-family: Arial;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-#video-container .full-teaser img{
+.popcorn-node .full-teaser img{
     margin: 0;
     padding: 0;
 }
 
-#video-container .node-teaser {
+.popcorn-node .node-teaser {
 	color: #ffffff;
 	font-weight: bold;
 	font-size: 12px;
@@ -46,7 +46,7 @@
     background-color: rgb(75, 76, 82);
 }
 
-#video-container .node-teaser h2 {
+.popcorn-node .node-teaser h2 {
 	padding: 0;
 	margin: 0;
 	line-height: 30px;
@@ -61,15 +61,17 @@
     white-space: normal;
 }
 
-#video-container .node-teaser a {
+.popcorn-node .node-teaser a {
     color: rgb(234, 194, 82);
 }
 
-#video-container .node-teaser h2 a {
+.popcorn-node .node-teaser h2 a {
     color: rgb(255, 255, 255);
 	font-style: italic;
-	font-family: Donatora;
+	font-family: Donatora, Georgia, Serif;
+	font-style: italic;
 	font-size: 21px;
+	font-weight: normal;
 	display: inline-block;
 	width: 100%;
     overflow: hidden;
@@ -77,37 +79,37 @@
     white-space: nowrap;
 }
 
-#video-container .node-teaser.node-information {
+.popcorn-node .node-teaser.node-information {
 	background-image: url(/sites/all/themes/loo/images/information.png);
 	background-repeat: no-repeat;
 }
 
-#video-container .node-teaser.node-data {
+.popcorn-node .node-teaser.node-data {
 	background-image: url(/sites/all/themes/loo/images/data.png);
 	background-repeat: no-repeat;
 }
 
-#video-container .node-teaser.node-map {
+.popcorn-node .node-teaser.node-map {
 	background-image: url(/sites/all/themes/loo/images/map.png);
 	background-repeat: no-repeat;
 }
 
-#video-container .node-teaser.node-action {
+.popcorn-node .node-teaser.node-action {
 	background-image: url(/sites/all/themes/loo/images/action.png);
 	background-repeat: no-repeat;
 }
 
-#video-container .node-teaser.node-ugc {
+.popcorn-node .node-teaser.node-ugc {
 	background-image: url(/sites/all/themes/loo/images/ugc.png);
 	background-repeat: no-repeat;
 }
 
-#video-container .node-teaser.node-film-clip {
+.popcorn-node .node-teaser.node-film-clip {
 	background-image: url(/sites/all/themes/loo/images/film-clip.png);
 	background-repeat: no-repeat;
 }
 
-#video-container #highlight .preview .node-teaser {
+#highlight .preview .node-teaser {
     position: absolute;
     bottom: 5px;
     right: 5px;
@@ -115,7 +117,7 @@
     background-color: rgb(75, 76, 82);
 }
 
-#video-container #highlight .preview .node-teaser h2 {
+#highlight .preview .node-teaser h2 {
     overflow: visible;
     max-height: auto;
 }

@@ -41,26 +41,39 @@
  * @see template_preprocess_field()
  * @see theme_field()
  */
+
+$sorted = array();
+foreach ($items as $delta => $item){
+
+
+    if (isset($item['#node'])){
+        $node = $item['#node'];
+        $subject = taxonomy_term_load($node->field_subject['und'][0]['tid'])->name;
+        $nodeClass = "popcorn-node subject-" . str_replace(' ', '-', $subject) . " type-{$node->type}";
+    }
+
+    $output = "<div id='popcorn-modal-{$node->nid}' class='{$nodeClass}'>" . render($item) . "</div>";
+    $sorted[$subject][] = $output;
+}
+
 ?>
 <div class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
   <?php if (!$label_hidden): ?>
     <div class="field-label"<?php print $title_attributes; ?>><?php print $label ?>:&nbsp;</div>
   <?php endif; ?>
   <div class="field-items"<?php print $content_attributes; ?>>
-    <?php foreach ($items as $delta => $item): ?>
-<?php 
-if (isset($item['#node'])){
-    $node = $item['#node']; 
-    $subject = str_replace(' ', '-', taxonomy_term_load($node->field_subject['und'][0]->tid));
-}
-
-?>
-    <div id="popcorn-modal-<?php print $node->nid; ?>" class="popcorn-node subject-<?php print $subject; ?> type-<?php print $node->type; ?>">
-    
-      <?php print render($item); ?>
-      
-    </div>
-    <?php endforeach; ?>
+  
+  <?php 
+  foreach ($sorted as $subject => $items){
+      print "<div id='subject-" . str_replace(' ', '-', $subject) . "' class='popcorn-subject'><h2 class='popcorn-subject-heading'>$subject</h2>";
+      foreach ($items as $item){
+          print $item;
+      }
+      print "</div>";
+  }
+  
+  ?>
+  
   </div>
 </div>
 

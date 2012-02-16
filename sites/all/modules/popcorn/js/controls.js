@@ -1,7 +1,5 @@
 
 
-
-
 (function($){
 	Drupal.behaviors.popcorn = {
 			attach: function (context, settings) {
@@ -12,7 +10,6 @@
 
 
 	function Controller(nid, popcorn){
-
 		this.popcorn = popcorn;
 		this.history = new HistoryManager(this);
 		this.vidControls = new VideoControls('player-controls', this);
@@ -83,13 +80,19 @@
 		this.vidControls.removeTriggers();
 		for (var i = 0; i < vidData.kernels.length; i++){
 			this.popcorn.drupal(vidData.kernels[i]);
-			this.vidControls.addTrigger(vidData.kernels[i]);
+			this.vidControls.addTrigger({
+				id: vidData.kernels[i].id, 
+				nid: vidData.kernels[i].nid, 
+				start: vidData.kernels[i].start, 
+				end: vidData.kernels[i].end, 
+				subject: vidData.kernels[i].subject, 
+				type: vidData.kernels[i].type
+			});
 		}
 
 		//advance the video to the previous timestamp
 		this.popcorn.listen('loadeddata', function(){
 			this.currentTime(vidData.currentTime);
-			this.unlisten('loadeddata');
 		});
 
 		this.vidControls.updatePlayButton();
@@ -163,7 +166,6 @@
 			source.src = vidData.videos[i].src;
 			source.type = vidData.videos[i].mime;
 			this.popcorn.media.appendChild(source);
-
 		}
 
 		//load the new video
@@ -175,7 +177,14 @@
 		this.vidControls.removeTriggers();
 		for (var i = 0; i < vidData.kernels.length; i++){
 			this.popcorn.drupal(vidData.kernels[i]);
-			this.vidControls.addTrigger(vidData.kernels[i]);
+			this.vidControls.addTrigger({
+				id: vidData.kernels[i].id, 
+				nid: vidData.kernels[i].nid, 
+				start: vidData.kernels[i].start, 
+				end: vidData.kernels[i].end, 
+				subject: vidData.kernels[i].subject, 
+				type: vidData.kernels[i].type
+			});
 		}
 
 		this.vidControls.updatePlayButton();
@@ -185,7 +194,6 @@
 
 		window.scrollTo(0, 0);
 
-		var wrapper = document.getElementById('player-wrapper');
 		var vidWrapper = document.getElementById('main-player-wrapper');
 
 		vidWrapper.style.position = 'absolute';
@@ -205,6 +213,8 @@
 		}, 25);
 
 	};
+	
+	
 
 	function HistoryManager(controller){
 
@@ -317,7 +327,7 @@
 	VideoControls.prototype.drawTrigger = function(trigger){
 		var self = this;
 		var iconRadius = 8;
-		
+
 		if (this.controller.popcorn.duration()){
 	
 			var startPos = (trigger.start / this.controller.popcorn.duration()) * document.getElementById('trigger-zone').offsetWidth - iconRadius;
@@ -575,7 +585,6 @@
 
 			//ajax call to load video urls and track data
 			jQuery.getJSON("/popcorn/" + options.nid + "/full", function(response, textStatus, jqXHR){
-
 				var full = response.data;
 
 				if (typeof full == "object"){
