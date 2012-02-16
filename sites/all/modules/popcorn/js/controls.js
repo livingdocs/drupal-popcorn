@@ -41,8 +41,13 @@
 
 		loadKernels(nid);
 
+		this.skipTime = NaN;
 		this.popcorn.listen('loadeddata', function(){
 			self.processQueuedTasks();
+			if (!isNaN(self.skipTime)){
+				this.currentTime(self.skipTime);
+				self.skipTime = NaN;
+			}
 		});
 	}
 	
@@ -74,7 +79,6 @@
 
 		//load the new video
 		this.popcorn.load();
-		//poop();
 
 		//add the new track events from the vidData
 		this.vidControls.removeTriggers();
@@ -91,9 +95,7 @@
 		}
 
 		//advance the video to the previous timestamp
-		this.popcorn.listen('loadeddata', function(){
-			this.currentTime(vidData.currentTime);
-		});
+		this.skipTime = vidData.currentTime;
 
 		this.vidControls.updatePlayButton();
 		this.history.updateHistory();
@@ -167,7 +169,7 @@
 			source.type = vidData.videos[i].mime;
 			this.popcorn.media.appendChild(source);
 		}
-
+		
 		//load the new video
 		this.popcorn.load();
 		this.transitionVideo();
@@ -337,6 +339,7 @@
 			button.style.left = startPos + "px";
 			button.addEventListener("click", function(){
 				self.controller.popcorn.currentTime(trigger.start);
+				console.log(341);
 			});
 	
 			document.getElementById("trigger-zone").appendChild(button);
@@ -500,6 +503,7 @@
 	VideoControls.prototype.scrubberDown = function(event, target){
 		var coords = this.getCoords(event, target);
 
+		console.log(505);
 		this.controller.popcorn.currentTime(((coords.offsetX) / target.offsetWidth) * this.controller.popcorn.duration());
 		this.mouseDown = true;
 	};
@@ -508,6 +512,7 @@
 		//the mousemove is only a drag event if this.mouseDown is true
 		if (this.mouseDown){
 			var coords = this.getCoords(event, target);
+			console.log(515);
 			this.controller.popcorn.currentTime(((coords.offsetX) / target.offsetWidth) * this.controller.popcorn.duration());
 		}
 
