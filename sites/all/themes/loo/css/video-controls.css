@@ -119,25 +119,25 @@
 	font-size: 24px;
 }
 
-#kettle .popcorn-subject:nth-child(4n+1) .popcorn-subject-heading,#kettle .popcorn-type:nth-child(4n+1) .popcorn-type-heading
+.popcorn-subject:nth-child(4n+1) .popcorn-subject-heading, .popcorn-type:nth-child(4n+1) .popcorn-type-heading
 	{
 	border-bottom: 2px solid #659BA5;
 	margin: 10px 0;
 }
 
-#kettle .popcorn-subject:nth-child(4n+2) .popcorn-subject-heading,#kettle .popcorn-type:nth-child(4n+2) .popcorn-type-heading
+.popcorn-subject:nth-child(4n+2) .popcorn-subject-heading, .popcorn-type:nth-child(4n+2) .popcorn-type-heading
 	{
 	border-bottom: 2px solid #447261;
 	margin: 10px 0;
 }
 
-#kettle .popcorn-subject:nth-child(4n+3) .popcorn-subject-heading,#kettle .popcorn-type:nth-child(4n+3) .popcorn-type-heading
+.popcorn-subject:nth-child(4n+3) .popcorn-subject-heading, .popcorn-type:nth-child(4n+3) .popcorn-type-heading
 	{
 	border-bottom: 2px solid #933F21;
 	margin: 10px 0;
 }
 
-#kettle .popcorn-subject:nth-child(4n+4) .popcorn-subject-heading,#kettle .popcorn-type:nth-child(4n+4) .popcorn-type-heading
+.popcorn-subject:nth-child(4n+4) .popcorn-subject-heading, .popcorn-type:nth-child(4n+4) .popcorn-type-heading
 	{
 	border-bottom: 2px solid #BC842C;
 	margin: 10px 0;

@@ -371,13 +371,20 @@
 
 
 	VideoControls.prototype.init = function(){
+		var self = this;
 
-		this.mouseDown = false;
+		this.scrubberCanDrag = false;
+		this.volumeCanDrag = false;
 
 		this.initScrubber();
 		this.initPlayButton();
 		this.initVolumeButton();
 		this.updateVolumeButton(this.controller.popcorn);
+		
+		document.addEventListener('mouseup', function(event){
+			self.scrubberCanDrag = false;
+			self.volumeCanDrag = false;
+		}, false);
 	};
 
 	VideoControls.prototype.initVolumeButton = function(){
@@ -386,29 +393,50 @@
 		this.controller.popcorn.listen('volumechange', function(){
 			self.updateVolumeButton(this);
 		});
-		document.getElementById('volume-button').addEventListener('click', function(event){
-			switch (event.target.id){
-				case 'volume-button':
-					if (document.getElementById('volume-button').className == "player-button muted"){
-						self.controller.popcorn.unmute();
-					}
-					else{
-						self.controller.popcorn.mute();
-					}
-					break;
-				case 'volume-wrapper':
-				case 'volume-length':
-				case 'volume-level':
-					var target = document.getElementById('volume-wrapper');
-					var coords = self.getCoords(event, target);
-					console.log(coords);
-					self.controller.popcorn.volume(coords.offsetX / target.offsetWidth);
-					document.getElementById('volume-level').style.width = coords.offsetX / target.offsetWidth * 100 + "%";
-					break;
-			}
+		document.getElementById('volume-wrapper').addEventListener('mousemove', function(event){
+			self.volumeDrag(event, this);
+		}, false);
+		document.getElementById('volume-button').addEventListener('mousedown', function(event){
+			self.volumeDown(event, this);
 		}, false);
 	};
 
+	VideoControls.prototype.volumeDrag = function(event, target){
+		//left click only
+		if (event.button == 0){
+			//the mousemove is only a drag event if this.volumeCanDrag is true
+			if (this.volumeCanDrag){
+				var coords = this.getCoords(event, target);
+				this.controller.popcorn.volume(coords.offsetX / target.offsetWidth);
+			}
+		}
+	};
+	
+	VideoControls.prototype.volumeDown = function (event, target){
+			//left click only
+			if (event.button == 0){
+				switch (event.target.id){
+					case 'volume-button':
+						if (document.getElementById('volume-button').className == "player-button muted"){
+							this.controller.popcorn.unmute();
+						}
+						else{
+							this.controller.popcorn.mute();
+						}
+						break;
+					case 'volume-wrapper':
+					case 'volume-length':
+					case 'volume-level':
+						this.volumeCanDrag = true;
+						var target = document.getElementById('volume-wrapper');
+						var coords = this.getCoords(event, target);
+						this.controller.popcorn.volume(coords.offsetX / target.offsetWidth);
+						document.getElementById('volume-level').style.width = coords.offsetX / target.offsetWidth * 100 + "%";
+						break;
+				}
+			}
+	};
+			
 	VideoControls.prototype.updateVolumeButton = function(popcorn){
 		var volume = document.getElementById('volume-level');
 		if (popcorn.muted()){
@@ -485,9 +513,6 @@
 		document.getElementById('scrubb').addEventListener('mousemove', function(event){
 			self.scrubberDrag(event, this);
 		}, false);
-		document.addEventListener('mouseup', function(event){
-			self.mouseDown = false;
-		}, false);
 	};
 
 	VideoControls.prototype.updateScrubber = function(){
@@ -515,15 +540,15 @@
 		if (event.button == 0){
 			var coords = this.getCoords(event, target);
 			this.controller.popcorn.currentTime(((coords.offsetX) / target.offsetWidth) * this.controller.popcorn.duration());
-			this.mouseDown = true;
+			this.scrubberCanDrag = true;
 		}
 	};
 
 	VideoControls.prototype.scrubberDrag = function(event, target){
 		//left click only
 		if (event.button == 0){
-			//the mousemove is only a drag event if this.mouseDown is true
-			if (this.mouseDown){
+			//the mousemove is only a drag event if this.scrubberCanDrag is true
+			if (this.scrubberCanDrag){
 				var coords = this.getCoords(event, target);
 				this.controller.popcorn.currentTime(((coords.offsetX) / target.offsetWidth) * this.controller.popcorn.duration());
 			}
