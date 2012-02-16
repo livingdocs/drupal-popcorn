@@ -126,7 +126,13 @@ if (isset($node->field_thumbnail['und'][0])){
                 	      <div id='played' class='scrubber-bar'></div>
             	      </div>
         	      </div>
-        	  </div><button id='volume-button' type='button' class='player-button'><canvas id='volume-control' height='150' width='30'></canvas></button><div id='highlight'></div>
+        	  </div><button id='volume-button' type='button' class='player-button'><div id='volume-control'>
+        	  		<div id='volume-wrapper'>
+            	      <div id='volume-length'>
+                	      <div id='volume-level'></div>
+            	      </div>
+            	    </div>
+        	  </div></button><div id='highlight'></div>
 	      </div>
 	      
 	      

@@ -296,13 +296,6 @@
 
 		this.scrubberHeight = 2;
 		this.scrubberStartPos = 0;
-
-
-		//init volume controls
-		this.volume = document.getElementById('volume-control');
-		this.volCtx = this.volume.getContext("2d");
-		this.volumeScrubberWidth = 2;
-		this.maxVolScrubLen = this.volume.height - 10;
 		
 		this.init();
 	};
@@ -340,7 +333,6 @@
 			button.type = "button";
 			button.addEventListener("click", function(){
 				self.controller.popcorn.currentTime(trigger.start);
-				console.log(341);
 			});
 	
 			document.getElementById("trigger-zone").appendChild(button);
@@ -385,31 +377,47 @@
 		this.initScrubber();
 		this.initPlayButton();
 		this.initVolumeButton();
+		this.updateVolumeButton(this.controller.popcorn);
 	};
 
 	VideoControls.prototype.initVolumeButton = function(){
 		//register event listeners
 		var self = this;
 		this.controller.popcorn.listen('volumechange', function(){
-			self.updateVolumeButton();
+			self.updateVolumeButton(this);
 		});
 		document.getElementById('volume-button').addEventListener('click', function(event){
-			console.log(self.getCoords(event, event.target));
-			if (document.getElementById('volume-button').className == "player-button muted"){
-				self.controller.popcorn.unmute();
-			}
-			else{
-				self.controller.popcorn.mute();
+			switch (event.target.id){
+				case 'volume-button':
+					if (document.getElementById('volume-button').className == "player-button muted"){
+						self.controller.popcorn.unmute();
+					}
+					else{
+						self.controller.popcorn.mute();
+					}
+					break;
+				case 'volume-wrapper':
+				case 'volume-length':
+				case 'volume-level':
+					var target = document.getElementById('volume-wrapper');
+					var coords = self.getCoords(event, target);
+					console.log(coords);
+					self.controller.popcorn.volume(coords.offsetX / target.offsetWidth);
+					document.getElementById('volume-level').style.width = coords.offsetX / target.offsetWidth * 100 + "%";
+					break;
 			}
 		}, false);
 	};
 
-	VideoControls.prototype.updateVolumeButton = function(){
-		if (this.controller.popcorn.muted()){
+	VideoControls.prototype.updateVolumeButton = function(popcorn){
+		var volume = document.getElementById('volume-level');
+		if (popcorn.muted()){
 			document.getElementById('volume-button').className = "player-button muted";
+			volume.style.width = "0%";
 		}
 		else{
 			document.getElementById('volume-button').className = "player-button";
+			volume.style.width = popcorn.volume() * 100 + "%";
 		}
 	};
 
@@ -503,19 +511,22 @@
 	};
 
 	VideoControls.prototype.scrubberDown = function(event, target){
-		var coords = this.getCoords(event, target);
-
-		console.log(505);
-		this.controller.popcorn.currentTime(((coords.offsetX) / target.offsetWidth) * this.controller.popcorn.duration());
-		this.mouseDown = true;
+		//left click only
+		if (event.button == 0){
+			var coords = this.getCoords(event, target);
+			this.controller.popcorn.currentTime(((coords.offsetX) / target.offsetWidth) * this.controller.popcorn.duration());
+			this.mouseDown = true;
+		}
 	};
 
 	VideoControls.prototype.scrubberDrag = function(event, target){
-		//the mousemove is only a drag event if this.mouseDown is true
-		if (this.mouseDown){
-			var coords = this.getCoords(event, target);
-			console.log(515);
-			this.controller.popcorn.currentTime(((coords.offsetX) / target.offsetWidth) * this.controller.popcorn.duration());
+		//left click only
+		if (event.button == 0){
+			//the mousemove is only a drag event if this.mouseDown is true
+			if (this.mouseDown){
+				var coords = this.getCoords(event, target);
+				this.controller.popcorn.currentTime(((coords.offsetX) / target.offsetWidth) * this.controller.popcorn.duration());
+			}
 		}
 
 

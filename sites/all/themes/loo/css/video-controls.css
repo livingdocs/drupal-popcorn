@@ -47,15 +47,6 @@
 	background-image: url(/sites/all/themes/loo/images/music-muted.png);
 }
 
-#volume-control {
-	display: block;
-	position: absolute;
-	bottom: 30px;
-	right: 10px;
-	background: green;
-	cursor: pointer;
-}
-
 #shelf-controls {
 	background: rgba(25, 42, 53, 0.5);
 	padding: 8px 8px 0 8px;
@@ -265,9 +256,41 @@
 	background: #AA9048;
 }
 
-#played {
+#played, #volume-level {
 	background: #FFCD33;
 	box-shadow: 0 0 5px #ECCAAA;
+}
+
+#volume-control {
+    display: block;
+    position: absolute;
+    bottom: 16px;
+    right: -150px;
+    width: 150px;
+    padding: 5px;
+    z-index: 10;
+    background: rgb(71, 85, 86);
+}
+
+#volume-wrapper {
+    height: 6px;
+    padding: 6px 0;
+    cursor: pointer;
+}
+
+#volume-length {
+    background: rgb(25, 42, 53);
+    height: 6px;
+    position: relative;
+}
+
+#volume-level {
+    height: 6px;
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0;
 }
 
 #player-controls {
