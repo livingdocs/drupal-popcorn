@@ -99,6 +99,7 @@
 
 		this.vidControls.updatePlayButton();
 		this.history.updateHistory();
+        this.loading = false;
 	};
 
 	Controller.prototype.loadModal = function(nodeData, options){
@@ -119,13 +120,30 @@
 			top: 20,
 			opacity: 80,
 			width: '930',
-			closejs: function(){
-				if (wasPlaying){
-					self.popcorn.play();
-				}},
-			openjs: function(){
-					jQuery.getJSON('/popcorn/' + options.nid + '/kernels', attachHandlers);
-				}
+			
+            closejs: function(){
+                if (wasPlaying){
+                                        self.popcorn.play();
+                                }
+                    var nodes =  document.getElementsByClassName('popcorn-return');
+                    while (nodes.length){
+                            nodes.item(0).parentNode.removeChild(nodes.item(0));
+                    }
+            },
+            openjs: function(){
+                    var returnLink = document.createElement('a');
+                    returnLink.href='#';
+                    returnLink.addEventListener('click', TINY.box.hide);
+                    returnLink.appendChild(document.createTextNode('Return to video'));
+                    var returnWrap = document.createElement('div');
+                    returnWrap.className = 'popcorn-return';
+                    returnWrap.appendChild(returnLink);
+                    document.getElementById(this.boxid).parentNode.insertBefore(returnWrap, document.getElementById(this.boxid));
+                    var clone = returnWrap.cloneNode(true);
+                    clone.firstChild.addEventListener('click', TINY.box.hide);
+                    document.getElementById(this.boxid).parentNode.appendChild(clone);
+                                        jQuery.getJSON('/popcorn/' + options.nid + '/kernels', attachHandlers);
+            }
 		});
 		
 		function attachHandlers(kernelData, textStatus, jqXHR){
@@ -140,6 +158,7 @@
 		}
 
 		window.scrollTo(0, 0);
+            this.loading = false;
 	};
 
 	Controller.prototype.loadVideo = function(vidData){
@@ -262,24 +281,24 @@
 	};
 
 	HistoryManager.prototype.updateHistory = function(){
-		this.resetHistory();
-		var len = this.historyList.length;
-		var historyNode;
-		var self = this;
-		for (var i = 0; i < len; i++){
-			historyNode = this.historyList[i].canvas;
-			var j = i;
-			historyNode.addEventListener('click', function(event){
-				event.preventDefault();
-            if (this.loading){
-                    return;
-            }
-            this.loading = true;
-				self.controller.catchHistory(j);
-			});
+            this.resetHistory();
+            var len = this.historyList.length;
+            var historyNode;
+            var self = this;
+            for (var i = 0; i < len; i++){
+                    historyNode = this.historyList[i].canvas;
+                    var j = i;
+                    historyNode.addEventListener('click', function(event){
+                            event.preventDefault();
+                            if (self.controller.loading){
+                                return;
+                            }
+                            self.controller.loading = true;
+                            self.controller.catchHistory(j);
+                    });
 
-			this.historyDisplay.appendChild(historyNode);
-		}
+                    this.historyDisplay.appendChild(historyNode);
+            }
 	};
 
 	HistoryManager.prototype.resetHistory = function(){
@@ -453,8 +472,6 @@
                     this.volumeCanDrag = true;
                     var coords = this.getCoords(event, target);
                     var vol = Math.log(1 - (coords.offsetY / target.offsetHeight)) / Math.log(10) + 1;
-                    console.log(vol);
-                    //var vol = Math.pow(coords.offsetX / target.offsetWidth, 1 / 2);
                     if (vol <= 0){
                             this.controller.popcorn.mute();
                     }
@@ -649,15 +666,17 @@
 		var actionAnchors = kernel.getElementsByClassName("popcorn-action");
 		for (var i = 0; i < actionAnchors.length; i++){
 			anchor = actionAnchors.item(i);
-			anchor.addEventListener('click', catchKernel, false);
+			anchor.addEventListener('click', function(event){
+                    catchKernel(event);
+            }, false);
 		}
 
 		function catchKernel(event){
 			event.preventDefault();
-            if (this.loading){
+            if (self.controller.loading){
                     return;
             }
-            this.loading = true;
+            self.controller.loading = true;
 
 			//ajax call to load video urls and track data
 			jQuery.getJSON("/popcorn/" + options.nid + "/full", function(response, textStatus, jqXHR){
