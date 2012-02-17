@@ -289,6 +289,24 @@
     height: 100%;
     padding: 0 4px;
     cursor: pointer;
+    visibility: hidden;
+    opacity: 0;
+    -webkit-transition: visibility 1s 1s, opacity 1s 1s;
+    transition: visibility 1s 1s, opacity 1s 1s;
+}
+
+#volume-wrapper.visible{
+    visibility: visible;
+    opacity: 1;
+    -webkit-transition: opacity 2s;
+    transition: opacity 2s;
+}
+
+#volume-wrapper:hover {
+    visibility: visible;
+    opacity: 1;
+    -webkit-transition: opacity 2s;
+    transition: opacity 2s;
 }
 
 #volume-length {

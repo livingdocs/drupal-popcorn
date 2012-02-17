@@ -393,14 +393,21 @@
 		this.controller.popcorn.listen('volumechange', function(){
 			self.updateVolume(this);
 		});
-		document.getElementById('volume-wrapper').addEventListener('mousemove', function(event){
+        var volumeControl = document.getElementById('volume-wrapper')
+        volumeControl.addEventListener('mousemove', function(event){
 			self.volumeDrag(event, this);
 		}, false);
-		document.getElementById('volume-wrapper').addEventListener('mousedown', function(event){
+		volumeControl.addEventListener('mousedown', function(event){
 			self.volumeDown(event, this);
 		}, false);
 		document.getElementById('volume-button').addEventListener('click', function(event){
 			self.volumeClick(event, this);
+		}, false);
+		document.getElementById('volume-button').addEventListener('mouseover', function(event){
+                volumeControl.className = "visible";
+		}, false);
+		document.getElementById('volume-button').addEventListener('mouseout', function(event){
+                volumeControl.className = "";
 		}, false);
 	};
 
