@@ -190,6 +190,7 @@
 		}
 
 		this.vidControls.updatePlayButton();
+            this.loading = false;
 	};
 
 	Controller.prototype.transitionVideo = function(){
@@ -270,6 +271,10 @@
 			var j = i;
 			historyNode.addEventListener('click', function(event){
 				event.preventDefault();
+            if (this.loading){
+                    return;
+            }
+            this.loading = true;
 				self.controller.catchHistory(j);
 			});
 
@@ -649,6 +654,10 @@
 
 		function catchKernel(event){
 			event.preventDefault();
+            if (this.loading){
+                    return;
+            }
+            this.loading = true;
 
 			//ajax call to load video urls and track data
 			jQuery.getJSON("/popcorn/" + options.nid + "/full", function(response, textStatus, jqXHR){
