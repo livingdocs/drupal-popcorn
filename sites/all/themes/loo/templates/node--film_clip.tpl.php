@@ -115,7 +115,7 @@ if (isset($node->field_thumbnail['und'][0])){
 	    <div id='controls'>
 			<div id='player-controls-taper'></div>
 	      <div>
-    	      <button id='play-button' type='button' class='player-button paused'></button><div id='player-controls'>
+    	      <div class='play-button-wrapper'><button id='play-button' type='button' class='paused'></button></div><div id='player-controls'>
         	      <div id='trigger-zone'>
     	      
         	      </div>
@@ -126,13 +126,13 @@ if (isset($node->field_thumbnail['und'][0])){
                 	      <div id='played' class='scrubber-bar'></div>
             	      </div>
         	      </div>
-        	  </div><button id='volume-button' type='button' class='player-button'><div id='volume-control'>
+        	  </div><div class='volume-button-wrapper'><button id='volume-button' type='button'></button></div><div id='volume-control'>
         	  		<div id='volume-wrapper'>
             	      <div id='volume-length'>
                 	      <div id='volume-level'></div>
             	      </div>
             	    </div>
-        	  </div></button><div id='highlight'></div>
+        	  </div><div id='highlight'></div>
 	      </div>
 	      
 	      
@@ -161,26 +161,7 @@ if (isset($node->field_thumbnail['und'][0])){
 	  
 	</div>
 
-<div style='display: none;'>
-	<img src='/sites/all/themes/loo/images/information.png' id='information-trigger-icon' alt='' />
-	<img src='/sites/all/themes/loo/images/information-dim.png' id='information-trigger-icon-dim' alt='' />
-
-	<img src='/sites/all/themes/loo/images/map.png' id='map-trigger-icon' alt='' />
-	<img src='/sites/all/themes/loo/images/map-dim.png' id='map-trigger-icon-dim' alt='' />
-
-	<img src='/sites/all/themes/loo/images/data.png' id='data-trigger-icon' alt='' />
-	<img src='/sites/all/themes/loo/images/data-dim.png' id='data-trigger-icon-dim' alt='' />
-
-	<img src='/sites/all/themes/loo/images/action.png' id='action-trigger-icon' alt='' />
-	<img src='/sites/all/themes/loo/images/action-dim.png' id='action-trigger-icon-dim' alt='' />
-
-	<img src='/sites/all/themes/loo/images/film-clip.png' id='film-clip-trigger-icon' alt='' />
-	<img src='/sites/all/themes/loo/images/film-clip-dim.png' id='film-clip-trigger-icon-dim' alt='' />
-
-	<img src='/sites/all/themes/loo/images/ugc.png' id='ugc-trigger-icon' alt='' />
-	<img src='/sites/all/themes/loo/images/ugc-dim.png' id='ugc-trigger-icon-dim' alt='' />
-</div>
-	  
+  
   <?php endif; ?>
 
 
