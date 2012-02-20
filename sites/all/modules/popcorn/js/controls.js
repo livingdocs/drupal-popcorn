@@ -214,26 +214,32 @@
 
 	Controller.prototype.transitionVideo = function(){
 
-		window.scrollTo(0, 0);
+		//window.scrollTo(0, 0);
 
-		var vidWrapper = document.getElementById('main-player-wrapper');
-
+		var vidWrapper = document.getElementById('main-player');
+        
+        vidWrapper.className = "transition";
+/*
 		vidWrapper.style.position = 'absolute';
-		vidWrapper.style.top = '405px';
+	    vidWrapper.style.top = '405px';
 		vidWrapper.style.left = '0';
+*/
 
 		var videoInt = setInterval(function(){
+				clearInterval(videoInt);
+        vidWrapper.className = "";
+
+/*
 			var increment = 25;
 			var top = parseInt(vidWrapper.style.top.replace('px', ''), 10);
 			if (top == 0){
-				clearInterval(videoInt);
 			}
 			else{
 				var newTop = ((top - increment) >= 0) ? (top - increment) : 0;
 				vidWrapper.style.top = newTop + "px";
 			}
+*/
 		}, 25);
-
 	};
 	
 	
@@ -272,10 +278,12 @@
 		history.canvas = document.createElement('canvas');
 		history.canvas.height = 382;
 		history.canvas.width = 680;
+		history.canvas.id = "history-node-" + this.historyList.length;
 		history.canvas.className = "history-node";
 		history.canvas.getContext("2d").drawImage(this.controller.popcorn.media, 0, 0, history.canvas.width, history.canvas.height);
 
 		this.historyList.push(history);
+		//this.historyList.unshift(history);
 
 		this.updateHistory();
 	};
@@ -285,6 +293,7 @@
             var len = this.historyList.length;
             var historyNode;
             var self = this;
+            var wrapper = document.getElementById('player-wrapper')
             for (var i = 0; i < len; i++){
                     historyNode = this.historyList[i].canvas;
                     var j = i;
@@ -297,8 +306,11 @@
                             self.controller.catchHistory(j);
                     });
 
-                    this.historyDisplay.appendChild(historyNode);
+                    //this.historyDisplay.appendChild(historyNode);
+                    wrapper.insertBefore(historyNode, wrapper.lastElementChild);
             }
+            //this.historyDisplay.style.height = (10 * len) + "px";
+            wrapper.style.marginTop = (15 * this.historyList.length) + 'px';
 	};
 
 	HistoryManager.prototype.resetHistory = function(){

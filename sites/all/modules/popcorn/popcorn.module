@@ -20,6 +20,7 @@ function popcorn_node_view($node, $view_mode, $langcode){
     }
         drupal_add_css(path_to_theme() . '/css/video-controls.css');
         drupal_add_css(path_to_theme() . '/css/kernels.css');
+        drupal_add_css(path_to_theme() . '/css/history.css');
 }
 
 function popcorn_node_view_alter(&$build) {

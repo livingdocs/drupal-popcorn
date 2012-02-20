@@ -3,19 +3,32 @@
 	width: 720px;
 	height: 405px;
 	position: relative;
-	overflow: hidden;
+    text-align: center;
 }
 
 #main-player-wrapper {
 	background: rgba(25, 42, 53, 0.9);
+	overflow: hidden;
+	position: relative;
+    height: 100%;
+    z-index: 20;
 }
 
 #main-player {
 	display: block;
+    margin-top: 0;
+    -webkit-transition: margin-top 2s linear 0s;
+    transition: margin-top 2s linear 0s;
 }
 
-#player-history {
-	
+#main-player.transition {
+    margin-top: 405px;
+    -webkit-transition: margin-top 0s;
+    transition: margin-top 0s;
+}
+
+#controls, #shelf{
+    z-index: 30;
 }
 
 .play-button-wrapper,
@@ -192,27 +205,12 @@
 }
 
 #player-history {
+    text-align: center;
 	padding: 0 20px;
 	position: relative;
 	height: 15px;
 	width: 720px;
 	margin: 0 auto;
-}
-
-.history-node {
-	margin: 0 30px;
-	height: 382px;
-	width: 680px;
-	background: rgba(25, 42, 53, 0.9);
-	position: absolute;
-	top: 0;
-	left: 10px;
-	cursor: pointer;
-}
-
-.history-node a {
-	display: block;
-	height: 100%;
 }
 
 .popcorn-return{
@@ -312,6 +310,9 @@
     visibility: hidden;
     opacity: 0;
     -webkit-transition: visibility 1s 1s, opacity 1s 1s;
+    -moz-transition: visibility 1s 1s, opacity 1s 1s;
+    -ms-transition: visibility 1s 1s, opacity 1s 1s;
+    -o-transition: visibility 1s 1s, opacity 1s 1s;
     transition: visibility 1s 1s, opacity 1s 1s;
 }
 
@@ -319,6 +320,9 @@
     visibility: visible;
     opacity: 1;
     -webkit-transition: opacity 2s;
+    -moz-transition: visibility 1s 1s, opacity 1s 1s;
+    -ms-transition: visibility 1s 1s, opacity 1s 1s;
+    -o-transition: visibility 1s 1s, opacity 1s 1s;
     transition: opacity 2s;
 }
 
@@ -326,6 +330,9 @@
     visibility: visible;
     opacity: 1;
     -webkit-transition: opacity 2s;
+    -moz-transition: visibility 1s 1s, opacity 1s 1s;
+    -ms-transition: visibility 1s 1s, opacity 1s 1s;
+    -o-transition: visibility 1s 1s, opacity 1s 1s;
     transition: opacity 2s;
 }
 

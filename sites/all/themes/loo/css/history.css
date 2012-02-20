@@ -1,0 +1,39 @@
+#player-wrapper .history-node:hover {
+    z-index: 100;
+    -webkit-transition: z-index 0s 1s;
+    transition: z-index 10 1s;
+}
+
+.history-node:nth-child(10n+1) {
+    top: -15px;
+	height: 382px;
+	width: 680px;
+    z-index: 10;
+    left: 20px;
+}
+
+.history-node:nth-child(10n+2) {
+    top: -30px;
+	height: 360px;
+	width: 640px;
+    z-index: 9;
+    left: 40px;
+}
+
+.history-node:nth-child(10n+3) {
+    top: -45px;
+	height: 338px;
+	width: 600px;
+    z-index: 8;
+    left: 60px;
+}
+
+.history-node {
+	cursor: pointer;
+	background: rgba(25, 42, 53, 0.9);
+    position: absolute;
+
+}
+
+
+
