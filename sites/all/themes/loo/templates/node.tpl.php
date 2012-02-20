@@ -102,7 +102,7 @@ if (isset($node->field_thumbnail['und'][0])){
 	<div class="content clearfix" <?php print $content_attributes; ?>>
         <?php print render($content); ?>
 	</div>
-	
+
 <?php endif; ?>
 
 </div>

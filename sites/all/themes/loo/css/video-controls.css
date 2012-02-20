@@ -412,11 +412,11 @@
 	background-position: -48px 0px;
 }
 
-.ugc-trigger-icon {
+.user-generated-content-trigger-icon {
 	background-position: -64px -16px;
 }
 
-.ugc-trigger-icon.active {
+.user-generated-content-trigger-icon.active {
 	background-position: -64px 0px;
 }
 

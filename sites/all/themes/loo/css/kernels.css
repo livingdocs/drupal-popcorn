@@ -98,8 +98,8 @@
 	background-repeat: no-repeat;
 }
 
-.popcorn-node .node-teaser.node-ugc {
-	background-image: url(/sites/all/themes/loo/images/ugc.png);
+.popcorn-node .node-teaser.node-user-generated-content {
+	background-image: url(/sites/all/themes/loo/images/user-generated-content.png);
 	background-repeat: no-repeat;
 }
 
