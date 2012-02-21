@@ -5,6 +5,9 @@
 	position: relative;
     text-align: center;
     -webkit-transition: margin-top .5s linear;
+    -moz-transition: margin-top .5s linear;
+    -ms-transition: margin-top .5s linear;
+    -o-transition: margin-top .5s linear;
     transition: margin-top .5s linear;
 }
 
@@ -16,6 +19,9 @@
     z-index: 20;
 	background: rgba(25, 42, 53, 0.9);
     -webkit-transition: top 1s linear;
+    -moz-transition: top 1s linear;
+    -ms-transition: top 1s linear;
+    -o-transition: top 1s linear;
     transition: top 1s linear;
 }
 
@@ -24,6 +30,9 @@
     top: 405px;
     bottom: 0;
     -webkit-transition: top 0s;
+    -moz-transition: top 0s;
+    -ms-transition: top 0s;
+    -o-transition: top 0s;
     transition: top 0s;
 }
 
