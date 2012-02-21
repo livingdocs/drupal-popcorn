@@ -64,6 +64,12 @@
 			this.popcorn.removeTrackEvent(kernels[i]._id);
 		}
 
+        //clear the kettle
+        var kettle = document.getElementById("kettle");
+        while (kettle.hasChildNodes()){
+            kettle.removeChild(kettle.lastChild);
+        }
+
 		//remove existing media sources
 		while (this.popcorn.media.hasChildNodes()) {
 			this.popcorn.media.removeChild(this.popcorn.media.lastChild);
@@ -141,7 +147,8 @@
                     var clone = returnWrap.cloneNode(true);
                     clone.firstChild.addEventListener('click', TINY.box.hide);
                     document.getElementById(this.boxid).parentNode.appendChild(clone);
-                                        jQuery.getJSON('/popcorn/' + options.nid + '/kernels', attachHandlers);
+
+                    jQuery.getJSON('/popcorn/' + options.nid + '/kernels', attachHandlers);
             }
 		});
 		
@@ -174,6 +181,29 @@
 		for (var i = 0; i < kernels.length; i++){
 			this.popcorn.removeTrackEvent(kernels[i]._id);
 		}
+
+        //clear the kettle
+        var self = this;
+        var kettle = document.getElementById("kettle");
+        while (kettle.hasChildNodes()){
+            kettle.removeChild(kettle.lastChild);
+        }
+        //add return to main video control
+        var returnLink = document.createElement('a');
+        returnLink.href='#';
+        returnLink.addEventListener('click', function(event){
+            event.preventDefault();
+            if (self.loading){
+                return;
+            }
+            self.loading = true;
+            self.catchHistory(0);
+        });
+        returnLink.appendChild(document.createTextNode('Return to main video'));
+        var returnWrap = document.createElement('div');
+        returnWrap.className = 'popcorn-return';
+        returnWrap.appendChild(returnLink);
+        kettle.appendChild(returnWrap);
 
 		//remove existing media sources
 		while (this.popcorn.media.hasChildNodes()) {
@@ -208,7 +238,7 @@
 		}
 
 		this.vidControls.updatePlayButton();
-            this.loading = false;
+        this.loading = false;
 	};
 
 	Controller.prototype.transitionVideo = function(){
@@ -300,31 +330,6 @@
         })(history.canvas.id, 15 * this.historyList.length);
 
 
-	};
-
-	HistoryManager.prototype.updateHistory = function(){
-            this.resetHistory();
-            var len = this.historyList.length;
-            var historyNode;
-            var self = this;
-            var wrapper = document.getElementById('player-wrapper')
-            for (var i = 0; i < len; i++){
-                    historyNode = this.historyList[i].canvas;
-                    var j = i;
-                    historyNode.addEventListener('click', function(event){
-                            event.preventDefault();
-                            if (self.controller.loading){
-                                return;
-                            }
-                            self.controller.loading = true;
-                            self.controller.catchHistory(j);
-                    });
-
-                    //this.historyDisplay.appendChild(historyNode);
-                    wrapper.insertBefore(historyNode, wrapper.lastElementChild);
-            }
-            //this.historyDisplay.style.height = (10 * len) + "px";
-            wrapper.style.marginTop = (15 * this.historyList.length) + 'px';
 	};
 
 	HistoryManager.prototype.resetHistory = function(){

@@ -44,6 +44,7 @@
     z-index: 30;
     width: 760px;
     margin: 0 auto;
+    position: relative;
 }
 
 .play-button-wrapper,
@@ -232,8 +233,14 @@
 .popcorn-return{
    padding-left: 20px;
    margin: 10px 0;
-          background: url(../images/back.png) 0 center no-repeat;
+   background: url(../images/back.png) 0 center no-repeat;
    line-height: 14px;
+}
+
+#kettle .popcorn-return{
+    padding: 10px 20px;
+    margin: 0;
+   background: url(../images/home.png) 0 center no-repeat;
 }
 
 .popcorn-return a{
