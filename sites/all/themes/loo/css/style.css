@@ -1709,6 +1709,21 @@ div.node-film-clip{
 	color: #414042;
 }
 
+#upload-progress{
+width: 0%;
+-webkit-transition: width 4s;
+-moz-transition: width 4s;
+-ms-transition: width 4s;
+-o-transition: width 4s;
+transition: width 4s;
+height: 10px;
+background: blue;
+padding 3px;
+}
+
+#upload-message{
+display: none;
+}
 
 
 @font-face {
