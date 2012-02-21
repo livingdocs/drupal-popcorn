@@ -539,7 +539,6 @@
 			self.controller.popcorn.pause();
 		});
 		document.addEventListener('keypress', function(event){
-			event.preventDefault();
             //do nothing if in modal view
             //if (!document.getElementsByClassName('tbox').length){
                 //pause when the space bar is pressed 
