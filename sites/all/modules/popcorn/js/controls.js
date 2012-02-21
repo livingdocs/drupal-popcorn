@@ -98,7 +98,6 @@
 		this.skipTime = vidData.currentTime;
 
 		this.vidControls.updatePlayButton();
-		this.history.updateHistory();
         this.loading = false;
 	};
 
@@ -216,30 +215,14 @@
 
 		//window.scrollTo(0, 0);
 
-		var vidWrapper = document.getElementById('main-player');
+		var vidWrapper = document.getElementById('main-player-wrapper');
         
         vidWrapper.className = "transition";
-/*
-		vidWrapper.style.position = 'absolute';
-	    vidWrapper.style.top = '405px';
-		vidWrapper.style.left = '0';
-*/
 
 		var videoInt = setInterval(function(){
-				clearInterval(videoInt);
-        vidWrapper.className = "";
-
-/*
-			var increment = 25;
-			var top = parseInt(vidWrapper.style.top.replace('px', ''), 10);
-			if (top == 0){
-			}
-			else{
-				var newTop = ((top - increment) >= 0) ? (top - increment) : 0;
-				vidWrapper.style.top = newTop + "px";
-			}
-*/
-		}, 25);
+            clearInterval(videoInt);
+            document.getElementById('main-player-wrapper').className = "";
+		}, 1);
 	};
 	
 	
@@ -252,9 +235,17 @@
 
 	};
 
-	HistoryManager.prototype.loadHistory = function(i){
-		var selected = this.historyList[i];
-		this.historyList = this.historyList.slice(0, i);
+	HistoryManager.prototype.loadHistory = function(pos){
+		var selected = this.historyList[pos];
+        var current = document.getElementById("history-node-" + pos);
+
+        var historyNodes = document.getElementsByClassName("history-node");
+        for (var i = this.historyList.length - 1; i >= pos; i--){
+            current.parentNode.removeChild(document.getElementById("history-node-" + i));
+        }
+        
+		this.historyList = this.historyList.slice(0, pos);
+        document.getElementById('player-wrapper').style.marginTop = (this.historyList.length * 15) + 'px';
 		return selected;
 	};
 
@@ -275,17 +266,40 @@
 
 		history.paused = this.controller.popcorn.paused();
 
+        var pos = this.historyList.length;
 		history.canvas = document.createElement('canvas');
-		history.canvas.height = 382;
-		history.canvas.width = 680;
-		history.canvas.id = "history-node-" + this.historyList.length;
-		history.canvas.className = "history-node";
+		history.canvas.height = 405;
+		history.canvas.width = 720;
+		history.canvas.className = "history-node transition";
+		history.canvas.top = 0;
+		history.canvas.id = "history-node-" + pos;
 		history.canvas.getContext("2d").drawImage(this.controller.popcorn.media, 0, 0, history.canvas.width, history.canvas.height);
 
 		this.historyList.push(history);
-		//this.historyList.unshift(history);
 
-		this.updateHistory();
+        var self = this;
+        var wrapper = document.getElementById('player-wrapper')
+        history.canvas.addEventListener('click', function(event){
+            event.preventDefault();
+            if (self.controller.loading){
+                return;
+            }
+            self.controller.loading = true;
+            self.controller.catchHistory(pos);
+        });
+
+        wrapper.insertBefore(history.canvas, wrapper.firstChild);
+        //wrapper.style.marginTop = (15 * this.historyList.length) + 'px';
+
+        (function(id, len){
+            var videoInt = setInterval(function(){
+                clearInterval(videoInt);
+                document.getElementById(id).className = "history-node";
+                document.getElementById('player-wrapper').style.marginTop = len + 'px';
+            }, 1);
+        })(history.canvas.id, 15 * this.historyList.length);
+
+
 	};
 
 	HistoryManager.prototype.updateHistory = function(){

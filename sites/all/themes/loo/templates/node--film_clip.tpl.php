@@ -104,7 +104,6 @@ if (isset($node->field_thumbnail['und'][0])){
     <div class="content clearfix"<?php print $content_attributes; ?>>
   
 	  <div id="video-container">
-	    <div id='player-history'></div>
 	    <div id='player-wrapper'>
 	    <div id='main-player-wrapper'><video width="720" height="405" id="main-player" preload="auto" poster="/sites/all/themes/loo/images/throbber.gif" autoplay="autoplay"><?php 
 	    foreach ($node->field_video_file['und'] as $video){
@@ -112,6 +111,7 @@ if (isset($node->field_thumbnail['und'][0])){
 	    } 
 	    ?></video></div>
 	    </div>
+	</div>
 	    <div id='controls'>
 			<div id='player-controls-taper'></div>
 	      <div>
@@ -159,7 +159,6 @@ if (isset($node->field_thumbnail['und'][0])){
         </div>
       </div>
 	  
-	</div>
 
   
   <?php endif; ?>

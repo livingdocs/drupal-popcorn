@@ -1,11 +1,9 @@
 #player-wrapper .history-node:hover {
     z-index: 100;
-    -webkit-transition: z-index 0s 1s;
-    transition: z-index 10 1s;
 }
 
 .history-node:nth-child(10n+1) {
-    top: -15px;
+    top: -20px;
 	height: 382px;
 	width: 680px;
     z-index: 10;
@@ -13,7 +11,7 @@
 }
 
 .history-node:nth-child(10n+2) {
-    top: -30px;
+    top: -35px;
 	height: 360px;
 	width: 640px;
     z-index: 9;
@@ -21,18 +19,77 @@
 }
 
 .history-node:nth-child(10n+3) {
-    top: -45px;
+    top: -48px;
 	height: 338px;
 	width: 600px;
     z-index: 8;
     left: 60px;
 }
 
+.history-node:nth-child(10n+4) {
+    top: -58px;
+	height: 315px;
+	width: 560px;
+    z-index: 7;
+    left: 80px;
+}
+
+.history-node:nth-child(10n+5) {
+    top: -66px;
+	height: 293px;
+	width: 520px;
+    z-index: 6;
+    left: 100px;
+}
+
+.history-node:nth-child(10n+6) {
+    top: -71px;
+	height: 270px;
+	width: 480px;
+    z-index: 5;
+    left: 120px;
+}
+
+.history-node:nth-child(10n+7) {
+    top: -75px;
+	height: 248px;
+	width: 440px;
+    z-index: 4;
+    left: 140px;
+}
+
+.history-node:nth-child(10n+8) {
+    top: -78px;
+	height: 225px;
+	width: 400px;
+    z-index: 3;
+    left: 160px;
+}
+
+.history-node:nth-child(10n+9) {
+    top: -81px;
+	height: 203px;
+	width: 360px;
+    z-index: 2;
+    left: 180px;
+}
+
 .history-node {
 	cursor: pointer;
 	background: rgba(25, 42, 53, 0.9);
     position: absolute;
+    -webkit-transition: top 1s, left 1s, width 1s, height 1s;
+    -moz-transition: top 1s, left 1s, width 1s, height 1s;
+    -ms-transition: top 1s, left 1s, width 1s, height 1s;
+    -o-transition: top 1s, left 1s, width 1s, height 1s;
+    transition: top 1s, left 1s, width 1s, height 1s;
+}
 
+.history-node.transition{
+    top: 0;
+    left: 0;
+	height: 405px;
+	width: 720px;
 }
 
 

@@ -4,31 +4,37 @@
 	height: 405px;
 	position: relative;
     text-align: center;
+    -webkit-transition: margin-top .5s linear;
+    transition: margin-top .5s linear;
 }
 
 #main-player-wrapper {
-	background: rgba(25, 42, 53, 0.9);
 	overflow: hidden;
 	position: relative;
     height: 100%;
+    top: 0;
     z-index: 20;
+	background: rgba(25, 42, 53, 0.9);
+    -webkit-transition: top 1s linear;
+    transition: top 1s linear;
+}
+
+#main-player-wrapper.transition {
+    position: absolute;
+    top: 405px;
+    bottom: 0;
+    -webkit-transition: top 0s;
+    transition: top 0s;
 }
 
 #main-player {
 	display: block;
-    margin-top: 0;
-    -webkit-transition: margin-top 2s linear 0s;
-    transition: margin-top 2s linear 0s;
-}
-
-#main-player.transition {
-    margin-top: 405px;
-    -webkit-transition: margin-top 0s;
-    transition: margin-top 0s;
 }
 
 #controls, #shelf{
     z-index: 30;
+    width: 760px;
+    margin: 0 auto;
 }
 
 .play-button-wrapper,
@@ -122,6 +128,7 @@
 #video-container {
 	width: 760px;
 	margin: 0 auto;
+    overflow: hidden;
 }
 
 #kettle {

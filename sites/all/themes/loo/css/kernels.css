@@ -123,3 +123,7 @@
     left: 5px;
     background-color: rgb(75, 76, 82);
 }
+
+#highlight .node{
+    z-index: 30;
+}
