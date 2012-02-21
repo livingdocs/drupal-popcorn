@@ -157,6 +157,7 @@ if (isset($node->field_thumbnail['und'][0])){
         	}
         	?>
         </div>
+        <input type="text">
       </div>
 	  
 

@@ -540,10 +540,13 @@
 		});
 		document.addEventListener('keypress', function(event){
 			event.preventDefault();
-			//pause when the space bar is pressed 
-			if (event.charCode == 32){
-				togglePlay();
-			}
+            //do nothing if in modal view
+            //if (!document.getElementsByClassName('tbox').length){
+                //pause when the space bar is pressed 
+                if (event.charCode == 32){
+                    togglePlay();
+                }
+            //}
 		});
 		document.getElementById('play-button').addEventListener('click', togglePlay, false);
 		this.updatePlayButton();
