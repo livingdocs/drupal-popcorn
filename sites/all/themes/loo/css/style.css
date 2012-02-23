@@ -1745,3 +1745,8 @@ display: none;
     font-family: Donatora;
     src: url(../fonts/Donatora.otf) format('otf'), url(../fonts/Donatora.ttf) format('truetype');
 }
+
+.old-browser{
+    color: orangered;
+    font-size: 16px;
+}

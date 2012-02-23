@@ -109,7 +109,7 @@ if (isset($node->field_thumbnail['und'][0])){
 	    foreach ($node->field_video_file['und'] as $video){
 	      	print "<source src='" . file_create_url($video['uri']) . "' type='{$video['filemime']}' />";
 	    } 
-	    ?><p>"This player utilizes many features of HTML5 and CSS3. Unfortunately, your browser does not support this. Please upgrade your browser to the latest version or use an alternate browser.</p></div></video></div>
+	    ?><p class='old-browser'>"This player utilizes many features of HTML5 and CSS3. Unfortunately, your browser does not support this. Please upgrade your browser to the latest version or use an alternate browser.</p></div></video></div>
 	    </div>
 	</div>
 	    <div id='controls'>
