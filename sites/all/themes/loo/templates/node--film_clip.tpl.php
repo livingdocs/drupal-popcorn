@@ -115,6 +115,7 @@ if (isset($node->field_thumbnail['und'][0])){
             <li><a href='https://www.google.com/chrome'>Download the latest version of Chrome from Google</a></li>
             <li><a href='http://www.opera.com/download/'>Download the latest version of Opera from Opera Software</a></li>
             <li><a href='http://windows.microsoft.com/en-US/internet-explorer/products/ie/home'>Download the latest version of Internet Explorer from Microsoft</a></li>
+            <li><a href='http://code.google.com/chrome/chromeframe/'>Download Chrome Frame from Google for the best experience in Internet Explorer</a></li>
         </ul></div></video></div>
 	    </div>
 	</div>
