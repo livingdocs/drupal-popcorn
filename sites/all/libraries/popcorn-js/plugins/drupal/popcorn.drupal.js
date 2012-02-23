@@ -79,7 +79,7 @@
 						elem: "input",
 						type: "string",
 						label: "Node Type"
-					},
+					}
 				}
 			},
 			_setup: function( options ) {
