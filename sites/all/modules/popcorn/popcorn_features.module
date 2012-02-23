@@ -1,7 +1,0 @@
-<?php
-/**
- * @file
- * Code for the Popcorn features feature.
- */
-
-include_once('popcorn_features.features.inc');
