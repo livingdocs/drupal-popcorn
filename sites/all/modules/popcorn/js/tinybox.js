@@ -12,7 +12,16 @@ TINY.box=function(){
 				b=document.createElement('div'); b.className='tcontent';
 				m=document.createElement('div'); m.className='tmask';
 				g=document.createElement('div'); g.className='tclose'; g.v=0;
-				document.body.appendChild(m); document.body.appendChild(j); j.appendChild(p); p.appendChild(b);
+                var returnLink = document.createElement('a');
+                    returnLink.href='#';
+                    returnLink.addEventListener('click', TINY.box.hide);
+                    returnLink.appendChild(document.createTextNode('Return to video'));
+                    var returnWrap = document.createElement('div');
+                    returnWrap.className = 'popcorn-return';
+                    returnWrap.appendChild(returnLink);
+                    var clone = returnWrap.cloneNode(true);
+                    clone.firstChild.addEventListener('click', TINY.box.hide);
+				document.body.appendChild(m); document.body.appendChild(j); j.appendChild(returnWrap);j.appendChild(p); j.appendChild(clone); p.appendChild(b);
 				m.onclick=g.onclick=TINY.box.hide; window.onresize=TINY.box.resize
 			}else{
 				j.style.display='none'; clearTimeout(p.ah); if(g.v){p.removeChild(g); g.v=0}

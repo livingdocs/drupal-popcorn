@@ -130,24 +130,8 @@
                 if (wasPlaying){
                                         self.popcorn.play();
                                 }
-                    var nodes =  document.getElementsByClassName('popcorn-return');
-                    while (nodes.length){
-                            nodes.item(0).parentNode.removeChild(nodes.item(0));
-                    }
             },
             openjs: function(){
-                    var returnLink = document.createElement('a');
-                    returnLink.href='#';
-                    returnLink.addEventListener('click', TINY.box.hide);
-                    returnLink.appendChild(document.createTextNode('Return to video'));
-                    var returnWrap = document.createElement('div');
-                    returnWrap.className = 'popcorn-return';
-                    returnWrap.appendChild(returnLink);
-                    document.getElementById(this.boxid).parentNode.insertBefore(returnWrap, document.getElementById(this.boxid));
-                    var clone = returnWrap.cloneNode(true);
-                    clone.firstChild.addEventListener('click', TINY.box.hide);
-                    document.getElementById(this.boxid).parentNode.appendChild(clone);
-
                     jQuery.getJSON('/popcorn/' + options.nid + '/kernels', attachHandlers);
             }
 		});
@@ -332,11 +316,6 @@
 
 	};
 
-	HistoryManager.prototype.resetHistory = function(){
-		while (this.historyDisplay.hasChildNodes()){
-			this.historyDisplay.removeChild(this.historyDisplay.firstChild);
-		}
-	};
 
 
 
