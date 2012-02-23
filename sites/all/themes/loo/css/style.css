@@ -1753,3 +1753,7 @@ display: none;
     background: #192A35;
     height: 100%;
 }
+
+.old-browser ul{
+    text-align: left;
+}
