@@ -111,7 +111,7 @@ if (isset($node->field_thumbnail['und'][0])){
 	    } 
 	    ?><div class='old-browser'><p>This player utilizes many features of HTML5 and CSS3. Unfortunately, your browser does not support this. Please upgrade your browser to the latest version or use an alternate browser.</p>
         <ul>
-            <li><a href='http://www.getfirefox.com'>Download the latest version of Firefox from Mozilla</a></li>
+            <li><a href='http://www.mozilla.org/en-US/m/'>Download the latest version of Firefox from Mozilla</a></li>
             <li><a href='https://www.google.com/chrome'>Download the latest version of Chrome from Google</a></li>
             <li><a href='http://www.opera.com/download/'>Download the latest version of Opera from Opera Software</a></li>
             <li><a href='http://windows.microsoft.com/en-US/internet-explorer/products/ie/home'>Download the latest version of Internet Explorer from Microsoft</a></li>
