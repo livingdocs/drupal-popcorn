@@ -1747,6 +1747,7 @@ display: none;
 }
 
 .old-browser{
-    color: orangered;
+    color: #FFCD33;
     font-size: 16px;
+    padding: 10px;
 }
