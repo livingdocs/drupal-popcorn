@@ -83,94 +83,132 @@ if (isset($node->field_thumbnail['und'][0])){
     $thumbnail = theme('image_style', array('style_name' => 'teaser-thumbnail', 'path' => $node->field_thumbnail['und'][0]['uri']));
 }
 ?>
-<div id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?> clearfix"  <?php print $attributes; ?>>
+<div id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?> clearfix"   <?php print $attributes; ?>>
+	
+	
 
 	<?php if ($teaser): ?>
-		<h2><a href='#' class='popcorn-preview'><?php print $title; ?></a></h2>
-	
-		<div class='full-teaser'>
+	<h2>
+		<a href='#' class='popcorn-preview'><?php print $title; ?> </a>
+	</h2>
+
+	<div class='full-teaser'>
+		
+		
 		<?php if (isset($thumbnail)) print l("<div class='field-thumbnail'>$thumbnail</div>", "node/" . $node->nid, array('html' => true, 'attributes' => array('class' => array('popcorn-action')))); ?>
-			<div class="content clearfix"<?php print $content_attributes; ?>>
-	            <?php print render($content); ?>
-			</div>    
-            <div class="link-wrapper">
-              <?php print l(t('Watch video...'), 'node/' . $nid, array('attributes' => array('class' => t('popcorn-action')))); ?>
-            </div>
+		<div class="content clearfix"  <?php print $content_attributes; ?>>
 			
+			
+	            <?php print render($content); ?>
 		</div>
+		<div class="link-wrapper">
+			
+			
+              <?php print l(t('Watch video...'), 'node/' . $nid, array('attributes' => array('class' => t('popcorn-action')))); ?>
+		</div>
+
+	</div>
+	
+	
+	
+	
   
   <?php else: ?>
     
     <div class="content clearfix"<?php print $content_attributes; ?>>
-  
-	  <div id="video-container">
-	    <div id='player-wrapper'>
-	    <div id='main-player-wrapper'><video width="720" height="405" id="main-player" preload="auto" poster="/sites/all/themes/loo/images/throbber.gif" autoplay="autoplay"><?php 
-	    foreach ($node->field_video_file['und'] as $video){
-	      	print "<source src='" . file_create_url($video['uri']) . "' type='{$video['filemime']}' />";
-	    } 
-	    ?><div class='old-browser'><p>This player utilizes many features of HTML5 and CSS3. Unfortunately, your browser does not support this. Please upgrade your browser to the latest version or use an alternate browser.</p>
-        <ul>
-            <li><a href='http://www.mozilla.org/en-US/m/'>Download the latest version of Firefox from Mozilla</a></li>
-            <li><a href='https://www.google.com/chrome'>Download the latest version of Chrome from Google</a></li>
-            <li><a href='http://www.opera.com/download/'>Download the latest version of Opera from Opera Software</a></li>
-            <li><a href='http://windows.microsoft.com/en-US/internet-explorer/products/ie/home'>Download the latest version of Internet Explorer from Microsoft</a></li>
-            <li><a href='http://code.google.com/chrome/chromeframe/'>Download Chrome Frame from Google for the best experience in Internet Explorer</a></li>
-        </ul></div></video></div>
-	    </div>
-	</div>
-	    <div id='controls'>
+
+		<div id="video-container">
+			<div id='player-wrapper'>
+				<div id='main-player-wrapper'>
+					<video width="720" height="405" id="main-player" preload="auto"
+						poster="/sites/all/themes/loo/images/throbber.gif"
+						autoplay="autoplay">
+
+						<?php
+						foreach ($node->field_video_file['und'] as $video){
+						    print "<source src='" . file_create_url($video['uri']) . "' type='{$video['filemime']}' />";
+						}
+						?>
+						<div class='old-browser'>
+							<p>This player utilizes many features of HTML5 and CSS3.
+								Unfortunately, your browser does not support this. Please
+								upgrade your browser to the latest version or use an alternate
+								browser.</p>
+							<ul>
+								<li><a href='http://www.mozilla.org/en-US/m/'>Download the
+										latest version of Firefox from Mozilla</a></li>
+								<li><a href='https://www.google.com/chrome'>Download the latest
+										version of Chrome from Google</a></li>
+								<li><a href='http://www.opera.com/download/'>Download the latest
+										version of Opera from Opera Software</a></li>
+								<li><a
+									href='http://windows.microsoft.com/en-US/internet-explorer/products/ie/home'>Download
+										the latest version of Internet Explorer from Microsoft</a></li>
+								<li><a href='http://code.google.com/chrome/chromeframe/'>Download
+										Chrome Frame from Google for the best experience in Internet
+										Explorer</a></li>
+							</ul>
+						</div>
+					</video>
+				</div>
+			</div>
+		</div>
+		<div id='controls'>
 			<div id='player-controls-taper'></div>
-	      <div>
-    	      <div class='play-button-wrapper'><button id='play-button' type='button' class='paused'></button></div><div id='player-controls'>
-        	      <div id='trigger-zone'>
-    	      
-        	      </div>
-        	      
-        	      <div id='scrubb'>
-            	      <div id='scrubber-length'>
-                	      <div id='buffered' class='scrubber-bar'></div>
-                	      <div id='played' class='scrubber-bar'></div>
-            	      </div>
-        	      </div>
-        	  </div><div class='volume-button-wrapper'><button id='volume-button' type='button'></button></div><div id='volume-control'>
-        	  		<div id='volume-wrapper'>
-            	      <div id='volume-length'>
-                	      <div id='volume-level'></div>
-            	      </div>
-            	    </div>
-        	  </div><div id='highlight'></div>
-	      </div>
-	      
-	      
-      </div>
-      
-      <div id='shelf'>
-        <ul id='shelf-controls'>
-          <li><a href='#' id='by-subject' class='current-control'>by subject</a></li>
-          <li><a href='#' id='by-type'>by type</a></li>
-        </ul>
-        <div id='kettle'>
-        	<?php 
-        	//add subject sections on page load?
-        	//how to make them hidden until populated?
-        	if (isset($node->field_track_events['und'])){
-        	    foreach ($node->field_track_events['und'] as $index => $trackEvent){
-        	        $event = field_collection_item_load($trackEvent['value']);
-        	        $eventNode = node_load($event->field_event['und'][0]['nid']);
-        	        $term = taxonomy_term_load($eventNode->field_subject['und'][0]['tid']);
-        	        //print '<div id="' . str_replace(' ', '-', $term->name) . '"></div>';
-        	    }
-        	}
-        	?>
-        </div>
-      </div>
+			<div>
+				<div class='play-button-wrapper'><button id='play-button' type='button' class='paused'></button></div><div id='player-controls'>
+					<div id='trigger-zone'></div>
+
+					<div id='scrubb'>
+						<div id='scrubber-length'>
+							<div id='buffered' class='scrubber-bar'></div>
+							<div id='played' class='scrubber-bar'></div>
+						</div>
+					</div>
+				</div><div class='volume-button-wrapper'><button id='volume-button' type='button'></button></div><div id='volume-control'>
+					<div id='volume-wrapper'>
+						<div id='volume-length'>
+							<div id='volume-level'></div>
+						</div>
+					</div>
+				</div><div id='highlight'></div>
+			</div>
+		</div>
+
+		<div id='shelf'>
+			<ul id='shelf-controls'>
+				<li><a href='#' id='by-subject' class='current-control'>by subject</a>
+				</li>
+				<li><a href='#' id='by-type'>by type</a></li>
+			</ul>
+			<div id='kettle'>
+
+
+
+
+			<?php
+			//add subject sections on page load?
+			//how to make them hidden until populated?
+			if (isset($node->field_track_events['und'])){
+			    foreach ($node->field_track_events['und'] as $index => $trackEvent){
+			        $event = field_collection_item_load($trackEvent['value']);
+			        $eventNode = node_load($event->field_event['und'][0]['nid']);
+			        $term = taxonomy_term_load($eventNode->field_subject['und'][0]['tid']);
+			        //print '<div id="' . str_replace(' ', '-', $term->name) . '"></div>';
+			    }
+			}
+			?>
+			</div>
+		</div>
+		
+		
 	  
 
   
   <?php endif; ?>
 
 
+	</div>
 </div>
 
 <script src="//maps.google.com/maps?file=api&amp;v=2&amp;key=AIzaSyAVkTFPWaejdP6soprnHjxxG1C8h7SOtJk" type="text/javascript"></script>
