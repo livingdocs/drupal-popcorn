@@ -1718,7 +1718,7 @@ width: 0%;
 transition: width 4s;
 height: 10px;
 background: blue;
-padding 3px;
+padding: 3px;
 }
 
 #upload-message{
