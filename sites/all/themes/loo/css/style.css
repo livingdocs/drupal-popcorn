@@ -1677,8 +1677,10 @@ div.node-film-clip{
 }
 
 .tbox .field-name-body{
-    width: 570px;
+    width: 535px;
     display: inline-block;
+    padding: 20px;
+    padding-left: 15px;
 }
 
 .field-collection-container{
@@ -1756,4 +1758,22 @@ display: none;
 
 .old-browser ul{
     text-align: left;
+}
+
+.image-wrapper{
+    margin: 10px;
+    background-color: #6D6E71;
+    color: white;
+}
+
+.image-wrapper.left{
+    float: left;
+}
+
+.image-wrapper.right{
+    float: right;
+}
+
+.image-wrapper .caption{
+    padding: 5px;
 }

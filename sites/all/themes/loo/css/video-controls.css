@@ -158,7 +158,7 @@
 	vertical-align: top;
 }
 
-#content .popcorn-subject h2, #content .popcorn-type h2 {
+.popcorn-subject h2, .popcorn-type h2 {
 	font-family: Dokument, Arial, Helvetica, sans-serif;
 	font-size: 24px;
 }
@@ -411,49 +411,49 @@
 }
 
 .action-trigger-icon {
-	background-position: 0px -16px;
+	background-position: -1px -17px;
 }
 
 .action-trigger-icon.active {
-	background-position: 0px 0px;
+	background-position: -1px -1px;
 }
 
 .data-trigger-icon {
-	background-position: -16px -16px;
+	background-position: -17px -17px;
 }
 
 .data-trigger-icon.active {
-	background-position: -16px 0px;
+	background-position: -17px -1px;
 }
 
 .information-trigger-icon {
-	background-position: -32px -16px;
+	background-position: -33px -17px;
 }
 
 .information-trigger-icon.active {
-	background-position: -32px 0px;
+	background-position: -33px -1px;
 }
 
 .map-trigger-icon {
-	background-position: -48px -16px;
+	background-position: -49px -17px;
 }
 
 .map-trigger-icon.active {
-	background-position: -48px 0px;
+	background-position: -49px -1px;
 }
 
 .user-generated-content-trigger-icon {
-	background-position: -64px -16px;
+	background-position: -65px -17px;
 }
 
 .user-generated-content-trigger-icon.active {
-	background-position: -64px 0px;
+	background-position: -65px -1px;
 }
 
 .film-clip-trigger-icon {
-	background-position: -80px -16px;
+	background-position: -82px -17px;
 }
 
 .film-clip-trigger-icon.active {
-	background-position: -80px 0px;
+	background-position: -82px -1px;
 }

@@ -86,7 +86,7 @@ if (isset($node->field_thumbnail['und'][0])){
 <div id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 
 <?php if ($teaser): ?>
-	<h2><a href='#' class='popcorn-preview'><?php print $title; ?></a></h2>
+	<h3><a href='#' class='popcorn-preview'><?php print $title; ?></a></h3>
 
 	<div class='full-teaser'>
 		<div class="content clearfix"<?php print $content_attributes; ?>>
