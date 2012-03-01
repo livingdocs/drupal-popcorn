@@ -106,12 +106,6 @@ pre {
 
 /* ------------------ Fonts ------------------ */
 
-body,
-#site-slogan,
-.ui-widget,
-.comment-form label {
-  font-family: Georgia, "Times New Roman", Times, serif;
-}
 #header,
 #footer-wrapper,
 #skip-link,
