@@ -133,6 +133,7 @@
             },
             openjs: function(){
                     jQuery.getJSON('/popcorn/' + options.nid + '/kernels', attachHandlers);
+                    TINY.box.resize();
             }
 		});
 		
