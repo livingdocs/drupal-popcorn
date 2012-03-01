@@ -675,12 +675,16 @@
 			anchor.addEventListener('click', togglePreview, false);
 		}
 
+		var closeButtons = kernel.getElementsByClassName("close-kernel");
+		for (var i = 0; i < closeButtons.length; i++){
+			button = closeButtons.item(i);
+			button.addEventListener('click', togglePreview, false);
+		}
+
 		var actionAnchors = kernel.getElementsByClassName("popcorn-action");
 		for (var i = 0; i < actionAnchors.length; i++){
 			anchor = actionAnchors.item(i);
-			anchor.addEventListener('click', function(event){
-                    catchKernel(event);
-            }, false);
+			anchor.addEventListener('click', togglePreview, false);
 		}
 
 		function catchKernel(event){
@@ -721,6 +725,9 @@
 			}
 			if (!inPreview){
 				newClassName.push("preview");
+			}
+			else if (this.className.indexOf("popcorn-preview") !== -1 || this.className.indexOf("popcorn-action") !== -1){
+				catchKernel(event);
 			}
 			node.className = newClassName.join(" ");
 		}

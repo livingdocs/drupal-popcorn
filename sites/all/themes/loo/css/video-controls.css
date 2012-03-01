@@ -411,49 +411,49 @@
 }
 
 .action-trigger-icon {
-	background-position: -1px -17px;
+	background-position: 0px -16px;
 }
 
 .action-trigger-icon.active {
-	background-position: -1px -1px;
+	background-position: 0px 0px;
 }
 
 .data-trigger-icon {
-	background-position: -17px -17px;
+	background-position: -16px -16px;
 }
 
 .data-trigger-icon.active {
-	background-position: -17px -1px;
+	background-position: -16px 0px;
 }
 
 .information-trigger-icon {
-	background-position: -33px -17px;
+	background-position: -32px -16px;
 }
 
 .information-trigger-icon.active {
-	background-position: -33px -1px;
+	background-position: -32px 0px;
 }
 
 .map-trigger-icon {
-	background-position: -49px -17px;
+	background-position: -48px -16px;
 }
 
 .map-trigger-icon.active {
-	background-position: -49px -1px;
+	background-position: -48px 0px;
 }
 
 .user-generated-content-trigger-icon {
-	background-position: -65px -17px;
+	background-position: -64px -16px;
 }
 
 .user-generated-content-trigger-icon.active {
-	background-position: -65px -1px;
+	background-position: -64px 0px;
 }
 
 .film-clip-trigger-icon {
-	background-position: -82px -17px;
+	background-position: -80px -16px;
 }
 
 .film-clip-trigger-icon.active {
-	background-position: -82px -1px;
+	background-position: -80px 0px;
 }

@@ -97,6 +97,7 @@ if (isset($node->field_thumbnail['und'][0])){
               <?php print l(t('Read more...'), 'node/' . $nid, array('attributes' => array('class' => t('popcorn-action')))); ?>
 		</div>
 	</div>
+    <div class='close-kernel'></div>
 <?php else: ?>
 <h1><?php print $title; ?></h1>
 	<div class="content clearfix" <?php print $content_attributes; ?>>

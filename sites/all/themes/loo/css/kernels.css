@@ -18,6 +18,25 @@
 	float: right;
 }
 
+.popcorn-node{
+    position: relative;
+}
+
+.popcorn-node .close-kernel{
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    top: -15px;
+    right: -15px;
+    background:url(/sites/all/themes/loo/images/close.png) no-repeat;
+    display: none;
+}
+
+.popcorn-node.preview .close-kernel{
+	display: block;
+}
+
 .popcorn-node .links {
 	margin: 0;
 }
