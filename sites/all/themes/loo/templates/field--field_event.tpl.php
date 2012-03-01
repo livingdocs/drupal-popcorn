@@ -57,7 +57,7 @@ foreach ($items as $delta => $item){
 }
 
 ?>
-<div class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
+<div class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>><!--  open item -->
   
   <?php 
   foreach ($sorted as $subject => $items){
@@ -65,12 +65,12 @@ foreach ($items as $delta => $item){
       foreach ($items as $item){
           print $item;
       }
-      print "</div>";
+      print "</div><!--  close subject -->";
   }
   
   ?>
   
-</div>
+</div> <!--  close item -->
 
 
 

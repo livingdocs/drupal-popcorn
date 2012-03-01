@@ -729,6 +729,25 @@
 			else if (this.className.indexOf("popcorn-preview") !== -1 || this.className.indexOf("popcorn-action") !== -1){
 				catchKernel(event);
 			}
+			
+			//de-preview other highlight area triggers
+			if (node.parentNode.id == "highlight"){
+				var previews = node.parentNode.getElementsByClassName("preview");
+				for (var j = 0; j < previews.length; j++){
+					var item = previews.item(j);
+					var cList = item.className.split(" ");
+					var newCName = [];
+
+					for (var k = 0; k < cList.length; k++){
+						if (cList[k] !== "preview"){
+							newCName.push(cList[k]);
+						}
+					}
+					item.className = newCName.join(" ");
+				}
+			}
+			
+			
 			node.className = newClassName.join(" ");
 		}
 	};
