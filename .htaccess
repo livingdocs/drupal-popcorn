@@ -135,3 +135,9 @@ php_value upload_max_filesize "90M"
 AddType video/ogg .ogv
 AddType video/mp4 .mp4
 AddType video/webm .webm
+
+<FilesMatch "\.(ttf|otf|eot|woff)$">
+    <IfModule mod_headers.c>
+        Header set Access-Control-Allow-Origin "*"
+    </IfModule>
+</FilesMatch>
