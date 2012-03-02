@@ -1,155 +1,155 @@
 <markers>
-<marker program="Iberville " latitude=" 29.958308" longitude=" -90.074463" distance="0.5302855597425674"/>
-<marker program="TIVOLI PLACE APARTMENTS " latitude=" 29.942811" longitude=" -90.072592" distance="0.5739046161098066"/>
-<marker program="ST. JAMES A.M.E. HOMES " latitude=" 29.961233" longitude=" -90.078789" distance="0.8260026408327691"/>
-<marker program="Lafitte " latitude=" 29.963917" longitude=" -90.073754" distance="0.897892408235017"/>
-<marker program="SATCHMO PLAZA " latitude=" 29.940541" longitude=" -90.081825" distance="0.9532284380167343"/>
-<marker program="CABBAGE ALLEY APARTMENTS " latitude=" 29.937362" longitude=" -90.080646" distance="1.0928756293637998"/>
-<marker program="B. W. Cooper Extension " latitude=" 29.949373" longitude=" -90.090228" distance="1.1254113891859772"/>
-<marker program="Guste Homes " latitude=" 29.944700" longitude=" -90.089600" distance="1.1677527988322092"/>
-<marker program="OAK PLACE HOMES " latitude=" 29.965779" longitude=" -90.081764" distance="1.1869102399025742"/>
-<marker program="ST LOUIS SQUARE " latitude=" 29.966400" longitude=" -90.080900" distance="1.1988137392420666"/>
-<marker program="PHILIP ST APTS " latitude=" 29.940016" longitude=" -90.087293" distance="1.213842576770677"/>
-<marker program="CHRISTOPHER INN " latitude=" 29.964561" longitude=" -90.057697" distance="1.247214416326326"/>
-<marker program="JOSEPHINE APTS " latitude=" 29.933191" longitude=" -90.076828" distance="1.2751571718696042"/>
-<marker program="Philip Street " latitude=" 29.935499" longitude=" -90.083825" distance="1.3033416238193132"/>
-<marker program="JOSEPHINE APARTMENTS " latitude=" 29.931248" longitude=" -90.076510" distance="1.401421583942966"/>
-<marker program="B. W. Cooper " latitude=" 29.953922" longitude=" -90.094832" distance="1.4088191380400958"/>
-<marker program="St. Thomas " latitude=" 29.930280" longitude=" -90.073895" distance="1.4431990451805534"/>
-<marker program="THE REDEMPTORIST " latitude=" 29.929974" longitude=" -90.074220" distance="1.46625061921008"/>
-<marker program="ST. MARTIN MANOR " latitude=" 29.973524" longitude=" -90.070653" distance="1.5526998662321903"/>
-<marker program="C. J. Peete " latitude=" 29.939399" longitude=" -90.093904" distance="1.5633441626641333"/>
-<marker program="ST. MARTIN HOUSE " latitude=" 29.974459" longitude=" -90.069799" distance="1.6197404599108274"/>
-<marker program="HARMONY " latitude=" 29.935488" longitude=" -90.092889" distance="1.6714478082758464"/>
-<marker program="PUTNAM PLAZA " latitude=" 29.935392" longitude=" -90.092911" distance="1.6767331360613749"/>
-<marker program="ANNUNCIATION INN " latitude=" 29.969998" longitude=" -90.053351" distance="1.7017446972365153"/>
-<marker program="LOUISIANA AVENUE APTS " latitude=" 29.939500" longitude=" -90.096700" distance="1.7056765698501184"/>
-<marker program="C. J. Peete Extension " latitude=" 29.938803" longitude=" -90.096596" distance="1.7233450463583533"/>
-<marker program="LOYOLA LANDMARK APARTMENTS " latitude=" 29.934088" longitude=" -90.093109" distance="1.7450595010355916"/>
-<marker program="FLINT GOODRIDGE " latitude=" 29.935891" longitude=" -90.094973" distance="1.7519249737390226"/>
-<marker program="TOLEDANO ST APTS " latitude=" 29.933437" longitude=" -90.092590" distance="1.7531344977170966"/>
-<marker program="Saint Thomas Extension " latitude=" 29.924910" longitude=" -90.069639" distance="1.8108546789072035"/>
-<marker program="DAUPHINE APARTMENTS " latitude=" 29.964346" longitude=" -90.044560" distance="1.8572439986003422"/>
-<marker program="FIRST EMANUEL HOMES " latitude=" 29.925138" longitude=" -90.080418" distance="1.8688838837097754"/>
-<marker program="YWCA SENIOR HOUSING PROGRAM " latitude=" 29.965535" longitude=" -90.098765" distance="1.9124433361111766"/>
-<marker program="TULANE SENIOR HOUSING " latitude=" 29.965535" longitude=" -90.098765" distance="1.9124433361111766"/>
-<marker program="Allen Street " latitude=" 29.979199" longitude=" -90.065518" distance="1.9769939112054253"/>
-<marker program="Hendee Homes " latitude=" 29.939797" longitude=" -90.039065" distance="2.0940661160935248"/>
-<marker program="BEHRMAN AVENUE PROJECT " latitude=" 29.942438" longitude=" -90.036901" distance="2.1574595162302015"/>
-<marker program="Fischer " latitude=" 29.933010" longitude=" -90.041544" distance="2.186447748897066"/>
-<marker program="HOLY ANGELS " latitude=" 29.966537" longitude=" -90.039616" distance="2.189401155486332"/>
-<marker program="TULANE AVENUE SRO " latitude=" 29.967647" longitude=" -90.103425" distance="2.226635791284938"/>
-<marker program="Mazant Royal " latitude=" 29.960257" longitude=" -90.035053" distance="2.2743751943407706"/>
-<marker program="Painters & Lesseps Street " latitude=" 29.979398" longitude=" -90.049558" distance="2.3585664923311698"/>
-<marker program="CONGRESS SQUARE APARTMENTS " latitude=" 29.969426" longitude=" -90.037886" distance="2.3804414131737186"/>
-<marker program="SHEPARD COURT APTS " latitude=" 29.936443" longitude=" -90.035110" distance="2.4034553533513234"/>
-<marker program="RAPHAEL MANOR " latitude=" 29.957339" longitude=" -90.112250" distance="2.4759203461693873"/>
-<marker program="Antonine Street " latitude=" 29.918303" longitude=" -90.091187" distance="2.5514816382232923"/>
-<marker program="Annunciation Street " latitude=" 29.918644" longitude=" -90.093406" distance="2.5950609527198694"/>
-<marker program="Saint Bernard " latitude=" 29.988836" longitude=" -90.075034" distance="2.6182332380616664"/>
-<marker program="KRAFT PLACE II " latitude=" 29.931334" longitude=" -90.033720" distance="2.642873242910555"/>
-<marker program="KRAFT PLACE APTS I " latitude=" 29.931080" longitude=" -90.033848" distance="2.6454325458807704"/>
-<marker program="KRAFT PLACE III " latitude=" 29.931241" longitude=" -90.033720" distance="2.6461949927536925"/>
-<marker program="Poland & Marais " latitude=" 29.971729" longitude=" -90.029635" distance="2.886037830532303"/>
-<marker program="ST JOHN BERCHMAN'S MANOR " latitude=" 29.992596" longitude=" -90.063622" distance="2.908436930548421"/>
-<marker program="CANTON HOUSE/FRIENDS ALLIANCE " latitude=" 29.959007" longitude=" -90.120858" distance="3.0035472633209657"/>
-<marker program="Imperial Court " latitude=" 29.993746" longitude=" -90.084349" distance="3.0472495702368727"/>
-<marker program="Imperial Drive " latitude=" 29.994429" longitude=" -90.085110" distance="3.1045572447871126"/>
-<marker program="Christopher Homes " latitude=" 29.930700" longitude=" -90.024590" distance="3.1433084929286585"/>
-<marker program="KING FREDERICK " latitude=" 29.914261" longitude=" -90.040618" distance="3.1455234579622187"/>
-<marker program="Desire " latitude=" 29.991878" longitude=" -90.047129" distance="3.1758840192895725"/>
-<marker program="St. Claude Street " latitude=" 29.962077" longitude=" -90.019215" distance="3.223139270745641"/>
-<marker program="Florida " latitude=" 29.982376" longitude=" -90.031413" distance="3.23233937631718"/>
-<marker program="Florida Extension " latitude=" 29.982442" longitude=" -90.031106" distance="3.249057156496451"/>
-<marker program="Saint Bernard Extension " latitude=" 29.999033" longitude=" -90.074965" distance="3.3207801134721007"/>
-<marker program="GORDON PLAZA " latitude=" 29.991644" longitude=" -90.041573" distance="3.328286939985264"/>
-<marker program="Press Park " latitude=" 29.992575" longitude=" -90.039496" distance="3.450173284461927"/>
-<marker program="VILLA ADDITIONS " latitude=" 29.954234" longitude=" -90.013947" distance="3.4545058887965756"/>
-<marker program="MATER DOLOROSA " latitude=" 29.947612" longitude=" -90.129589" distance="3.484083372018451"/>
-<marker program="BELLINGER OAKS " latitude=" 29.907001" longitude=" -90.043039" distance="3.4902679807132984"/>
-<marker program="NAPFE TOWERS " latitude=" 29.924177" longitude=" -90.021889" distance="3.5054155978776955"/>
-<marker program="SKYVIEW TERRACE " latitude=" 29.923892" longitude=" -90.021975" distance="3.5115438947304822"/>
-<marker program="VILLA ST MAURICE " latitude=" 29.953853" longitude=" -90.012824" distance="3.5200742524789845"/>
-<marker program="WESTCHASE APTS " latitude=" 29.900108" longitude=" -90.063732" distance="3.5519111181871206"/>
-<marker program="FOREST PARK APTS " latitude=" 29.921648" longitude=" -90.022452" distance="3.573340378201047"/>
-<marker program="MADISON SQUARE I " latitude=" 29.899384" longitude=" -90.063590" distance="3.6026223086484253"/>
-<marker program="MADISON SQAURE II " latitude=" 29.899384" longitude=" -90.063590" distance="3.6026223086484253"/>
-<marker program="Cambronne Street " latitude=" 29.958547" longitude=" -90.132145" distance="3.6653656200812974"/>
-<marker program="NEW ORLEANS TOWERS " latitude=" 29.922555" longitude=" -90.019889" distance="3.6665265524728823"/>
-<marker program="DELERY ST APTS " latitude=" 29.956092" longitude=" -90.009579" distance="3.7252590136630275"/>
-<marker program="SUNSET VILLA APTS " latitude=" 29.896945" longitude=" -90.070753" distance="3.739907779175965"/>
-<marker program="Scattered Sites " latitude=" 29.954157" longitude=" -90.134893" distance="3.7993389619898617"/>
-<marker program="Eleanor Street " latitude=" 29.916194" longitude=" -90.121333" distance="3.833895508633514"/>
-<marker program="OLYMPUS APARTMENTS " latitude=" 30.002724" longitude=" -90.039827" distance="4.042557172855235"/>
-<marker program="FILMORE PARC APARTMENTS " latitude=" 30.010727" longitude=" -90.065008" distance="4.140897808095046"/>
-<marker program="MONSIGNOR WYNHOVEN I " latitude=" 29.893339" longitude=" -90.096468" distance="4.259156201543446"/>
-<marker program="MONSIGNOR WYNHOVEN I " latitude=" 29.893339" longitude=" -90.096468" distance="4.259156201543446"/>
-<marker program="MONSIGNOR WYNHOVEN II APARTMEN " latitude=" 29.893336" longitude=" -90.096514" distance="4.260316959853849"/>
-<marker program="VILLA D'AMES APTS " latitude=" 29.899784" longitude=" -90.113887" distance="4.357688311053253"/>
-<marker program="Delery Homes " latitude=" 29.973568" longitude=" -89.998303" distance="4.651299091207887"/>
-<marker program="FELICIANA " latitude=" 29.882746" longitude=" -90.052773" distance="4.852584293323485"/>
-<marker program="CHATEAU AMES " latitude=" 29.887372" longitude=" -90.114003" distance="5.083216218616903"/>
-<marker program="Mid-City Heights " latitude=" 29.902852" longitude=" -90.139685" distance="5.268339485894391"/>
-<marker program="Mid-City Heights " latitude=" 29.902386" longitude=" -90.139975" distance="5.302180175755957"/>
-<marker program="Woodland Acres " latitude=" 29.909394" longitude=" -90.149211" distance="5.4706711964450925"/>
-<marker program="HAYDEL HEIGHTS APARTMENTS " latitude=" 30.012675" longitude=" -90.012195" distance="5.543910722138745"/>
-<marker program="HAYDEL HEIGHTS APTS " latitude=" 30.014229" longitude=" -90.011015" distance="5.671605936656179"/>
-<marker program="DELILLE INN " latitude=" 30.011411" longitude=" -90.006868" distance="5.689057188780475"/>
-<marker program="NORMANDY APTS " latitude=" 29.929303" longitude=" -90.163461" distance="5.706063065731994"/>
-<marker program="CONCORDIA TOWN HOMES " latitude=" 29.883429" longitude=" -90.126783" distance="5.7263645930628835"/>
-<marker program="HOLLY PARK APTS " latitude=" 29.918596" longitude=" -89.983076" distance="5.752297135360388"/>
-<marker program="HOLLY PARK APARTMENTS " latitude=" 29.918596" longitude=" -89.983076" distance="5.752297135360388"/>
-<marker program="Acre Road Project " latitude=" 29.877605" longitude=" -90.117304" distance="5.768918208724578"/>
-<marker program="Canal Plaza " latitude=" 29.931800" longitude=" -90.165700" distance="5.79336283004299"/>
-<marker program="TANGLEWOOD II " latitude=" 29.895124" longitude=" -90.144420" distance="5.830508738336784"/>
-<marker program="TANGLEWOOD I " latitude=" 29.895124" longitude=" -90.144420" distance="5.830508738336784"/>
-<marker program="SOUTHWOOD PATIO HOMES " latitude=" 29.909214" longitude=" -89.986924" distance="5.833755458662889"/>
-<marker program="LEPARC APARTMENTS OF NEW ORLEANS " latitude=" 30.011782" longitude=" -90.003420" distance="5.849763605762226"/>
-<marker program="BEECHGROVE APTS II " latitude=" 29.911539" longitude=" -90.157963" distance="5.8520466364331725"/>
-<marker program="BEECHGROVE APTS I " latitude=" 29.909531" longitude=" -90.159012" distance="5.973133144451491"/>
-<marker program="Dale Homes " latitude=" 30.020197" longitude=" -90.009785" distance="6.039420174129636"/>
-<marker program="FRENCHMANS WHARF PH II " latitude=" 30.021869" longitude=" -90.009725" distance="6.1333518368925635"/>
-<marker program="FRENCHMAN'S WHARF I " latitude=" 30.025162" longitude=" -90.008958" distance="6.3432962803371895"/>
-<marker program="STAR HOMES APARTMENTS " latitude=" 29.874516" longitude=" -90.129994" distance="6.343331450708743"/>
-<marker program="THE HERITAGE HOUSE APARTMENTS " latitude=" 30.014200" longitude=" -89.987845" distance="6.642156881549912"/>
-<marker program="OAKBROOK VILLAGE " latitude=" 30.018900" longitude=" -89.990100" distance="6.761825168590536"/>
-<marker program="ST LOUIS SQUARE " latitude=" 29.945436" longitude=" -90.184426" distance="6.770293463505093"/>
-<marker program="RIDGEFIELD APTS " latitude=" 29.854982" longitude=" -90.112838" distance="7.085186683867293"/>
-<marker program="PEACE LAKE TOWERS " latitude=" 30.015815" longitude=" -89.979481" distance="7.09711892548248"/>
-<marker program="WALNUT SQUARE " latitude=" 30.029276" longitude=" -89.992697" distance="7.173850382535201"/>
-<marker program="METAIRIE MANOR " latitude=" 29.996569" longitude=" -90.191387" distance="7.832778762447213"/>
-<marker program="METAIRIE II " latitude=" 29.996569" longitude=" -90.191387" distance="7.832778762447213"/>
-<marker program="FOREST TOWERS EAST " latitude=" 30.033153" longitude=" -89.969937" distance="8.314923270220989"/>
-<marker program="NAZARETH INN " latitude=" 30.047377" longitude=" -89.988084" distance="8.320061018364374"/>
-<marker program="NAZARETH II " latitude=" 30.047459" longitude=" -89.987920" distance="8.330483141088543"/>
-<marker program="CEDAR SQUARE APARTMENTS " latitude=" 30.038822" longitude=" -89.973836" distance="8.423191765258267"/>
-<marker program="ST. BERNARD II " latitude=" 29.931948" longitude=" -89.925742" distance="8.82865371420522"/>
-<marker program="LAUREL GARDENS APTS " latitude=" 29.978641" longitude=" -90.215692" distance="8.837454084913425"/>
-<marker program="ST. BERNARD MANOR " latitude=" 29.932996" longitude=" -89.924520" distance="8.8905001760416"/>
-<marker program="FLORAL ACRES APTS II " latitude=" 29.942591" longitude=" -90.240739" distance="10.147703609067024"/>
-<marker program="FLORAL ACRES APTS " latitude=" 29.943212" longitude=" -90.244117" distance="10.347250355521252"/>
-<marker program="JACOB COHEN PROJECT " latitude=" 29.982500" longitude=" -90.242706" distance="10.474185771892113"/>
-<marker program="WESTMINSTER TOWER II " latitude=" 29.997813" longitude=" -90.239187" distance="10.542132565098509"/>
-<marker program="WESTMINSTER TOWER " latitude=" 29.997813" longitude=" -90.239187" distance="10.542132565098509"/>
-<marker program="IDAHO PROPERTIES " latitude=" 30.001434" longitude=" -90.238821" distance="10.600597613290338"/>
-<marker program="GULFWAY TERRACE APTS " latitude=" 30.033568" longitude=" -89.920420" distance="10.690147131554244"/>
-<marker program="GULFWAY TERRACE " latitude=" 30.033669" longitude=" -89.920291" distance="10.700395677758413"/>
-<marker program="GULFWAY TERRACE " latitude=" 30.033669" longitude=" -89.920291" distance="10.700395677758413"/>
-<marker program="CURRAN PLACE APTS " latitude=" 30.065961" longitude=" -89.949950" distance="10.768075062885234"/>
-<marker program="BOBBIE VILLAGE " latitude=" 30.017865" longitude=" -90.235520" distance="10.845770729567606"/>
-<marker program="REDWOOD PARK II " latitude=" 30.019329" longitude=" -90.235699" distance="10.89879746225229"/>
-<marker program="REDWOOD PARK I " latitude=" 30.019448" longitude=" -90.237441" distance="10.996403027857308"/>
-<marker program="Kenner Housing Authority " latitude=" 30.002668" longitude=" -90.253636" distance="11.468052974383163"/>
-<marker program="MALCOLM-KENNER APARTMENTS " latitude=" 29.976235" longitude=" -90.261133" distance="11.482377225379404"/>
-<marker program="VERSAILLES ARMS " latitude=" 30.041825" longitude=" -89.910599" distance="11.492500507428977"/>
-<marker program="VERSAILLES ARMS II " latitude=" 30.041825" longitude=" -89.910599" distance="11.492500507428977"/>
-<marker program="Glenwood " latitude=" 30.011203" longitude=" -90.254940" distance="11.737410410753132"/>
-<marker program="Kenner Housing Authority " latitude=" 30.003214" longitude=" -90.266724" distance="12.22606260799276"/>
-<marker program="Kenner Housing Authority " latitude=" 30.004293" longitude=" -90.269770" distance="12.422204224553901"/>
-<marker program="LA BELLE MAISON APTS " latitude=" 30.008386" longitude=" -90.268896" distance="12.45901506595758"/>
-<marker program="SUGAR MILL APTS " latitude=" 29.866998" longitude=" -89.870535" distance="13.366911407579101"/>
-<marker program="STEAMBOAT COVE APTS " latitude=" 29.961230" longitude=" -90.308631" distance="14.211676043435874"/>
-<marker program="RAINTREE COURT APTS " latitude=" 29.963838" longitude=" -90.410853" distance="20.332894471031267"/>
-<marker program="JASMINE LANE APARTMENTS " latitude=" 29.876765" longitude=" -90.438508" distance="22.570591100561685"/>
-<marker program="Boutte-Des Allemands-Hahnville " latitude=" 29.833672" longitude=" -90.456186" distance="24.428749169558706"/>
+<marker program="Iberville" latitude="29.958308" longitude="-90.074463" distance="0.5302855597425674"/>
+<marker program="TIVOLI PLACE APARTMENTS" latitude="29.942811" longitude="-90.072592" distance="0.5739046161098066"/>
+<marker program="ST. JAMES A.M.E. HOMES" latitude="29.961233" longitude="-90.078789" distance="0.8260026408327691"/>
+<marker program="Lafitte" latitude="29.963917" longitude="-90.073754" distance="0.897892408235017"/>
+<marker program="SATCHMO PLAZA" latitude="29.940541" longitude="-90.081825" distance="0.9532284380167343"/>
+<marker program="CABBAGE ALLEY APARTMENTS" latitude="29.937362" longitude="-90.080646" distance="1.0928756293637998"/>
+<marker program="B. W. Cooper Extension" latitude="29.949373" longitude="-90.090228" distance="1.1254113891859772"/>
+<marker program="Guste Homes" latitude="29.944700" longitude="-90.089600" distance="1.1677527988322092"/>
+<marker program="OAK PLACE HOMES" latitude="29.965779" longitude="-90.081764" distance="1.1869102399025742"/>
+<marker program="ST LOUIS SQUARE" latitude="29.966400" longitude="-90.080900" distance="1.1988137392420666"/>
+<marker program="PHILIP ST APTS" latitude="29.940016" longitude="-90.087293" distance="1.213842576770677"/>
+<marker program="CHRISTOPHER INN" latitude="29.964561" longitude="-90.057697" distance="1.247214416326326"/>
+<marker program="JOSEPHINE APTS" latitude="29.933191" longitude="-90.076828" distance="1.2751571718696042"/>
+<marker program="Philip Street" latitude="29.935499" longitude="-90.083825" distance="1.3033416238193132"/>
+<marker program="JOSEPHINE APARTMENTS" latitude="29.931248" longitude="-90.076510" distance="1.401421583942966"/>
+<marker program="B. W. Cooper" latitude="29.953922" longitude="-90.094832" distance="1.4088191380400958"/>
+<marker program="St. Thomas" latitude="29.930280" longitude="-90.073895" distance="1.4431990451805534"/>
+<marker program="THE REDEMPTORIST" latitude="29.929974" longitude="-90.074220" distance="1.46625061921008"/>
+<marker program="ST. MARTIN MANOR" latitude="29.973524" longitude="-90.070653" distance="1.5526998662321903"/>
+<marker program="C. J. Peete" latitude="29.939399" longitude="-90.093904" distance="1.5633441626641333"/>
+<marker program="ST. MARTIN HOUSE" latitude="29.974459" longitude="-90.069799" distance="1.6197404599108274"/>
+<marker program="HARMONY" latitude="29.935488" longitude="-90.092889" distance="1.6714478082758464"/>
+<marker program="PUTNAM PLAZA" latitude="29.935392" longitude="-90.092911" distance="1.6767331360613749"/>
+<marker program="ANNUNCIATION INN" latitude="29.969998" longitude="-90.053351" distance="1.7017446972365153"/>
+<marker program="LOUISIANA AVENUE APTS" latitude="29.939500" longitude="-90.096700" distance="1.7056765698501184"/>
+<marker program="C. J. Peete Extension" latitude="29.938803" longitude="-90.096596" distance="1.7233450463583533"/>
+<marker program="LOYOLA LANDMARK APARTMENTS" latitude="29.934088" longitude="-90.093109" distance="1.7450595010355916"/>
+<marker program="FLINT GOODRIDGE" latitude="29.935891" longitude="-90.094973" distance="1.7519249737390226"/>
+<marker program="TOLEDANO ST APTS" latitude="29.933437" longitude="-90.092590" distance="1.7531344977170966"/>
+<marker program="Saint Thomas Extension" latitude="29.924910" longitude="-90.069639" distance="1.8108546789072035"/>
+<marker program="DAUPHINE APARTMENTS" latitude="29.964346" longitude="-90.044560" distance="1.8572439986003422"/>
+<marker program="FIRST EMANUEL HOMES" latitude="29.925138" longitude="-90.080418" distance="1.8688838837097754"/>
+<marker program="YWCA SENIOR HOUSING PROGRAM" latitude="29.965535" longitude="-90.098765" distance="1.9124433361111766"/>
+<marker program="TULANE SENIOR HOUSING" latitude="29.965535" longitude="-90.098765" distance="1.9124433361111766"/>
+<marker program="Allen Street" latitude="29.979199" longitude="-90.065518" distance="1.9769939112054253"/>
+<marker program="Hendee Homes" latitude="29.939797" longitude="-90.039065" distance="2.0940661160935248"/>
+<marker program="BEHRMAN AVENUE PROJECT" latitude="29.942438" longitude="-90.036901" distance="2.1574595162302015"/>
+<marker program="Fischer" latitude="29.933010" longitude="-90.041544" distance="2.186447748897066"/>
+<marker program="HOLY ANGELS" latitude="29.966537" longitude="-90.039616" distance="2.189401155486332"/>
+<marker program="TULANE AVENUE SRO" latitude="29.967647" longitude="-90.103425" distance="2.226635791284938"/>
+<marker program="Mazant Royal" latitude="29.960257" longitude="-90.035053" distance="2.2743751943407706"/>
+<marker program="Painters & Lesseps Street" latitude="29.979398" longitude="-90.049558" distance="2.3585664923311698"/>
+<marker program="CONGRESS SQUARE APARTMENTS" latitude="29.969426" longitude="-90.037886" distance="2.3804414131737186"/>
+<marker program="SHEPARD COURT APTS" latitude="29.936443" longitude="-90.035110" distance="2.4034553533513234"/>
+<marker program="RAPHAEL MANOR" latitude="29.957339" longitude="-90.112250" distance="2.4759203461693873"/>
+<marker program="Antonine Street" latitude="29.918303" longitude="-90.091187" distance="2.5514816382232923"/>
+<marker program="Annunciation Street" latitude="29.918644" longitude="-90.093406" distance="2.5950609527198694"/>
+<marker program="Saint Bernard" latitude="29.988836" longitude="-90.075034" distance="2.6182332380616664"/>
+<marker program="KRAFT PLACE II" latitude="29.931334" longitude="-90.033720" distance="2.642873242910555"/>
+<marker program="KRAFT PLACE APTS I" latitude="29.931080" longitude="-90.033848" distance="2.6454325458807704"/>
+<marker program="KRAFT PLACE III" latitude="29.931241" longitude="-90.033720" distance="2.6461949927536925"/>
+<marker program="Poland & Marais" latitude="29.971729" longitude="-90.029635" distance="2.886037830532303"/>
+<marker program="ST JOHN BERCHMAN'S MANOR" latitude="29.992596" longitude="-90.063622" distance="2.908436930548421"/>
+<marker program="CANTON HOUSE/FRIENDS ALLIANCE" latitude="29.959007" longitude="-90.120858" distance="3.0035472633209657"/>
+<marker program="Imperial Court" latitude="29.993746" longitude="-90.084349" distance="3.0472495702368727"/>
+<marker program="Imperial Drive" latitude="29.994429" longitude="-90.085110" distance="3.1045572447871126"/>
+<marker program="Christopher Homes" latitude="29.930700" longitude="-90.024590" distance="3.1433084929286585"/>
+<marker program="KING FREDERICK" latitude="29.914261" longitude="-90.040618" distance="3.1455234579622187"/>
+<marker program="Desire" latitude="29.991878" longitude="-90.047129" distance="3.1758840192895725"/>
+<marker program="St. Claude Street" latitude="29.962077" longitude="-90.019215" distance="3.223139270745641"/>
+<marker program="Florida" latitude="29.982376" longitude="-90.031413" distance="3.23233937631718"/>
+<marker program="Florida Extension" latitude="29.982442" longitude="-90.031106" distance="3.249057156496451"/>
+<marker program="Saint Bernard Extension" latitude="29.999033" longitude="-90.074965" distance="3.3207801134721007"/>
+<marker program="GORDON PLAZA" latitude="29.991644" longitude="-90.041573" distance="3.328286939985264"/>
+<marker program="Press Park" latitude="29.992575" longitude="-90.039496" distance="3.450173284461927"/>
+<marker program="VILLA ADDITIONS" latitude="29.954234" longitude="-90.013947" distance="3.4545058887965756"/>
+<marker program="MATER DOLOROSA" latitude="29.947612" longitude="-90.129589" distance="3.484083372018451"/>
+<marker program="BELLINGER OAKS" latitude="29.907001" longitude="-90.043039" distance="3.4902679807132984"/>
+<marker program="NAPFE TOWERS" latitude="29.924177" longitude="-90.021889" distance="3.5054155978776955"/>
+<marker program="SKYVIEW TERRACE" latitude="29.923892" longitude="-90.021975" distance="3.5115438947304822"/>
+<marker program="VILLA ST MAURICE" latitude="29.953853" longitude="-90.012824" distance="3.5200742524789845"/>
+<marker program="WESTCHASE APTS" latitude="29.900108" longitude="-90.063732" distance="3.5519111181871206"/>
+<marker program="FOREST PARK APTS" latitude="29.921648" longitude="-90.022452" distance="3.573340378201047"/>
+<marker program="MADISON SQUARE I" latitude="29.899384" longitude="-90.063590" distance="3.6026223086484253"/>
+<marker program="MADISON SQAURE II" latitude="29.899384" longitude="-90.063590" distance="3.6026223086484253"/>
+<marker program="Cambronne Street" latitude="29.958547" longitude="-90.132145" distance="3.6653656200812974"/>
+<marker program="NEW ORLEANS TOWERS" latitude="29.922555" longitude="-90.019889" distance="3.6665265524728823"/>
+<marker program="DELERY ST APTS" latitude="29.956092" longitude="-90.009579" distance="3.7252590136630275"/>
+<marker program="SUNSET VILLA APTS" latitude="29.896945" longitude="-90.070753" distance="3.739907779175965"/>
+<marker program="Scattered Sites" latitude="29.954157" longitude="-90.134893" distance="3.7993389619898617"/>
+<marker program="Eleanor Street" latitude="29.916194" longitude="-90.121333" distance="3.833895508633514"/>
+<marker program="OLYMPUS APARTMENTS" latitude="30.002724" longitude="-90.039827" distance="4.042557172855235"/>
+<marker program="FILMORE PARC APARTMENTS" latitude="30.010727" longitude="-90.065008" distance="4.140897808095046"/>
+<marker program="MONSIGNOR WYNHOVEN I" latitude="29.893339" longitude="-90.096468" distance="4.259156201543446"/>
+<marker program="MONSIGNOR WYNHOVEN I" latitude="29.893339" longitude="-90.096468" distance="4.259156201543446"/>
+<marker program="MONSIGNOR WYNHOVEN II APARTMEN" latitude="29.893336" longitude="-90.096514" distance="4.260316959853849"/>
+<marker program="VILLA D'AMES APTS" latitude="29.899784" longitude="-90.113887" distance="4.357688311053253"/>
+<marker program="Delery Homes" latitude="29.973568" longitude="-89.998303" distance="4.651299091207887"/>
+<marker program="FELICIANA" latitude="29.882746" longitude="-90.052773" distance="4.852584293323485"/>
+<marker program="CHATEAU AMES" latitude="29.887372" longitude="-90.114003" distance="5.083216218616903"/>
+<marker program="Mid-City Heights" latitude="29.902852" longitude="-90.139685" distance="5.268339485894391"/>
+<marker program="Mid-City Heights" latitude="29.902386" longitude="-90.139975" distance="5.302180175755957"/>
+<marker program="Woodland Acres" latitude="29.909394" longitude="-90.149211" distance="5.4706711964450925"/>
+<marker program="HAYDEL HEIGHTS APARTMENTS" latitude="30.012675" longitude="-90.012195" distance="5.543910722138745"/>
+<marker program="HAYDEL HEIGHTS APTS" latitude="30.014229" longitude="-90.011015" distance="5.671605936656179"/>
+<marker program="DELILLE INN" latitude="30.011411" longitude="-90.006868" distance="5.689057188780475"/>
+<marker program="NORMANDY APTS" latitude="29.929303" longitude="-90.163461" distance="5.706063065731994"/>
+<marker program="CONCORDIA TOWN HOMES" latitude="29.883429" longitude="-90.126783" distance="5.7263645930628835"/>
+<marker program="HOLLY PARK APTS" latitude="29.918596" longitude="-89.983076" distance="5.752297135360388"/>
+<marker program="HOLLY PARK APARTMENTS" latitude="29.918596" longitude="-89.983076" distance="5.752297135360388"/>
+<marker program="Acre Road Project" latitude="29.877605" longitude="-90.117304" distance="5.768918208724578"/>
+<marker program="Canal Plaza" latitude="29.931800" longitude="-90.165700" distance="5.79336283004299"/>
+<marker program="TANGLEWOOD II" latitude="29.895124" longitude="-90.144420" distance="5.830508738336784"/>
+<marker program="TANGLEWOOD I" latitude="29.895124" longitude="-90.144420" distance="5.830508738336784"/>
+<marker program="SOUTHWOOD PATIO HOMES" latitude="29.909214" longitude="-89.986924" distance="5.833755458662889"/>
+<marker program="LEPARC APARTMENTS OF NEW ORLEANS" latitude="30.011782" longitude="-90.003420" distance="5.849763605762226"/>
+<marker program="BEECHGROVE APTS II" latitude="29.911539" longitude="-90.157963" distance="5.8520466364331725"/>
+<marker program="BEECHGROVE APTS I" latitude="29.909531" longitude="-90.159012" distance="5.973133144451491"/>
+<marker program="Dale Homes" latitude="30.020197" longitude="-90.009785" distance="6.039420174129636"/>
+<marker program="FRENCHMANS WHARF PH II" latitude="30.021869" longitude="-90.009725" distance="6.1333518368925635"/>
+<marker program="FRENCHMAN'S WHARF I" latitude="30.025162" longitude="-90.008958" distance="6.3432962803371895"/>
+<marker program="STAR HOMES APARTMENTS" latitude="29.874516" longitude="-90.129994" distance="6.343331450708743"/>
+<marker program="THE HERITAGE HOUSE APARTMENTS" latitude="30.014200" longitude="-89.987845" distance="6.642156881549912"/>
+<marker program="OAKBROOK VILLAGE" latitude="30.018900" longitude="-89.990100" distance="6.761825168590536"/>
+<marker program="ST LOUIS SQUARE" latitude="29.945436" longitude="-90.184426" distance="6.770293463505093"/>
+<marker program="RIDGEFIELD APTS" latitude="29.854982" longitude="-90.112838" distance="7.085186683867293"/>
+<marker program="PEACE LAKE TOWERS" latitude="30.015815" longitude="-89.979481" distance="7.09711892548248"/>
+<marker program="WALNUT SQUARE" latitude="30.029276" longitude="-89.992697" distance="7.173850382535201"/>
+<marker program="METAIRIE MANOR" latitude="29.996569" longitude="-90.191387" distance="7.832778762447213"/>
+<marker program="METAIRIE II" latitude="29.996569" longitude="-90.191387" distance="7.832778762447213"/>
+<marker program="FOREST TOWERS EAST" latitude="30.033153" longitude="-89.969937" distance="8.314923270220989"/>
+<marker program="NAZARETH INN" latitude="30.047377" longitude="-89.988084" distance="8.320061018364374"/>
+<marker program="NAZARETH II" latitude="30.047459" longitude="-89.987920" distance="8.330483141088543"/>
+<marker program="CEDAR SQUARE APARTMENTS" latitude="30.038822" longitude="-89.973836" distance="8.423191765258267"/>
+<marker program="ST. BERNARD II" latitude="29.931948" longitude="-89.925742" distance="8.82865371420522"/>
+<marker program="LAUREL GARDENS APTS" latitude="29.978641" longitude="-90.215692" distance="8.837454084913425"/>
+<marker program="ST. BERNARD MANOR" latitude="29.932996" longitude="-89.924520" distance="8.8905001760416"/>
+<marker program="FLORAL ACRES APTS II" latitude="29.942591" longitude="-90.240739" distance="10.147703609067024"/>
+<marker program="FLORAL ACRES APTS" latitude="29.943212" longitude="-90.244117" distance="10.347250355521252"/>
+<marker program="JACOB COHEN PROJECT" latitude="29.982500" longitude="-90.242706" distance="10.474185771892113"/>
+<marker program="WESTMINSTER TOWER II" latitude="29.997813" longitude="-90.239187" distance="10.542132565098509"/>
+<marker program="WESTMINSTER TOWER" latitude="29.997813" longitude="-90.239187" distance="10.542132565098509"/>
+<marker program="IDAHO PROPERTIES" latitude="30.001434" longitude="-90.238821" distance="10.600597613290338"/>
+<marker program="GULFWAY TERRACE APTS" latitude="30.033568" longitude="-89.920420" distance="10.690147131554244"/>
+<marker program="GULFWAY TERRACE" latitude="30.033669" longitude="-89.920291" distance="10.700395677758413"/>
+<marker program="GULFWAY TERRACE" latitude="30.033669" longitude="-89.920291" distance="10.700395677758413"/>
+<marker program="CURRAN PLACE APTS" latitude="30.065961" longitude="-89.949950" distance="10.768075062885234"/>
+<marker program="BOBBIE VILLAGE" latitude="30.017865" longitude="-90.235520" distance="10.845770729567606"/>
+<marker program="REDWOOD PARK II" latitude="30.019329" longitude="-90.235699" distance="10.89879746225229"/>
+<marker program="REDWOOD PARK I" latitude="30.019448" longitude="-90.237441" distance="10.996403027857308"/>
+<marker program="Kenner Housing Authority" latitude="30.002668" longitude="-90.253636" distance="11.468052974383163"/>
+<marker program="MALCOLM-KENNER APARTMENTS" latitude="29.976235" longitude="-90.261133" distance="11.482377225379404"/>
+<marker program="VERSAILLES ARMS" latitude="30.041825" longitude="-89.910599" distance="11.492500507428977"/>
+<marker program="VERSAILLES ARMS II" latitude="30.041825" longitude="-89.910599" distance="11.492500507428977"/>
+<marker program="Glenwood" latitude="30.011203" longitude="-90.254940" distance="11.737410410753132"/>
+<marker program="Kenner Housing Authority" latitude="30.003214" longitude="-90.266724" distance="12.22606260799276"/>
+<marker program="Kenner Housing Authority" latitude="30.004293" longitude="-90.269770" distance="12.422204224553901"/>
+<marker program="LA BELLE MAISON APTS" latitude="30.008386" longitude="-90.268896" distance="12.45901506595758"/>
+<marker program="SUGAR MILL APTS" latitude="29.866998" longitude="-89.870535" distance="13.366911407579101"/>
+<marker program="STEAMBOAT COVE APTS" latitude="29.961230" longitude="-90.308631" distance="14.211676043435874"/>
+<marker program="RAINTREE COURT APTS" latitude="29.963838" longitude="-90.410853" distance="20.332894471031267"/>
+<marker program="JASMINE LANE APARTMENTS" latitude="29.876765" longitude="-90.438508" distance="22.570591100561685"/>
+<marker program="Boutte-Des Allemands-Hahnville" latitude="29.833672" longitude="-90.456186" distance="24.428749169558706"/>
 </markers>

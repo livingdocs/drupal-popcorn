@@ -1,538 +1,538 @@
 <markers>
-<marker program="CITY PLAZA " latitude=" 33.748894" longitude=" -84.392157" distance="0.2399466506439015"/>
-<marker program="Capitol Homes " latitude=" 33.746873" longitude=" -84.382453" distance="0.34990176843710896"/>
-<marker program="Martin Luther King Jr Village " latitude=" 33.744568" longitude=" -84.383867" distance="0.3866481928235243"/>
-<marker program="WILLIAM OLIVER BUILDING " latitude=" 33.754480" longitude=" -84.389723" distance="0.3919441481763168"/>
-<marker program="WELCOME HOUSE " latitude=" 33.746918" longitude=" -84.395705" distance="0.46633536637278417"/>
-<marker program="EDGEWOOD CENTER LP " latitude=" 33.754393" longitude=" -84.381471" distance="0.5282448763418714"/>
-<marker program="FAIRLIE POPLAR PROJECT- CENTER CITY LOFTS " latitude=" 33.756599" longitude=" -84.389947" distance="0.5373771143000232"/>
-<marker program="FREEMAN FORD PROJECT- CENTER CITY LOFTS " latitude=" 33.757113" longitude=" -84.385157" distance="0.5839213554478402"/>
-<marker program="Big Bethel Towers Apartments " latitude=" 33.755546" longitude=" -84.380853" distance="0.6104420817564982"/>
-<marker program="Antoine Graves* " latitude=" 33.750933" longitude=" -84.376670" distance="0.6635729937752615"/>
-<marker program="Antoine Graves Annex* " latitude=" 33.751114" longitude=" -84.376669" distance="0.6662643643692489"/>
-<marker program="Grady Homes " latitude=" 33.751205" longitude=" -84.376669" distance="0.6676737691831282"/>
-<marker program="Greater Mount Calvary Terrace " latitude=" 33.741926" longitude=" -84.395963" distance="0.6699708932208251"/>
-<marker program="NORTHSIDE PLAZA APARTMENTS " latitude=" 33.752928" longitude=" -84.400554" distance="0.7716875723841543"/>
-<marker program="Martin Street Plaza " latitude=" 33.738141" longitude=" -84.384080" distance="0.782811392456392"/>
-<marker program="PEOPLE'S PLACE " latitude=" 33.754131" longitude=" -84.375435" distance="0.8034755467010424"/>
-<marker program="Wheat Street Towers " latitude=" 33.755487" longitude=" -84.375539" distance="0.8439567404619266"/>
-<marker program="Wheat Street Gardens " latitude=" 33.757750" longitude=" -84.377259" distance="0.8634020585743287"/>
-<marker program="Chamberlain Apartments " latitude=" 33.753801" longitude=" -84.373723" distance="0.8839632649463506"/>
-<marker program="ROSA BURNEY MANOR " latitude=" 33.738366" longitude=" -84.397033" distance="0.899921740999244"/>
-<marker program="174 Ga Ave Apts* " latitude=" 33.736756" longitude=" -84.382169" distance="0.9092861940836902"/>
-<marker program="Friendship Towers " latitude=" 33.753869" longitude=" -84.402798" distance="0.9153742816986039"/>
-<marker program="Mcdaniel Glenn* " latitude=" 33.736927" longitude=" -84.394810" distance="0.9215639957898134"/>
-<marker program="FRIENDSHIP CENTER " latitude=" 33.752412" longitude=" -84.404661" distance="0.9868733356186111"/>
-<marker program="John Hope " latitude=" 33.744298" longitude=" -84.404337" distance="0.9941296766254257"/>
-<marker program=" IMPERIAL HOTEL " latitude=" 33.764157" longitude=" -84.385967" distance="1.0540084133818408"/>
-<marker program="IRWIN STREET APARTMENTS. " latitude=" 33.757787" longitude=" -84.371271" distance="1.1361218449818589"/>
-<marker program="IRWIN STREET APTS./HENDERSON PLACE " latitude=" 33.757667" longitude=" -84.371119" distance="1.139128040170737"/>
-<marker program="VINE CITY TERRACE APARTMENTS " latitude=" 33.756920" longitude=" -84.405390" distance="1.1401694843105246"/>
-<marker program="COURTYARD AT MAPLE " latitude=" 33.757406" longitude=" -84.405265" distance="1.1504663497698933"/>
-<marker program="Capitol Towers " latitude=" 33.731867" longitude=" -84.389458" distance="1.186564176841233"/>
-<marker program="Palmer House* " latitude=" 33.766036" longitude=" -84.391883" distance="1.198596648776563"/>
-<marker program="University Homes " latitude=" 33.746507" longitude=" -84.409114" distance="1.2262109284132803"/>
-<marker program="PATTERSON HEIGHTS " latitude=" 33.730964" longitude=" -84.390803" distance="1.256422948820002"/>
-<marker program="Bedford Place /Parkway Plaza A " latitude=" 33.764005" longitude=" -84.375248" distance="1.269182670765374"/>
-<marker program="BEDFORD TOWERS " latitude=" 33.763975" longitude=" -84.373925" distance="1.312825253593608"/>
-<marker program="LEGACY PARTNERSHIP I " latitude=" 33.768093" longitude=" -84.393051" distance="1.3513407528905226"/>
-<marker program="LAGACY III " latitude=" 33.768093" longitude=" -84.393051" distance="1.3513407528905226"/>
-<marker program="Model Cities I " latitude=" 33.730318" longitude=" -84.380157" distance="1.366650137001924"/>
-<marker program="LEGACY PARTNERSHIP II " latitude=" 33.768913" longitude=" -84.391429" distance="1.3904274041251974"/>
-<marker program="Centennial Place (Techwood)/Summerdale " latitude=" 33.768936" longitude=" -84.391238" distance="1.3904822102457293"/>
-<marker program="WASHINGTON HEIGHTS " latitude=" 33.728901" longitude=" -84.390823" distance="1.3980352204810782"/>
-<marker program="Herndon Homes " latitude=" 33.766411" longitude=" -84.401689" distance="1.4380978157524595"/>
-<marker program="Pittsburgh Civic League Apartm " latitude=" 33.731953" longitude=" -84.402501" distance="1.4431366285069562"/>
-<marker program="Capitol Vanira Apartments " latitude=" 33.727922" longitude=" -84.388023" distance="1.4561229183075204"/>
-<marker program="Roosevelt House* " latitude=" 33.770703" longitude=" -84.392110" distance="1.5185688012155738"/>
-<marker program="BETHEL HEIGHTS " latitude=" 33.726307" longitude=" -84.390871" distance="1.5764757767656399"/>
-<marker program="Bedford Pine Apartments IV " latitude=" 33.767747" longitude=" -84.371911" distance="1.5909772790275403"/>
-<marker program="Bedford Pine Apartments V " latitude=" 33.767747" longitude=" -84.371911" distance="1.5909772790275403"/>
-<marker program="Bedford Pine Apartments VI " latitude=" 33.767747" longitude=" -84.371911" distance="1.5909772790275403"/>
-<marker program="Bedford Pine Apartments I " latitude=" 33.767747" longitude=" -84.371911" distance="1.5909772790275403"/>
-<marker program="Bedford Pine Apartments II " latitude=" 33.767747" longitude=" -84.371911" distance="1.5909772790275403"/>
-<marker program="Bedford Pine III " latitude=" 33.767747" longitude=" -84.371911" distance="1.5909772790275403"/>
-<marker program="U-Rescue Villa* " latitude=" 33.771139" longitude=" -84.374140" distance="1.7243652337927917"/>
-<marker program="John O. Chiles* " latitude=" 33.743037" longitude=" -84.417595" distance="1.7505032889375685"/>
-<marker program="LUTHERAN TOWERS " latitude=" 33.774129" longitude=" -84.383145" distance="1.7587625168338274"/>
-<marker program="WEST END APARTMENTS " latitude=" 33.735839" longitude=" -84.415087" distance="1.8032766342526199"/>
-<marker program="Community Friendship Apt " latitude=" 33.772825" longitude=" -84.373865" distance="1.8354481012816397"/>
-<marker program="Harris Homes " latitude=" 33.744540" longitude=" -84.420496" distance="1.8932569867748268"/>
-<marker program="Columbia Plaza " latitude=" 33.747850" longitude=" -84.421139" distance="1.9066093658775194"/>
-<marker program="SHOWCASE DISTRICT " latitude=" 33.734591" longitude=" -84.418260" distance="2.0042872008005594"/>
-<marker program="924 MATHEWS ST. SW " latitude=" 33.734590" longitude=" -84.418310" distance="2.0068156242920248"/>
-<marker program="932 MATTHEW STREET " latitude=" 33.734589" longitude=" -84.418509" distance="2.0167862481997854"/>
-<marker program="936-938 MATHEWS ST. SW " latitude=" 33.734588" longitude=" -84.418608" distance="2.0217693837063915"/>
-<marker program="AMBERWOOD VILLAGE " latitude=" 33.748982" longitude=" -84.352677" distance="2.0284091093234955"/>
-<marker program="Grant Park Apts/Trestletree Vi " latitude=" 33.730103" longitude=" -84.360852" distance="2.0332952848814387"/>
-<marker program="766 AZALIA STREET " latitude=" 33.734528" longitude=" -84.418923" distance="2.039571302860044"/>
-<marker program="770-772 AZALIA ST. SW " latitude=" 33.734439" longitude=" -84.418922" distance="2.0425432970531805"/>
-<marker program="774-776 AZALIA ST. SW " latitude=" 33.734350" longitude=" -84.418922" distance="2.0455793976703083"/>
-<marker program="MCGILL LOFT APARTMENTS " latitude=" 33.767984" longitude=" -84.359325" distance="2.1051716429209"/>
-<marker program="Rucker Terrace " latitude=" 33.749493" longitude=" -84.425379" distance="2.148823763245547"/>
-<marker program="Abernathy Tower " latitude=" 33.735796" longitude=" -84.422134" distance="2.163870023016569"/>
-<marker program="Christian Counsil Housing I " latitude=" 33.736343" longitude=" -84.423356" distance="2.212527093599192"/>
-<marker program="Juniper Tenth* " latitude=" 33.781780" longitude=" -84.382437" distance="2.2876228109871373"/>
-<marker program="PITTSBURGH PARTNERSHIP " latitude=" 33.730000" longitude=" -84.421200" distance="2.3164131215856387"/>
-<marker program="1241-1243 GREENWICH ST. SW " latitude=" 33.743940" longitude=" -84.428318" distance="2.343656725778662"/>
-<marker program="416-418 ATWOOD ST. SW " latitude=" 33.743360" longitude=" -84.428676" distance="2.370258966699445"/>
-<marker program="420-422 ATWOOD ST. SW " latitude=" 33.743246" longitude=" -84.428682" distance="2.371907163432326"/>
-<marker program="426-428 ATWOOD ST. SW " latitude=" 33.743077" longitude=" -84.428684" distance="2.3740063991180063"/>
-<marker program="432-434 ATWOOD ST. SW " latitude=" 33.742905" longitude=" -84.428684" distance="2.376084824076434"/>
-<marker program="Branan Towers " latitude=" 33.740163" longitude=" -84.347987" distance="2.377643218944167"/>
-<marker program="GRANT PARK APARTMENTS " latitude=" 33.717977" longitude=" -84.369943" distance="2.3808145788003574"/>
-<marker program="GRANT PARK APARTMENTS " latitude=" 33.717977" longitude=" -84.369943" distance="2.3808145788003574"/>
-<marker program="494-496 ATWOOD ST. SW " latitude=" 33.741342" longitude=" -84.428724" distance="2.3998325466647854"/>
-<marker program="Model Cities Ii " latitude=" 33.728400" longitude=" -84.421700" distance="2.4039086935630505"/>
-<marker program="OAKLAND COURT APARTMENTS PHASE II " latitude=" 33.758450" longitude=" -84.347223" distance="2.4310525288565312"/>
-<marker program="BIENVENUE PLACE " latitude=" 33.773495" longitude=" -84.355192" distance="2.53256849649721"/>
-<marker program="OAKHILL " latitude=" 33.758295" longitude=" -84.345100" distance="2.5460213506941383"/>
-<marker program="ROBERT J. YANCY DOROTHY C. YA " latitude=" 33.712255" longitude=" -84.393456" distance="2.558084757357471"/>
-<marker program="Briarcliff Summit Apartments " latitude=" 33.773816" longitude=" -84.353474" distance="2.62126162684295"/>
-<marker program="BRIARCLIFF SUMMIT APARTMENTS " latitude=" 33.773817" longitude=" -84.353188" distance="2.633753178836963"/>
-<marker program="BRIARCLIFF SUMMIT APARTMENTS " latitude=" 33.773647" longitude=" -84.352864" distance="2.6403138601227885"/>
-<marker program="Booth Residence Inc. " latitude=" 33.773833" longitude=" -84.350748" distance="2.7423365345724613"/>
-<marker program="Edgewood Housing II " latitude=" 33.758131" longitude=" -84.340663" distance="2.7908337934461285"/>
-<marker program="Edgewood Housing " latitude=" 33.753759" longitude=" -84.339634" distance="2.797127993889985"/>
-<marker program="AMAL TOWNHOME COMMUNITY " latitude=" 33.707918" longitude=" -84.400944" distance="2.9344587295785827"/>
-<marker program="AMAL TOWNHOMES PHASE II " latitude=" 33.707918" longitude=" -84.400944" distance="2.9344587295785827"/>
-<marker program="Carver Homes " latitude=" 33.707200" longitude=" -84.397700" distance="2.941458638077568"/>
-<marker program="Englewood Manor " latitude=" 33.707200" longitude=" -84.397700" distance="2.941458638077568"/>
-<marker program="Oakland City / West End Apartm " latitude=" 33.719562" longitude=" -84.427003" distance="3.0271941437922423"/>
-<marker program="GRANT PARK VILLAGE APARTMENTS " latitude=" 33.711266" longitude=" -84.359826" distance="3.068310455758037"/>
-<marker program="Westminster Apts " latitude=" 33.793272" longitude=" -84.372743" distance="3.1821631264926618"/>
-<marker program="Atlanta NAPFE Elderly Towers " latitude=" 33.764919" longitude=" -84.441021" distance="3.239530292853898"/>
-<marker program="WESTLAKE MANOR TOWNHOUSES " latitude=" 33.765820" longitude=" -84.441005" distance="3.2603274102118642"/>
-<marker program="VILLA MONTE APARTMENTS " latitude=" 33.706790" longitude=" -84.361588" distance="3.2871698560118663"/>
-<marker program="Thomasville Heights " latitude=" 33.705607" longitude=" -84.355475" distance="3.532435977287928"/>
-<marker program="McLendon Gardens Apartments " latitude=" 33.761754" longitude=" -84.325885" distance="3.6747453696592616"/>
-<marker program="OAKLAND COURT APARTMENTS " latitude=" 33.754301" longitude=" -84.324201" distance="3.682626174747029"/>
-<marker program="Fha Scattered Sites " latitude=" 33.714961" longitude=" -84.440943" distance="3.846103304452566"/>
-<marker program="COURTYARDS AT GLENVIEW FNA MANCHESTER ARMS " latitude=" 33.747336" longitude=" -84.320830" distance="3.8598619806623926"/>
-<marker program=" PRESLEY WOODS APARTMENTS (aka " latitude=" 33.759369" longitude=" -84.321483" distance="3.8870348636947907"/>
-<marker program="PRESLEY WOODS (FNA KIRKWOOD PROJECT) " latitude=" 33.759903" longitude=" -84.321582" distance="3.8884164794857288"/>
-<marker program="Lakewood Christian Manor " latitude=" 33.696006" longitude=" -84.414003" distance="3.955053335223307"/>
-<marker program="Jonesboro North " latitude=" 33.693361" longitude=" -84.366958" distance="4.029628976241641"/>
-<marker program="Villages Of Eastlake I " latitude=" 33.745788" longitude=" -84.317845" distance="4.035784210059691"/>
-<marker program="EAST HAMPTON APARTMENTS " latitude=" 33.725247" longitude=" -84.321420" distance="4.161907910464526"/>
-<marker program="Paradise East Apts " latitude=" 33.713433" longitude=" -84.329297" distance="4.172654097306758"/>
-<marker program="SANTA FE VILLAS " latitude=" 33.690808" longitude=" -84.408163" distance="4.1845560045002985"/>
-<marker program="2240 Peachtree Road* " latitude=" 33.809800" longitude=" -84.385500" distance="4.203869319430827"/>
-<marker program="Hightower Manor* " latitude=" 33.724000" longitude=" -84.454700" distance="4.204782767610842"/>
-<marker program="East Lake " latitude=" 33.742129" longitude=" -84.314857" distance="4.2281614372206375"/>
-<marker program="Quality Living Services Inc. " latitude=" 33.709965" longitude=" -84.448528" distance="4.402163741753759"/>
-<marker program="Jonesboro South " latitude=" 33.687469" longitude=" -84.364141" distance="4.466695839269728"/>
-<marker program="GRANADA PARK " latitude=" 33.709372" longitude=" -84.449989" distance="4.493674324844925"/>
-<marker program="Leila Valley " latitude=" 33.689391" longitude=" -84.354349" distance="4.549589723367999"/>
-<marker program="COLUMBIA MILL APARTMENTS " latitude=" 33.721632" longitude=" -84.315325" distance="4.583241249076286"/>
-<marker program="Hollywood West Apartments " latitude=" 33.783251" longitude=" -84.459227" distance="4.7276249797521634"/>
-<marker program="Summerdale Commons Phase I " latitude=" 33.680388" longitude=" -84.393464" distance="4.7510636407001"/>
-<marker program="Trinity Towers " latitude=" 33.683384" longitude=" -84.415118" distance="4.794356803151081"/>
-<marker program="Cheshire Bridge Road* " latitude=" 33.812832" longitude=" -84.354323" distance="4.8159607196423"/>
-<marker program="SUMMERDALE/ BRIARWOOD " latitude=" 33.678377" longitude=" -84.393313" distance="4.8891703844119405"/>
-<marker program="Budd Terrace " latitude=" 33.803663" longitude=" -84.333620" distance="4.9007644183753225"/>
-<marker program="Summerdale Commons Phase Ii " latitude=" 33.677461" longitude=" -84.391905" distance="4.947993603622299"/>
-<marker program="EAGLES RUN APARTMENTS " latitude=" 33.699411" longitude=" -84.325326" distance="4.970384428240134"/>
-<marker program="EAGLES RUN II APARTMENTS " latitude=" 33.699411" longitude=" -84.325326" distance="4.970384428240134"/>
-<marker program="EAGLES RUN " latitude=" 33.699411" longitude=" -84.325326" distance="4.970384428240134"/>
-<marker program="EAGLES RUN II " latitude=" 33.699411" longitude=" -84.325326" distance="4.970384428240134"/>
-<marker program="SUMMERDALE COMMONS " latitude=" 33.676900" longitude=" -84.390900" distance="4.984439805493353"/>
-<marker program="SUMMERDALE COMMONS " latitude=" 33.676900" longitude=" -84.390900" distance="4.984439805493353"/>
-<marker program="Baptist Towers " latitude=" 33.702628" longitude=" -84.455038" distance="5.011492412408242"/>
-<marker program="Cascade Pines Apartments " latitude=" 33.705548" longitude=" -84.460030" distance="5.114264119248266"/>
-<marker program="Park Trace Apartments " latitude=" 33.772339" longitude=" -84.302985" distance="5.142234104722271"/>
-<marker program="Brandywine Townhouses I " latitude=" 33.672812" longitude=" -84.391249" distance="5.2674364185251354"/>
-<marker program="Brandywine Townhouses II " latitude=" 33.672812" longitude=" -84.391249" distance="5.2674364185251354"/>
-<marker program="BRANDYWINE TOWNHOUSES III " latitude=" 33.672812" longitude=" -84.391249" distance="5.2674364185251354"/>
-<marker program="Brandywine Townhouses Inc " latitude=" 33.672812" longitude=" -84.391249" distance="5.2674364185251354"/>
-<marker program="Oxford Village Townhouses " latitude=" 33.673936" longitude=" -84.371125" distance="5.2761559963807905"/>
-<marker program="Oxford Village Townhouses " latitude=" 33.673936" longitude=" -84.371125" distance="5.2761559963807905"/>
-<marker program="Swanton Hgts " latitude=" 33.769663" longitude=" -84.299532" distance="5.278017885573156"/>
-<marker program="Gateway Manor " latitude=" 33.773570" longitude=" -84.300797" distance="5.288389470108875"/>
-<marker program="1888 CONNALLY DRIVE " latitude=" 33.692120" longitude=" -84.450474" distance="5.323874470767684"/>
-<marker program="COLUMNS AT EAST HILL " latitude=" 33.759709" longitude=" -84.295727" distance="5.351487968930554"/>
-<marker program="Allen Wilson Terrace " latitude=" 33.773567" longitude=" -84.299455" distance="5.361390142795733"/>
-<marker program="Marian Apts* " latitude=" 33.825917" longitude=" -84.364524" distance="5.483163492551295"/>
-<marker program="Etheridge Court II " latitude=" 33.790075" longitude=" -84.470058" distance="5.502948221229601"/>
-<marker program="WELLS COURT APARTMENTS " latitude=" 33.706057" longitude=" -84.468901" distance="5.516073201896246"/>
-<marker program="Etheridge Court I " latitude=" 33.787984" longitude=" -84.472403" distance="5.547234575799723"/>
-<marker program="Philips Towers Decatur Inc. " latitude=" 33.772476" longitude=" -84.294401" distance="5.615313786775433"/>
-<marker program="DELOWE PLACE COOPERATIVE " latitude=" 33.691807" longitude=" -84.457412" distance="5.615812045233289"/>
-<marker program="Clairmont Oaks " latitude=" 33.779318" longitude=" -84.296700" distance="5.646649302097478"/>
-<marker program="Clairmont Oaks " latitude=" 33.779318" longitude=" -84.296700" distance="5.646649302097478"/>
-<marker program="Hollywood Courts " latitude=" 33.796470" longitude=" -84.469688" distance="5.725789573340673"/>
-<marker program="Cathedral Towers " latitude=" 33.832133" longitude=" -84.384816" distance="5.747484387962004"/>
-<marker program="Flipper Temple Apartments " latitude=" 33.800818" longitude=" -84.466606" distance="5.763229285989684"/>
-<marker program="FLIPPER TEMPLE APARTMENTS " latitude=" 33.801151" longitude=" -84.467356" distance="5.811278331688679"/>
-<marker program="ALLEN TEMPLE DEVELOPMENT " latitude=" 33.752704" longitude=" -84.489825" distance="5.856666904789394"/>
-<marker program="HOLLY RIDGE APARTMENTS " latitude=" 33.799788" longitude=" -84.470118" distance="5.879876516312908"/>
-<marker program="ALLEN TEMPLE APARTMENTS I " latitude=" 33.755002" longitude=" -84.490348" distance="5.895653797511138"/>
-<marker program="ALLEN TEMPLE APTS II " latitude=" 33.755002" longitude=" -84.490348" distance="5.895653797511138"/>
-<marker program="HAMPTON OAK COOPERATIVE " latitude=" 33.815676" longitude=" -84.452568" distance="5.914979149391794"/>
-<marker program="CAMPBELL STONE APARTMENTS " latitude=" 33.834821" longitude=" -84.385795" distance="5.9316718206189405"/>
-<marker program="Campbell Stone Apartments " latitude=" 33.834821" longitude=" -84.385795" distance="5.9316718206189405"/>
-<marker program="Capitol Homes " latitude=" 33.801100" longitude=" -84.472600" distance="6.048347338290734"/>
-<marker program="Bowen Homes " latitude=" 33.801100" longitude=" -84.472600" distance="6.048347338290734"/>
-<marker program="MOORES MILL VILLAGE " latitude=" 33.820278" longitude=" -84.449175" distance="6.05062467844774"/>
-<marker program="Hillcrest Homes " latitude=" 33.677200" longitude=" -84.450100" distance="6.112103241206084"/>
-<marker program="Washington-Carver Homes " latitude=" 33.677200" longitude=" -84.450100" distance="6.112103241206084"/>
-<marker program="O J Hurd Homes " latitude=" 33.677200" longitude=" -84.450100" distance="6.112103241206084"/>
-<marker program="Nelms House " latitude=" 33.677200" longitude=" -84.450100" distance="6.112103241206084"/>
-<marker program="Landrum Arms Apartments " latitude=" 33.706259" longitude=" -84.481389" distance="6.1264894207648"/>
-<marker program="LONDON TWNHS 2 " latitude=" 33.748669" longitude=" -84.494814" distance="6.137871764954721"/>
-<marker program="LONDON TWHS 3 " latitude=" 33.748669" longitude=" -84.494814" distance="6.137871764954721"/>
-<marker program="LONDON TWHS 4 " latitude=" 33.748669" longitude=" -84.494814" distance="6.137871764954721"/>
-<marker program="DELANO PLACE " latitude=" 33.746836" longitude=" -84.280301" distance="6.188519306809572"/>
-<marker program="COLUMBIA HILL/DUTCH HILL (VILLAGE HOME APTS.) " latitude=" 33.660952" longitude=" -84.355594" distance="6.36209222895845"/>
-<marker program="Marietta Road Highrise* " latitude=" 33.818156" longitude=" -84.461557" distance="6.378961655008745"/>
-<marker program="Decatur Christian Towers " latitude=" 33.789934" longitude=" -84.287137" distance="6.446319082642633"/>
-<marker program="CASCADE PINES APARTMENTS " latitude=" 33.698195" longitude=" -84.483223" distance="6.502352080307341"/>
-<marker program="Gilbert Gardens " latitude=" 33.654200" longitude=" -84.381100" distance="6.56207068572908"/>
-<marker program="Community Housing Inc. " latitude=" 33.759969" longitude=" -84.274216" distance="6.579663740448725"/>
-<marker program="Atlanta Group Home " latitude=" 33.838947" longitude=" -84.428353" distance="6.633682144146299"/>
-<marker program="THE WILLIAM BREMAN JEWISH HOME " latitude=" 33.840845" longitude=" -84.427309" distance="6.736374623589838"/>
-<marker program="COLUMBIA HEIGHTS " latitude=" 33.756718" longitude=" -84.271075" distance="6.73756742347499"/>
-<marker program="Fairburn Gordon II " latitude=" 33.761173" longitude=" -84.504454" distance="6.743892131049242"/>
-<marker program="Christian Council Housing Two " latitude=" 33.755168" longitude=" -84.505495" distance="6.7646924474434345"/>
-<marker program="Jewish Tower " latitude=" 33.841437" longitude=" -84.427505" distance="6.778684466297531"/>
-<marker program="FAIRBURN-GORDON APARTMENTS " latitude=" 33.749898" longitude=" -84.507693" distance="6.878005069471576"/>
-<marker program="CENTRAL METHODIST GARDENS II " latitude=" 33.747005" longitude=" -84.508434" distance="6.92177810939886"/>
-<marker program="CENTRAL METHODIST GARDENS I " latitude=" 33.747005" longitude=" -84.508434" distance="6.92177810939886"/>
-<marker program="HIDDEN HOLLOW APTS. " latitude=" 33.744657" longitude=" -84.509402" distance="6.9825603247334005"/>
-<marker program="Fairburn Towne Houses " latitude=" 33.743792" longitude=" -84.509384" distance="6.984383878128477"/>
-<marker program="Fairburn Towne Houses " latitude=" 33.743792" longitude=" -84.509384" distance="6.984383878128477"/>
-<marker program="Fairburn Towne Houses " latitude=" 33.743792" longitude=" -84.509384" distance="6.984383878128477"/>
-<marker program="Fairburn Towne Houses " latitude=" 33.743792" longitude=" -84.509384" distance="6.984383878128477"/>
-<marker program="Wildwood Park Towne Houses I " latitude=" 33.741906" longitude=" -84.510220" distance="7.040295830079973"/>
-<marker program="WILDWOOD PARK TOWNE HOUSES II " latitude=" 33.741906" longitude=" -84.510220" distance="7.040295830079973"/>
-<marker program="WILDWOOD PARK TOWNE HOUSES 3 " latitude=" 33.741906" longitude=" -84.510220" distance="7.040295830079973"/>
-<marker program="WILDWOOD PARK TOWNE HOUSES 4 " latitude=" 33.741906" longitude=" -84.510220" distance="7.040295830079973"/>
-<marker program="Wildwood Park Towne Houses IV " latitude=" 33.741906" longitude=" -84.510220" distance="7.040295830079973"/>
-<marker program="Bankhead Courts " latitude=" 33.794347" longitude=" -84.499220" distance="7.116369577482159"/>
-<marker program="Eastwyck Village Towne Houses " latitude=" 33.718100" longitude=" -84.269600" distance="7.1297779250701465"/>
-<marker program="Eastwyck Village Towne Houses " latitude=" 33.718100" longitude=" -84.269600" distance="7.1297779250701465"/>
-<marker program="Eastwyck Village Towne Houses " latitude=" 33.718100" longitude=" -84.269600" distance="7.1297779250701465"/>
-<marker program="Eastwyck Village Towne Houses " latitude=" 33.718100" longitude=" -84.269600" distance="7.1297779250701465"/>
-<marker program="Eastwyck Village Townhouses " latitude=" 33.718100" longitude=" -84.269600" distance="7.1297779250701465"/>
-<marker program="Eastwyck Village Towne Houses " latitude=" 33.718100" longitude=" -84.269600" distance="7.1297779250701465"/>
-<marker program="3601 Piedmont Road* " latitude=" 33.852525" longitude=" -84.380396" distance="7.166895337033227"/>
-<marker program="3762 MARTIN LUTHER KING BLVD. " latitude=" 33.765895" longitude=" -84.511266" distance="7.177960970460507"/>
-<marker program="College View Hills " latitude=" 33.659837" longitude=" -84.453094" distance="7.208468350018384"/>
-<marker program="Briarcliff Oaks Apartments " latitude=" 33.836624" longitude=" -84.316256" distance="7.3230228250499705"/>
-<marker program="EAGLE'S NEST " latitude=" 33.712660" longitude=" -84.266323" distance="7.428356689158681"/>
-<marker program="Asbury Harris Epworth Towers " latitude=" 33.683108" longitude=" -84.493689" distance="7.592008924233205"/>
-<marker program="LEXINGTON SQUARE TOWNHOUSES II " latitude=" 33.647848" longitude=" -84.335896" distance="7.603452595623209"/>
-<marker program="LEXINGTON SQUARE TOWNHOUSES II " latitude=" 33.647848" longitude=" -84.335896" distance="7.603452595623209"/>
-<marker program="LEXINGTON SQUARE TOWNHOUSES IV " latitude=" 33.647848" longitude=" -84.335896" distance="7.603452595623209"/>
-<marker program="Waits Drive " latitude=" 33.753828" longitude=" -84.520518" distance="7.621699639327033"/>
-<marker program="Wildwood Lakes " latitude=" 33.742346" longitude=" -84.520919" distance="7.651737461738205"/>
-<marker program="MT ZION VILLAGE APTS " latitude=" 33.653311" longitude=" -84.455658" distance="7.671215216480948"/>
-<marker program="Martel Homes " latitude=" 33.667600" longitude=" -84.478900" distance="7.677423557372218"/>
-<marker program="Lenox Summit " latitude=" 33.856727" longitude=" -84.347388" distance="7.80036678147757"/>
-<marker program="Barge Road* " latitude=" 33.689524" longitude=" -84.506247" distance="7.942687704609954"/>
-<marker program="OAK FOREST APARTMENTS " latitude=" 33.786884" longitude=" -84.254320" distance="8.111725347853357"/>
-<marker program="GREENBRIAR COMMONS " latitude=" 33.672929" longitude=" -84.498346" distance="8.238097502979219"/>
-<marker program="Tobie Grant Manor " latitude=" 33.791790" longitude=" -84.253502" distance="8.271049243601155"/>
-<marker program="TECALI CLUB APARTMENTS " latitude=" 33.671453" longitude=" -84.502644" distance="8.493809054596444"/>
-<marker program="WALDORF CREEK APARTMENTS " latitude=" 33.627234" longitude=" -84.365489" distance="8.512230568056427"/>
-<marker program="WINGATE APTS. " latitude=" 33.624691" longitude=" -84.356678" distance="8.775684861151456"/>
-<marker program="CASCADE APARTMENTS " latitude=" 33.671600" longitude=" -84.509300" distance="8.787790149860705"/>
-<marker program="CASCADE APARTMENTS " latitude=" 33.671600" longitude=" -84.509300" distance="8.787790149860705"/>
-<marker program="Windrush Apartments " latitude=" 33.767679" longitude=" -84.234289" distance="8.923101075503173"/>
-<marker program="REGENCY PARK/COLONY 2000 " latitude=" 33.651791" longitude=" -84.492545" distance="9.013489326091607"/>
-<marker program="SWEETWATER COVE APTS. " latitude=" 33.786600" longitude=" -84.546000" distance="9.441227150763396"/>
-<marker program="ORCHARD LANE APARTMENTS " latitude=" 33.787220" longitude=" -84.546377" distance="9.473870287699679"/>
-<marker program="Smyrna Towers " latitude=" 33.854900" longitude=" -84.496300" distance="9.603633031402453"/>
-<marker program="AHEPA ONE APARTMENTS " latitude=" 33.843083" longitude=" -84.262483" distance="9.705560501724785"/>
-<marker program="NU DIMENSIONS " latitude=" 33.642900" longitude=" -84.500100" distance="9.761508230792495"/>
-<marker program="Belle Isle " latitude=" 33.890667" longitude=" -84.381508" distance="9.796218480391785"/>
-<marker program="Red Oak " latitude=" 33.636262" longitude=" -84.499187" distance="10.077285104580817"/>
-<marker program="TRACEWOOD APARTMENTS " latitude=" 33.596868" longitude=" -84.374893" distance="10.53855013373571"/>
-<marker program="Johnson Ferry East " latitude=" 33.893121" longitude=" -84.325770" distance="10.57971925491203"/>
-<marker program="HUNTERS GROVE " latitude=" 33.777901" longitude=" -84.572114" distance="10.76409344673069"/>
-<marker program="Walton Grove Apartments " latitude=" 33.888137" longitude=" -84.475230" distance="10.840737438932038"/>
-<marker program="Travis House " latitude=" 33.744164" longitude=" -84.195785" distance="11.047713154324946"/>
-<marker program="Allen Road Midrise " latitude=" 33.913458" longitude=" -84.382636" distance="11.36811113982516"/>
-<marker program="Campbell Stone North Apartmen " latitude=" 33.915294" longitude=" -84.375936" distance="11.511615462197263"/>
-<marker program="SOUTHWOOD APTS " latitude=" 33.590970" longitude=" -84.321309" distance="11.572763662476392"/>
-<marker program="North Hairston Apartments " latitude=" 33.807849" longitude=" -84.193654" distance="11.878741906073515"/>
-<marker program="MADISON STATION APARTMENTS " latitude=" 33.882627" longitude=" -84.523530" distance="12.075286648327499"/>
-<marker program="HIDDEN MEADOWS TOWNHOMES " latitude=" 33.809400" longitude=" -84.188400" distance="12.198855465546648"/>
-<marker program="Shangri La Apartments " latitude=" 33.915951" longitude=" -84.302328" distance="12.540126921595403"/>
-<marker program="SHANNON CRESTE APTS. " latitude=" 33.929014" longitude=" -84.359903" distance="12.542811160618426"/>
-<marker program="BAYWOOD PARK APARTMENTS " latitude=" 33.571784" longitude=" -84.308597" distance="13.0683677368383"/>
-<marker program="DEKALB MR HOMES INC. " latitude=" 33.747673" longitude=" -84.157744" distance="13.228351214746992"/>
-<marker program="Cambridge Square Towne Houses " latitude=" 33.911025" longitude=" -84.262662" distance="13.307513415564333"/>
-<marker program="Cambridge Square Towne Houses " latitude=" 33.911025" longitude=" -84.262662" distance="13.307513415564333"/>
-<marker program="Westbury Park Apts " latitude=" 33.919830" longitude=" -84.500672" distance="13.460106717246996"/>
-<marker program="Lyman Homes " latitude=" 33.915900" longitude=" -84.524100" distance="13.92991819443962"/>
-<marker program="CHARLESTON TRACE APTS. " latitude=" 33.887238" longitude=" -84.566039" distance="13.990264630798716"/>
-<marker program="PINE GROVE APARTMENTS/HARMONY GROVE " latitude=" 33.903223" longitude=" -84.553305" distance="14.269614975344599"/>
-<marker program="HARMONY GROVE APARTMENTS " latitude=" 33.903262" longitude=" -84.553406" distance="14.275481833783855"/>
-<marker program="GWINNETT STATION " latitude=" 33.893970" longitude=" -84.209868" distance="14.313986543163276"/>
-<marker program="HARMONY MEADOWS APARTMENTS " latitude=" 33.913328" longitude=" -84.546816" distance="14.561958743802599"/>
-<marker program="HILLANDALE COMMONS " latitude=" 33.705962" longitude=" -84.139108" distance="14.608050430107506"/>
-<marker program="ORCHARD MILL APTS. " latitude=" 33.859171" longitude=" -84.606375" distance="14.669335321951474"/>
-<marker program="GROVEWOOD PARK APARTMENTS " latitude=" 33.706016" longitude=" -84.137325" distance="14.707626410258358"/>
-<marker program="SHANNON LAKE APARTMENTS " latitude=" 33.564815" longitude=" -84.516896" distance="14.7287361094658"/>
-<marker program="BUTTERFIELD HOUSE INC " latitude=" 33.876398" longitude=" -84.594773" distance="14.779702273149837"/>
-<marker program="THE ARC HOUSE " latitude=" 33.876355" longitude=" -84.595911" distance="14.830471927092699"/>
-<marker program="ROSEWOOD PARK APARTMENTS " latitude=" 33.854565" longitude=" -84.614448" distance="14.909503835438402"/>
-<marker program="MAPLEWOOD PARK FNA SUGARWOOD PARK APARTMENTS " latitude=" 33.568340" longitude=" -84.534392" distance="15.057461392876174"/>
-<marker program="COUNTRY PINES " latitude=" 33.925623" longitude=" -84.552085" distance="15.416185936753857"/>
-<marker program="Union City Ha " latitude=" 33.572514" longitude=" -84.554777" distance="15.515305974170435"/>
-<marker program="Branson Homes Addition " latitude=" 33.942344" longitude=" -84.527948" distance="15.588673460084202"/>
-<marker program="CC/Sparks Manor " latitude=" 33.552588" longitude=" -84.525029" distance="15.6945061808849"/>
-<marker program="CC/Larry Moore Manor " latitude=" 33.551606" longitude=" -84.524907" distance="15.749729479973407"/>
-<marker program="CC/Garden Terrace " latitude=" 33.549260" longitude=" -84.524087" distance="15.867044438204127"/>
-<marker program="CC Estates/ Miller Manor " latitude=" 33.547949" longitude=" -84.522942" distance="15.913697733482367"/>
-<marker program="Branson Homes " latitude=" 33.945304" longitude=" -84.533218" distance="15.920464109590887"/>
-<marker program="Keystone Apartments " latitude=" 33.519660" longitude=" -84.354041" distance="15.966373568882801"/>
-<marker program="Riverwood Section 1 " latitude=" 33.517967" longitude=" -84.368763" distance="16.00175142873504"/>
-<marker program="Riverwood Townhouses 2 " latitude=" 33.517967" longitude=" -84.368763" distance="16.00175142873504"/>
-<marker program="Riverwood Townhouses 3 " latitude=" 33.517967" longitude=" -84.368763" distance="16.00175142873504"/>
-<marker program="CRESTWOOD PARK " latitude=" 33.951908" longitude=" -84.524464" distance="16.059960864414414"/>
-<marker program="Boston Homes " latitude=" 33.953480" longitude=" -84.526728" distance="16.218225204003673"/>
-<marker program="Project Unnamed " latitude=" 33.713045" longitude=" -84.108013" distance="16.279151071771988"/>
-<marker program="Unnamed Project " latitude=" 33.522300" longitude=" -84.305500" distance="16.367052261292717"/>
-<marker program=" THE Hellenic Tower " latitude=" 33.985515" longitude=" -84.350557" distance="16.48338823976316"/>
-<marker program="Project Unnamed " latitude=" 33.707007" longitude=" -84.105222" distance="16.50644171521364"/>
-<marker program="Johnny Walker Homes " latitude=" 33.945374" longitude=" -84.555056" distance="16.614853110201867"/>
-<marker program="Clay Homes " latitude=" 33.950804" longitude=" -84.548014" distance="16.696859202373915"/>
-<marker program="Unnamed Project " latitude=" 33.936641" longitude=" -84.204129" distance="16.716614490608695"/>
-<marker program="Project Unnamed " latitude=" 33.936245" longitude=" -84.203193" distance="16.72941655959428"/>
-<marker program="Fairburn Ha " latitude=" 33.563446" longitude=" -84.575826" distance="16.766096875850863"/>
-<marker program="Fort Hill Homes " latitude=" 33.955258" longitude=" -84.542820" distance="16.7950352514076"/>
-<marker program="Henderson Arms Apts (ACC CANCE " latitude=" 33.950549" longitude=" -84.552440" distance="16.823310674213285"/>
-<marker program="Dorsey Manor " latitude=" 33.955289" longitude=" -84.546225" distance="16.901024101993922"/>
-<marker program="North Pointe Apartments " latitude=" 33.993472" longitude=" -84.345568" distance="17.067102748629313"/>
-<marker program="Lawrenceville Handicapped Hous " latitude=" 33.894804" longitude=" -84.144818" distance="17.214839617552705"/>
-<marker program="GREENS OF PEBBLE CREEK " latitude=" 33.498778" longitude=" -84.403535" distance="17.31255984671653"/>
-<marker program="FAIRWAY POINTE APTS. " latitude=" 33.498778" longitude=" -84.403535" distance="17.31255984671653"/>
-<marker program="The Ambers Apartments " latitude=" 33.937576" longitude=" -84.188740" distance="17.336112309355926"/>
-<marker program="Westbury Springs Apartments " latitude=" 33.904959" longitude=" -84.148491" distance="17.467621189870304"/>
-<marker program="HARMONY TERRACE " latitude=" 33.968912" longitude=" -84.540092" distance="17.52388635350845"/>
-<marker program="061-35305 BRADFORD GWINNETT A " latitude=" 33.937122" longitude=" -84.174990" distance="17.843595512352078"/>
-<marker program="MARIETTA-COBB WINTER SHELTER " latitude=" 33.977539" longitude=" -84.555429" distance="18.484727873561358"/>
-<marker program="Jane Hill Homes " latitude=" 34.018773" longitude=" -84.357946" distance="18.720437168154948"/>
-<marker program="Irwin Homes " latitude=" 34.018738" longitude=" -84.356927" distance="18.723499975703955"/>
-<marker program="Waller Park Homes " latitude=" 34.018631" longitude=" -84.354855" distance="18.72782668910051"/>
-<marker program="Gwinnett Christian Terrace " latitude=" 33.904727" longitude=" -84.115000" distance="19.00851610567401"/>
-<marker program="Wiloaks Apartments " latitude=" 33.835059" longitude=" -84.068944" distance="19.261553893968063"/>
-<marker program="Alpha A Fowler Community " latitude=" 33.745326" longitude=" -84.729179" distance="19.604891798872007"/>
-<marker program="BRIGHTON MANOR APARTMENTS " latitude=" 33.755515" longitude=" -84.733142" distance="19.834882075592287"/>
-<marker program="Pelfrey Pines " latitude=" 34.043100" longitude=" -84.384500" distance="20.32289911064319"/>
-<marker program="DOUGLAS VILLAGE APARTMENTS " latitude=" 33.762704" longitude=" -84.744443" distance="20.500055889095883"/>
-<marker program="Conzada Keith Homes " latitude=" 33.753208" longitude=" -84.748405" distance="20.70896384958923"/>
-<marker program="PARKER STREET DUPLEX " latitude=" 33.751949" longitude=" -84.749555" distance="20.774142555575963"/>
-<marker program="UCP OF ATLANTA " latitude=" 34.030019" longitude=" -84.522464" distance="20.894063410206467"/>
-<marker program="HIGHLAND PARK SENIOR VILLAGE " latitude=" 33.742644" longitude=" -84.751772" distance="20.906252247461264"/>
-<marker program="VOA OF GEORGIA " latitude=" 33.754292" longitude=" -84.754097" distance="21.036984019908164"/>
-<marker program="Chicago Ave Homes " latitude=" 33.751803" longitude=" -84.755025" distance="21.088313535648933"/>
-<marker program="Rockmont Apartments " latitude=" 33.662566" longitude=" -84.035775" distance="21.108075986597512"/>
-<marker program="North Fulton County Group Home " latitude=" 34.050021" longitude=" -84.325258" distance="21.108931417995674"/>
-<marker program="South Metro Homes Inc. " latitude=" 34.050021" longitude=" -84.325258" distance="21.108931417995674"/>
-<marker program="R.D. Pounds Homes " latitude=" 33.749396" longitude=" -84.756826" distance="21.19120807183196"/>
-<marker program="COLUMBIA GARDENS APARTMENTS " latitude=" 33.748109" longitude=" -84.757239" distance="21.215165689639406"/>
-<marker program="Douglas County Resources " latitude=" 33.738600" longitude=" -84.757400" distance="21.23765444058978"/>
-<marker program="Douglas County Ventures " latitude=" 33.738600" longitude=" -84.757400" distance="21.23765444058978"/>
-<marker program="Forest Ave Maxwell Hms " latitude=" 33.755169" longitude=" -84.757947" distance="21.259159516765475"/>
-<marker program="Scattered Sites " latitude=" 33.675810" longitude=" -84.026301" distance="21.394831763724383"/>
-<marker program="DOUGLASVILLE PROPER APARTMENTS " latitude=" 33.755264" longitude=" -84.760561" distance="21.40942649045492"/>
-<marker program="Scattered Sites " latitude=" 33.678257" longitude=" -84.024148" distance="21.475692233393477"/>
-<marker program="Scattered Sites " latitude=" 33.678219" longitude=" -84.024036" distance="21.482562826003246"/>
-<marker program="Scattered Sites " latitude=" 33.675613" longitude=" -84.024383" distance="21.505194655583374"/>
-<marker program="GWINNETT COUNTY RESIDENTIAL SE " latitude=" 33.836512" longitude=" -84.028123" distance="21.53114842128035"/>
-<marker program="SUSSEX COURT RESIDENTIAL SERVI " latitude=" 33.851862" longitude=" -84.032795" distance="21.597513659031613"/>
-<marker program="GENESIS GARDENS APTS. " latitude=" 33.529603" longitude=" -84.663321" distance="21.924698158430623"/>
-<marker program="GENESIS GARDENS " latitude=" 33.529404" longitude=" -84.663284" distance="21.93268412057423"/>
-<marker program="BRECKENRIDGE CRESTE APT. " latitude=" 33.952533" longitude=" -84.092904" distance="22.011868929005992"/>
-<marker program="North Metro Group Homes Assn I " latitude=" 34.067394" longitude=" -84.335445" distance="22.20590786997882"/>
-<marker program="Lexington Village " latitude=" 33.665293" longitude=" -84.011269" distance="22.41301849415618"/>
-<marker program="Buford Ha " latitude=" 34.002471" longitude=" -84.136644" distance="22.686142324970007"/>
-<marker program="Dogwood Square " latitude=" 34.069839" longitude=" -84.297251" distance="22.77188981780848"/>
-<marker program="Palmetto Ha " latitude=" 33.515977" longitude=" -84.668213" distance="22.785084293066397"/>
-<marker program="Scattered Sites " latitude=" 33.676852" longitude=" -83.999729" distance="22.86576243373625"/>
-<marker program="Ga091-3 " latitude=" 34.008133" longitude=" -84.138889" distance="22.90867842339386"/>
-<marker program="SADDLE CREEK APARTMENTS/ALPHARETTA COMMONS " latitude=" 34.082390" longitude=" -84.314741" distance="23.416452017504618"/>
-<marker program="BRANDON GLEN " latitude=" 33.673062" longitude=" -83.990489" distance="23.442077872421862"/>
-<marker program="TANGLEWOOD PARK " latitude=" 33.961985" longitude=" -84.061483" distance="23.8242574306484"/>
-<marker program="TANGLEWOOD PARK APARTMENTS " latitude=" 33.974119" longitude=" -84.072865" distance="23.851294678137407"/>
-<marker program="Colbert Square " latitude=" 34.086904" longitude=" -84.524217" distance="24.620761985493207"/>
-<marker program="SABLE CHASE " latitude=" 33.439121" longitude=" -84.158979" distance="25.143297104072893"/>
-<marker program="SABLE CHASE II " latitude=" 33.439121" longitude=" -84.158979" distance="25.143297104072893"/>
-<marker program="WHISPERING TRACE APTS. " latitude=" 34.099304" longitude=" -84.514392" distance="25.267270387474476"/>
-<marker program="John Seace Homes " latitude=" 33.443946" longitude=" -84.142255" distance="25.383256036398464"/>
-<marker program="John Smith/Seace Homes " latitude=" 33.443948" longitude=" -84.142118" distance="25.38753537618568"/>
-<marker program="Eastside Homes " latitude=" 33.443954" longitude=" -84.141838" distance="25.396177086247032"/>
-<marker program="GREGORY LANE APARTMENTS " latitude=" 34.082042" longitude=" -84.580063" distance="25.51266776995557"/>
-<marker program="GREGORY LANE APARTMENTS PH 2 " latitude=" 34.082027" longitude=" -84.580232" distance="25.51591852060669"/>
-<marker program="Westmoreland Homes " latitude=" 33.387655" longitude=" -84.284772" distance="25.665119367491567"/>
-<marker program="Project Unnamed " latitude=" 33.380819" longitude=" -84.280371" distance="26.183717916439797"/>
-<marker program="SALEM GLEN APARTMENTS PHASE TWO " latitude=" 33.599906" longitude=" -83.968070" distance="26.251973921250325"/>
-<marker program="Alatoona Hms-Winn St " latitude=" 34.049600" longitude=" -84.668600" distance="26.276493519205264"/>
-<marker program="Robert Homes " latitude=" 34.049600" longitude=" -84.668600" distance="26.276493519205264"/>
-<marker program="Carruth And Moon Homes " latitude=" 34.049600" longitude=" -84.668600" distance="26.276493519205264"/>
-<marker program="Fred G Hull Homes " latitude=" 34.049600" longitude=" -84.668600" distance="26.276493519205264"/>
-<marker program="WISDOM WOODS APARTMENTS " latitude=" 33.406793" longitude=" -84.590591" distance="26.36557796485775"/>
-<marker program="MEADORS REHABILITATION PROJECT " latitude=" 33.555000" longitude=" -83.987100" distance="26.67120697368499"/>
-<marker program="Barrington Square Apartments " latitude=" 34.070485" longitude=" -84.648919" distance="26.78382118910668"/>
-<marker program="Grady Holt/Omie Harris " latitude=" 33.938300" longitude=" -83.980200" distance="26.809983322272867"/>
-<marker program="Glenn Edge Apt " latitude=" 33.937319" longitude=" -83.979359" distance="26.819287158579918"/>
-<marker program="Applewood II " latitude=" 33.943914" longitude=" -83.983420" distance="26.84070155515914"/>
-<marker program="Applewood Towers " latitude=" 33.944117" longitude=" -83.982256" distance="26.905505209758008"/>
-<marker program="Rich Martin/Rob Dunham " latitude=" 33.951308" longitude=" -83.986764" distance="26.935599168780776"/>
-<marker program="Sally Craig Apt " latitude=" 33.950031" longitude=" -83.984691" distance="26.991986026816384"/>
-<marker program="New Memrl/Hooper Renwick " latitude=" 33.947717" longitude=" -83.982886" distance="26.9994539863111"/>
-<marker program="PEACHTREE VILLAS APARTMENTS " latitude=" 33.393005" longitude=" -84.585529" distance="27.10007115982107"/>
-<marker program="Annandale Apartments Inc. " latitude=" 34.038213" longitude=" -84.066888" distance="27.176166027809796"/>
-<marker program="CREEKSTONE APARTMENTS " latitude=" 33.912313" longitude=" -84.820989" distance="27.29583554507451"/>
-<marker program="Old Memorial " latitude=" 33.962547" longitude=" -83.987625" distance="27.303838421520332"/>
-<marker program="Ridgeview Complex " latitude=" 33.906827" longitude=" -84.824992" distance="27.352608562093575"/>
-<marker program="GREYSTONE OF MCDONOUGH " latitude=" 33.417100" longitude=" -84.121100" distance="27.60337179401765"/>
-<marker program="PEACHTREE STATION " latitude=" 33.367516" longitude=" -84.539094" distance="27.75827143459464"/>
-<marker program="Academy Creek Place " latitude=" 33.911651" longitude=" -84.830779" distance="27.790022137764257"/>
-<marker program="Paulding Lane Homes " latitude=" 33.912356" longitude=" -84.830889" distance="27.81543362217115"/>
-<marker program="Paulding Lane Homes " latitude=" 33.915088" longitude=" -84.832476" distance="27.97524984121809"/>
-<marker program="Paulding Ln Hms/S. Street " latitude=" 33.912969" longitude=" -84.833685" distance="27.979227797336147"/>
-<marker program="Dallas Manor " latitude=" 33.912123" longitude=" -84.835307" distance="28.04094512092309"/>
-<marker program="John B Wilson Homes " latitude=" 33.836961" longitude=" -83.903318" distance="28.48720166221822"/>
-<marker program="Auburn Ave Homes " latitude=" 33.732014" longitude=" -84.911342" distance="30.094519589709318"/>
-<marker program="Anderson Road Homes " latitude=" 33.736275" longitude=" -84.913396" distance="30.201699246884935"/>
-<marker program="Old Twn Hms/Auburn Ave " latitude=" 33.741426" longitude=" -84.920269" distance="30.587364398832072"/>
-<marker program="Old Town Homes " latitude=" 33.741403" longitude=" -84.920283" distance="30.588199974755984"/>
-<marker program="Project Unnamed " latitude=" 33.592068" longitude=" -83.876718" distance="31.33642385864449"/>
-<marker program="WOODLAND HEIGHTS " latitude=" 33.394832" longitude=" -84.732734" distance="31.508830885081633"/>
-<marker program="SHENANDOAH VILLAS " latitude=" 33.394682" longitude=" -84.734164" distance="31.568802632937853"/>
-<marker program="Hall Place " latitude=" 34.103194" longitude=" -84.037485" distance="31.667273685998953"/>
-<marker program="Shenandoah Forest Apartments " latitude=" 33.391508" longitude=" -84.734698" distance="31.758731606580117"/>
-<marker program="Project Unnamed " latitude=" 33.309674" longitude=" -84.551347" distance="31.78101408255973"/>
-<marker program="Covington Square. " latitude=" 33.596730" longitude=" -83.863768" distance="31.92778822981623"/>
-<marker program="CHEROKEE RESIDENTIAL SERVICES " latitude=" 34.202100" longitude=" -84.505937" distance="32.029679510116146"/>
-<marker program="Project Unnamed " latitude=" 33.606013" longitude=" -83.855204" distance="32.188962559581746"/>
-<marker program="Project Unnamed " latitude=" 33.300866" longitude=" -84.548642" distance="32.31801507966672"/>
-<marker program="CARROLLTON CLUB LTD. LP " latitude=" 33.630700" longitude=" -84.935300" distance="32.51109395228763"/>
-<marker program="Nunley Homes " latitude=" 33.720300" longitude=" -84.954300" distance="32.60251743801703"/>
-<marker program="Project Unnamed " latitude=" 33.579493" longitude=" -83.853678" distance="32.88419769181059"/>
-<marker program="MEADOWBROOK HOMES INC " latitude=" 33.625913" longitude=" -83.833424" distance="32.99873671653433"/>
-<marker program="PEBBLEBROOK " latitude=" 33.399300" longitude=" -84.778700" distance="33.012357750262815"/>
-<marker program="GLENCOE TRACE APARTMENTS " latitude=" 33.274143" longitude=" -84.298574" distance="33.213010389833016"/>
-<marker program="Oakside Drive Apartments " latitude=" 34.227900" longitude=" -84.441400" distance="33.23236850156353"/>
-<marker program="HERITAGE PARK APARTMENTS " latitude=" 33.613007" longitude=" -83.830536" distance="33.40135082046086"/>
-<marker program="Rolling Acres " latitude=" 34.112612" longitude=" -84.000936" distance="33.520887934105865"/>
-<marker program="WILLOWS OF CUMMING " latitude=" 34.196016" longitude=" -84.151362" distance="33.73302885924933"/>
-<marker program="Valley Homes " latitude=" 34.119043" longitude=" -84.003525" distance="33.75758929026368"/>
-<marker program="HICKORY KNOLL APARTMENTS " latitude=" 34.228804" longitude=" -84.509894" distance="33.88134559332628"/>
-<marker program="Jefferson Circle Homes " latitude=" 34.233325" longitude=" -84.482922" distance="33.90512186077411"/>
-<marker program="Spalding Heights I " latitude=" 33.268499" longitude=" -84.263064" distance="33.97222350328833"/>
-<marker program="Spalding Heights II " latitude=" 33.268499" longitude=" -84.263064" distance="33.97222350328833"/>
-<marker program="Shipp Street Homes " latitude=" 34.235262" longitude=" -84.484580" distance="34.052534768058344"/>
-<marker program="Hill Side Homes " latitude=" 34.121468" longitude=" -83.991413" distance="34.34017118035552"/>
-<marker program="Unnamed " latitude=" 34.204651" longitude=" -84.144970" distance="34.42643628602435"/>
-<marker program="Project Unnamed " latitude=" 34.206491" longitude=" -84.145923" distance="34.520713131959525"/>
-<marker program="Fairmont Homes " latitude=" 33.259247" longitude=" -84.260918" distance="34.623282026403224"/>
-<marker program="Joseph E Hannah Homes " latitude=" 33.381172" longitude=" -84.797454" distance="34.666570740464"/>
-<marker program="Hannah Homes Additions " latitude=" 33.379574" longitude=" -84.795675" distance="34.678337329990335"/>
-<marker program="The Highlands " latitude=" 33.369763" longitude=" -84.782841" distance="34.692500748363365"/>
-<marker program="GOOD SHEPHERD PLACE " latitude=" 34.215943" longitude=" -84.154549" distance="34.927237464643504"/>
-<marker program="St George's Court " latitude=" 33.249662" longitude=" -84.268414" distance="35.18385095975159"/>
-<marker program="John H Jordan Homes " latitude=" 33.376896" longitude=" -84.813036" distance="35.4966648780649"/>
-<marker program="Bonnell/Callaway Hms " latitude=" 33.370469" longitude=" -84.805955" distance="35.54293046003197"/>
-<marker program="Regency Apartments " latitude=" 33.242437" longitude=" -84.280573" distance="35.54493978941144"/>
-<marker program="C Neal/C Reese Hms " latitude=" 33.372991" longitude=" -84.812299" distance="35.663886051309724"/>
-<marker program="Meriwether Homes " latitude=" 33.240896" longitude=" -84.273853" distance="35.71906864903086"/>
-<marker program="Nine Oaks Apartments " latitude=" 33.241022" longitude=" -84.265492" distance="35.80236631701186"/>
-<marker program="Heritage Apartments " latitude=" 33.238754" longitude=" -84.277311" distance="35.82856763152119"/>
-<marker program="PINES BY THE CREEK APTS. " latitude=" 33.380818" longitude=" -84.831406" distance="36.04179737912625"/>
-<marker program="PINE HILL APARTMENTS " latitude=" 33.229929" longitude=" -84.307273" distance="36.16653510685838"/>
-<marker program="Stonewall Homes " latitude=" 34.164326" longitude=" -84.791621" distance="36.8615195990315"/>
-<marker program="ETOWAH VILLAGE APARTMENTS " latitude=" 34.151130" longitude=" -84.810608" distance="36.86316005949406"/>
-<marker program="Garrison Drive/Hill/Aubrey/Mull " latitude=" 34.164418" longitude=" -84.791620" distance="36.86642516028145"/>
-<marker program="Stonewall Hms Annex " latitude=" 34.164662" longitude=" -84.791620" distance="36.87953305853399"/>
-<marker program="Cartersville Gardens " latitude=" 34.151151" longitude=" -84.811734" distance="36.906693856869346"/>
-<marker program="Railroad Street/Fairview Circle Homes " latitude=" 34.167752" longitude=" -84.796576" distance="37.22382336038625"/>
-<marker program="Huntwood Terrace " latitude=" 34.184542" longitude=" -84.779539" distance="37.53957566102487"/>
-<marker program="Summer Hill Homes " latitude=" 34.169651" longitude=" -84.802841" distance="37.552050959231714"/>
-<marker program="Summer Hill Homes Annex " latitude=" 34.170639" longitude=" -84.802624" distance="37.596967811885676"/>
-<marker program="ASHTON POINTE APTS. " latitude=" 33.797796" longitude=" -83.727930" distance="38.060936650906235"/>
-<marker program="COUNTRY GROVE " latitude=" 33.801457" longitude=" -83.725363" distance="38.23014459685871"/>
-<marker program="Social Circle Terrace " latitude=" 33.655413" longitude=" -83.725716" distance="38.61526616622193"/>
-<marker program="THE COVE APARTMENTS " latitude=" 34.212900" longitude=" -84.766300" distance="38.69587878450283"/>
-<marker program="Mcwhorter Homes " latitude=" 33.347100" longitude=" -84.859000" distance="38.81900758918806"/>
-<marker program="Roscoe Jenkins Homes " latitude=" 33.347100" longitude=" -84.859000" distance="38.81900758918806"/>
-<marker program="Southside Homes " latitude=" 33.347100" longitude=" -84.859000" distance="38.81900758918806"/>
-<marker program="Mary C Freeman Homes " latitude=" 33.347100" longitude=" -84.859000" distance="38.81900758918806"/>
-<marker program="Summerhill Apartments " latitude=" 33.599580" longitude=" -85.044004" distance="39.11054588645567"/>
-<marker program="Mallet Park " latitude=" 33.302123" longitude=" -83.970989" distance="39.12012975315687"/>
-<marker program="Housing by Association Inc " latitude=" 33.600003" longitude=" -85.048885" distance="39.373589071120364"/>
-<marker program="James Monroe Homes " latitude=" 33.753700" longitude=" -83.701800" distance="39.42357125903071"/>
-<marker program="George Walton Homes " latitude=" 33.753700" longitude=" -83.701800" distance="39.42357125903071"/>
-<marker program="Stowers Park " latitude=" 33.753700" longitude=" -83.701800" distance="39.42357125903071"/>
-<marker program="Carver Place " latitude=" 33.753700" longitude=" -83.701800" distance="39.42357125903071"/>
-<marker program="Radford Park " latitude=" 33.753700" longitude=" -83.701800" distance="39.42357125903071"/>
-<marker program="Rose Ison Terrace " latitude=" 33.753700" longitude=" -83.701800" distance="39.42357125903071"/>
-<marker program="Billy Lee Gober Homes " latitude=" 33.753700" longitude=" -83.701800" distance="39.42357125903071"/>
-<marker program="Statham Apts " latitude=" 33.753700" longitude=" -83.701800" distance="39.42357125903071"/>
-<marker program="Magnolia Terrace " latitude=" 33.753700" longitude=" -83.701800" distance="39.42357125903071"/>
-<marker program="Ammie Briggery Homes " latitude=" 33.753700" longitude=" -83.701800" distance="39.42357125903071"/>
-<marker program="Camptowne Gardens Apartments " latitude=" 33.780405" longitude=" -83.701904" distance="39.46983082551682"/>
-<marker program="Walton Village " latitude=" 33.799939" longitude=" -83.699269" distance="39.71327816139588"/>
-<marker program="Walton Court " latitude=" 33.650762" longitude=" -83.705456" distance="39.81849902176852"/>
-<marker program="Tyler Terr & Mallet Park " latitude=" 33.298784" longitude=" -83.956032" distance="39.83516549289857"/>
-<marker program="BROOK POINT APARTMENTS " latitude=" 33.298640" longitude=" -83.946650" distance="40.18266412999478"/>
-<marker program="Lakeview Apartments " latitude=" 33.601630" longitude=" -85.064061" distance="40.18755233515389"/>
-<marker program="Paradise Carrollton Apartments " latitude=" 33.600350" longitude=" -85.065360" distance="40.28255508455505"/>
-<marker program="Buford Ha " latitude=" 34.188632" longitude=" -83.924422" distance="40.35442120575095"/>
-<marker program="PEPPERTON VILLAS " latitude=" 33.292674" longitude=" -83.948994" distance="40.418681253081125"/>
-<marker program="DIC--EAGLE'S NEST " latitude=" 33.572921" longitude=" -85.058226" distance="40.421444338312334"/>
-<marker program="PEPPERTON VILLAS " latitude=" 33.292629" longitude=" -83.948947" distance="40.422804910156884"/>
-<marker program="CARRIAGE CROSSING " latitude=" 34.185216" longitude=" -83.917763" distance="40.43071812540691"/>
-<marker program="PIEDMONT RIDGE APTS. III " latitude=" 33.164300" longitude=" -84.438600" distance="40.50627997835109"/>
-<marker program="CROSSFIELD APTS. LTD. " latitude=" 34.216806" longitude=" -84.818636" distance="40.66586387166197"/>
-<marker program="CROSSFIELD APARTMENTS PHASE II " latitude=" 34.216850" longitude=" -84.818646" distance="40.66862432634614"/>
-<marker program="TOWER VILLAGE " latitude=" 34.015400" longitude=" -85.023300" distance="40.82920804127157"/>
-<marker program="Hardigree Terr " latitude=" 33.992149" longitude=" -83.735897" distance="41.01064551054493"/>
-<marker program="ROCK SPRINGS APTS. " latitude=" 33.986300" longitude=" -83.731800" distance="41.06330907440818"/>
-<marker program="United Church Homes Inc. " latitude=" 33.987789" longitude=" -83.729384" distance="41.23119171062973"/>
-<marker program="Eastview/Btw Homes " latitude=" 34.005582" longitude=" -85.039610" distance="41.373169510282516"/>
-<marker program="Elder Cir Alabama Cir " latitude=" 33.564936" longitude=" -85.073047" distance="41.402982028592625"/>
-<marker program="Griffin Homes " latitude=" 33.539068" longitude=" -85.065601" distance="41.59036428667432"/>
-<marker program="Fort Yargo Apts. " latitude=" 33.986127" longitude=" -83.720060" distance="41.67704208730809"/>
-<marker program="Smith Heights " latitude=" 33.988170" longitude=" -83.719540" distance="41.75971744322988"/>
-<marker program="Thomas Homes " latitude=" 33.586440" longitude=" -85.088029" distance="41.79546065661688"/>
-<marker program="Westview Homes " latitude=" 34.007451" longitude=" -85.046975" distance="41.80993145698042"/>
-<marker program="Davis Homes " latitude=" 33.585400" longitude=" -85.090100" distance="41.92974017906311"/>
-<marker program="Ingram Homes " latitude=" 33.578532" longitude=" -85.091993" distance="42.166228798611556"/>
-<marker program="Oakwood Hms " latitude=" 33.988378" longitude=" -83.710965" distance="42.21755635063911"/>
-<marker program="Capitol Ave. Homes " latitude=" 33.987733" longitude=" -83.710312" distance="42.234735981933184"/>
-<marker program="Glenwood Terrace " latitude=" 33.987142" longitude=" -83.707823" distance="42.35047119061637"/>
-<marker program="CASS TOWNE APARTMENTS " latitude=" 34.231750" longitude=" -84.856096" distance="42.80107550821834"/>
-<marker program="OAKVIEW APARTMENTS " latitude=" 34.041218" longitude=" -85.054381" distance="43.22699768162712"/>
-<marker program="Project Unnamed " latitude=" 33.717249" longitude=" -85.139544" distance="43.243198040710816"/>
-<marker program="B T Washington Homes " latitude=" 34.019000" longitude=" -85.089100" distance="44.33441058950809"/>
-<marker program="Grantville Ha " latitude=" 33.229859" longitude=" -84.844835" distance="44.49521034957367"/>
-<marker program="HOLLY VILLAGE " latitude=" 33.798298" longitude=" -85.180759" distance="45.66161076447672"/>
-<marker program="Buchanan Ha " latitude=" 33.799532" longitude=" -85.181326" distance="45.70019512938557"/>
-<marker program="Buchanan Ha " latitude=" 33.805493" longitude=" -85.186522" distance="46.029275362632404"/>
-<marker program="Old Rutledge " latitude=" 33.609800" longitude=" -83.604400" distance="46.07085039347957"/>
-<marker program="New Rutledge " latitude=" 33.609800" longitude=" -83.604400" distance="46.07085039347957"/>
-<marker program="Dunaway Massey Homes " latitude=" 33.973694" longitude=" -83.614291" distance="47.029357251323184"/>
-<marker program="OCONEE SPRINGS " latitude=" 34.280971" longitude=" -83.856122" distance="47.73972892077548"/>
-<marker program="OCONEE SPRINGS " latitude=" 34.282854" longitude=" -83.855419" distance="47.865413229757486"/>
-<marker program="Rolling Hills " latitude=" 33.282600" longitude=" -85.018600" distance="48.56293673389665"/>
-<marker program="Robert Cannady Homes " latitude=" 33.282600" longitude=" -85.018600" distance="48.56293673389665"/>
-<marker program="Melrose Homes " latitude=" 34.284289" longitude=" -83.828970" distance="48.919411133795236"/>
-<marker program="Scattered Sites " latitude=" 34.295153" longitude=" -83.842300" distance="48.99771092812424"/>
-<marker program="BROOKS RUN APARTMENTS " latitude=" 34.460161" longitude=" -84.413409" distance="49.16135373639848"/>
-<marker program="BROOKSHOLLOW APARTMENTS " latitude=" 34.460100" longitude=" -84.423700" distance="49.178086278329054"/>
-<marker program="Hillside Homes " latitude=" 33.061309" longitude=" -84.160302" distance="49.29894167031308"/>
-<marker program="George Bush Homes " latitude=" 33.061246" longitude=" -84.158033" distance="49.338162875342434"/>
-<marker program="Melrose Homes (Scattered) " latitude=" 34.292372" longitude=" -83.828118" distance="49.37373186483875"/>
-<marker program="Burton St/Mineral Springs " latitude=" 34.463402" longitude=" -84.431174" distance="49.42558117164446"/>
-<marker program="Melson Homes " latitude=" 33.177523" longitude=" -84.903975" distance="49.43611500635396"/>
-<marker program="Towaliga Village Apartments " latitude=" 33.054839" longitude=" -84.166475" distance="49.63726731014767"/>
-<marker program="PIEDMONT PINE APARTMENTS " latitude=" 33.056863" longitude=" -84.153070" distance="49.70730156192227"/>
-<marker program="Green Hunter Homes " latitude=" 34.294882" longitude=" -83.821229" distance="49.761867478389554"/>
-<marker program="Green Hunter Homes " latitude=" 34.294882" longitude=" -83.821229" distance="49.761867478389554"/>
-<marker program="Landrum Cir/Mcintire Pl " latitude=" 34.470894" longitude=" -84.423815" distance="49.92355538365429"/>
+<marker program="CITY PLAZA" latitude="33.748894" longitude="-84.392157" distance="0.2399466506439015"/>
+<marker program="Capitol Homes" latitude="33.746873" longitude="-84.382453" distance="0.34990176843710896"/>
+<marker program="Martin Luther King Jr Village" latitude="33.744568" longitude="-84.383867" distance="0.3866481928235243"/>
+<marker program="WILLIAM OLIVER BUILDING" latitude="33.754480" longitude="-84.389723" distance="0.3919441481763168"/>
+<marker program="WELCOME HOUSE" latitude="33.746918" longitude="-84.395705" distance="0.46633536637278417"/>
+<marker program="EDGEWOOD CENTER LP" latitude="33.754393" longitude="-84.381471" distance="0.5282448763418714"/>
+<marker program="FAIRLIE POPLAR PROJECT- CENTER CITY LOFTS" latitude="33.756599" longitude="-84.389947" distance="0.5373771143000232"/>
+<marker program="FREEMAN FORD PROJECT- CENTER CITY LOFTS" latitude="33.757113" longitude="-84.385157" distance="0.5839213554478402"/>
+<marker program="Big Bethel Towers Apartments" latitude="33.755546" longitude="-84.380853" distance="0.6104420817564982"/>
+<marker program="Antoine Graves*" latitude="33.750933" longitude="-84.376670" distance="0.6635729937752615"/>
+<marker program="Antoine Graves Annex*" latitude="33.751114" longitude="-84.376669" distance="0.6662643643692489"/>
+<marker program="Grady Homes" latitude="33.751205" longitude="-84.376669" distance="0.6676737691831282"/>
+<marker program="Greater Mount Calvary Terrace" latitude="33.741926" longitude="-84.395963" distance="0.6699708932208251"/>
+<marker program="NORTHSIDE PLAZA APARTMENTS" latitude="33.752928" longitude="-84.400554" distance="0.7716875723841543"/>
+<marker program="Martin Street Plaza" latitude="33.738141" longitude="-84.384080" distance="0.782811392456392"/>
+<marker program="PEOPLE'S PLACE" latitude="33.754131" longitude="-84.375435" distance="0.8034755467010424"/>
+<marker program="Wheat Street Towers" latitude="33.755487" longitude="-84.375539" distance="0.8439567404619266"/>
+<marker program="Wheat Street Gardens" latitude="33.757750" longitude="-84.377259" distance="0.8634020585743287"/>
+<marker program="Chamberlain Apartments" latitude="33.753801" longitude="-84.373723" distance="0.8839632649463506"/>
+<marker program="ROSA BURNEY MANOR" latitude="33.738366" longitude="-84.397033" distance="0.899921740999244"/>
+<marker program="174 Ga Ave Apts*" latitude="33.736756" longitude="-84.382169" distance="0.9092861940836902"/>
+<marker program="Friendship Towers" latitude="33.753869" longitude="-84.402798" distance="0.9153742816986039"/>
+<marker program="Mcdaniel Glenn*" latitude="33.736927" longitude="-84.394810" distance="0.9215639957898134"/>
+<marker program="FRIENDSHIP CENTER" latitude="33.752412" longitude="-84.404661" distance="0.9868733356186111"/>
+<marker program="John Hope" latitude="33.744298" longitude="-84.404337" distance="0.9941296766254257"/>
+<marker program="IMPERIAL HOTEL" latitude="33.764157" longitude="-84.385967" distance="1.0540084133818408"/>
+<marker program="IRWIN STREET APARTMENTS." latitude="33.757787" longitude="-84.371271" distance="1.1361218449818589"/>
+<marker program="IRWIN STREET APTS./HENDERSON PLACE" latitude="33.757667" longitude="-84.371119" distance="1.139128040170737"/>
+<marker program="VINE CITY TERRACE APARTMENTS" latitude="33.756920" longitude="-84.405390" distance="1.1401694843105246"/>
+<marker program="COURTYARD AT MAPLE" latitude="33.757406" longitude="-84.405265" distance="1.1504663497698933"/>
+<marker program="Capitol Towers" latitude="33.731867" longitude="-84.389458" distance="1.186564176841233"/>
+<marker program="Palmer House*" latitude="33.766036" longitude="-84.391883" distance="1.198596648776563"/>
+<marker program="University Homes" latitude="33.746507" longitude="-84.409114" distance="1.2262109284132803"/>
+<marker program="PATTERSON HEIGHTS" latitude="33.730964" longitude="-84.390803" distance="1.256422948820002"/>
+<marker program="Bedford Place /Parkway Plaza A" latitude="33.764005" longitude="-84.375248" distance="1.269182670765374"/>
+<marker program="BEDFORD TOWERS" latitude="33.763975" longitude="-84.373925" distance="1.312825253593608"/>
+<marker program="LEGACY PARTNERSHIP I" latitude="33.768093" longitude="-84.393051" distance="1.3513407528905226"/>
+<marker program="LAGACY III" latitude="33.768093" longitude="-84.393051" distance="1.3513407528905226"/>
+<marker program="Model Cities I" latitude="33.730318" longitude="-84.380157" distance="1.366650137001924"/>
+<marker program="LEGACY PARTNERSHIP II" latitude="33.768913" longitude="-84.391429" distance="1.3904274041251974"/>
+<marker program="Centennial Place (Techwood)/Summerdale" latitude="33.768936" longitude="-84.391238" distance="1.3904822102457293"/>
+<marker program="WASHINGTON HEIGHTS" latitude="33.728901" longitude="-84.390823" distance="1.3980352204810782"/>
+<marker program="Herndon Homes" latitude="33.766411" longitude="-84.401689" distance="1.4380978157524595"/>
+<marker program="Pittsburgh Civic League Apartm" latitude="33.731953" longitude="-84.402501" distance="1.4431366285069562"/>
+<marker program="Capitol Vanira Apartments" latitude="33.727922" longitude="-84.388023" distance="1.4561229183075204"/>
+<marker program="Roosevelt House*" latitude="33.770703" longitude="-84.392110" distance="1.5185688012155738"/>
+<marker program="BETHEL HEIGHTS" latitude="33.726307" longitude="-84.390871" distance="1.5764757767656399"/>
+<marker program="Bedford Pine Apartments IV" latitude="33.767747" longitude="-84.371911" distance="1.5909772790275403"/>
+<marker program="Bedford Pine Apartments V" latitude="33.767747" longitude="-84.371911" distance="1.5909772790275403"/>
+<marker program="Bedford Pine Apartments VI" latitude="33.767747" longitude="-84.371911" distance="1.5909772790275403"/>
+<marker program="Bedford Pine Apartments I" latitude="33.767747" longitude="-84.371911" distance="1.5909772790275403"/>
+<marker program="Bedford Pine Apartments II" latitude="33.767747" longitude="-84.371911" distance="1.5909772790275403"/>
+<marker program="Bedford Pine III" latitude="33.767747" longitude="-84.371911" distance="1.5909772790275403"/>
+<marker program="U-Rescue Villa*" latitude="33.771139" longitude="-84.374140" distance="1.7243652337927917"/>
+<marker program="John O. Chiles*" latitude="33.743037" longitude="-84.417595" distance="1.7505032889375685"/>
+<marker program="LUTHERAN TOWERS" latitude="33.774129" longitude="-84.383145" distance="1.7587625168338274"/>
+<marker program="WEST END APARTMENTS" latitude="33.735839" longitude="-84.415087" distance="1.8032766342526199"/>
+<marker program="Community Friendship Apt" latitude="33.772825" longitude="-84.373865" distance="1.8354481012816397"/>
+<marker program="Harris Homes" latitude="33.744540" longitude="-84.420496" distance="1.8932569867748268"/>
+<marker program="Columbia Plaza" latitude="33.747850" longitude="-84.421139" distance="1.9066093658775194"/>
+<marker program="SHOWCASE DISTRICT" latitude="33.734591" longitude="-84.418260" distance="2.0042872008005594"/>
+<marker program="924 MATHEWS ST. SW" latitude="33.734590" longitude="-84.418310" distance="2.0068156242920248"/>
+<marker program="932 MATTHEW STREET" latitude="33.734589" longitude="-84.418509" distance="2.0167862481997854"/>
+<marker program="936-938 MATHEWS ST. SW" latitude="33.734588" longitude="-84.418608" distance="2.0217693837063915"/>
+<marker program="AMBERWOOD VILLAGE" latitude="33.748982" longitude="-84.352677" distance="2.0284091093234955"/>
+<marker program="Grant Park Apts/Trestletree Vi" latitude="33.730103" longitude="-84.360852" distance="2.0332952848814387"/>
+<marker program="766 AZALIA STREET" latitude="33.734528" longitude="-84.418923" distance="2.039571302860044"/>
+<marker program="770-772 AZALIA ST. SW" latitude="33.734439" longitude="-84.418922" distance="2.0425432970531805"/>
+<marker program="774-776 AZALIA ST. SW" latitude="33.734350" longitude="-84.418922" distance="2.0455793976703083"/>
+<marker program="MCGILL LOFT APARTMENTS" latitude="33.767984" longitude="-84.359325" distance="2.1051716429209"/>
+<marker program="Rucker Terrace" latitude="33.749493" longitude="-84.425379" distance="2.148823763245547"/>
+<marker program="Abernathy Tower" latitude="33.735796" longitude="-84.422134" distance="2.163870023016569"/>
+<marker program="Christian Counsil Housing I" latitude="33.736343" longitude="-84.423356" distance="2.212527093599192"/>
+<marker program="Juniper Tenth*" latitude="33.781780" longitude="-84.382437" distance="2.2876228109871373"/>
+<marker program="PITTSBURGH PARTNERSHIP" latitude="33.730000" longitude="-84.421200" distance="2.3164131215856387"/>
+<marker program="1241-1243 GREENWICH ST. SW" latitude="33.743940" longitude="-84.428318" distance="2.343656725778662"/>
+<marker program="416-418 ATWOOD ST. SW" latitude="33.743360" longitude="-84.428676" distance="2.370258966699445"/>
+<marker program="420-422 ATWOOD ST. SW" latitude="33.743246" longitude="-84.428682" distance="2.371907163432326"/>
+<marker program="426-428 ATWOOD ST. SW" latitude="33.743077" longitude="-84.428684" distance="2.3740063991180063"/>
+<marker program="432-434 ATWOOD ST. SW" latitude="33.742905" longitude="-84.428684" distance="2.376084824076434"/>
+<marker program="Branan Towers" latitude="33.740163" longitude="-84.347987" distance="2.377643218944167"/>
+<marker program="GRANT PARK APARTMENTS" latitude="33.717977" longitude="-84.369943" distance="2.3808145788003574"/>
+<marker program="GRANT PARK APARTMENTS" latitude="33.717977" longitude="-84.369943" distance="2.3808145788003574"/>
+<marker program="494-496 ATWOOD ST. SW" latitude="33.741342" longitude="-84.428724" distance="2.3998325466647854"/>
+<marker program="Model Cities Ii" latitude="33.728400" longitude="-84.421700" distance="2.4039086935630505"/>
+<marker program="OAKLAND COURT APARTMENTS PHASE II" latitude="33.758450" longitude="-84.347223" distance="2.4310525288565312"/>
+<marker program="BIENVENUE PLACE" latitude="33.773495" longitude="-84.355192" distance="2.53256849649721"/>
+<marker program="OAKHILL" latitude="33.758295" longitude="-84.345100" distance="2.5460213506941383"/>
+<marker program="ROBERT J. YANCY DOROTHY C. YA" latitude="33.712255" longitude="-84.393456" distance="2.558084757357471"/>
+<marker program="Briarcliff Summit Apartments" latitude="33.773816" longitude="-84.353474" distance="2.62126162684295"/>
+<marker program="BRIARCLIFF SUMMIT APARTMENTS" latitude="33.773817" longitude="-84.353188" distance="2.633753178836963"/>
+<marker program="BRIARCLIFF SUMMIT APARTMENTS" latitude="33.773647" longitude="-84.352864" distance="2.6403138601227885"/>
+<marker program="Booth Residence Inc." latitude="33.773833" longitude="-84.350748" distance="2.7423365345724613"/>
+<marker program="Edgewood Housing II" latitude="33.758131" longitude="-84.340663" distance="2.7908337934461285"/>
+<marker program="Edgewood Housing" latitude="33.753759" longitude="-84.339634" distance="2.797127993889985"/>
+<marker program="AMAL TOWNHOME COMMUNITY" latitude="33.707918" longitude="-84.400944" distance="2.9344587295785827"/>
+<marker program="AMAL TOWNHOMES PHASE II" latitude="33.707918" longitude="-84.400944" distance="2.9344587295785827"/>
+<marker program="Carver Homes" latitude="33.707200" longitude="-84.397700" distance="2.941458638077568"/>
+<marker program="Englewood Manor" latitude="33.707200" longitude="-84.397700" distance="2.941458638077568"/>
+<marker program="Oakland City / West End Apartm" latitude="33.719562" longitude="-84.427003" distance="3.0271941437922423"/>
+<marker program="GRANT PARK VILLAGE APARTMENTS" latitude="33.711266" longitude="-84.359826" distance="3.068310455758037"/>
+<marker program="Westminster Apts" latitude="33.793272" longitude="-84.372743" distance="3.1821631264926618"/>
+<marker program="Atlanta NAPFE Elderly Towers" latitude="33.764919" longitude="-84.441021" distance="3.239530292853898"/>
+<marker program="WESTLAKE MANOR TOWNHOUSES" latitude="33.765820" longitude="-84.441005" distance="3.2603274102118642"/>
+<marker program="VILLA MONTE APARTMENTS" latitude="33.706790" longitude="-84.361588" distance="3.2871698560118663"/>
+<marker program="Thomasville Heights" latitude="33.705607" longitude="-84.355475" distance="3.532435977287928"/>
+<marker program="McLendon Gardens Apartments" latitude="33.761754" longitude="-84.325885" distance="3.6747453696592616"/>
+<marker program="OAKLAND COURT APARTMENTS" latitude="33.754301" longitude="-84.324201" distance="3.682626174747029"/>
+<marker program="Fha Scattered Sites" latitude="33.714961" longitude="-84.440943" distance="3.846103304452566"/>
+<marker program="COURTYARDS AT GLENVIEW FNA MANCHESTER ARMS" latitude="33.747336" longitude="-84.320830" distance="3.8598619806623926"/>
+<marker program="PRESLEY WOODS APARTMENTS (aka" latitude="33.759369" longitude="-84.321483" distance="3.8870348636947907"/>
+<marker program="PRESLEY WOODS (FNA KIRKWOOD PROJECT)" latitude="33.759903" longitude="-84.321582" distance="3.8884164794857288"/>
+<marker program="Lakewood Christian Manor" latitude="33.696006" longitude="-84.414003" distance="3.955053335223307"/>
+<marker program="Jonesboro North" latitude="33.693361" longitude="-84.366958" distance="4.029628976241641"/>
+<marker program="Villages Of Eastlake I" latitude="33.745788" longitude="-84.317845" distance="4.035784210059691"/>
+<marker program="EAST HAMPTON APARTMENTS" latitude="33.725247" longitude="-84.321420" distance="4.161907910464526"/>
+<marker program="Paradise East Apts" latitude="33.713433" longitude="-84.329297" distance="4.172654097306758"/>
+<marker program="SANTA FE VILLAS" latitude="33.690808" longitude="-84.408163" distance="4.1845560045002985"/>
+<marker program="2240 Peachtree Road*" latitude="33.809800" longitude="-84.385500" distance="4.203869319430827"/>
+<marker program="Hightower Manor*" latitude="33.724000" longitude="-84.454700" distance="4.204782767610842"/>
+<marker program="East Lake" latitude="33.742129" longitude="-84.314857" distance="4.2281614372206375"/>
+<marker program="Quality Living Services Inc." latitude="33.709965" longitude="-84.448528" distance="4.402163741753759"/>
+<marker program="Jonesboro South" latitude="33.687469" longitude="-84.364141" distance="4.466695839269728"/>
+<marker program="GRANADA PARK" latitude="33.709372" longitude="-84.449989" distance="4.493674324844925"/>
+<marker program="Leila Valley" latitude="33.689391" longitude="-84.354349" distance="4.549589723367999"/>
+<marker program="COLUMBIA MILL APARTMENTS" latitude="33.721632" longitude="-84.315325" distance="4.583241249076286"/>
+<marker program="Hollywood West Apartments" latitude="33.783251" longitude="-84.459227" distance="4.7276249797521634"/>
+<marker program="Summerdale Commons Phase I" latitude="33.680388" longitude="-84.393464" distance="4.7510636407001"/>
+<marker program="Trinity Towers" latitude="33.683384" longitude="-84.415118" distance="4.794356803151081"/>
+<marker program="Cheshire Bridge Road*" latitude="33.812832" longitude="-84.354323" distance="4.8159607196423"/>
+<marker program="SUMMERDALE/ BRIARWOOD" latitude="33.678377" longitude="-84.393313" distance="4.8891703844119405"/>
+<marker program="Budd Terrace" latitude="33.803663" longitude="-84.333620" distance="4.9007644183753225"/>
+<marker program="Summerdale Commons Phase Ii" latitude="33.677461" longitude="-84.391905" distance="4.947993603622299"/>
+<marker program="EAGLES RUN APARTMENTS" latitude="33.699411" longitude="-84.325326" distance="4.970384428240134"/>
+<marker program="EAGLES RUN II APARTMENTS" latitude="33.699411" longitude="-84.325326" distance="4.970384428240134"/>
+<marker program="EAGLES RUN" latitude="33.699411" longitude="-84.325326" distance="4.970384428240134"/>
+<marker program="EAGLES RUN II" latitude="33.699411" longitude="-84.325326" distance="4.970384428240134"/>
+<marker program="SUMMERDALE COMMONS" latitude="33.676900" longitude="-84.390900" distance="4.984439805493353"/>
+<marker program="SUMMERDALE COMMONS" latitude="33.676900" longitude="-84.390900" distance="4.984439805493353"/>
+<marker program="Baptist Towers" latitude="33.702628" longitude="-84.455038" distance="5.011492412408242"/>
+<marker program="Cascade Pines Apartments" latitude="33.705548" longitude="-84.460030" distance="5.114264119248266"/>
+<marker program="Park Trace Apartments" latitude="33.772339" longitude="-84.302985" distance="5.142234104722271"/>
+<marker program="Brandywine Townhouses I" latitude="33.672812" longitude="-84.391249" distance="5.2674364185251354"/>
+<marker program="Brandywine Townhouses II" latitude="33.672812" longitude="-84.391249" distance="5.2674364185251354"/>
+<marker program="BRANDYWINE TOWNHOUSES III" latitude="33.672812" longitude="-84.391249" distance="5.2674364185251354"/>
+<marker program="Brandywine Townhouses Inc" latitude="33.672812" longitude="-84.391249" distance="5.2674364185251354"/>
+<marker program="Oxford Village Townhouses" latitude="33.673936" longitude="-84.371125" distance="5.2761559963807905"/>
+<marker program="Oxford Village Townhouses" latitude="33.673936" longitude="-84.371125" distance="5.2761559963807905"/>
+<marker program="Swanton Hgts" latitude="33.769663" longitude="-84.299532" distance="5.278017885573156"/>
+<marker program="Gateway Manor" latitude="33.773570" longitude="-84.300797" distance="5.288389470108875"/>
+<marker program="1888 CONNALLY DRIVE" latitude="33.692120" longitude="-84.450474" distance="5.323874470767684"/>
+<marker program="COLUMNS AT EAST HILL" latitude="33.759709" longitude="-84.295727" distance="5.351487968930554"/>
+<marker program="Allen Wilson Terrace" latitude="33.773567" longitude="-84.299455" distance="5.361390142795733"/>
+<marker program="Marian Apts*" latitude="33.825917" longitude="-84.364524" distance="5.483163492551295"/>
+<marker program="Etheridge Court II" latitude="33.790075" longitude="-84.470058" distance="5.502948221229601"/>
+<marker program="WELLS COURT APARTMENTS" latitude="33.706057" longitude="-84.468901" distance="5.516073201896246"/>
+<marker program="Etheridge Court I" latitude="33.787984" longitude="-84.472403" distance="5.547234575799723"/>
+<marker program="Philips Towers Decatur Inc." latitude="33.772476" longitude="-84.294401" distance="5.615313786775433"/>
+<marker program="DELOWE PLACE COOPERATIVE" latitude="33.691807" longitude="-84.457412" distance="5.615812045233289"/>
+<marker program="Clairmont Oaks" latitude="33.779318" longitude="-84.296700" distance="5.646649302097478"/>
+<marker program="Clairmont Oaks" latitude="33.779318" longitude="-84.296700" distance="5.646649302097478"/>
+<marker program="Hollywood Courts" latitude="33.796470" longitude="-84.469688" distance="5.725789573340673"/>
+<marker program="Cathedral Towers" latitude="33.832133" longitude="-84.384816" distance="5.747484387962004"/>
+<marker program="Flipper Temple Apartments" latitude="33.800818" longitude="-84.466606" distance="5.763229285989684"/>
+<marker program="FLIPPER TEMPLE APARTMENTS" latitude="33.801151" longitude="-84.467356" distance="5.811278331688679"/>
+<marker program="ALLEN TEMPLE DEVELOPMENT" latitude="33.752704" longitude="-84.489825" distance="5.856666904789394"/>
+<marker program="HOLLY RIDGE APARTMENTS" latitude="33.799788" longitude="-84.470118" distance="5.879876516312908"/>
+<marker program="ALLEN TEMPLE APARTMENTS I" latitude="33.755002" longitude="-84.490348" distance="5.895653797511138"/>
+<marker program="ALLEN TEMPLE APTS II" latitude="33.755002" longitude="-84.490348" distance="5.895653797511138"/>
+<marker program="HAMPTON OAK COOPERATIVE" latitude="33.815676" longitude="-84.452568" distance="5.914979149391794"/>
+<marker program="CAMPBELL STONE APARTMENTS" latitude="33.834821" longitude="-84.385795" distance="5.9316718206189405"/>
+<marker program="Campbell Stone Apartments" latitude="33.834821" longitude="-84.385795" distance="5.9316718206189405"/>
+<marker program="Capitol Homes" latitude="33.801100" longitude="-84.472600" distance="6.048347338290734"/>
+<marker program="Bowen Homes" latitude="33.801100" longitude="-84.472600" distance="6.048347338290734"/>
+<marker program="MOORES MILL VILLAGE" latitude="33.820278" longitude="-84.449175" distance="6.05062467844774"/>
+<marker program="Hillcrest Homes" latitude="33.677200" longitude="-84.450100" distance="6.112103241206084"/>
+<marker program="Washington-Carver Homes" latitude="33.677200" longitude="-84.450100" distance="6.112103241206084"/>
+<marker program="O J Hurd Homes" latitude="33.677200" longitude="-84.450100" distance="6.112103241206084"/>
+<marker program="Nelms House" latitude="33.677200" longitude="-84.450100" distance="6.112103241206084"/>
+<marker program="Landrum Arms Apartments" latitude="33.706259" longitude="-84.481389" distance="6.1264894207648"/>
+<marker program="LONDON TWNHS 2" latitude="33.748669" longitude="-84.494814" distance="6.137871764954721"/>
+<marker program="LONDON TWHS 3" latitude="33.748669" longitude="-84.494814" distance="6.137871764954721"/>
+<marker program="LONDON TWHS 4" latitude="33.748669" longitude="-84.494814" distance="6.137871764954721"/>
+<marker program="DELANO PLACE" latitude="33.746836" longitude="-84.280301" distance="6.188519306809572"/>
+<marker program="COLUMBIA HILL/DUTCH HILL (VILLAGE HOME APTS.)" latitude="33.660952" longitude="-84.355594" distance="6.36209222895845"/>
+<marker program="Marietta Road Highrise*" latitude="33.818156" longitude="-84.461557" distance="6.378961655008745"/>
+<marker program="Decatur Christian Towers" latitude="33.789934" longitude="-84.287137" distance="6.446319082642633"/>
+<marker program="CASCADE PINES APARTMENTS" latitude="33.698195" longitude="-84.483223" distance="6.502352080307341"/>
+<marker program="Gilbert Gardens" latitude="33.654200" longitude="-84.381100" distance="6.56207068572908"/>
+<marker program="Community Housing Inc." latitude="33.759969" longitude="-84.274216" distance="6.579663740448725"/>
+<marker program="Atlanta Group Home" latitude="33.838947" longitude="-84.428353" distance="6.633682144146299"/>
+<marker program="THE WILLIAM BREMAN JEWISH HOME" latitude="33.840845" longitude="-84.427309" distance="6.736374623589838"/>
+<marker program="COLUMBIA HEIGHTS" latitude="33.756718" longitude="-84.271075" distance="6.73756742347499"/>
+<marker program="Fairburn Gordon II" latitude="33.761173" longitude="-84.504454" distance="6.743892131049242"/>
+<marker program="Christian Council Housing Two" latitude="33.755168" longitude="-84.505495" distance="6.7646924474434345"/>
+<marker program="Jewish Tower" latitude="33.841437" longitude="-84.427505" distance="6.778684466297531"/>
+<marker program="FAIRBURN-GORDON APARTMENTS" latitude="33.749898" longitude="-84.507693" distance="6.878005069471576"/>
+<marker program="CENTRAL METHODIST GARDENS II" latitude="33.747005" longitude="-84.508434" distance="6.92177810939886"/>
+<marker program="CENTRAL METHODIST GARDENS I" latitude="33.747005" longitude="-84.508434" distance="6.92177810939886"/>
+<marker program="HIDDEN HOLLOW APTS." latitude="33.744657" longitude="-84.509402" distance="6.9825603247334005"/>
+<marker program="Fairburn Towne Houses" latitude="33.743792" longitude="-84.509384" distance="6.984383878128477"/>
+<marker program="Fairburn Towne Houses" latitude="33.743792" longitude="-84.509384" distance="6.984383878128477"/>
+<marker program="Fairburn Towne Houses" latitude="33.743792" longitude="-84.509384" distance="6.984383878128477"/>
+<marker program="Fairburn Towne Houses" latitude="33.743792" longitude="-84.509384" distance="6.984383878128477"/>
+<marker program="Wildwood Park Towne Houses I" latitude="33.741906" longitude="-84.510220" distance="7.040295830079973"/>
+<marker program="WILDWOOD PARK TOWNE HOUSES II" latitude="33.741906" longitude="-84.510220" distance="7.040295830079973"/>
+<marker program="WILDWOOD PARK TOWNE HOUSES 3" latitude="33.741906" longitude="-84.510220" distance="7.040295830079973"/>
+<marker program="WILDWOOD PARK TOWNE HOUSES 4" latitude="33.741906" longitude="-84.510220" distance="7.040295830079973"/>
+<marker program="Wildwood Park Towne Houses IV" latitude="33.741906" longitude="-84.510220" distance="7.040295830079973"/>
+<marker program="Bankhead Courts" latitude="33.794347" longitude="-84.499220" distance="7.116369577482159"/>
+<marker program="Eastwyck Village Towne Houses" latitude="33.718100" longitude="-84.269600" distance="7.1297779250701465"/>
+<marker program="Eastwyck Village Towne Houses" latitude="33.718100" longitude="-84.269600" distance="7.1297779250701465"/>
+<marker program="Eastwyck Village Towne Houses" latitude="33.718100" longitude="-84.269600" distance="7.1297779250701465"/>
+<marker program="Eastwyck Village Towne Houses" latitude="33.718100" longitude="-84.269600" distance="7.1297779250701465"/>
+<marker program="Eastwyck Village Townhouses" latitude="33.718100" longitude="-84.269600" distance="7.1297779250701465"/>
+<marker program="Eastwyck Village Towne Houses" latitude="33.718100" longitude="-84.269600" distance="7.1297779250701465"/>
+<marker program="3601 Piedmont Road*" latitude="33.852525" longitude="-84.380396" distance="7.166895337033227"/>
+<marker program="3762 MARTIN LUTHER KING BLVD." latitude="33.765895" longitude="-84.511266" distance="7.177960970460507"/>
+<marker program="College View Hills" latitude="33.659837" longitude="-84.453094" distance="7.208468350018384"/>
+<marker program="Briarcliff Oaks Apartments" latitude="33.836624" longitude="-84.316256" distance="7.3230228250499705"/>
+<marker program="EAGLE'S NEST" latitude="33.712660" longitude="-84.266323" distance="7.428356689158681"/>
+<marker program="Asbury Harris Epworth Towers" latitude="33.683108" longitude="-84.493689" distance="7.592008924233205"/>
+<marker program="LEXINGTON SQUARE TOWNHOUSES II" latitude="33.647848" longitude="-84.335896" distance="7.603452595623209"/>
+<marker program="LEXINGTON SQUARE TOWNHOUSES II" latitude="33.647848" longitude="-84.335896" distance="7.603452595623209"/>
+<marker program="LEXINGTON SQUARE TOWNHOUSES IV" latitude="33.647848" longitude="-84.335896" distance="7.603452595623209"/>
+<marker program="Waits Drive" latitude="33.753828" longitude="-84.520518" distance="7.621699639327033"/>
+<marker program="Wildwood Lakes" latitude="33.742346" longitude="-84.520919" distance="7.651737461738205"/>
+<marker program="MT ZION VILLAGE APTS" latitude="33.653311" longitude="-84.455658" distance="7.671215216480948"/>
+<marker program="Martel Homes" latitude="33.667600" longitude="-84.478900" distance="7.677423557372218"/>
+<marker program="Lenox Summit" latitude="33.856727" longitude="-84.347388" distance="7.80036678147757"/>
+<marker program="Barge Road*" latitude="33.689524" longitude="-84.506247" distance="7.942687704609954"/>
+<marker program="OAK FOREST APARTMENTS" latitude="33.786884" longitude="-84.254320" distance="8.111725347853357"/>
+<marker program="GREENBRIAR COMMONS" latitude="33.672929" longitude="-84.498346" distance="8.238097502979219"/>
+<marker program="Tobie Grant Manor" latitude="33.791790" longitude="-84.253502" distance="8.271049243601155"/>
+<marker program="TECALI CLUB APARTMENTS" latitude="33.671453" longitude="-84.502644" distance="8.493809054596444"/>
+<marker program="WALDORF CREEK APARTMENTS" latitude="33.627234" longitude="-84.365489" distance="8.512230568056427"/>
+<marker program="WINGATE APTS." latitude="33.624691" longitude="-84.356678" distance="8.775684861151456"/>
+<marker program="CASCADE APARTMENTS" latitude="33.671600" longitude="-84.509300" distance="8.787790149860705"/>
+<marker program="CASCADE APARTMENTS" latitude="33.671600" longitude="-84.509300" distance="8.787790149860705"/>
+<marker program="Windrush Apartments" latitude="33.767679" longitude="-84.234289" distance="8.923101075503173"/>
+<marker program="REGENCY PARK/COLONY 2000" latitude="33.651791" longitude="-84.492545" distance="9.013489326091607"/>
+<marker program="SWEETWATER COVE APTS." latitude="33.786600" longitude="-84.546000" distance="9.441227150763396"/>
+<marker program="ORCHARD LANE APARTMENTS" latitude="33.787220" longitude="-84.546377" distance="9.473870287699679"/>
+<marker program="Smyrna Towers" latitude="33.854900" longitude="-84.496300" distance="9.603633031402453"/>
+<marker program="AHEPA ONE APARTMENTS" latitude="33.843083" longitude="-84.262483" distance="9.705560501724785"/>
+<marker program="NU DIMENSIONS" latitude="33.642900" longitude="-84.500100" distance="9.761508230792495"/>
+<marker program="Belle Isle" latitude="33.890667" longitude="-84.381508" distance="9.796218480391785"/>
+<marker program="Red Oak" latitude="33.636262" longitude="-84.499187" distance="10.077285104580817"/>
+<marker program="TRACEWOOD APARTMENTS" latitude="33.596868" longitude="-84.374893" distance="10.53855013373571"/>
+<marker program="Johnson Ferry East" latitude="33.893121" longitude="-84.325770" distance="10.57971925491203"/>
+<marker program="HUNTERS GROVE" latitude="33.777901" longitude="-84.572114" distance="10.76409344673069"/>
+<marker program="Walton Grove Apartments" latitude="33.888137" longitude="-84.475230" distance="10.840737438932038"/>
+<marker program="Travis House" latitude="33.744164" longitude="-84.195785" distance="11.047713154324946"/>
+<marker program="Allen Road Midrise" latitude="33.913458" longitude="-84.382636" distance="11.36811113982516"/>
+<marker program="Campbell Stone North Apartmen" latitude="33.915294" longitude="-84.375936" distance="11.511615462197263"/>
+<marker program="SOUTHWOOD APTS" latitude="33.590970" longitude="-84.321309" distance="11.572763662476392"/>
+<marker program="North Hairston Apartments" latitude="33.807849" longitude="-84.193654" distance="11.878741906073515"/>
+<marker program="MADISON STATION APARTMENTS" latitude="33.882627" longitude="-84.523530" distance="12.075286648327499"/>
+<marker program="HIDDEN MEADOWS TOWNHOMES" latitude="33.809400" longitude="-84.188400" distance="12.198855465546648"/>
+<marker program="Shangri La Apartments" latitude="33.915951" longitude="-84.302328" distance="12.540126921595403"/>
+<marker program="SHANNON CRESTE APTS." latitude="33.929014" longitude="-84.359903" distance="12.542811160618426"/>
+<marker program="BAYWOOD PARK APARTMENTS" latitude="33.571784" longitude="-84.308597" distance="13.0683677368383"/>
+<marker program="DEKALB MR HOMES INC." latitude="33.747673" longitude="-84.157744" distance="13.228351214746992"/>
+<marker program="Cambridge Square Towne Houses" latitude="33.911025" longitude="-84.262662" distance="13.307513415564333"/>
+<marker program="Cambridge Square Towne Houses" latitude="33.911025" longitude="-84.262662" distance="13.307513415564333"/>
+<marker program="Westbury Park Apts" latitude="33.919830" longitude="-84.500672" distance="13.460106717246996"/>
+<marker program="Lyman Homes" latitude="33.915900" longitude="-84.524100" distance="13.92991819443962"/>
+<marker program="CHARLESTON TRACE APTS." latitude="33.887238" longitude="-84.566039" distance="13.990264630798716"/>
+<marker program="PINE GROVE APARTMENTS/HARMONY GROVE" latitude="33.903223" longitude="-84.553305" distance="14.269614975344599"/>
+<marker program="HARMONY GROVE APARTMENTS" latitude="33.903262" longitude="-84.553406" distance="14.275481833783855"/>
+<marker program="GWINNETT STATION" latitude="33.893970" longitude="-84.209868" distance="14.313986543163276"/>
+<marker program="HARMONY MEADOWS APARTMENTS" latitude="33.913328" longitude="-84.546816" distance="14.561958743802599"/>
+<marker program="HILLANDALE COMMONS" latitude="33.705962" longitude="-84.139108" distance="14.608050430107506"/>
+<marker program="ORCHARD MILL APTS." latitude="33.859171" longitude="-84.606375" distance="14.669335321951474"/>
+<marker program="GROVEWOOD PARK APARTMENTS" latitude="33.706016" longitude="-84.137325" distance="14.707626410258358"/>
+<marker program="SHANNON LAKE APARTMENTS" latitude="33.564815" longitude="-84.516896" distance="14.7287361094658"/>
+<marker program="BUTTERFIELD HOUSE INC" latitude="33.876398" longitude="-84.594773" distance="14.779702273149837"/>
+<marker program="THE ARC HOUSE" latitude="33.876355" longitude="-84.595911" distance="14.830471927092699"/>
+<marker program="ROSEWOOD PARK APARTMENTS" latitude="33.854565" longitude="-84.614448" distance="14.909503835438402"/>
+<marker program="MAPLEWOOD PARK FNA SUGARWOOD PARK APARTMENTS" latitude="33.568340" longitude="-84.534392" distance="15.057461392876174"/>
+<marker program="COUNTRY PINES" latitude="33.925623" longitude="-84.552085" distance="15.416185936753857"/>
+<marker program="Union City Ha" latitude="33.572514" longitude="-84.554777" distance="15.515305974170435"/>
+<marker program="Branson Homes Addition" latitude="33.942344" longitude="-84.527948" distance="15.588673460084202"/>
+<marker program="CC/Sparks Manor" latitude="33.552588" longitude="-84.525029" distance="15.6945061808849"/>
+<marker program="CC/Larry Moore Manor" latitude="33.551606" longitude="-84.524907" distance="15.749729479973407"/>
+<marker program="CC/Garden Terrace" latitude="33.549260" longitude="-84.524087" distance="15.867044438204127"/>
+<marker program="CC Estates/ Miller Manor" latitude="33.547949" longitude="-84.522942" distance="15.913697733482367"/>
+<marker program="Branson Homes" latitude="33.945304" longitude="-84.533218" distance="15.920464109590887"/>
+<marker program="Keystone Apartments" latitude="33.519660" longitude="-84.354041" distance="15.966373568882801"/>
+<marker program="Riverwood Section 1" latitude="33.517967" longitude="-84.368763" distance="16.00175142873504"/>
+<marker program="Riverwood Townhouses 2" latitude="33.517967" longitude="-84.368763" distance="16.00175142873504"/>
+<marker program="Riverwood Townhouses 3" latitude="33.517967" longitude="-84.368763" distance="16.00175142873504"/>
+<marker program="CRESTWOOD PARK" latitude="33.951908" longitude="-84.524464" distance="16.059960864414414"/>
+<marker program="Boston Homes" latitude="33.953480" longitude="-84.526728" distance="16.218225204003673"/>
+<marker program="Project Unnamed" latitude="33.713045" longitude="-84.108013" distance="16.279151071771988"/>
+<marker program="Unnamed Project" latitude="33.522300" longitude="-84.305500" distance="16.367052261292717"/>
+<marker program="THE Hellenic Tower" latitude="33.985515" longitude="-84.350557" distance="16.48338823976316"/>
+<marker program="Project Unnamed" latitude="33.707007" longitude="-84.105222" distance="16.50644171521364"/>
+<marker program="Johnny Walker Homes" latitude="33.945374" longitude="-84.555056" distance="16.614853110201867"/>
+<marker program="Clay Homes" latitude="33.950804" longitude="-84.548014" distance="16.696859202373915"/>
+<marker program="Unnamed Project" latitude="33.936641" longitude="-84.204129" distance="16.716614490608695"/>
+<marker program="Project Unnamed" latitude="33.936245" longitude="-84.203193" distance="16.72941655959428"/>
+<marker program="Fairburn Ha" latitude="33.563446" longitude="-84.575826" distance="16.766096875850863"/>
+<marker program="Fort Hill Homes" latitude="33.955258" longitude="-84.542820" distance="16.7950352514076"/>
+<marker program="Henderson Arms Apts (ACC CANCE" latitude="33.950549" longitude="-84.552440" distance="16.823310674213285"/>
+<marker program="Dorsey Manor" latitude="33.955289" longitude="-84.546225" distance="16.901024101993922"/>
+<marker program="North Pointe Apartments" latitude="33.993472" longitude="-84.345568" distance="17.067102748629313"/>
+<marker program="Lawrenceville Handicapped Hous" latitude="33.894804" longitude="-84.144818" distance="17.214839617552705"/>
+<marker program="GREENS OF PEBBLE CREEK" latitude="33.498778" longitude="-84.403535" distance="17.31255984671653"/>
+<marker program="FAIRWAY POINTE APTS." latitude="33.498778" longitude="-84.403535" distance="17.31255984671653"/>
+<marker program="The Ambers Apartments" latitude="33.937576" longitude="-84.188740" distance="17.336112309355926"/>
+<marker program="Westbury Springs Apartments" latitude="33.904959" longitude="-84.148491" distance="17.467621189870304"/>
+<marker program="HARMONY TERRACE" latitude="33.968912" longitude="-84.540092" distance="17.52388635350845"/>
+<marker program="061-35305 BRADFORD GWINNETT A" latitude="33.937122" longitude="-84.174990" distance="17.843595512352078"/>
+<marker program="MARIETTA-COBB WINTER SHELTER" latitude="33.977539" longitude="-84.555429" distance="18.484727873561358"/>
+<marker program="Jane Hill Homes" latitude="34.018773" longitude="-84.357946" distance="18.720437168154948"/>
+<marker program="Irwin Homes" latitude="34.018738" longitude="-84.356927" distance="18.723499975703955"/>
+<marker program="Waller Park Homes" latitude="34.018631" longitude="-84.354855" distance="18.72782668910051"/>
+<marker program="Gwinnett Christian Terrace" latitude="33.904727" longitude="-84.115000" distance="19.00851610567401"/>
+<marker program="Wiloaks Apartments" latitude="33.835059" longitude="-84.068944" distance="19.261553893968063"/>
+<marker program="Alpha A Fowler Community" latitude="33.745326" longitude="-84.729179" distance="19.604891798872007"/>
+<marker program="BRIGHTON MANOR APARTMENTS" latitude="33.755515" longitude="-84.733142" distance="19.834882075592287"/>
+<marker program="Pelfrey Pines" latitude="34.043100" longitude="-84.384500" distance="20.32289911064319"/>
+<marker program="DOUGLAS VILLAGE APARTMENTS" latitude="33.762704" longitude="-84.744443" distance="20.500055889095883"/>
+<marker program="Conzada Keith Homes" latitude="33.753208" longitude="-84.748405" distance="20.70896384958923"/>
+<marker program="PARKER STREET DUPLEX" latitude="33.751949" longitude="-84.749555" distance="20.774142555575963"/>
+<marker program="UCP OF ATLANTA" latitude="34.030019" longitude="-84.522464" distance="20.894063410206467"/>
+<marker program="HIGHLAND PARK SENIOR VILLAGE" latitude="33.742644" longitude="-84.751772" distance="20.906252247461264"/>
+<marker program="VOA OF GEORGIA" latitude="33.754292" longitude="-84.754097" distance="21.036984019908164"/>
+<marker program="Chicago Ave Homes" latitude="33.751803" longitude="-84.755025" distance="21.088313535648933"/>
+<marker program="Rockmont Apartments" latitude="33.662566" longitude="-84.035775" distance="21.108075986597512"/>
+<marker program="North Fulton County Group Home" latitude="34.050021" longitude="-84.325258" distance="21.108931417995674"/>
+<marker program="South Metro Homes Inc." latitude="34.050021" longitude="-84.325258" distance="21.108931417995674"/>
+<marker program="R.D. Pounds Homes" latitude="33.749396" longitude="-84.756826" distance="21.19120807183196"/>
+<marker program="COLUMBIA GARDENS APARTMENTS" latitude="33.748109" longitude="-84.757239" distance="21.215165689639406"/>
+<marker program="Douglas County Resources" latitude="33.738600" longitude="-84.757400" distance="21.23765444058978"/>
+<marker program="Douglas County Ventures" latitude="33.738600" longitude="-84.757400" distance="21.23765444058978"/>
+<marker program="Forest Ave Maxwell Hms" latitude="33.755169" longitude="-84.757947" distance="21.259159516765475"/>
+<marker program="Scattered Sites" latitude="33.675810" longitude="-84.026301" distance="21.394831763724383"/>
+<marker program="DOUGLASVILLE PROPER APARTMENTS" latitude="33.755264" longitude="-84.760561" distance="21.40942649045492"/>
+<marker program="Scattered Sites" latitude="33.678257" longitude="-84.024148" distance="21.475692233393477"/>
+<marker program="Scattered Sites" latitude="33.678219" longitude="-84.024036" distance="21.482562826003246"/>
+<marker program="Scattered Sites" latitude="33.675613" longitude="-84.024383" distance="21.505194655583374"/>
+<marker program="GWINNETT COUNTY RESIDENTIAL SE" latitude="33.836512" longitude="-84.028123" distance="21.53114842128035"/>
+<marker program="SUSSEX COURT RESIDENTIAL SERVI" latitude="33.851862" longitude="-84.032795" distance="21.597513659031613"/>
+<marker program="GENESIS GARDENS APTS." latitude="33.529603" longitude="-84.663321" distance="21.924698158430623"/>
+<marker program="GENESIS GARDENS" latitude="33.529404" longitude="-84.663284" distance="21.93268412057423"/>
+<marker program="BRECKENRIDGE CRESTE APT." latitude="33.952533" longitude="-84.092904" distance="22.011868929005992"/>
+<marker program="North Metro Group Homes Assn I" latitude="34.067394" longitude="-84.335445" distance="22.20590786997882"/>
+<marker program="Lexington Village" latitude="33.665293" longitude="-84.011269" distance="22.41301849415618"/>
+<marker program="Buford Ha" latitude="34.002471" longitude="-84.136644" distance="22.686142324970007"/>
+<marker program="Dogwood Square" latitude="34.069839" longitude="-84.297251" distance="22.77188981780848"/>
+<marker program="Palmetto Ha" latitude="33.515977" longitude="-84.668213" distance="22.785084293066397"/>
+<marker program="Scattered Sites" latitude="33.676852" longitude="-83.999729" distance="22.86576243373625"/>
+<marker program="Ga091-3" latitude="34.008133" longitude="-84.138889" distance="22.90867842339386"/>
+<marker program="SADDLE CREEK APARTMENTS/ALPHARETTA COMMONS" latitude="34.082390" longitude="-84.314741" distance="23.416452017504618"/>
+<marker program="BRANDON GLEN" latitude="33.673062" longitude="-83.990489" distance="23.442077872421862"/>
+<marker program="TANGLEWOOD PARK" latitude="33.961985" longitude="-84.061483" distance="23.8242574306484"/>
+<marker program="TANGLEWOOD PARK APARTMENTS" latitude="33.974119" longitude="-84.072865" distance="23.851294678137407"/>
+<marker program="Colbert Square" latitude="34.086904" longitude="-84.524217" distance="24.620761985493207"/>
+<marker program="SABLE CHASE" latitude="33.439121" longitude="-84.158979" distance="25.143297104072893"/>
+<marker program="SABLE CHASE II" latitude="33.439121" longitude="-84.158979" distance="25.143297104072893"/>
+<marker program="WHISPERING TRACE APTS." latitude="34.099304" longitude="-84.514392" distance="25.267270387474476"/>
+<marker program="John Seace Homes" latitude="33.443946" longitude="-84.142255" distance="25.383256036398464"/>
+<marker program="John Smith/Seace Homes" latitude="33.443948" longitude="-84.142118" distance="25.38753537618568"/>
+<marker program="Eastside Homes" latitude="33.443954" longitude="-84.141838" distance="25.396177086247032"/>
+<marker program="GREGORY LANE APARTMENTS" latitude="34.082042" longitude="-84.580063" distance="25.51266776995557"/>
+<marker program="GREGORY LANE APARTMENTS PH 2" latitude="34.082027" longitude="-84.580232" distance="25.51591852060669"/>
+<marker program="Westmoreland Homes" latitude="33.387655" longitude="-84.284772" distance="25.665119367491567"/>
+<marker program="Project Unnamed" latitude="33.380819" longitude="-84.280371" distance="26.183717916439797"/>
+<marker program="SALEM GLEN APARTMENTS PHASE TWO" latitude="33.599906" longitude="-83.968070" distance="26.251973921250325"/>
+<marker program="Alatoona Hms-Winn St" latitude="34.049600" longitude="-84.668600" distance="26.276493519205264"/>
+<marker program="Robert Homes" latitude="34.049600" longitude="-84.668600" distance="26.276493519205264"/>
+<marker program="Carruth And Moon Homes" latitude="34.049600" longitude="-84.668600" distance="26.276493519205264"/>
+<marker program="Fred G Hull Homes" latitude="34.049600" longitude="-84.668600" distance="26.276493519205264"/>
+<marker program="WISDOM WOODS APARTMENTS" latitude="33.406793" longitude="-84.590591" distance="26.36557796485775"/>
+<marker program="MEADORS REHABILITATION PROJECT" latitude="33.555000" longitude="-83.987100" distance="26.67120697368499"/>
+<marker program="Barrington Square Apartments" latitude="34.070485" longitude="-84.648919" distance="26.78382118910668"/>
+<marker program="Grady Holt/Omie Harris" latitude="33.938300" longitude="-83.980200" distance="26.809983322272867"/>
+<marker program="Glenn Edge Apt" latitude="33.937319" longitude="-83.979359" distance="26.819287158579918"/>
+<marker program="Applewood II" latitude="33.943914" longitude="-83.983420" distance="26.84070155515914"/>
+<marker program="Applewood Towers" latitude="33.944117" longitude="-83.982256" distance="26.905505209758008"/>
+<marker program="Rich Martin/Rob Dunham" latitude="33.951308" longitude="-83.986764" distance="26.935599168780776"/>
+<marker program="Sally Craig Apt" latitude="33.950031" longitude="-83.984691" distance="26.991986026816384"/>
+<marker program="New Memrl/Hooper Renwick" latitude="33.947717" longitude="-83.982886" distance="26.9994539863111"/>
+<marker program="PEACHTREE VILLAS APARTMENTS" latitude="33.393005" longitude="-84.585529" distance="27.10007115982107"/>
+<marker program="Annandale Apartments Inc." latitude="34.038213" longitude="-84.066888" distance="27.176166027809796"/>
+<marker program="CREEKSTONE APARTMENTS" latitude="33.912313" longitude="-84.820989" distance="27.29583554507451"/>
+<marker program="Old Memorial" latitude="33.962547" longitude="-83.987625" distance="27.303838421520332"/>
+<marker program="Ridgeview Complex" latitude="33.906827" longitude="-84.824992" distance="27.352608562093575"/>
+<marker program="GREYSTONE OF MCDONOUGH" latitude="33.417100" longitude="-84.121100" distance="27.60337179401765"/>
+<marker program="PEACHTREE STATION" latitude="33.367516" longitude="-84.539094" distance="27.75827143459464"/>
+<marker program="Academy Creek Place" latitude="33.911651" longitude="-84.830779" distance="27.790022137764257"/>
+<marker program="Paulding Lane Homes" latitude="33.912356" longitude="-84.830889" distance="27.81543362217115"/>
+<marker program="Paulding Lane Homes" latitude="33.915088" longitude="-84.832476" distance="27.97524984121809"/>
+<marker program="Paulding Ln Hms/S. Street" latitude="33.912969" longitude="-84.833685" distance="27.979227797336147"/>
+<marker program="Dallas Manor" latitude="33.912123" longitude="-84.835307" distance="28.04094512092309"/>
+<marker program="John B Wilson Homes" latitude="33.836961" longitude="-83.903318" distance="28.48720166221822"/>
+<marker program="Auburn Ave Homes" latitude="33.732014" longitude="-84.911342" distance="30.094519589709318"/>
+<marker program="Anderson Road Homes" latitude="33.736275" longitude="-84.913396" distance="30.201699246884935"/>
+<marker program="Old Twn Hms/Auburn Ave" latitude="33.741426" longitude="-84.920269" distance="30.587364398832072"/>
+<marker program="Old Town Homes" latitude="33.741403" longitude="-84.920283" distance="30.588199974755984"/>
+<marker program="Project Unnamed" latitude="33.592068" longitude="-83.876718" distance="31.33642385864449"/>
+<marker program="WOODLAND HEIGHTS" latitude="33.394832" longitude="-84.732734" distance="31.508830885081633"/>
+<marker program="SHENANDOAH VILLAS" latitude="33.394682" longitude="-84.734164" distance="31.568802632937853"/>
+<marker program="Hall Place" latitude="34.103194" longitude="-84.037485" distance="31.667273685998953"/>
+<marker program="Shenandoah Forest Apartments" latitude="33.391508" longitude="-84.734698" distance="31.758731606580117"/>
+<marker program="Project Unnamed" latitude="33.309674" longitude="-84.551347" distance="31.78101408255973"/>
+<marker program="Covington Square." latitude="33.596730" longitude="-83.863768" distance="31.92778822981623"/>
+<marker program="CHEROKEE RESIDENTIAL SERVICES" latitude="34.202100" longitude="-84.505937" distance="32.029679510116146"/>
+<marker program="Project Unnamed" latitude="33.606013" longitude="-83.855204" distance="32.188962559581746"/>
+<marker program="Project Unnamed" latitude="33.300866" longitude="-84.548642" distance="32.31801507966672"/>
+<marker program="CARROLLTON CLUB LTD. LP" latitude="33.630700" longitude="-84.935300" distance="32.51109395228763"/>
+<marker program="Nunley Homes" latitude="33.720300" longitude="-84.954300" distance="32.60251743801703"/>
+<marker program="Project Unnamed" latitude="33.579493" longitude="-83.853678" distance="32.88419769181059"/>
+<marker program="MEADOWBROOK HOMES INC" latitude="33.625913" longitude="-83.833424" distance="32.99873671653433"/>
+<marker program="PEBBLEBROOK" latitude="33.399300" longitude="-84.778700" distance="33.012357750262815"/>
+<marker program="GLENCOE TRACE APARTMENTS" latitude="33.274143" longitude="-84.298574" distance="33.213010389833016"/>
+<marker program="Oakside Drive Apartments" latitude="34.227900" longitude="-84.441400" distance="33.23236850156353"/>
+<marker program="HERITAGE PARK APARTMENTS" latitude="33.613007" longitude="-83.830536" distance="33.40135082046086"/>
+<marker program="Rolling Acres" latitude="34.112612" longitude="-84.000936" distance="33.520887934105865"/>
+<marker program="WILLOWS OF CUMMING" latitude="34.196016" longitude="-84.151362" distance="33.73302885924933"/>
+<marker program="Valley Homes" latitude="34.119043" longitude="-84.003525" distance="33.75758929026368"/>
+<marker program="HICKORY KNOLL APARTMENTS" latitude="34.228804" longitude="-84.509894" distance="33.88134559332628"/>
+<marker program="Jefferson Circle Homes" latitude="34.233325" longitude="-84.482922" distance="33.90512186077411"/>
+<marker program="Spalding Heights I" latitude="33.268499" longitude="-84.263064" distance="33.97222350328833"/>
+<marker program="Spalding Heights II" latitude="33.268499" longitude="-84.263064" distance="33.97222350328833"/>
+<marker program="Shipp Street Homes" latitude="34.235262" longitude="-84.484580" distance="34.052534768058344"/>
+<marker program="Hill Side Homes" latitude="34.121468" longitude="-83.991413" distance="34.34017118035552"/>
+<marker program="Unnamed" latitude="34.204651" longitude="-84.144970" distance="34.42643628602435"/>
+<marker program="Project Unnamed" latitude="34.206491" longitude="-84.145923" distance="34.520713131959525"/>
+<marker program="Fairmont Homes" latitude="33.259247" longitude="-84.260918" distance="34.623282026403224"/>
+<marker program="Joseph E Hannah Homes" latitude="33.381172" longitude="-84.797454" distance="34.666570740464"/>
+<marker program="Hannah Homes Additions" latitude="33.379574" longitude="-84.795675" distance="34.678337329990335"/>
+<marker program="The Highlands" latitude="33.369763" longitude="-84.782841" distance="34.692500748363365"/>
+<marker program="GOOD SHEPHERD PLACE" latitude="34.215943" longitude="-84.154549" distance="34.927237464643504"/>
+<marker program="St George's Court" latitude="33.249662" longitude="-84.268414" distance="35.18385095975159"/>
+<marker program="John H Jordan Homes" latitude="33.376896" longitude="-84.813036" distance="35.4966648780649"/>
+<marker program="Bonnell/Callaway Hms" latitude="33.370469" longitude="-84.805955" distance="35.54293046003197"/>
+<marker program="Regency Apartments" latitude="33.242437" longitude="-84.280573" distance="35.54493978941144"/>
+<marker program="C Neal/C Reese Hms" latitude="33.372991" longitude="-84.812299" distance="35.663886051309724"/>
+<marker program="Meriwether Homes" latitude="33.240896" longitude="-84.273853" distance="35.71906864903086"/>
+<marker program="Nine Oaks Apartments" latitude="33.241022" longitude="-84.265492" distance="35.80236631701186"/>
+<marker program="Heritage Apartments" latitude="33.238754" longitude="-84.277311" distance="35.82856763152119"/>
+<marker program="PINES BY THE CREEK APTS." latitude="33.380818" longitude="-84.831406" distance="36.04179737912625"/>
+<marker program="PINE HILL APARTMENTS" latitude="33.229929" longitude="-84.307273" distance="36.16653510685838"/>
+<marker program="Stonewall Homes" latitude="34.164326" longitude="-84.791621" distance="36.8615195990315"/>
+<marker program="ETOWAH VILLAGE APARTMENTS" latitude="34.151130" longitude="-84.810608" distance="36.86316005949406"/>
+<marker program="Garrison Drive/Hill/Aubrey/Mull" latitude="34.164418" longitude="-84.791620" distance="36.86642516028145"/>
+<marker program="Stonewall Hms Annex" latitude="34.164662" longitude="-84.791620" distance="36.87953305853399"/>
+<marker program="Cartersville Gardens" latitude="34.151151" longitude="-84.811734" distance="36.906693856869346"/>
+<marker program="Railroad Street/Fairview Circle Homes" latitude="34.167752" longitude="-84.796576" distance="37.22382336038625"/>
+<marker program="Huntwood Terrace" latitude="34.184542" longitude="-84.779539" distance="37.53957566102487"/>
+<marker program="Summer Hill Homes" latitude="34.169651" longitude="-84.802841" distance="37.552050959231714"/>
+<marker program="Summer Hill Homes Annex" latitude="34.170639" longitude="-84.802624" distance="37.596967811885676"/>
+<marker program="ASHTON POINTE APTS." latitude="33.797796" longitude="-83.727930" distance="38.060936650906235"/>
+<marker program="COUNTRY GROVE" latitude="33.801457" longitude="-83.725363" distance="38.23014459685871"/>
+<marker program="Social Circle Terrace" latitude="33.655413" longitude="-83.725716" distance="38.61526616622193"/>
+<marker program="THE COVE APARTMENTS" latitude="34.212900" longitude="-84.766300" distance="38.69587878450283"/>
+<marker program="Mcwhorter Homes" latitude="33.347100" longitude="-84.859000" distance="38.81900758918806"/>
+<marker program="Roscoe Jenkins Homes" latitude="33.347100" longitude="-84.859000" distance="38.81900758918806"/>
+<marker program="Southside Homes" latitude="33.347100" longitude="-84.859000" distance="38.81900758918806"/>
+<marker program="Mary C Freeman Homes" latitude="33.347100" longitude="-84.859000" distance="38.81900758918806"/>
+<marker program="Summerhill Apartments" latitude="33.599580" longitude="-85.044004" distance="39.11054588645567"/>
+<marker program="Mallet Park" latitude="33.302123" longitude="-83.970989" distance="39.12012975315687"/>
+<marker program="Housing by Association Inc" latitude="33.600003" longitude="-85.048885" distance="39.373589071120364"/>
+<marker program="James Monroe Homes" latitude="33.753700" longitude="-83.701800" distance="39.42357125903071"/>
+<marker program="George Walton Homes" latitude="33.753700" longitude="-83.701800" distance="39.42357125903071"/>
+<marker program="Stowers Park" latitude="33.753700" longitude="-83.701800" distance="39.42357125903071"/>
+<marker program="Carver Place" latitude="33.753700" longitude="-83.701800" distance="39.42357125903071"/>
+<marker program="Radford Park" latitude="33.753700" longitude="-83.701800" distance="39.42357125903071"/>
+<marker program="Rose Ison Terrace" latitude="33.753700" longitude="-83.701800" distance="39.42357125903071"/>
+<marker program="Billy Lee Gober Homes" latitude="33.753700" longitude="-83.701800" distance="39.42357125903071"/>
+<marker program="Statham Apts" latitude="33.753700" longitude="-83.701800" distance="39.42357125903071"/>
+<marker program="Magnolia Terrace" latitude="33.753700" longitude="-83.701800" distance="39.42357125903071"/>
+<marker program="Ammie Briggery Homes" latitude="33.753700" longitude="-83.701800" distance="39.42357125903071"/>
+<marker program="Camptowne Gardens Apartments" latitude="33.780405" longitude="-83.701904" distance="39.46983082551682"/>
+<marker program="Walton Village" latitude="33.799939" longitude="-83.699269" distance="39.71327816139588"/>
+<marker program="Walton Court" latitude="33.650762" longitude="-83.705456" distance="39.81849902176852"/>
+<marker program="Tyler Terr & Mallet Park" latitude="33.298784" longitude="-83.956032" distance="39.83516549289857"/>
+<marker program="BROOK POINT APARTMENTS" latitude="33.298640" longitude="-83.946650" distance="40.18266412999478"/>
+<marker program="Lakeview Apartments" latitude="33.601630" longitude="-85.064061" distance="40.18755233515389"/>
+<marker program="Paradise Carrollton Apartments" latitude="33.600350" longitude="-85.065360" distance="40.28255508455505"/>
+<marker program="Buford Ha" latitude="34.188632" longitude="-83.924422" distance="40.35442120575095"/>
+<marker program="PEPPERTON VILLAS" latitude="33.292674" longitude="-83.948994" distance="40.418681253081125"/>
+<marker program="DIC--EAGLE'S NEST" latitude="33.572921" longitude="-85.058226" distance="40.421444338312334"/>
+<marker program="PEPPERTON VILLAS" latitude="33.292629" longitude="-83.948947" distance="40.422804910156884"/>
+<marker program="CARRIAGE CROSSING" latitude="34.185216" longitude="-83.917763" distance="40.43071812540691"/>
+<marker program="PIEDMONT RIDGE APTS. III" latitude="33.164300" longitude="-84.438600" distance="40.50627997835109"/>
+<marker program="CROSSFIELD APTS. LTD." latitude="34.216806" longitude="-84.818636" distance="40.66586387166197"/>
+<marker program="CROSSFIELD APARTMENTS PHASE II" latitude="34.216850" longitude="-84.818646" distance="40.66862432634614"/>
+<marker program="TOWER VILLAGE" latitude="34.015400" longitude="-85.023300" distance="40.82920804127157"/>
+<marker program="Hardigree Terr" latitude="33.992149" longitude="-83.735897" distance="41.01064551054493"/>
+<marker program="ROCK SPRINGS APTS." latitude="33.986300" longitude="-83.731800" distance="41.06330907440818"/>
+<marker program="United Church Homes Inc." latitude="33.987789" longitude="-83.729384" distance="41.23119171062973"/>
+<marker program="Eastview/Btw Homes" latitude="34.005582" longitude="-85.039610" distance="41.373169510282516"/>
+<marker program="Elder Cir Alabama Cir" latitude="33.564936" longitude="-85.073047" distance="41.402982028592625"/>
+<marker program="Griffin Homes" latitude="33.539068" longitude="-85.065601" distance="41.59036428667432"/>
+<marker program="Fort Yargo Apts." latitude="33.986127" longitude="-83.720060" distance="41.67704208730809"/>
+<marker program="Smith Heights" latitude="33.988170" longitude="-83.719540" distance="41.75971744322988"/>
+<marker program="Thomas Homes" latitude="33.586440" longitude="-85.088029" distance="41.79546065661688"/>
+<marker program="Westview Homes" latitude="34.007451" longitude="-85.046975" distance="41.80993145698042"/>
+<marker program="Davis Homes" latitude="33.585400" longitude="-85.090100" distance="41.92974017906311"/>
+<marker program="Ingram Homes" latitude="33.578532" longitude="-85.091993" distance="42.166228798611556"/>
+<marker program="Oakwood Hms" latitude="33.988378" longitude="-83.710965" distance="42.21755635063911"/>
+<marker program="Capitol Ave. Homes" latitude="33.987733" longitude="-83.710312" distance="42.234735981933184"/>
+<marker program="Glenwood Terrace" latitude="33.987142" longitude="-83.707823" distance="42.35047119061637"/>
+<marker program="CASS TOWNE APARTMENTS" latitude="34.231750" longitude="-84.856096" distance="42.80107550821834"/>
+<marker program="OAKVIEW APARTMENTS" latitude="34.041218" longitude="-85.054381" distance="43.22699768162712"/>
+<marker program="Project Unnamed" latitude="33.717249" longitude="-85.139544" distance="43.243198040710816"/>
+<marker program="B T Washington Homes" latitude="34.019000" longitude="-85.089100" distance="44.33441058950809"/>
+<marker program="Grantville Ha" latitude="33.229859" longitude="-84.844835" distance="44.49521034957367"/>
+<marker program="HOLLY VILLAGE" latitude="33.798298" longitude="-85.180759" distance="45.66161076447672"/>
+<marker program="Buchanan Ha" latitude="33.799532" longitude="-85.181326" distance="45.70019512938557"/>
+<marker program="Buchanan Ha" latitude="33.805493" longitude="-85.186522" distance="46.029275362632404"/>
+<marker program="Old Rutledge" latitude="33.609800" longitude="-83.604400" distance="46.07085039347957"/>
+<marker program="New Rutledge" latitude="33.609800" longitude="-83.604400" distance="46.07085039347957"/>
+<marker program="Dunaway Massey Homes" latitude="33.973694" longitude="-83.614291" distance="47.029357251323184"/>
+<marker program="OCONEE SPRINGS" latitude="34.280971" longitude="-83.856122" distance="47.73972892077548"/>
+<marker program="OCONEE SPRINGS" latitude="34.282854" longitude="-83.855419" distance="47.865413229757486"/>
+<marker program="Rolling Hills" latitude="33.282600" longitude="-85.018600" distance="48.56293673389665"/>
+<marker program="Robert Cannady Homes" latitude="33.282600" longitude="-85.018600" distance="48.56293673389665"/>
+<marker program="Melrose Homes" latitude="34.284289" longitude="-83.828970" distance="48.919411133795236"/>
+<marker program="Scattered Sites" latitude="34.295153" longitude="-83.842300" distance="48.99771092812424"/>
+<marker program="BROOKS RUN APARTMENTS" latitude="34.460161" longitude="-84.413409" distance="49.16135373639848"/>
+<marker program="BROOKSHOLLOW APARTMENTS" latitude="34.460100" longitude="-84.423700" distance="49.178086278329054"/>
+<marker program="Hillside Homes" latitude="33.061309" longitude="-84.160302" distance="49.29894167031308"/>
+<marker program="George Bush Homes" latitude="33.061246" longitude="-84.158033" distance="49.338162875342434"/>
+<marker program="Melrose Homes (Scattered)" latitude="34.292372" longitude="-83.828118" distance="49.37373186483875"/>
+<marker program="Burton St/Mineral Springs" latitude="34.463402" longitude="-84.431174" distance="49.42558117164446"/>
+<marker program="Melson Homes" latitude="33.177523" longitude="-84.903975" distance="49.43611500635396"/>
+<marker program="Towaliga Village Apartments" latitude="33.054839" longitude="-84.166475" distance="49.63726731014767"/>
+<marker program="PIEDMONT PINE APARTMENTS" latitude="33.056863" longitude="-84.153070" distance="49.70730156192227"/>
+<marker program="Green Hunter Homes" latitude="34.294882" longitude="-83.821229" distance="49.761867478389554"/>
+<marker program="Green Hunter Homes" latitude="34.294882" longitude="-83.821229" distance="49.761867478389554"/>
+<marker program="Landrum Cir/Mcintire Pl" latitude="34.470894" longitude="-84.423815" distance="49.92355538365429"/>
 </markers>
