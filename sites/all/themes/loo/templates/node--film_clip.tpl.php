@@ -184,21 +184,6 @@ if (isset($node->field_thumbnail['und'][0])){
 			</ul>
 			<div id='kettle'>
 
-
-
-
-			<?php
-			//add subject sections on page load?
-			//how to make them hidden until populated?
-			if (isset($node->field_track_events['und'])){
-			    foreach ($node->field_track_events['und'] as $index => $trackEvent){
-			        $event = field_collection_item_load($trackEvent['value']);
-			        $eventNode = node_load($event->field_event['und'][0]['nid']);
-			        $term = taxonomy_term_load($eventNode->field_subject['und'][0]['tid']);
-			        //print '<div id="' . str_replace(' ', '-', $term->name) . '"></div>';
-			    }
-			}
-			?>
 			</div>
 		</div>
 		
