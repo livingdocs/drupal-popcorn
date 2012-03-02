@@ -420,6 +420,15 @@
 			self.scrubberCanDrag = false;
 			self.volumeCanDrag = false;
 		}, false);
+
+        document.getElementById('help-link').addEventListener('click', function(event){
+            event.preventDefault();
+			jQuery.getJSON("/popcorn/19/full", function(response, textStatus, jqXHR){
+					self.controller.loadModal(response.data, {nid: 19});
+            });
+
+        }, false);
+
 	};
 
 	VideoControls.prototype.initVolumeButton = function(){
