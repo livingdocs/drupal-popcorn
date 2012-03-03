@@ -1684,6 +1684,10 @@ div.node-film-clip{
     vertical-align: top;
 }
 
+.field-collection-container .field-label{
+    display: none;
+}
+
 .field-collection-container .field-name-body{
     width: 100%;
 }
