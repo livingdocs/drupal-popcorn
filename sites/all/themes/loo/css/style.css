@@ -1680,9 +1680,12 @@ div.node-film-clip{
 
 .field-collection-container{
     width: 340px;
-    display: inline-block;
     background: rgba(25, 42, 53, 0.9);
     vertical-align: top;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    bottom: 10px;
 }
 
 .field-collection-container .field-label{
@@ -1776,3 +1779,9 @@ display: none;
 .image-wrapper .caption{
     padding: 5px;
 }
+ 
+.field-name-field-track-events h3{
+    color: #ffcd33;
+    padding: 0 20px;
+    font-family: Donatora, Georgia, serif;
+    font-size: 24px;
