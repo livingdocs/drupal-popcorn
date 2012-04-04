@@ -85,6 +85,9 @@ if (isset($node->field_thumbnail['und'][0])){
 if (!$teaser && isset($node->field_track_events['und']) && count($node->field_track_events['und'] != 0)){
     $classes .= ' has-related-content';
 }
+else{
+    hide($content['field_track_events']);
+}
 ?>
 <div id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 
