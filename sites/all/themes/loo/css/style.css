@@ -1692,7 +1692,7 @@ div.node-film-clip{
     display: none;
 }
 
-.field-collection-container .field-name-body{
+.has-related-content .field-collection-container .field-name-body{
     width: 100%;
 }
 
