@@ -1671,7 +1671,7 @@ div.node-film-clip{
     padding: 0;
 }
 
-.tbox .field-name-body{
+.tbox .has-related-content .field-name-body{
     width: 535px;
     display: inline-block;
     padding: 20px;

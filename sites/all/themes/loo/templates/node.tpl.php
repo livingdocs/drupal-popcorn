@@ -82,6 +82,9 @@ hide($content['field_thumbnail']);
 if (isset($node->field_thumbnail['und'][0])){
     $thumbnail = theme('image_style', array('style_name' => 'teaser-thumbnail', 'path' => $node->field_thumbnail['und'][0]['uri']));
 }
+if (!$teaser && isset($node->field_track_events['und']) && count($node->field_track_events['und'] != 0)){
+    $classes .= ' has-related-content';
+}
 ?>
 <div id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 
