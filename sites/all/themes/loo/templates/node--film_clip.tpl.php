@@ -181,7 +181,8 @@ if (isset($node->field_thumbnail['und'][0])){
 				<li><a href='#' id='by-subject' class='current-control'>by subject</a>
 				</li>
 				<li><a href='#' id='by-type'>by type</a></li>
-            <a href='#help' id='help-link'>Help <img src='/sites/all/themes/loo/images/help-icon.png' alt='' /></a>
+            <input type='button' id='help-link' value='Help' />
+            <!-- <a href='#help' id='help-link'>Help <img src='/sites/all/themes/loo/images/help-icon.png' alt='' /></a>-->
 			</ul>
 			<div id='kettle'>
 

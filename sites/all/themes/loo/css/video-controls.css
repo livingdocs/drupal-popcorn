@@ -101,10 +101,14 @@
 
 #help-link{
     float: right;
-	color: white;
+	color: #EAC252;
 	font-family: Arial, Helvetica, sans-serif;
-	font-size: 12px;
+	font-size: 14px;
 	font-weight: bold;
+    background: transparent url(../images/help-icon.png) right center no-repeat;
+    border: none;
+    padding: 0 23px 0 0;
+    cursor: pointer;
 }
 
 #shelf-controls li {
