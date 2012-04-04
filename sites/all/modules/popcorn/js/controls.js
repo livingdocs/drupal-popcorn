@@ -183,7 +183,7 @@
             }
             self.loading = true;
             self.catchHistory(0);
-        });
+        }, false);
         returnLink.appendChild(document.createTextNode('Return to main video'));
         var returnWrap = document.createElement('div');
         returnWrap.className = 'popcorn-return';
@@ -301,7 +301,7 @@
             }
             self.controller.loading = true;
             self.controller.catchHistory(pos);
-        });
+        }, false);
 
         wrapper.insertBefore(history.canvas, wrapper.firstChild);
         //wrapper.style.marginTop = (15 * this.historyList.length) + 'px';
@@ -368,7 +368,7 @@
 			button.type = "button";
 			button.addEventListener("click", function(){
 				self.controller.popcorn.currentTime(trigger.start);
-			});
+			}, false);
 	
 			document.getElementById("trigger-zone").appendChild(button);
 		}
@@ -535,7 +535,7 @@
                     togglePlay();
                 }
             //}
-		});
+		}, false);
 		document.getElementById('play-button').addEventListener('click', togglePlay, false);
 		this.updatePlayButton();
 		
