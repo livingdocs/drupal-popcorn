@@ -1671,11 +1671,17 @@ div.node-film-clip{
     padding: 0;
 }
 
+.tbox .has-related-content .node-teaser{
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    -ms-border-radius: 0px;
+    -o-border-radius: 0px;
+    border-radius: 0px;
+}
+
 .tbox .has-related-content .field-name-body{
     width: 535px;
-    display: inline-block;
-    padding: 20px;
-    padding-left: 15px;
+    padding: 20px 15px;
 }
 
 .field-collection-container{
@@ -1694,6 +1700,7 @@ div.node-film-clip{
 
 .has-related-content .field-collection-container .field-name-body{
     width: 100%;
+	padding: 0;
 }
 
 .field-collection-view{
@@ -1722,7 +1729,7 @@ width: 0%;
 transition: width 4s;
 height: 10px;
 background: blue;
-padding: 3px;
+margin: 3px;
 }
 
 #upload-message{

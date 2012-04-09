@@ -301,6 +301,8 @@
 	height: 5px;
 	padding: 5px 0;
 	margin: 5px;
+}
+#scrubb, #scrubb div {
 	cursor: pointer;
 }
 
