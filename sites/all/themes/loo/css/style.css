@@ -1664,6 +1664,7 @@ div.admin-panel .description {
 .node{
 	background: #F5F9E9;
 	padding: 10px;
+    position: relative;
 }
 
 div.node-film-clip{

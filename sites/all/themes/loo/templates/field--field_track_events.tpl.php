@@ -43,32 +43,33 @@
  */
 ?>
 <div class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
-      <?php if ($element['#field_name'] == 'field_track_events'): ?>
+    <?php if ($element['#field_name'] == 'field_track_events'): ?>
         <h3>Related Content</h3>
-      <?php endif; ?>
-  <?php if (!$label_hidden): ?>
-    <div class="field-label"<?php print $title_attributes; ?>><?php print $label ?>:&nbsp;</div>
-  <?php endif; ?>
-  <div class="field-items"<?php print $content_attributes; ?>>
-    <?php foreach ($items as $delta => $item): ?>
-      <?php if ($element['#field_name'] == 'field_track_events'): ?>
-        <div class="field-item <?php print $delta % 2 ? 'odd' : 'even'; ?>"<?php print $item_attributes[$delta]; ?>><?php print render($item); ?></div>
-      <?php else: ?>
-        <?php
-            if (isset($item['#node'])){
-                $node = $item['#node'];
-                $subject = taxonomy_term_load($node->field_subject['und'][0]['tid'])->name;
-                $nodeClass = "popcorn-node subject-" . str_replace(' ', '-', $subject) . " type-{$node->type}";
-        ?>
-        <div id='subject-<?php print str_replace(' ', '-', $subject);?>' class='popcorn-subject'><h2 class='popcorn-subject-heading'><?php print $subject; ?>
-            <div id='popcorn-modal-<?php print $node->nid; ?>' class='<?php print $nodeClass; ?>'>
-                <?php print render($item); ?>
-            </div>
-        </div>
-        <?php
-            }
-        ?>
-      <?php endif; ?>
-    <?php endforeach; ?>
-  </div>
+    <?php endif; ?>
+    <?php if (!$label_hidden): ?>
+        <div class="field-label"<?php print $title_attributes; ?>><?php print $label ?>:&nbsp;</div>
+    <?php endif; ?>
+    <div class="field-items"<?php print $content_attributes; ?>>
+        <?php foreach ($items as $delta => $item): ?>
+            <?php if ($element['#field_name'] == 'field_track_events'): ?>
+                <div class="field-item <?php print $delta % 2 ? 'odd' : 'even'; ?>"<?php print $item_attributes[$delta]; ?>><?php print render($item); ?></div>
+            <?php else: ?>
+                <?php
+                    if (isset($item['#node'])){
+                        $node = $item['#node'];
+                        $subject = taxonomy_term_load($node->field_subject['und'][0]['tid'])->name;
+                        $nodeClass = "popcorn-node subject-" . str_replace(' ', '-', $subject) . " type-{$node->type}";
+                ?>
+                <div id='subject-<?php print str_replace(' ', '-', $subject);?>' class='popcorn-subject'>
+                    <h2 class='popcorn-subject-heading'><?php print $subject; ?></h2>
+                    <div id='popcorn-modal-<?php print $node->nid; ?>' class='<?php print $nodeClass; ?>'>
+                        <?php print render($item); ?>
+                    </div>
+                </div>
+                <?php
+                    }
+                ?>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </div>
 </div>
