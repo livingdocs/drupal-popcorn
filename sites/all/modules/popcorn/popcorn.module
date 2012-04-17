@@ -14,8 +14,18 @@ function popcorn_node_view($node, $view_mode, $langcode){
         drupal_add_css('sites/all/modules/popcorn/js/tinybox.css');
         
         drupal_add_js('sites/all/modules/popcorn/js/controls.js');
+        
+        $showHelp = FALSE;
+        if (!isset($_COOKIE['firstVisit'])){
+            setcookie('firstVisit', 'no', mktime(0,0,0,12,31,2030));
+            $showHelp = TRUE;
+        }
+
         drupal_add_js(array(
-            'popcorn' => array('nid' => $node->nid)
+            'popcorn' => array(
+                'nid' => $node->nid,
+                'showHelp' => $showHelp,
+            )
         ), 'setting');
     }
         drupal_add_css(path_to_theme() . '/css/video-controls.css');

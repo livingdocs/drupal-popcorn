@@ -5,6 +5,12 @@
 			attach: function (context, settings) {
 				var popcorn = Popcorn('#main-player');
 				var controller = new Controller(settings.popcorn['nid'], popcorn);
+
+                if (settings.popcorn['showHelp']){
+                    jQuery.getJSON("/popcorn/19/full", function(response, textStatus, jqXHR){
+                        controller.loadModal(response.data, {nid: 19});
+                    });
+                }
 			}
 	};
 
