@@ -7,6 +7,7 @@
 				var controller = new Controller(settings.popcorn['nid'], popcorn);
 
                 if (settings.popcorn['showHelp']){
+                    popcorn.play();
                     jQuery.getJSON("/popcorn/19/full", function(response, textStatus, jqXHR){
                         controller.loadModal(response.data, {nid: 19});
                     });
