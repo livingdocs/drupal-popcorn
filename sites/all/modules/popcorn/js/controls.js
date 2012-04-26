@@ -57,6 +57,11 @@
 				self.skipTime = NaN;
 			}
 		});
+
+        document.getElementById('close-current').addEventListener('click', function(){
+            self.loading = true;
+            self.catchHistory(self.history.historyList.length - 1);
+        }, false);
 	}
 	
 	Controller.prototype.processQueuedTasks = function(){
@@ -107,6 +112,13 @@
 				type: vidData.kernels[i].type
 			});
 		}
+
+        if (this.history.historyList.length == 0){
+            document.getElementById('close-current').className = 'single';
+        }
+        else{
+            document.getElementById('close-current').className = '';
+        }
 
 		//advance the video to the previous timestamp
 		this.skipTime = vidData.currentTime;
@@ -238,13 +250,13 @@
 
 		//window.scrollTo(0, 0);
 
-		var vidWrapper = document.getElementById('main-player-wrapper');
+		var vidWrapper = document.getElementById('player-wrapper');
         
         vidWrapper.className = "transition";
 
 		var videoInt = setInterval(function(){
             clearInterval(videoInt);
-            document.getElementById('main-player-wrapper').className = "";
+            document.getElementById('player-wrapper').className = "";
 		}, 1);
 	};
 	
@@ -322,6 +334,12 @@
             }, 1);
         })(history.canvas.id, 15 * this.historyList.length);
 
+        if (this.historyList.length == 0){
+            document.getElementById('close-current').className = 'single';
+        }
+        else{
+            document.getElementById('close-current').className = '';
+        }
 
 	};
 

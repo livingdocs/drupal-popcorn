@@ -152,6 +152,7 @@ if (isset($node->field_thumbnail['und'][0])){
                             </div>
                         </video>
                     </div>
+                    <div id='close-current' class='single'></div>
                 </div>
             </div>
 

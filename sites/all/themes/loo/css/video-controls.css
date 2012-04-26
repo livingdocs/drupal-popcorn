@@ -11,7 +11,7 @@
     transition: margin-top .5s linear;
 }
 
-#main-player-wrapper {
+#player-wrapper #main-player-wrapper {
 	overflow: hidden;
 	position: relative;
     height: 100%;
@@ -25,7 +25,37 @@
     transition: top 1s linear;
 }
 
-#main-player-wrapper.transition {
+#close-current.single{
+    display: none;
+}
+
+#close-current{
+    position: absolute;
+    top: -9px;
+    right: -13px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    background: url(/sites/all/themes/loo/images/close.png) no-repeat;
+    z-index: 1000;
+    opacity: 1;
+    -webkit-transition: opacity .5s linear 1s;
+    -moz-transition: opacity .5s linear 1s;
+    -ms-transition: opacity .5s linear 1s;
+    -o-transition: opacity .5s linear 1s;
+    transition: opacity .5s linear 1s;
+}
+
+#player-wrapper.transition #close-current{
+    opacity: 0;
+    -webkit-transition: opacity 0s linear;
+    -moz-transition: opacity 0s linear;
+    -ms-transition: opacity 0s linear;
+    -o-transition: opacity 0s linear;
+    transition: opacity 0s linear;
+}
+
+#player-wrapper.transition #main-player-wrapper {
     position: absolute;
     top: 405px;
     bottom: 0;
