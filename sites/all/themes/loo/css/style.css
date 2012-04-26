@@ -1672,27 +1672,52 @@ div.node-film-clip{
     padding: 0;
 }
 
+.tbox .tinner .node {
+    -webkit-border-radius:5px;
+    -moz-border-radius:5px;
+    -ms-border-radius:5px;
+    -o-border-radius:5px;
+    border-radius:5px; 
+    border: solid 10px #f5f9e9;
+    padding: 0;
+}
+
+.tbox .tinner .node.has-related-content {
+    background-image: linear-gradient(left, #f5f9e9 0px, #f5f9e9 570px, rgba(25, 42, 53, 0.9) 570px, rgba(25, 42, 53, 0.9) 910px);
+    background-image: -webkit-linear-gradient(left, #f5f9e9 0px, #f5f9e9 570px, rgba(25, 42, 53, 0.9) 570px, rgba(25, 42, 53, 0.9) 910px);
+    background-image: -moz-linear-gradient(left, #f5f9e9 0px, #f5f9e9 570px, rgba(25, 42, 53, 0.9) 570px, rgba(25, 42, 53, 0.9) 910px);
+    background-image: -ms-linear-gradient(left, #f5f9e9 0px, #f5f9e9 570px, rgba(25, 42, 53, 0.9) 570px, rgba(25, 42, 53, 0.9) 910px);
+    background-image: -o-linear-gradient(left, #f5f9e9 0px, #f5f9e9 570px, rgba(25, 42, 53, 0.9) 570px, rgba(25, 42, 53, 0.9) 910px);
+}
+
 .tbox .has-related-content .node-teaser{
     -webkit-border-radius: 0px;
     -moz-border-radius: 0px;
     -ms-border-radius: 0px;
     -o-border-radius: 0px;
     border-radius: 0px;
+    border: none;
 }
 
 .tbox .has-related-content .field-name-body{
     width: 535px;
     padding: 20px 15px;
+    float: left;
+}
+
+.tbox .has-related-content h1{
+    width: 535px;
+    height: 50px;
+    line-height: 50px;
+    float: left;
+    margin: 15px 0 30px 0;
 }
 
 .field-collection-container{
     width: 340px;
-    background: rgba(25, 42, 53, 0.9);
     vertical-align: top;
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    bottom: 10px;
+    float: right;
+    margin-top: -95px;
 }
 
 .field-collection-container .field-label{
@@ -1702,6 +1727,7 @@ div.node-film-clip{
 .has-related-content .field-collection-container .field-name-body{
     width: 100%;
 	padding: 0;
+    float: none;
 }
 
 .field-collection-view{

@@ -105,8 +105,8 @@ else{
 	</div>
     <div class='close-kernel'></div>
 <?php else: ?>
-<h1><?php print $title; ?></h1>
 	<div class="content clearfix" <?php print $content_attributes; ?>>
+<h1><?php print $title; ?></h1>
         <?php print render($content); ?>
 	</div>
 
