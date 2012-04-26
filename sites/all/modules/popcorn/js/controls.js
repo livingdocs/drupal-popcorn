@@ -10,7 +10,7 @@
                     popcorn.play();
                     jQuery.getJSON("/popcorn/19/full", function(response, textStatus, jqXHR){
                         controller.loadModal(response.data, {nid: 19});
-                        CFInstall.check({"node":"chrome-frame-prompt","mode":"overlay","destination":"http:\/\/loo\/"});
+                        CFInstall.check({"node":"chrome-frame-prompt","mode":"overlay"});
                     });
                 }
 			}
