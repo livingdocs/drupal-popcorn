@@ -4,8 +4,21 @@ define("POPCORN_TEASER", 0);
 define("POPCORN_FULL", 1);
 define("POPCORN_KERNELS", 2);
 
+function popcorn_init(){
+    $element = array(
+        '#type' => 'html_tag',
+        '#tag' => 'meta',
+        '#attributes' => array(
+            'content' => 'chrome=1',
+            'http-equiv' => 'X-UA-Compatible',
+        ),
+    );
+    drupal_add_html_head($element, 'chrome_frame_meta_tag');
+}
+
 function popcorn_node_view($node, $view_mode, $langcode){
     if ($node->type == 'film_clip' && $view_mode == 'full'){
+        drupal_add_js('http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js', 'external');
         drupal_add_js('sites/all/libraries/popcorn-js/popcorn.js');
         drupal_add_js('sites/all/modules/popcorn/js/popcorn.drupal.js');
         drupal_add_css('modules/contextual/contextual.css');
