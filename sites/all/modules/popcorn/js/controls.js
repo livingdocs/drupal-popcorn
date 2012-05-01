@@ -610,17 +610,19 @@
 	};
 
 	VideoControls.prototype.updateScrubber = function(){
+        var percentBuffered = 0;
+        var percentPlayed = 0;
 
-		if (this.controller.popcorn.buffered().length > 0){
+		if (this.controller.buffered() != undefined && this.controller.popcorn.buffered().length > 0){
 
 			//calculate buffered
 			var percentBuffered = (this.controller.popcorn.buffered().end(0) / this.controller.popcorn.duration()) * 100;
-			//calculate played
-			var percentPlayed = (this.controller.popcorn.currentTime() / this.controller.popcorn.duration()) * 100;
-			//draw the updated scrubber
-			document.getElementById('buffered').style.width = percentBuffered + "%";
-			document.getElementById('played').style.width = percentPlayed + "%";
 		}
+        //calculate played
+        var percentPlayed = (this.controller.popcorn.currentTime() / this.controller.popcorn.duration()) * 100;
+        //draw the updated scrubber
+        document.getElementById('buffered').style.width = percentBuffered + "%";
+        document.getElementById('played').style.width = percentPlayed + "%";
 
 	};
 
