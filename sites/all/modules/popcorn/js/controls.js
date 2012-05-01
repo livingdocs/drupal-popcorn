@@ -613,7 +613,7 @@
         var percentBuffered = 0;
         var percentPlayed = 0;
 
-		if (this.controller.buffered() != undefined && this.controller.popcorn.buffered().length > 0){
+		if (this.controller.popcorn.buffered() != undefined && this.controller.popcorn.buffered().length > 0){
 
 			//calculate buffered
 			var percentBuffered = (this.controller.popcorn.buffered().end(0) / this.controller.popcorn.duration()) * 100;
