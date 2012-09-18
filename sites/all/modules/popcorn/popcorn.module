@@ -32,10 +32,12 @@ function popcorn_node_view($node, $view_mode, $langcode){
         drupal_add_js('sites/all/modules/popcorn/js/controls.js');
         
         $showHelp = FALSE;
+        /*disable auto displaying of the help dialog
         if (!isset($_COOKIE['firstVisit'])){
             setcookie('firstVisit', 'no', mktime(0,0,0,12,31,2030));
             $showHelp = TRUE;
         }
+        */
 
         drupal_add_js(array(
             'popcorn' => array(
