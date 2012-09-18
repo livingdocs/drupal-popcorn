@@ -34,7 +34,7 @@
  *   'default_filename': The filename to use when 'default_file' is set to
  *   FEATURES_DEFAULTS_CUSTOM.
  *
- *   'features_source': Boolean value for whether this component should be
+ *   'feature_source': Boolean value for whether this component should be
  *   offered as an option on the initial feature creation form.
  *
  *   'base': Optional. An alternative base key to use when calling features
@@ -54,7 +54,7 @@ function hook_features_api() {
     'mycomponent' => array(
       'default_hook' => 'mycomponent_defaults',
       'default_file' => FEATURES_DEFAULTS_INCLUDED,
-      'features_source' => TRUE,
+      'feature_source' => TRUE,
       'file' => drupal_get_path('module', 'mycomponent') .'/mycomponent.features.inc',
     ),
   );
@@ -166,7 +166,7 @@ function hook_features_export_render($module_name, $data, $export = NULL) {
     $code[] = "  \$mycomponents['{$name}'] = " . features_var_export(mycomponent_load($name)) .";";
   }
   $code[] = "return \$mycomponents;";
-  $code = implode("\n", $mycomponents);
+  $code = implode("\n", $code);
   return array('mycomponent_defaults' => $code);
 }
 
@@ -182,7 +182,7 @@ function hook_features_export_render($module_name, $data, $export = NULL) {
  * @return boolean
  *   TRUE or FALSE for whether the components were successfully reverted.
  */
-function hook_features_export_revert($module_name) {
+function hook_features_revert($module_name) {
   $mycomponents = module_invoke_all($module_name, 'mycomponent_defaults');
   if (!empty($$mycomponents)) {
     foreach ($mycomponents as $mycomponent) {
@@ -208,7 +208,7 @@ function hook_features_export_revert($module_name) {
  * @param string $module_name
  *   The name of the feature module whose components should be rebuilt.
  */
-function hook_features_export_rebuild($module_name) {
+function hook_features_rebuild($module_name) {
   $mycomponents = module_invoke_all($module_name, 'mycomponent_defaults');
   if (!empty($$mycomponents)) {
     foreach ($mycomponents as $mycomponent) {
@@ -266,6 +266,7 @@ function hook_features_pipe_COMPONENT_alter(&$pipe, $data, $export) {
  *   feature.
  *
  * The component being exported is contained in $export['component'].
+ * The module being exported contained in $export['module_name'].
  */
 function hook_features_pipe_alter(&$pipe, $data, $export) {
   if ($export['component'] == 'node' && in_array($data, 'my-node-type')) {

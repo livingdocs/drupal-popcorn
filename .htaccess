@@ -20,7 +20,7 @@ ErrorDocument 404 /index.php
 DirectoryIndex index.php index.html index.htm
 
 # Override PHP settings that cannot be changed at runtime. See
-# sites/default/default.settings.php and drupal_initialize_variables() in
+# sites/default/default.settings.php and drupal_environment_initialize() in
 # includes/bootstrap.inc for settings that can be changed at runtime.
 
 # PHP 5, Apache 1 and 2.
@@ -32,8 +32,6 @@ DirectoryIndex index.php index.html index.htm
   php_value mbstring.http_input             pass
   php_value mbstring.http_output            pass
   php_flag mbstring.encoding_translation    off
-php_value post_max_size "100M" 
-php_value upload_max_filesize "90M"
 </IfModule>
 
 # Requires mod_expires to be enabled.
@@ -131,13 +129,3 @@ php_value upload_max_filesize "90M"
     </FilesMatch>
   </IfModule>
 </IfModule>
-
-AddType video/ogg .ogv
-AddType video/mp4 .mp4
-AddType video/webm .webm
-
-<FilesMatch "\.(ttf|otf|eot|woff)$">
-    <IfModule mod_headers.c>
-        Header set Access-Control-Allow-Origin "*"
-    </IfModule>
-</FilesMatch>

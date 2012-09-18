@@ -38,6 +38,10 @@ function conditional_fields_dependencies_overview_page($bundle_name = NULL, $ent
 
   $build = array();
 
+  if (!$entity_type) {
+    $build['#attached']['library'][] = array('system', 'drupal.collapse');
+  }
+
   foreach ($entities as $entity_name => $entity_info) {
     if (!$entity_info['fieldable']) {
       continue;
@@ -54,12 +58,6 @@ function conditional_fields_dependencies_overview_page($bundle_name = NULL, $ent
         '#title' => $entity_info['label'],
         '#collapsible' => TRUE,
         '#collapsed' => TRUE,
-        '#attached' => array(
-          'js' => array(
-            'misc/form.js',
-            'misc/collapse.js',
-          ),
-        ),
         '#attributes' => array(
           'class' => array('collapsible collapsed'),
         ),
@@ -119,7 +117,7 @@ function conditional_fields_dependency_add_form($form, &$form_state, $entity_typ
     '#header' => array(
       t('Dependent'),
       t('Dependees'),
-      t('Description'),
+      array('data' => t('Description'), 'colspan' => 2),
       array('data' => t('Operations'), 'colspan' => 2),
     ),
     '#attributes' => array(
@@ -134,43 +132,64 @@ function conditional_fields_dependency_add_form($form, &$form_state, $entity_typ
     $destination = drupal_get_destination();
 
     foreach ($dependencies['dependents'] as $dependent => $dependees) {
+      uasort($dependees, '_conditional_fields_sort_dependees');
+
       $first_row = TRUE;
+      $show_AND = $show_OR = $show_XOR = TRUE;
 
       foreach ($dependees as $id => $dependency) {
         $form['table']['dependencies'][$id] = array();
+        $dependee_count = count($dependees);
 
         // Dependencies come ordered by dependent, so by adding it only to the
         // first row they will appear grouped.
         if ($first_row == TRUE) {
           $form['table']['dependencies'][$id]['dependent'] = array(
             '#markup' => $dependent,
-            '#rowspan' => count($dependees),
+            '#rowspan' => $dependee_count,
           );
 
           $first_row = FALSE;
         }
 
-        $form['table']['dependencies'][$id] += array(
+        $row = array(
           'dependee' => array(
             '#markup' => $dependency['dependee'],
           ),
-          'description' => array(
-            '#markup' => conditional_fields_dependency_description($dependency['dependee'], $dependent, $dependency['options']),
-          ),
-          'edit' => array(
-            '#type' => 'link',
-            '#title' => t('edit'),
-            '#href' => 'admin/structure/dependencies/edit/' . $id,
-            '#options' => array('query' => $destination, 'attributes' => array('title' => t('Edit dependency settings.'))),
-            '#query' => drupal_get_destination(),
-          ),
-          'delete' => array(
-            '#type' => 'link',
-            '#title' => t('delete'),
-            '#href' => 'admin/structure/dependencies/delete/' . $id,
-            '#options' => array('query' => $destination, 'attributes' => array('title' => t('Delete dependency.'))),
-          ),
         );
+
+        // To avoid clutter, collect information about groupings so we can show each
+        // operator once per dependent.
+        if ($dependee_count > 1) {
+          if (${'show_' . $dependency['options']['grouping']}) {
+            $row['group'] = array(
+              '#markup' => $dependency['options']['grouping'],
+              '#rowspan' => $dependee_count,
+            );
+            ${'show_' . $dependency['options']['grouping']} = FALSE;
+          }
+        }
+        else {
+          $row['description']['#colspan'] = 2;
+        }
+
+        $row['description']['#markup'] = conditional_fields_dependency_description($dependency['dependee'], $dependent, $dependency['options']);
+
+        $row['edit'] = array(
+          '#type' => 'link',
+          '#title' => t('edit'),
+          '#href' => 'admin/structure/dependencies/edit/' . $id,
+          '#options' => array('query' => $destination, 'attributes' => array('title' => t('Edit dependency settings.'))),
+          '#query' => drupal_get_destination(),
+        );
+        $row['delete'] = array(
+          '#type' => 'link',
+          '#title' => t('delete'),
+          '#href' => 'admin/structure/dependencies/delete/' . $id,
+          '#options' => array('query' => $destination, 'attributes' => array('title' => t('Delete dependency.'))),
+        );
+
+        $form['table']['dependencies'][$id] += $row;
       }
     }
   }
@@ -299,20 +318,15 @@ function theme_conditional_fields_table($variables) {
   // Dependencies rows.
   foreach (element_children($elements['dependencies']) as $dependency) {
     foreach (element_children($elements['dependencies'][$dependency]) as $cell_key) {
-      if ($cell_key == 'dependent') {
-        if ($elements['dependencies'][$dependency][$cell_key]['#rowspan'] == 1) {
-          $table['rows'][$dependency][] = drupal_render($elements['dependencies'][$dependency][$cell_key]);
-        }
-        else {
-          $table['rows'][$dependency][] = array(
-            'data' => drupal_render($elements['dependencies'][$dependency][$cell_key]),
-            'rowspan' => $elements['dependencies'][$dependency][$cell_key]['#rowspan'],
-          );
+      $cell = array(
+        'data' => drupal_render($elements['dependencies'][$dependency][$cell_key]),
+      );
+      foreach (array('#colspan', '#rowspan') as $row_attribute) {
+        if (isset($elements['dependencies'][$dependency][$cell_key][$row_attribute])) {
+          $cell[ltrim($row_attribute, '#')] = $elements['dependencies'][$dependency][$cell_key][$row_attribute];
         }
       }
-      else {
-        $table['rows'][$dependency][] = drupal_render($elements['dependencies'][$dependency][$cell_key]);
-      }
+      $table['rows'][$dependency][] = $cell;
     }
   }
 
@@ -320,7 +334,10 @@ function theme_conditional_fields_table($variables) {
   $table['rows'][] = array(
     drupal_render($elements['add_new_dependency']['dependent']),
     drupal_render($elements['add_new_dependency']['dependee']),
-    drupal_render($elements['add_new_dependency']['state']) . drupal_render($elements['add_new_dependency']['condition']),
+    array(
+      'data' => drupal_render($elements['add_new_dependency']['state']) . drupal_render($elements['add_new_dependency']['condition']),
+      'colspan' => 2,
+    ),
     array(
       'data' => drupal_render($elements['add_new_dependency']['actions']),
       'colspan' => 2,
@@ -337,11 +354,8 @@ function theme_conditional_fields_table($variables) {
  * @see conditional_fields_dependency_edit_form_submit()
  * @ingroup forms
  */
-function conditional_fields_dependency_edit_form($form, &$form_state, $id) {
-  if (!is_numeric($id) || !$form['#dependency'] = $dependency = conditional_fields_dependency_load_by_id($id)) {
-    drupal_access_denied();
-    drupal_exit();
-  }
+function conditional_fields_dependency_edit_form($form, &$form_state, $dependency) {
+  $form['#dependency'] = $dependency;
 
   $form['#attached']['css'][] = drupal_get_path('module', 'conditional_fields') . '/conditional_fields.css';
 
@@ -384,15 +398,16 @@ function conditional_fields_dependency_edit_form($form, &$form_state, $id) {
 
   $form['values_set'] = array(
     '#type' => 'select',
-    '#title' => t('Values'),
-    '#description' => t('The values of the dependee %field that trigger the dependency.', array('%field' => $dependee_instance['label'])),
+    '#title' => t('Values input mode'),
+    '#description' => t('The input mode of the values that trigger the dependency.'),
     '#options' => array(
       CONDITIONAL_FIELDS_DEPENDENCY_VALUES_WIDGET => t('Insert value from widget...'),
+      CONDITIONAL_FIELDS_DEPENDENCY_VALUES_REGEX => t('Regular expression...'),
       t('Set of values') => array(
-        CONDITIONAL_FIELDS_DEPENDENCY_VALUES_AND => t('All these values...'),
-        CONDITIONAL_FIELDS_DEPENDENCY_VALUES_OR  => t('Any of these values...'),
-        CONDITIONAL_FIELDS_DEPENDENCY_VALUES_XOR => t('Only one of these values...'),
-        CONDITIONAL_FIELDS_DEPENDENCY_VALUES_NOT => t('None of these values...'),
+        CONDITIONAL_FIELDS_DEPENDENCY_VALUES_AND => t('All these values (AND)...'),
+        CONDITIONAL_FIELDS_DEPENDENCY_VALUES_OR  => t('Any of these values (OR)...'),
+        CONDITIONAL_FIELDS_DEPENDENCY_VALUES_XOR => t('Only one of these values (XOR)...'),
+        CONDITIONAL_FIELDS_DEPENDENCY_VALUES_NOT => t('None of these values (NOT)...'),
         // TODO: PHP evaluation
       ),
     ),
@@ -407,8 +422,8 @@ function conditional_fields_dependency_edit_form($form, &$form_state, $id) {
 
   $form['value'] = array(
     '#type' => 'fieldset',
-    '#title' => t('Value'),
-    '#description' => t('The value that triggers the dependency.'),
+    '#title' => t('Insert value from widget'),
+    '#description' => t('The dependency is triggered when the field has exactly the same value(s) inserted in the widget below.'),
     '#states' => array(
       'visible' => array(
         ':input[name="values_set"]' => array(
@@ -424,7 +439,7 @@ function conditional_fields_dependency_edit_form($form, &$form_state, $id) {
   $form['values'] = array(
     '#type' => 'textarea',
     '#title' => t('Set of values'),
-    '#description' => t('Enter one value per line. Note that if the dependee has allowed values, these are actually the keys, not the labels, of those values.'),
+    '#description' => t('The values of the dependee %field that trigger the dependency.', array('%field' => $dependee_instance['label'])) . '<br>' . t('Enter one value per line. Note: if the dependee has allowed values, these are actually the keys, not the labels, of those values.'),
     '#default_value' => implode("\n", $dependency['options']['values']),
     '#states' => array(
       'visible' => array(
@@ -442,10 +457,47 @@ function conditional_fields_dependency_edit_form($form, &$form_state, $id) {
     ),
   );
 
-  $form['state'] = array(
+  $form['regex'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Regular expression'),
+    '#description' => t('The dependency is triggered when all the values of the dependee %field match the regular expression. The expression should be valid both in PHP and in Javascript. Do not include delimiters.', array('%field' => $dependee_instance['label'])) . '<br>' . t('Note: If the dependee has allowed values, these are actually the keys, not the labels, of those values.'),
+    '#maxlength' => 2048,
+    '#size' => 120,
+    '#default_value' => isset($dependency['options']['value']['RegExp']) ? $dependency['options']['value']['RegExp'] : '',
+    '#states' => array(
+      'visible' => array(
+        ':input[name="values_set"]' => array('value' => (string) CONDITIONAL_FIELDS_DEPENDENCY_VALUES_REGEX),
+        ':input[name="condition"]' => array('value' => 'value'),
+      ),
+      'required' => array(
+        ':input[name="values_set"]' => array('value' => (string) CONDITIONAL_FIELDS_DEPENDENCY_VALUES_REGEX),
+        ':input[name="condition"]' => array('value' => 'value'),
+      ),
+    ),
+  );
+
+  $form['grouping'] = array(
+    '#type' => 'radios',
+    '#title' => t('Interaction with other dependencies'),
+    '#description' => t('When this dependent has more than one dependee, how should this condition be evaluated against the others?') . '<br />' . t('Note that sets will be grouped this way: (ANDs) AND (ORs) AND (XORs).'),
+    '#options' => array('AND' => 'AND', 'OR' => 'OR', 'XOR' => 'XOR'),
+    '#default_value' => $dependency['options']['grouping'],
+    '#required' => TRUE,
+  );
+
+  $entity = entity_get_info($dependee_instance['entity_type']);
+
+  $form['entity_edit'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Edit context settings'),
+    '#description' => t('These settings apply when the @entity is being added or edited in a form.', array('@entity' => drupal_strtolower($entity['label']))),
+    '#collapsible' => FALSE,
+  );
+
+  $form['entity_edit']['state'] = array(
     '#type' => 'select',
     '#title' => t('Form state'),
-    '#description' => t('The form state that is applied to the dependent field when the condition is met.'),
+    '#description' => t('The Javascript form state that is applied to the dependent field when the condition is met. Note: this has no effect on server-side logic and validation.'),
     '#options' => conditional_fields_states(),
     '#default_value' => $dependency['options']['state'],
     '#required' => TRUE,
@@ -466,7 +518,7 @@ function conditional_fields_dependency_edit_form($form, &$form_state, $id) {
     }
   }
 
-  $form['effects_wrapper'] = array(
+  $form['entity_edit']['effects_wrapper'] = array(
     '#type' => 'container',
     '#attributes' => array(
       'id' => 'effects-wrapper',
@@ -476,14 +528,15 @@ function conditional_fields_dependency_edit_form($form, &$form_state, $id) {
   $effect = isset($form_state['values']['effect']) ? $form_state['values']['effect'] : $dependency['options']['effect'];
 
   if (count($effects) == 1) {
-    $form['effects_wrapper']['effect'] = array(
+    $effects_keys = array_keys($effects);
+    $form['entity_edit']['effects_wrapper']['effect'] = array(
       '#type' => 'hidden',
-      '#value' => array_shift(array_keys($effects)),
-      '#default_value' => array_shift(array_keys($effects)),
+      '#value' => array_shift($effects_keys),
+      '#default_value' => array_shift($effects_keys),
     );
   }
   elseif (count($effects) > 1) {
-    $form['effects_wrapper']['effect'] = array(
+    $form['entity_edit']['effects_wrapper']['effect'] = array(
       '#type' => 'select',
       '#title' => t('Effect'),
       '#description' => t('The effect that is applied to the dependent when its state is changed.'),
@@ -500,7 +553,7 @@ function conditional_fields_dependency_edit_form($form, &$form_state, $id) {
     );
   }
 
-  $form['effects_wrapper']['effect_options'] = array('#tree' => TRUE);
+  $form['entity_edit']['effects_wrapper']['effect_options'] = array('#tree' => TRUE);
 
   foreach ($effects_options as $effect_name => $effect_options) {
     foreach ($effect_options as $effect_option_name => $effect_option) {
@@ -522,35 +575,23 @@ function conditional_fields_dependency_edit_form($form, &$form_state, $id) {
         $effect_option['#default_value'] = $dependency['options']['effect_options'][$effect_option_name];
       }
 
-      $form['effects_wrapper']['effect_options'][$effect_name][$effect_option_name] = $effect_option;
+      $form['entity_edit']['effects_wrapper']['effect_options'][$effect_name][$effect_option_name] = $effect_option;
     }
   }
 
-  $entity = entity_get_info($dependee_instance['entity_type']);
-
-  $form['settings'] = array(
-    '#type' => 'vertical_tabs',
-  );
-
-  $form['edit_settings'] = array(
-    '#type' => 'fieldset',
-    '#group' => 'settings',
-    '#title' => t('@entity edit settings', array('@entity' => $entity['label'])),
-  );
-
-  $form['edit_settings']['element_edit_per_role'] = array(
+  $form['entity_edit']['element_edit_per_role'] = array(
     '#type' => 'checkbox',
-    '#title' => t('Activate per user role @entity edit settings', array('@entity' => strtolower($entity['label']))),
+    '#title' => t('Activate per user role settings in edit context'),
     '#description' => t('If the user has more than one role, the first matching role will be used.'),
     '#default_value' => $dependency['options']['element_edit_per_role'],
   );
 
   $behaviors = conditional_fields_behaviors();
 
-  $form['edit_settings']['element_edit'] = array(
+  $form['entity_edit']['element_edit'] = array(
     '#type' => 'checkboxes',
-    '#title' => t('@entity edit settings for all roles', array('@entity' => $entity['label'])),
-    '#description' => t('Behaviors of fields when edited in @entity forms. Only apply if the condition is Value.', array('@entity' => strtolower($entity['label']))),
+    '#title' => t('Edit context settings for all roles'),
+    '#title_display' => 'invisible',
     '#options' => $behaviors['edit'],
     '#default_value' => $dependency['options']['element_edit'],
     '#states' => array(
@@ -565,7 +606,7 @@ function conditional_fields_dependency_edit_form($form, &$form_state, $id) {
   foreach ($roles as $rid => $role) {
     $element_edit_roles['element_edit_roles'][$rid] = array(
       '#type' => 'checkboxes',
-      '#title' => t('@entity edit settings for %role', array('@entity' => $entity['label'], '%role' => $role)),
+      '#title' => t('Edit context settings for %role', array('%role' => $role)),
       '#options' => $behaviors['edit'],
       '#default_value' => isset($dependency['options']['element_edit_roles'][$rid]) ? $dependency['options']['element_edit_roles'][$rid] : $dependency['options']['element_edit'],
       '#states' => array(
@@ -576,25 +617,48 @@ function conditional_fields_dependency_edit_form($form, &$form_state, $id) {
     );
   }
 
-  array_push($form['edit_settings'], $element_edit_roles);
+  array_push($form['entity_edit'], $element_edit_roles);
 
-  $form['view_settings'] = array(
+  $form['entity_edit']['dependency_advanced'] = array(
     '#type' => 'fieldset',
-    '#group' => 'settings',
-    '#title' => t('@entity view settings', array('@entity' => $entity['label'])),
+    '#title' => t('Advanced edit context settings', array('@entity' => drupal_strtolower($entity['label']))),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
   );
 
-  $form['view_settings']['element_view_per_role'] = array(
+  $selector_description = t('Only use if you know what you are doing, otherwise leave the field empty to let the dependency use an automatically generated selector.');
+  $selector_description .= '<br />' . t('You can use the following placeholders:');
+  $selector_description .= "<ul>\n";
+  $selector_description .= '<li>' . t('%lang: current language of the field.') . "</li>\n";
+  $selector_description .= '<li>' . t('%key: part identifier for fields composed of multiple form elements, like checkboxes.') . "</li>\n";
+  $selector_description .= '</ul>';
+
+  $form['entity_edit']['dependency_advanced']['selector'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Custom jQuery selector for dependee'),
+    '#description' => $selector_description,
+    '#default_value' => $dependency['options']['selector'],
+  );
+
+  $form['entity_view'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('View context settings'),
+    '#description' => t('These settings apply when the @entity is viewed.', array('@entity' => drupal_strtolower($entity['label']))),
+    '#collapsible' => FALSE,
+  );
+
+  $form['entity_view']['element_view_per_role'] = array(
     '#type' => 'checkbox',
-    '#title' => t('Activate per user role @entity view settings', array('@entity' => strtolower($entity['label']))),
+    '#title' => t('Activate per user role settings in view context'),
     '#description' => t('If the user has more than one role, the first matching role will be used.'),
     '#default_value' => $dependency['options']['element_view_per_role'],
   );
 
-  $form['view_settings']['element_view'] = array(
+  $form['entity_view']['element_view'] = array(
     '#type' => 'checkboxes',
-    '#title' => t('@entity view settings for all roles', array('@entity' => $entity['label'])),
-    '#description' => t('Behaviors of fields when shown in content. Only apply if the condition is Value.'),
+    '#title' => t('View context settings for all roles'),
+    '#title_display' => 'invisible',
+    '#description' => t('Note: Options that need to evaluate if the dependency is triggered only apply if the condition is "Value".'),
     '#options' => $behaviors['view'],
     '#default_value' => $dependency['options']['element_view'],
     '#states' => array(
@@ -608,7 +672,7 @@ function conditional_fields_dependency_edit_form($form, &$form_state, $id) {
   foreach ($roles as $rid => $role) {
     $element_view_roles['element_view_roles'][$rid] = array(
       '#type' => 'checkboxes',
-      '#title' => t('@entity view settings for %role', array('@entity' => $entity['label'], '%role' => $role)),
+      '#title' => t('View context settings for %role', array('%role' => $role)),
       '#options' => $behaviors['view'],
       '#default_value' => isset($dependency['options']['element_view_roles'][$rid]) ? $dependency['options']['element_view_roles'][$rid] : $dependency['options']['element_view'],
       '#states' => array(
@@ -619,38 +683,7 @@ function conditional_fields_dependency_edit_form($form, &$form_state, $id) {
     );
   }
 
-  array_push($form['view_settings'], $element_view_roles);
-
-  $form['dependency_advanced'] = array(
-    '#type' => 'fieldset',
-    '#group' => 'settings',
-    '#title' => t('Advanced dependency settings'),
-  );
-
-  $selector_description = t('Only use if you know what you are doing, otherwise leave the field empty to let the dependency use an automatically generated selector.');
-  $selector_description .= '<br />' . t('You can use the following placeholders:');
-  $selector_description .= "<ul>\n";
-  $selector_description .= '<li>' . t('%lang: current language of the field.') . "</li>\n";
-  $selector_description .= '<li>' . t('%key: part identifier for fields composed of multiple form elements, like checkboxes.') . "</li>\n";
-  $selector_description .= '</ul>';
-
-  $form['dependency_advanced']['selector'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Custom jQuery selector for dependee'),
-    '#description' => $selector_description,
-    '#default_value' => $dependency['options']['selector'],
-  );
-
-  /* TODO: Add OR and XOR to multiple dependencies on same dependent field
-  $form['grouping'] = array(
-    '#type' => 'radios',
-    '#title' => t('Interaction with other dependencies'),
-    '#description' => t('When the field [dependent] depends from fields other than [dependee], how should this set of conditions be evaluated against the others? Note that sets will be grouped this way: (ANDs) AND (ORs) AND (XORs).'),
-    '#options' => array('AND', 'OR', 'XOR'),
-    '#default_value' => $dependency['options']['grouping'],
-    '#required' => TRUE,
-  );
-  */
+  array_push($form['entity_view'], $element_view_roles);
 
   $form['actions'] = array(
     '#type' => 'actions',
@@ -675,8 +708,13 @@ function conditional_fields_dependency_edit_form($form, &$form_state, $id) {
  * @see conditional_fields_dependency_edit_form()
  */
 function conditional_fields_dependency_edit_form_validate($form, &$form_state) {
-  if ($form_state['values']['condition'] == 'value' && $form_state['values']['values_set'] != CONDITIONAL_FIELDS_DEPENDENCY_VALUES_WIDGET && drupal_strlen(trim($form_state['values']['values'])) == 0) {
-    form_set_error('values', t('!name field is required.', array('!name' => t('Set of values'))));
+  if ($form_state['values']['condition'] == 'value') {
+    if (in_array($form_state['values']['values_set'], array(CONDITIONAL_FIELDS_DEPENDENCY_VALUES_AND, CONDITIONAL_FIELDS_DEPENDENCY_VALUES_OR, CONDITIONAL_FIELDS_DEPENDENCY_VALUES_XOR, CONDITIONAL_FIELDS_DEPENDENCY_VALUES_NOT)) && drupal_strlen(trim($form_state['values']['values'])) == 0) {
+      form_set_error('values', t('!name field is required.', array('!name' => t('Set of values'))));
+    }
+    elseif ($form_state['values']['values_set'] == CONDITIONAL_FIELDS_DEPENDENCY_VALUES_REGEX && drupal_strlen(trim($form_state['values']['regex'])) == 0) {
+      form_set_error('regex', t('!name field is required.', array('!name' => t('Regular expression'))));
+    }
   }
 }
 
@@ -699,6 +737,7 @@ function conditional_fields_dependency_edit_form_submit($form, &$form_state) {
     'options'   => array(
       'state'                 => $form_state['values']['state'],
       'condition'             => $form_state['values']['condition'],
+      'grouping'              => $form_state['values']['grouping'],
       'effect'                => isset($form_state['values']['effect']) ? $form_state['values']['effect'] : FALSE,
       'effect_options'        => isset($form_state['values']['effect'], $form_state['values']['effect_options'][$form_state['values']['effect']]) ? $form_state['values']['effect_options'][$form_state['values']['effect']] : array(),
       'element_view'          => $form_state['values']['element_view'],
@@ -726,6 +765,13 @@ function conditional_fields_dependency_edit_form_submit($form, &$form_state) {
       field_default_extract_form_values(NULL, NULL, array('field_name' => $dependee), NULL, LANGUAGE_NONE, $value, $form['value']['field'], $form_state);
       $dependency['options']['value'] = $value;
     }
+    elseif ($dependency['options']['values_set'] == CONDITIONAL_FIELDS_DEPENDENCY_VALUES_REGEX) {
+      // The regular expression is inserted in an associative array, so it will
+      // be converted to a Javascript object.
+      // In states_enhancements.js we will then use the "RegExp" key to
+      // distinguish the object and evaluate it as a regular expression.
+      $dependency['options']['value'] = array('RegExp' => $form_state['values']['regex']);
+    }
     else {
       $values = explode("\n", $form_state['values']['values']);
       $values = array_map('trim', $values);
@@ -742,24 +788,20 @@ function conditional_fields_dependency_edit_form_submit($form, &$form_state) {
  * Ajax callback for effects list.
  */
 function conditional_fields_ajax_admin_state_callback($form, &$form_state) {
-  return $form['effects_wrapper'];
+  return $form['entity_edit']['effects_wrapper'];
 }
 
 /**
  * Confirm form for the deletion of a dependency.
  */
 function conditional_fields_dependency_delete_form($form, $form_state, $dependency) {
-  if (!is_numeric($dependency)) {
-    drupal_access_denied();
-  }
-
   $destination = drupal_get_destination();
 
   return confirm_form(
     array(
     'dependency' => array(
       '#type' => 'value',
-      '#value' => $dependency,
+      '#value' => $dependency['id'],
     ),
   ),
     t('Are you sure you want to delete this dependency?'),
@@ -775,4 +817,15 @@ function conditional_fields_dependency_delete_form($form, $form_state, $dependen
  */
 function conditional_fields_dependency_delete_form_submit($form, &$form_state) {
   conditional_fields_dependency_delete(array($form_state['values']['dependency']));
+  drupal_set_message(t('The dependency has been deleted.'));
+}
+
+/**
+ * Uasort callback; sorts dependencies by group operator and dependee name.
+ */
+function _conditional_fields_sort_dependees($a, $b) {
+  if ($a['options']['grouping'] == $b['options']['grouping']) {
+    return strcasecmp($a['dependee'], $b['dependee']);
+  }
+  return strcasecmp($a['options']['grouping'], $b['options']['grouping']);
 }

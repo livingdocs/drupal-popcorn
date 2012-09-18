@@ -34,6 +34,11 @@ define('CONDITIONAL_FIELDS_DEPENDENCY_VALUES_XOR', 4);
 define('CONDITIONAL_FIELDS_DEPENDENCY_VALUES_NOT', 5);
 
 /**
+ * Dependency is triggered if the dependee values match a regular expression.
+ */
+define('CONDITIONAL_FIELDS_DEPENDENCY_VALUES_REGEX', 6);
+
+/**
  * Field view setting. Dependent is shown only if the dependency is triggered.
  */
 define('CONDITIONAL_FIELDS_FIELD_VIEW_EVALUATE', 1);
@@ -77,12 +82,6 @@ define('CONDITIONAL_FIELDS_FIELD_EDIT_HIDE_UNTRIGGERED_ORPHAN', 2);
  */
 define('CONDITIONAL_FIELDS_FIELD_EDIT_RESET_UNTRIGGERED', 3);
 
-/* TODO: Grouping
-define('CONDITIONAL_FIELDS_GROUPING_AND', 0);
-define('CONDITIONAL_FIELDS_GROUPING_OR',  1);
-define('CONDITIONAL_FIELDS_GROUPING_XOR', 2);
- */
-
 /**
  * Implements hook_permission().
  */
@@ -121,7 +120,7 @@ function conditional_fields_menu() {
     'weight' => 1,
   );
 
-  $items['admin/structure/dependencies/edit/%'] = array(
+  $items['admin/structure/dependencies/edit/%conditional_fields_dependency'] = array(
     'title' => 'Edit dependency',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('conditional_fields_dependency_edit_form', 4),
@@ -129,7 +128,7 @@ function conditional_fields_menu() {
     'file' => 'includes/conditional_fields.admin.inc',
   );
 
-  $items['admin/structure/dependencies/delete/%'] = array(
+  $items['admin/structure/dependencies/delete/%conditional_fields_dependency'] = array(
     'title' => 'Delete dependency',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('conditional_fields_dependency_delete_form', 4),
@@ -204,11 +203,11 @@ function conditional_fields_forms() {
  * Implements hook_js_alter().
  *
  * Overrides core states API with a patched version that allows multiple
- * conditions and OR/XOR logic. Ongoing development at:
- * http://drupal.org/node/735528
+ * conditions and OR/XOR logic.
  */
 function conditional_fields_js_alter(&$javascript) {
-  if (isset($javascript['misc/states.js'])) {
+  // Since Drupal 7.14, states.js includes the OR/XOR patch.
+  if (isset($javascript['misc/states.js']) && version_compare(VERSION, '7.14', '<')) {
     $javascript['misc/states.js']['data'] = drupal_get_path('module', 'conditional_fields') . '/js/states.js';
   }
 }
@@ -232,16 +231,6 @@ function conditional_fields_element_info_alter(&$types) {
  * - Field dependencies data.
  */
 function conditional_fields_element_after_build($element, &$form_state) {
-  // Ensure that the form being built is an entity.
-  if (!isset($form_state['complete form']['#entity_type'], $form_state['complete form']['#bundle'])) {
-    return $element;
-  }
-
-  // Avoid processing fields in fields_ui administration pages.
-  if (drupal_substr($form_state['complete form']['#form_id'], 0, 9) == 'field_ui_') {
-    return $element;    
-  }
-
   // Ensure that the element is a field.
   if (isset($element['#field_name'])) {
     $field = $element;
@@ -254,17 +243,27 @@ function conditional_fields_element_after_build($element, &$form_state) {
     return $element;
   }
 
+  $form = &$form_state['complete form'];
+
+  // Avoid processing fields in fields_ui administration pages.
+  if (drupal_substr($form['#form_id'], 0, 9) == 'field_ui_') {
+    return $element;
+  }
+
   // Some fields do not have entity type and bundle properties. In this case we
   // try to use the properties from the form. This is not an optimal solution,
-  // since in case of fields in entities within entities they won't correspond,
+  // since in case of fields in entities within entities they might not correspond,
   // and their dependencies will not be loaded.
-  if (!isset($field['#entity_type'], $field['#bundle'])) {
-    $entity_type = $form_state['complete form']['#entity_type'];
-    $bundle = $form_state['complete form']['#bundle'];
+  if (isset($field['#entity_type'], $field['#bundle'])) {
+    $entity_type = $field['#entity_type'];
+    $bundle = $field['#bundle'];
+  }
+  elseif (isset($form['#entity_type'], $form['#bundle'])) {
+    $entity_type = $form['#entity_type'];
+    $bundle = $form['#bundle'];
   }
   else {
-    $entity_type = $field['#entity_type'];
-    $bundle = $field['#bundle'];    
+    return $element;
   }
 
   $dependencies = conditional_fields_load_dependencies($entity_type, $bundle);
@@ -276,17 +275,20 @@ function conditional_fields_element_after_build($element, &$form_state) {
   // Attach dependent.
   if (isset($dependencies['dependents'][$field['#field_name']])) {
     foreach ($dependencies['dependents'][$field['#field_name']] as $id => $dependency) {
-      if (!isset($form_state['complete form']['#conditional_fields'][$field['#field_name']]['dependees'][$id])) {
-        conditional_fields_attach_dependency($form_state['complete form'], array('#field_name' => $dependency['dependee']), $field, $dependency['options'], $id);
+      if (!isset($form['#conditional_fields'][$field['#field_name']]['dependees'][$id])) {
+        conditional_fields_attach_dependency($form, array('#field_name' => $dependency['dependee']), $field, $dependency['options'], $id);
       }
     }
   }
 
   // Attach dependee.
+  // TODO: collect information about every element of the dependee widget, not
+  // just the first encountered. This bottom-up approach would allow us to
+  // define per-element sets of dependency values.
   if (isset($dependencies['dependees'][$field['#field_name']])) {
     foreach ($dependencies['dependees'][$field['#field_name']] as $id => $dependency) {
-      if (!isset($form_state['complete form']['#conditional_fields'][$field['#field_name']]['dependents'][$id])) {
-        conditional_fields_attach_dependency($form_state['complete form'], $field, array('#field_name' => $dependency['dependent']), $dependency['options'], $id);
+      if (!isset($form['#conditional_fields'][$field['#field_name']]['dependents'][$id])) {
+        conditional_fields_attach_dependency($form, $field, array('#field_name' => $dependency['dependent']), $dependency['options'], $id);
       }
     }
   }
@@ -309,7 +311,7 @@ function conditional_fields_element_after_build($element, &$form_state) {
  * @param $dependent
  *   The dependent field form element. Either a string identifying the element
  *   key in the form, or a fully built field array. Actually used properties of
- *   the array are #field_name and #parents.
+ *   the array are #field_name and #field_parents.
  * @param $options
  *   An array of dependency options with the following key/value pairs:
  *   - state: The state applied to the dependent when the dependency is
@@ -340,7 +342,7 @@ function conditional_fields_element_after_build($element, &$form_state) {
  *   - effect: The jQuery effect associated to the state change. See
  *     conditional_fields_effects() for available effects and options.
  *   - effect_options: The options for the active effect.
- *   - element_view: An associative array of field view behaviors with 
+ *   - element_view: An associative array of field view behaviors with
  *     CONDITIONAL_FIELDS_FIELD_VIEW_* constants as keys and the same constants
  *     as values for enabled behaviors and 0 for disabled behaviors.
  *     See conditional_fields_behaviors() for descriptions.
@@ -348,7 +350,7 @@ function conditional_fields_element_after_build($element, &$form_state) {
  *   - element_view_roles: An associative array of field view settings per role
  *     where the keys are role ids and the values are arrays with the same
  *     structure of 'element_view'.
- *   - element_edit: An associative array of field edit behaviors with 
+ *   - element_edit: An associative array of field edit behaviors with
  *     CONDITIONAL_FIELDS_FIELD_EDIT_* constants as keys and the same constants
  *     as values for enabled behaviors and 0 for disabled behaviors.
  *     See conditional_fields_behaviors() for descriptions.
@@ -377,8 +379,8 @@ function conditional_fields_attach_dependency(&$form, $dependee, $dependent, $op
         '#parents'    => array($dependee),
       );
       $dependent = array(
-        '#field_name' => $dependent,
-        '#parents'    => array($dependent),
+        '#field_name'    => $dependent,
+        '#field_parents' => array($dependent),
       );
 
       // Custom dependencies have automatically assigned a progressive id.
@@ -392,6 +394,8 @@ function conditional_fields_attach_dependency(&$form, $dependee, $dependent, $op
   }
 
   // Attach dependee.
+  // Use the #parents property of the dependee instead of #field_parents since
+  // we will need access to the full structure of the widget.
   if (isset($dependee['#parents'])) {
     $form['#conditional_fields'][$dependee['#field_name']]['parents'] = $dependee['#parents'];
     $form['#conditional_fields'][$dependee['#field_name']]['dependents'][$id] = array(
@@ -401,8 +405,14 @@ function conditional_fields_attach_dependency(&$form, $dependee, $dependent, $op
   }
 
   // Attach dependent.
-  if (isset($dependent['#parents'])) {
-    $form['#conditional_fields'][$dependent['#field_name']]['parents'] = $dependent['#parents'];
+  if (isset($dependent['#field_parents'])) {
+    $dependent_parents = $dependent['#field_parents'];
+  }
+  elseif (isset($dependent['#parents'])) {
+    $dependent_parents = $dependent['#parents'];
+  }
+  if (isset($dependent_parents)) {
+    $form['#conditional_fields'][$dependent['#field_name']]['field_parents'] = $dependent_parents;
     $form['#conditional_fields'][$dependent['#field_name']]['dependees'][$id] = array(
       'dependee' => $dependee['#field_name'],
       'options'  => $options,
@@ -410,17 +420,20 @@ function conditional_fields_attach_dependency(&$form, $dependee, $dependent, $op
   }
 
   // Actual processing is done in conditional_fields_form_after_build().
-  _conditional_fields_element_add_property($form, '#after_build', 'conditional_fields_form_after_build');
+  // Append the property so the callback runs last.
+  _conditional_fields_element_add_property($form, '#after_build', 'conditional_fields_form_after_build', 'append');
 }
 
 /**
- * Builds and attaches #states properties to dependent fields, processes
- * required dependent fields and adds additional visual effects handling to
- * the States API.
+ * after_build callback for forms with dependencies.
+ *
+ * Builds and attaches #states properties to dependent fields, adds additional
+ * visual effects handling to the States API and attaches a validation callback
+ * to the form that handles validation of dependent fields.
  */
-function conditional_fields_form_after_build($form, $form_state) {
+function conditional_fields_form_after_build($form, &$form_state) {
   // Dependencies data is attached in conditional_fields_element_after_build().
-  if (!isset($form['#conditional_fields'])) {
+  if (empty($form['#conditional_fields'])) {
     return $form;
   }
 
@@ -431,14 +444,21 @@ function conditional_fields_form_after_build($form, $form_state) {
   foreach ($form['#conditional_fields'] as $dependent => $dependent_info) {
     $states = array();
 
-    if (!isset($dependent_info['dependees'])) {
+    if (empty($dependent_info['dependees'])) {
       continue;
     }
 
-    $dependent_form_field = drupal_array_get_nested_value($form, $dependent_info['parents']);
+    $dependent_location = array_merge($dependent_info['field_parents'], array($dependent));
+    $dependent_form_field = drupal_array_get_nested_value($form, $dependent_location);
 
+    // Cycle the dependant's dependees.
     foreach ($dependent_info['dependees'] as $dependency) {
       $dependee = $dependency['dependee'];
+
+      if (empty($form['#conditional_fields'][$dependee])) {
+        continue;
+      }
+
       $dependee_info = $form['#conditional_fields'][$dependee];
       $dependee_form_field = drupal_array_get_nested_value($form, $dependee_info['parents']);
       $options = $dependency['options'];
@@ -451,28 +471,31 @@ function conditional_fields_form_after_build($form, $form_state) {
       }
 
       // Determine if the dependee is in the form.
-      if (!$dependee_form_field) {
+      if (empty($dependee_form_field) || (isset($dependee_form_field['#access']) && $dependee_form_field['#access'] == FALSE)) {
         // Apply orphan dependent behaviors.
+        /*
         if (in_array(CONDITIONAL_FIELDS_FIELD_EDIT_HIDE_UNTRIGGERED_ORPHAN, $behaviors)) {
           // TODO
-          /*
           $is_triggered = TRUE;
 
           if ($is_orphan && !$is_triggered) {
             $form[$dependent]['#access'] = FALSE;
           }
-          */
         }
+        */
         if (in_array(CONDITIONAL_FIELDS_FIELD_EDIT_HIDE_ORPHAN, $behaviors)) {
           $dependent_form_field['#access'] = FALSE;
         }
+        unset($behaviors[CONDITIONAL_FIELDS_FIELD_EDIT_HIDE_UNTRIGGERED_ORPHAN]);
+        unset($behaviors[CONDITIONAL_FIELDS_FIELD_EDIT_HIDE_ORPHAN]);
         continue;
       }
 
-      unset($behaviors[CONDITIONAL_FIELDS_FIELD_EDIT_HIDE_ORPHAN]);
       unset($behaviors[CONDITIONAL_FIELDS_FIELD_EDIT_HIDE_UNTRIGGERED_ORPHAN]);
+      unset($behaviors[CONDITIONAL_FIELDS_FIELD_EDIT_HIDE_ORPHAN]);
 
       // Build a jQuery selector if it was not overridden by a custom value.
+      // Note that this may be overridden later by a state handler.
       if (!$options['selector']) {
         $options['selector'] = conditional_fields_field_selector($dependee_form_field);
       }
@@ -491,6 +514,9 @@ function conditional_fields_form_after_build($form, $form_state) {
 
         if ($options['values_set'] == CONDITIONAL_FIELDS_DEPENDENCY_VALUES_WIDGET) {
           $values[$options['condition']] = $options['value_form'];
+        }
+        elseif ($options['values_set'] == CONDITIONAL_FIELDS_DEPENDENCY_VALUES_REGEX) {
+          $values[$options['condition']] = $options['value'];
         }
         elseif ($options['values_set'] == CONDITIONAL_FIELDS_DEPENDENCY_VALUES_AND) {
           $values[$options['condition']] = count($options['values']) == 1 ? $options['values'][0] : $options['values'];
@@ -512,7 +538,6 @@ function conditional_fields_form_after_build($form, $form_state) {
         }
 
         $state = array($options['state'] => array($options['selector'] => $values));
-
         $dependee_form_state = isset($dependee_form_field['#field_parents'], $dependee_form_field['#field_name'], $dependee_form_field['#language']) ? field_form_get_state($dependee_form_field['#field_parents'], $dependee_form_field['#field_name'], $dependee_form_field['#language'], $form_state) : NULL;
 
         // Execute special handler for fields that need further processing.
@@ -524,42 +549,42 @@ function conditional_fields_form_after_build($form, $form_state) {
           }
         }
 
-        // Manage required dependent fields.
-        // Validation of required fields is hard coded in _form_validate(), so we
-        // must mark these fields as not required if we want to do a conditional
-        // validation. When the form is submitted, we will check if the dependency
-        // was triggered and only then revalidate the field with the #required
-        // property restored.
-        if (isset($dependent_form_field['#required']) && $dependent_form_field['#required'] == TRUE) {
-          $dependent_form_field['#required'] = FALSE;
-
-          // Add validation callback to element.
-          _conditional_fields_element_add_property($dependent_form_field, '#element_validate', 'conditional_fields_required_dependent_validate');
-
-          // Add pre render callback to element.
-          _conditional_fields_element_add_property($dependent_form_field, '#pre_render', 'conditional_fields_required_dependent_pre_render');
-        }
-
-        // Apply reset dependent to default if untriggered behavior.
-        if (in_array(CONDITIONAL_FIELDS_FIELD_EDIT_RESET_UNTRIGGERED, $behaviors)) {
-          // Add validation callback to element.
-          _conditional_fields_element_add_property($dependent_form_field, '#element_validate', 'conditional_fields_behaviors_reset_default_validate');
-
-          unset($behaviors[CONDITIONAL_FIELDS_FIELD_EDIT_RESET_UNTRIGGERED]);
-        }
+        // Add validation callback to element.
+        _conditional_fields_element_add_property($dependent_form_field, '#element_validate', 'conditional_fields_dependent_validate', 'append');
       }
 
-      // Merge this dependency with the states array.
-      $states = array_merge_recursive($states, $state);
+      // Add the $state into the correct logic group in $states.
+      foreach ($state as $key => $constraints) {
+        if (empty($states[$key][$options['grouping']])) {
+          $states[$key][$options['grouping']] = $constraints;
+        }
+        else {
+          $states[$key][$options['grouping']] = array_merge($states[$key][$options['grouping']], $constraints);
+        }
+      }
 
       // Build effect settings for effects with options.
       // TODO: add dependee key to allow different effects on the same selector.
       if ($options['effect'] && $options['effect'] != 'show') {
-        $selector = conditional_fields_field_selector(drupal_array_get_nested_value($form, array($dependent_info['parents'][0])));
+        $selector = conditional_fields_field_selector(drupal_array_get_nested_value($form, array($dependent_location[0])));
+        // Convert numeric strings to numbers.
+        foreach ($options['effect_options'] as &$effect_option) {
+          if (is_numeric($effect_option)) {
+            $effect_option += 0;
+          }
+        }
         $effects[$selector] = array(
           'effect' => $options['effect'],
-          'options' => $options['effect_options']
+          'options' => $options['effect_options'],
         );
+      }
+
+      // Apply reset dependent to default if untriggered behavior.
+      if (in_array(CONDITIONAL_FIELDS_FIELD_EDIT_RESET_UNTRIGGERED, $behaviors)) {
+        // Add property to element so conditional_fields_dependent_validate() can
+        // pick it up.
+        $dependent_form_field['#conditional_fields_reset_if_untriggered'] = TRUE;
+        unset($behaviors[CONDITIONAL_FIELDS_FIELD_EDIT_RESET_UNTRIGGERED]);
       }
     }
 
@@ -567,24 +592,64 @@ function conditional_fields_form_after_build($form, $form_state) {
     if (!empty($behaviors)) {
       foreach ($behaviors as $behavior) {
         // Custom behaviors are callbacks.
-        $$behavior('edit', $form, $form_state, $dependent, $dependencies);
+        if (function_exists($$behavior)) {
+          $$behavior('edit', $form, $form_state, $dependent, $dependencies);
+        }
       }
     }
-
     unset($behaviors);
 
-    // Save the modified field back into the form.
-    drupal_array_set_nested_value($form, $dependent_info['parents'], $dependent_form_field);
+    if (empty($states)) {
+      continue;
+    }
 
-    // Add the #states property to the dependent field's outermost container.
-    $dependent_parents = isset($dependent_form_field['#field_parents']) ? $dependent_form_field['#field_parents'] : array();
-    $dependent_container = array_slice($dependent_info['parents'], 0, count($dependent_parents) + 1);
-    drupal_array_set_nested_value($form, array_merge($dependent_container, array('#states')), $states);
+    // Save the modified field back into the form.
+    drupal_array_set_nested_value($form, $dependent_location, $dependent_form_field);
+
+    // Map the states based on the conjunctions.
+    $states_new = array();
+    foreach ($states as $state_key => $value) {
+      // As the main object is ANDed together we can add the AND items directly.
+      if (!empty($states[$state_key]['AND'])) {
+        $states_new[$state_key] = $states[$state_key]['AND'];
+      }
+      // The OR and XOR groups are moved into a sub-array that has numeric keys
+      // so that we get a JSON array and not an object, as required by the States
+      // API for OR and XOR groupings.
+      if (!empty($states[$state_key]['OR'])) {
+        $or = array();
+        foreach ($states[$state_key]['OR'] as $constraint_key => $constraint_value) {
+          $or[] = array($constraint_key => $constraint_value);
+        }
+        // '1' as a string so that we get an object (which means logic groups 
+        // are ANDed together).
+        $states_new[$state_key]['1'] = $or;
+      }
+      if (!empty($states[$state_key]['XOR'])) {
+        $xor = array('xor');
+        foreach ($states[$state_key]['XOR'] as $constraint_key => $constraint_value) {
+          $xor[] = array($constraint_key => $constraint_value);
+        }
+        // '2' as a string so that we get an object.
+        $states_new[$state_key]['2'] = $xor;
+      }
+    }
+    $states = $states_new;
+
+    // Add the #states property to the dependent field.
+    drupal_array_set_nested_value($form, array_merge($dependent_location, array('#states')), $states);
+
+    $has_states = TRUE;
   }
+
+  if (empty($has_states)) {
+    return $form;
+  }
+
+  $form['#attached']['js'][] = drupal_get_path('module', 'conditional_fields') . '/js/conditional_fields.js';
 
   // Add effect settings to the form.
   if ($effects) {
-    $form['#attached']['js'][] = drupal_get_path('module', 'conditional_fields') . '/js/conditional_fields.effect.js';
     $form['#attached']['js'][] = array(
       'data' => array(
         'conditionalFields' => array(
@@ -595,96 +660,186 @@ function conditional_fields_form_after_build($form, $form_state) {
     );
   }
 
+  // Validation callback to manage dependent fields validation.
+  $form['#validate'][] = 'conditional_fields_form_validate';
+  // Initialize validation information every time the form is rendered to avoid
+  // stale data after a failed submission.
+  $form_state['conditional_fields_untriggered_dependents'] = array();
+
   return $form;
 }
 
 /**
- * Helper function to add a property/value pair to a form element safely.
- * The property is assumed to be an array and the value will be prepended to any
- * pre-existing value for that property.
+ * Dependent field validation callback.
+ *
+ * If the dependencies of a dependent field are not triggered, the validation
+ * errors that it might have thrown must be removed, together with its submitted
+ * values. This will simulate the field not being present in the form at all.
+ * In this field-level callback we just collect needed information and store it
+ * in $form_state. Values and errors will be removed in a single sweep in
+ * conditional_fields_form_validate(), which runs at the end of the validation
+ * cycle.
+ *
+ * @see conditional_fields_form_validate()
  */
-function _conditional_fields_element_add_property(&$element, $property, $value) {
-  if (isset($element[$property])) {
-    if (in_array($value, $element[$property])) {
-      return;      
-    }
-    $element[$property] = array_merge((array) $value, $element[$property]);
-  }
-  else {
-    // Avoid overriding default element properties that might not yet be set.
-    $property_default = isset($element['#type']) ? element_info_property($element['#type'], $property, array()) : array();
-    $element[$property] = array_merge((array) $value, $property_default);
-  }
-}
+function conditional_fields_dependent_validate($element, &$form_state, $form) {
+  $dependent = $element[$element['#language']];
 
-/**
- * Validate conditionally required dependent fields.
- */
-function conditional_fields_required_dependent_validate($elements, $form_state, $form) {
-  // Check if field was left empty.
-  $is_empty_multiple = (!count($elements['#value']));
-  $is_empty_string = (is_string($elements['#value']) && drupal_strlen(trim($elements['#value'])) == 0);
-  $is_empty_value = ($elements['#value'] === 0);
-  $is_empty_single_select = ($elements['#type'] == 'select' && $elements['#multiple'] == FALSE && $elements['#value'] == '_none');
-  if (!($is_empty_multiple || $is_empty_string || $is_empty_value || $is_empty_single_select)) {
+  // Check if this field's dependencies were triggered.
+  if (conditional_fields_evaluate_dependencies($dependent, $form, $form_state)) {
     return;
   }
 
-  // Check if the dependency was triggered.
-  $is_triggered = conditional_fields_evaluate_dependencies($elements['#field_name'], $form, $form_state);
+  // Mark submitted values for removal. We have to remove the after all fields
+  // have been validated to avoid collision between dependencies.
+  $form_state_addition['parents'] = $dependent['#array_parents'];
 
-  if ($is_triggered) {
-    if (isset($elements['#title'])) {
-      form_error($elements, t('!name field is required.', array('!name' => $elements['#title'])));
+
+  // Optional behavior: reset the field to its default values.
+  // Default values are always valid, so it's safe to skip validation.
+  if (!empty($element['#conditional_fields_reset_if_untriggered'])) {
+    $form_state_addition['reset'] = TRUE;
+  }
+
+  // Tag validation errors previously set on this field for removal in
+  // conditional_fields_form_validate().
+  $errors = form_get_errors();
+
+  if ($errors) {
+    $error_key = implode('][', $dependent['#parents']);
+    foreach ($errors as $name => $error) {
+      // An error triggered by this field might have been set on a descendant
+      // element. This also means that so there can be multiple errors on the
+      // same field (even though Drupal doesn't support multiple errors on the
+      // same element).
+      if (strpos($name, $error_key) === 0) {
+        $field_errors[$name] = $error;
+      }
+    }
+  }
+
+  if (!empty($field_errors)) {
+    $form_state_addition['errors'] = $field_errors;
+  }
+
+  $form_state['conditional_fields_untriggered_dependents'][] = $form_state_addition;
+}
+
+/**
+ * Extracts submitted field values during form validation.
+ *
+ * @return
+ *   The requested field values parent. Actual field vales are stored under the
+ *   key $element['#field_name'].
+ */
+function conditional_fields_form_field_get_values($element, $form_state) {
+  // Fall back to #parents to support custom dependencies.
+  $parents = isset($element['#field_parents']) ? $element['#field_parents'] : $element['#parents'];
+  return drupal_array_get_nested_value($form_state['values'], $parents);
+}
+
+/**
+ * Validation callback for any form with conditional fields.
+ *
+ * This validation callback is added to all forms that contain fields with
+ * dependencies. It removes all validation errors from dependent fields whose
+ * dependencies are not triggered, which were collected at field-level
+ * validation in conditional_fields_dependent_validate().
+ *
+ * @see conditional_fields_dependent_validate()
+ */
+function conditional_fields_form_validate($form, &$form_state) {
+  if (empty($form_state['conditional_fields_untriggered_dependents'])) {
+    return;
+  }
+
+  $untriggered_dependents_errors = array();
+
+  foreach ($form_state['conditional_fields_untriggered_dependents'] as $field) {
+    $dependent = drupal_array_get_nested_value($form, $field['parents']);
+    $field_values_location = conditional_fields_form_field_get_values($dependent, $form_state);
+
+    // If we couldn't find a location for the field's submitted values, let the
+    // validation errors pass through to avoid security holes.
+    if (!isset($field_values_location[$dependent['#field_name']])) {
+      continue;
+    }
+
+    if (empty($field['reset'])) {
+      unset($field_values_location[$dependent['#field_name']]);
     }
     else {
-      form_error($elements);
+      $dependent_info = field_form_get_state($dependent['#field_parents'], $dependent['#field_name'], $dependent['#language'], $form_state);
+      $field_values_location[$dependent['#field_name']][$dependent['#language']] = field_get_default_value($dependent_info['instance']['entity_type'], NULL, $dependent_info['field'], $dependent_info['instance'], $dependent['#language']);
+    }
+
+    // Save the changed array back in place.
+    // Do not use form_set_value() since it assumes that the values are located at
+    // $form_state['values'][ ... $element['#parents'] ... ], while the
+    // documentation of hook_field_widget_form() states that field values are
+    // $form_state['values'][ ... $element['#field_parents'] ... ].
+    drupal_array_set_nested_value($form_state['values'], $dependent['#field_parents'], $field_values_location);
+
+    if (!empty($field['errors'])) {
+      $untriggered_dependents_errors = array_merge($untriggered_dependents_errors, $field['errors']);
+    }
+  }
+
+  if (!empty($untriggered_dependents_errors)) {
+    // Since Drupal provides no clean way to selectively remove error messages,
+    // we have to store all current form errors and error messages, clear them,
+    // filter out from our stored values the errors originating from untriggered
+    // dependent fields, and then reinstate remaining errors and messages.
+    $errors = array_diff_assoc((array) form_get_errors(), $untriggered_dependents_errors);
+    form_clear_error();
+    $error_messages = drupal_get_messages('error');
+    $removed_messages = array_values($untriggered_dependents_errors);
+
+    // Reinstate remaining errors.
+    foreach ($errors as $name => $error) {
+      form_set_error($name, $error);
+      // form_set_error() calls drupal_set_message(), so we have to filter out
+      // these from the messages to avoid duplicates.
+      $removed_messages[] = $error;
+    }
+
+    // Reinstate remaining error messages (which, at this point, are messages that
+    // were originated outside of the validation process).
+    foreach (array_diff($error_messages['error'], $removed_messages) as $message) {
+      drupal_set_message($message, 'error');
     }
   }
 }
 
 /**
- * Validate dependent fields that should be reset to their default values if the
- * dependency was not triggered.
+ * Helper function to add a property/value pair to a render array safely without
+ * overriding any pre-existing value.
  *
- * Works only with Lists and Text, since there is no API to convert a field's
- * data from form to storage format.
+ * @param $position
+ *   'append' if $value should be inserted at the end of the $element[$property]
+ *   array, any other value to insert it at the beginning.
+ *
  */
-function conditional_fields_behaviors_reset_default_validate(&$elements, &$form_state, $form) {
-  $modules = array('text', 'number', 'options');
-  $instance = field_widget_instance($elements, $form_state);
-  if (!in_array($instance['widget']['module'], $modules)) {
+function _conditional_fields_element_add_property(&$element, $property, $value, $position = 'prepend') {
+  // Avoid overriding default element properties that might not yet be set.
+  if (!isset($element[$property])) {
+    $element[$property] = isset($element['#type']) ? element_info_property($element['#type'], $property, array()) : array();
+  }
+
+  if (in_array($value, $element[$property])) {
     return;
   }
 
-  // Check if the dependency was triggered.
-  $is_triggered = conditional_fields_evaluate_dependencies($elements['#field_name'], $form, $form_state);
+  switch ($position) {
+    case 'append':
+      $element[$property] = array_merge($element[$property], (array) $value);
+      break;
 
-  if (!$is_triggered) {
-    $default_value = field_get_default_value($instance['entity_type'], NULL, $elements, $instance, $elements['#language']);
-
-    switch ($instance['widget']['module']) {
-      case 'text':
-      case 'number':
-        $form_state['values'][$instance['field_name']][$elements['#language']] = $default_value;
-        break;
-      case 'options':
-        $value = isset($default_value[0]['value']) ? $default_value[0]['value'] : NULL;
-        $elements['#value'] = $form_state['values'][$instance['field_name']][$elements['#language']] = $value;
-        break;
-    }
+    case 'prepend':
+    default:
+      $element[$property] = array_merge((array) $value, $element[$property]);
+      break;
   }
-}
-
-/**
- * Marks conditionally required dependents as required for themeing.
- */
-function conditional_fields_required_dependent_pre_render($elements) {
-  // Mark as required here, so it will be themed accordingly.
-  // Does not affect validation.
-  $elements['#required'] = TRUE;
-
-  return $elements;
 }
 
 /**
@@ -693,14 +848,14 @@ function conditional_fields_required_dependent_pre_render($elements) {
  * Applies entity view logic to conditional fields.
  */
 function conditional_fields_entity_view_alter(&$build, $type) {
-  if (!$dependencies = conditional_fields_load_dependencies($build['#entity_type'], $build['#bundle'])) {
+  if (!(isset($build['#entity_type'], $build['#bundle']) && $dependencies = conditional_fields_load_dependencies($build['#entity_type'], $build['#bundle']))) {
     return;
   }
 
   $evaluated_dependents = array();
 
   foreach ($dependencies['dependents'] as $dependent => $dependency) {
-    if (!(isset($build[$dependent]) && $build[$dependent]['#access'])) {
+    if (empty($build[$dependent]['#access'])) {
       continue;
     }
 
@@ -720,11 +875,21 @@ function conditional_fields_entity_view_alter(&$build, $type) {
         $behaviors = conditional_fields_field_behaviors('view', $options);
       }
 
-      // Evaluate dependency.
-      // TODO: grouping of dependencies to allow OR. For now, the dependent is "triggered"
-      // only if all its dependencies evaluate to TRUE,
-      if (!isset($build[$dependee]) || $build[$dependee]['#access'] == FALSE) {
-        if (in_array(CONDITIONAL_FIELDS_FIELD_VIEW_HIDE_UNTRIGGERED_ORPHAN, $behaviors)) {
+      // Manage orphan fields (dependents with no dependees).
+      $evaluate = in_array(CONDITIONAL_FIELDS_FIELD_VIEW_EVALUATE, $behaviors);
+      $hide_orphan = in_array(CONDITIONAL_FIELDS_FIELD_VIEW_HIDE_ORPHAN, $behaviors);
+      $hide_untriggered_orphan = in_array(CONDITIONAL_FIELDS_FIELD_VIEW_HIDE_UNTRIGGERED_ORPHAN, $behaviors);
+      $is_orphan = empty($build[$dependee]['#access']);
+      if ($is_orphan) {
+        // Hide the dependent. No need to evaluate the dependency.
+        if ($hide_orphan) {
+          $build[$dependent]['#access'] = FALSE;
+          continue;
+        }
+        if ($hide_untriggered_orphan) {
+          $evaluate = TRUE;
+        }
+        if ($evaluate) {
           // We have to look for the dependee in the entity object.
           // TODO: Is it possible to avoid hardcoding this?
           switch ($type) {
@@ -742,6 +907,7 @@ function conditional_fields_entity_view_alter(&$build, $type) {
             default:
               $entity_property = '#entity';
           }
+          // If we didn't find the field, there is nothing more we can do.
           if (!isset($build[$entity_property]->$dependee)) {
             continue;
           }
@@ -749,18 +915,17 @@ function conditional_fields_entity_view_alter(&$build, $type) {
           // Values are keyed by language here, remove it.
           $items = array_shift($items);
         }
-        elseif (in_array(CONDITIONAL_FIELDS_FIELD_VIEW_HIDE_ORPHAN, $behaviors)) {
-          $build[$dependent]['#access'] = FALSE;
-          continue;
-        }
       }
       else {
         $items = $build[$dependee]['#items'];
       }
-      $evaluated_dependents[$dependent]['AND'][] = conditional_fields_evaluate_dependency('view', $items, $options);
+
+      if ($evaluate) {
+        $evaluated_dependents[$dependent][$options['grouping']][] = conditional_fields_evaluate_dependency('view', $items, $options);
+      }
     }
     if (isset($evaluated_dependents[$dependent])) {
-      $is_triggered = !in_array(FALSE, $evaluated_dependents[$dependent]['AND']);
+      $is_triggered = conditional_fields_evaluate_grouping($evaluated_dependents[$dependent]);
 
       foreach ($behaviors as $behavior) {
         switch ($behavior) {
@@ -772,12 +937,12 @@ function conditional_fields_entity_view_alter(&$build, $type) {
             break;
 
           case CONDITIONAL_FIELDS_FIELD_VIEW_HIDE_ORPHAN:
-            // This case was handled while evaluating dependencies.
+            // This case was handled while looking for the field.
             break;
 
           case CONDITIONAL_FIELDS_FIELD_VIEW_HIDE_UNTRIGGERED_ORPHAN:
             // Hide the dependent if the dependee is not viewable and the dependency is not triggered.
-            if (!$is_triggered && (!isset($build[$dependee]) || $build[$dependee]['#access'] == FALSE)) {
+            if ($is_orphan && !$is_triggered) {
               $build[$dependent]['#access'] = FALSE;
             }
             break;
@@ -808,6 +973,10 @@ function conditional_fields_entity_view_alter(&$build, $type) {
             $$behavior('view', $dependee, $dependent, $is_triggered, $dependencies, $build, $type);
             break;
         }
+
+        if (empty($build[$dependent]['#access'])) {
+          break;
+        }
       }
     }
 
@@ -816,20 +985,47 @@ function conditional_fields_entity_view_alter(&$build, $type) {
 }
 
 /**
+ * Evaluates an array with 'AND', 'OR' and 'XOR' groupings,
+ * each containing a list of boolean values.
+ */
+function conditional_fields_evaluate_grouping($groups) {
+  $or = $and = $xor = TRUE;
+  if (!empty($groups['OR'])) {
+    $or = in_array(TRUE, $groups['OR']);
+  }
+  if (!empty($groups['AND'])) {
+    $and = !in_array(FALSE, $groups['AND']);
+  }
+  if (!empty($groups['XOR'])) {
+    $xor = array_sum($groups['XOR']) == 1;
+  }
+  return $or && $and && $xor;
+}
+
+/**
  * Evaluate a set of dependencies for a dependent field.
+ *
+ * @param $dependent
+ *   The field form element in the current language.
  */
 function conditional_fields_evaluate_dependencies($dependent, $form, $form_state) {
-  $dependencies = $form['#conditional_fields'][$dependent]['dependees'];
+  $dependencies = $form['#conditional_fields'][$dependent['#field_name']]['dependees'];
   $evaluated_dependees = array();
 
-  foreach ($dependencies as $dependency) {
-    $values = drupal_array_get_nested_value($form_state['values'], $form['#conditional_fields'][$dependency['dependee']]['parents']);
+  foreach ($dependencies as $dependency_id => $dependency) {
+    // Extract field values from submitted values.
+    $values = NULL;
+    $dependee = $dependency['dependee'];
+    $dependee_form_field = drupal_array_get_nested_value($form, $form['#conditional_fields'][$dependee]['parents']);
+    $dependee_values_location = conditional_fields_form_field_get_values($form[$dependee_form_field['#parents'][0]], $form_state);
+    if (isset($dependee_values_location)) {
+      $values = $dependee_values_location[$dependee_form_field['#language']];
+    }
 
-    // TODO: OR/XOR grouping of dependencies.
-    $evaluated_dependees[$dependent]['AND'][] = conditional_fields_evaluate_dependency('edit', $values, $dependency['options']);
+    $evaluated_dependees[$dependent['#field_name']][$dependency['options']['grouping']][] = conditional_fields_evaluate_dependency('edit', $values, $dependency['options']);
   }
 
-  return in_array(FALSE, $evaluated_dependees[$dependent]['AND']) ? FALSE : TRUE;
+  return conditional_fields_evaluate_grouping($evaluated_dependees[$dependent['#field_name']]);
 }
 
 /**
@@ -866,8 +1062,15 @@ function conditional_fields_evaluate_dependency($context, $values, $options) {
       $values = array(array('value' => $values));
     }
 
-    // If we are in form context, we are done here.
+    // If we are in form context, we are almost done.
     if ($context == 'edit') {
+      // If $dependency_values is not an array, we can only assume that it
+      // should map to the first key of the first value of $values.
+      if (!is_array($dependency_values)) {
+        $key = current(array_keys((array) current($values)));
+        $dependency_values = array(array($key => $dependency_values));
+      }
+
       // Compare arrays recursively ignoring keys, since multiple select widgets
       // values have numeric keys in form format and string keys in storage
       // format.
@@ -899,7 +1102,7 @@ function conditional_fields_evaluate_dependency($context, $values, $options) {
       foreach ($dependency_value as $key => $dependency_element_value) {
         // Ignore keys set in the field and not in the dependency.
         if (isset($values[$delta][$key]) && $values[$delta][$key] !== $dependency_element_value) {
-          return FALSE;          
+          return FALSE;
         }
       }
     }
@@ -912,6 +1115,16 @@ function conditional_fields_evaluate_dependency($context, $values, $options) {
   foreach ((array) $values as $value) {
     // TODO: support multiple values.
     $reference_values[] = is_array($value) ? array_shift($value) : $value;
+  }
+
+  // Regular expression method.
+  if ($options['values_set'] == CONDITIONAL_FIELDS_DEPENDENCY_VALUES_REGEX) {
+    foreach ($reference_values as $reference_value) {
+      if (!preg_match('/' . $options['value']['RegExp'] . '/', $reference_value)) {
+        return FALSE;
+      }
+    }
+    return TRUE;
   }
 
   switch ($options['values_set']) {
@@ -969,6 +1182,7 @@ function conditional_fields_field_behaviors($op, $options) {
 
 /**
  * Builds a jQuery selector from the name attribute of a field.
+ * TODO: support custom selectors with %lang and %key placeholders.
  */
 function conditional_fields_field_selector($field) {
   if (isset($field['#attributes']['name'])) {
@@ -1001,11 +1215,11 @@ function conditional_fields_dependency_default_options() {
   return array(
     'state'                 => 'visible',
     'condition'             => 'value',
+    'grouping'              => 'AND',
     'values_set'            => CONDITIONAL_FIELDS_DEPENDENCY_VALUES_WIDGET,
     'value'                 => array(),
     'values'                => array(),
     'value_form'            => array(),
-    // TODO 'grouping'      => CONDITIONAL_FIELDS_GROUPING_AND,
     'effect'                => 'show',
     'effect_options'        => array(),
     'element_view'          => array(
@@ -1045,7 +1259,9 @@ function conditional_fields_load_dependencies($entity_type = NULL, $bundle = NUL
   }
 
   if (!isset($dependencies[$entity_type][$bundle])) {
-    $dependencies[$entity_type][$bundle] = array();
+    if (!empty($entity_type) && !empty($bundle)) {
+      $dependencies[$entity_type][$bundle] = array();
+    }
     $default_options = conditional_fields_dependency_default_options();
 
     $select = db_select('conditional_fields', 'cf')
@@ -1103,28 +1319,31 @@ function conditional_fields_load_dependencies($entity_type = NULL, $bundle = NUL
     return $dependencies[$entity_type];
   }
 
-  if (!empty($dependencies)) {
-    return $dependencies;
-  }
-
-  return FALSE;
+  return $dependencies;
 }
 
 /**
- * Loads a dependency from the database by id.
+ * Menu argument loader: loads a dependency from the database.
+ *
+ * @param $id
+ *   The dependency ID.
+ *
+ * @return
+ *   A fully populated dependency array, complete with its conditions, or FALSE
+ *   if the dependency is not found.
  */
-function conditional_fields_dependency_load_by_id($id) {
+function conditional_fields_dependency_load($id) {
   $result = db_select('conditional_fields', 'cf')
     ->fields('cf', array('id', 'dependee', 'dependent', 'options'))
     ->condition('id', $id)
     ->execute()
     ->fetchAssoc();
 
-  if (isset($result['options'])) {
-    $options = unserialize($result['options']);
-    $options += conditional_fields_dependency_default_options();
-    $result['options'] = $options;
+  if (!$result) {
+    return FALSE;
   }
+
+  $result['options'] = unserialize($result['options']) + conditional_fields_dependency_default_options();
 
   return $result;
 }
@@ -1247,7 +1466,7 @@ function conditional_fields_states() {
  * Builds a list of supported effects that may be applied to a dependent field
  * when it changes from visible to invisible and viceversa. The effects may
  * have options that will be passed as Javascript settings and used by
- * conditional_fields.effect.js.
+ * conditional_fields.js.
  *
  * @return
  *   An associative array of effects. Each key is an unique name for the effect.
@@ -1378,9 +1597,11 @@ function conditional_fields_behaviors($op = NULL) {
   $behaviors = array(
     'edit' => array(
       CONDITIONAL_FIELDS_FIELD_EDIT_HIDE_ORPHAN => t('Hide the dependent if the dependee is not in the form'),
-      CONDITIONAL_FIELDS_FIELD_EDIT_RESET_UNTRIGGERED => t('Reset the dependent to its default values if the dependency is not triggered.') . '<br /><em>' . t('Note: works only with Text and Options widgets. Enabling this options with other types of widgets could lead to unexpected results.') . '</em>',
+      CONDITIONAL_FIELDS_FIELD_EDIT_RESET_UNTRIGGERED => t('Reset the dependent to its default values when the form is submitted if the dependency is not triggered.') . '<br /><em>' . t('Note: This setting only applies if the condition is "Value" and may not work with some field types. Also, ensure that the default values are valid, since they will not be validated.') . '</em>',
       // TODO: Implement. Settings are imported from D6 though, they just do nothing for now.
-      CONDITIONAL_FIELDS_FIELD_EDIT_HIDE_UNTRIGGERED_ORPHAN => t('Hide the dependent if the dependee is not in the form and the dependency is not triggered. (Note: not implemented)'),
+      /*
+      CONDITIONAL_FIELDS_FIELD_EDIT_HIDE_UNTRIGGERED_ORPHAN => t('Hide the dependent if the dependee is not in the form and the dependency is not triggered.') . '<br /><em>' . t('Note: This setting is not currently not implemented and has no effect.') . '</em>',
+      */
     ),
     'view' => array(
       CONDITIONAL_FIELDS_FIELD_VIEW_EVALUATE => t('Hide the dependent if the dependency is not triggered'),
@@ -1458,8 +1679,6 @@ function conditional_fields_states_handlers() {
 function conditional_fields_states_handler_select($field, $field_info, $options, &$state) {
   switch ($options['values_set']) {
     case CONDITIONAL_FIELDS_DEPENDENCY_VALUES_WIDGET:
-      return;
-
     case CONDITIONAL_FIELDS_DEPENDENCY_VALUES_AND:
       $state[$options['state']][$options['selector']]['value'] = (array) $state[$options['state']][$options['selector']]['value'];
       return;
@@ -1467,12 +1686,14 @@ function conditional_fields_states_handler_select($field, $field_info, $options,
     case CONDITIONAL_FIELDS_DEPENDENCY_VALUES_XOR:
       $select_states[$options['state']][] = 'xor';
 
+    case CONDITIONAL_FIELDS_DEPENDENCY_VALUES_REGEX:
+      $regex = TRUE;
     case CONDITIONAL_FIELDS_DEPENDENCY_VALUES_NOT:
     case CONDITIONAL_FIELDS_DEPENDENCY_VALUES_OR:
       foreach ($options['values'] as $value) {
         $select_states[$options['state']][] = array(
           $options['selector'] => array(
-            $options['condition'] => array($value),
+            $options['condition'] => empty($regex) ? array($value) : $options['value'],
           ),
         );
       }
@@ -1489,6 +1710,9 @@ function conditional_fields_states_handler_checkbox($field, $field_info, $option
   switch ($options['values_set']) {
     case CONDITIONAL_FIELDS_DEPENDENCY_VALUES_WIDGET:
       $checked = $options['value'][0]['value'] == $field['#on_value'] ? TRUE : FALSE;
+      break;
+    case CONDITIONAL_FIELDS_DEPENDENCY_VALUES_REGEX:
+      $checked = preg_match('/' . $options['value']['RegExp'] . '/', $field['#on_value']) ? TRUE : FALSE;
       break;
     case CONDITIONAL_FIELDS_DEPENDENCY_VALUES_AND:
       // ANDing values of a single checkbox doesn't make sense: just use the first value.
@@ -1516,6 +1740,15 @@ function conditional_fields_states_handler_checkboxes($field, $field_info, $opti
     case CONDITIONAL_FIELDS_DEPENDENCY_VALUES_WIDGET:
       foreach ($options['value'] as $value) {
         $checkboxes_selectors[conditional_fields_field_selector($field[current($value)])] = array('checked' => TRUE);
+      }
+      break;
+    case CONDITIONAL_FIELDS_DEPENDENCY_VALUES_REGEX:
+      // We interpret this as: checkboxes whose values match the regular
+      // expression should be checked.
+      foreach ($field['#options'] as $key => $label) {
+        if (preg_match('/' . $options['value']['RegExp'] . '/', $key)) {
+          $checkboxes_selectors[conditional_fields_field_selector($field[$key])] = array('checked' => TRUE);
+        }
       }
       break;
     case CONDITIONAL_FIELDS_DEPENDENCY_VALUES_AND:
@@ -1571,15 +1804,17 @@ function conditional_fields_states_handler_date_combo($field, $field_info, $opti
   // Add a condition for each date part.
   $date_selectors = array();
 
+  $regex = $options['values_set'] == CONDITIONAL_FIELDS_DEPENDENCY_VALUES_REGEX;
+
   // Date popup.
   if ($field_info['instance']['widget']['type'] == 'date_popup') {
     $date_selectors[conditional_fields_field_selector($field['value']['date'])] = array(
-      'value' => $options['value_form'][0]['value']['date'],
+      'value' => $regex ? $options['value'] : $options['value_form'][0]['value']['date'],
     );
 
     if ($field_info['field']['settings']['granularity']['hour'] || $field_info['field']['settings']['granularity']['minute'] || $field_info['field']['settings']['granularity']['second']) {
       $date_selectors[conditional_fields_field_selector($field['value']['time'])] = array(
-        'value' => $options['value_form'][0]['value']['time'],
+        'value' => $regex ? $options['value'] : $options['value_form'][0]['value']['time'],
       );
     }
   }
@@ -1588,7 +1823,7 @@ function conditional_fields_states_handler_date_combo($field, $field_info, $opti
     foreach ($field_info['field']['settings']['granularity'] as $date_part) {
       if ($date_part) {
         $date_selectors[conditional_fields_field_selector($field['value'][$date_part])] = array(
-          'value' => $options['value_form'][0]['value'][$date_part],
+          'value' => $regex ? $options['value'] : $options['value_form'][0]['value'][$date_part],
         );
       }
     }
@@ -1602,12 +1837,13 @@ function conditional_fields_states_handler_date_combo($field, $field_info, $opti
  */
 function conditional_fields_states_handler_link_field($field, $field_info, $options, &$state) {
   $link_selectors = array();
+  $regex = $options['values_set'] == CONDITIONAL_FIELDS_DEPENDENCY_VALUES_REGEX;
 
   // Add a condition for each link part (Title and URL)
   if ($field_info['instance']['settings']['title'] == 'optional' || $field_info['instance']['settings']['title'] == 'required') {
-    $link_selectors[conditional_fields_field_selector($field['title'])] = array('value' => $options['value_form'][0]['title']);
+    $link_selectors[conditional_fields_field_selector($field['title'])] = array('value' => $regex ? $options['value'] : $options['value_form'][0]['title']);
   }
-  $link_selectors[conditional_fields_field_selector($field['url'])] = array('value' => $options['value_form'][0]['url']);
+  $link_selectors[conditional_fields_field_selector($field['url'])] = array('value' => $regex ? $options['value'] : $options['value_form'][0]['url']);
 
   $state = array($options['state'] => $link_selectors);
 }
@@ -1620,6 +1856,7 @@ function conditional_fields_states_handler_link_addressfield($field, $field_info
     return;
   }
 
+  $regex = $options['values_set'] == CONDITIONAL_FIELDS_DEPENDENCY_VALUES_REGEX;
   $keys = array();
 
   if ($field['#handlers']['address']) {
@@ -1640,7 +1877,7 @@ function conditional_fields_states_handler_link_addressfield($field, $field_info
   $addressfield_selectors = array();
 
   foreach ($keys as $key) {
-    $addressfield_selectors[str_replace('%key', $key, $options['selector'])] = array('value' => $options['value'][0][$key]);
+    $addressfield_selectors[str_replace('%key', $key, $options['selector'])] = array('value' => $regex ? $options['value'] : $options['value'][0][$key]);
   }
 
   $state = array($options['state'] => $addressfield_selectors);
@@ -1704,6 +1941,14 @@ function conditional_fields_dependency_description($dependee_name, $dependent_na
           '@values' => $values,
         ));
         break;
+      case CONDITIONAL_FIELDS_DEPENDENCY_VALUES_REGEX:
+        return t('%dependent_name is !state when %dependee_name values match the regular expression: @regex.', array(
+          '%dependent_name' => $dependent_name,
+          '!state' => drupal_strtolower($states[$options['state']]),
+          '%dependee_name' => $dependee_name,
+          '@regex' => $options['value']['RegExp'],
+        ));
+        break;
     }
   }
   else {
@@ -1719,6 +1964,25 @@ function conditional_fields_dependency_description($dependee_name, $dependent_na
 }
 
 /**
+ * Implements hook_module_implements_alter().
+ *
+ * Ensures that some Conditional Fields hooks are processed last.
+ */
+function conditional_fields_module_implements_alter(&$implementations, $hook) {
+  if (isset($implementations['conditional_fields'])) {
+    // The element_info_alter hook should attempt to add its #after_build
+    // callback last to ensure that conditional_fields_form_validate runs after
+    // all other validation routines.
+    // The Features hook must be processed when the fields actually exist.
+    if ($hook == 'element_info_alter' || $hook = 'features_api') {
+      $group = $implementations['conditional_fields'];
+      unset($implementations['conditional_fields']);
+      $implementations['conditional_fields'] = $group;
+    }
+  }
+}
+
+/**
  * Implements hook_features_api().
  */
 function conditional_fields_features_api() {
@@ -1727,7 +1991,7 @@ function conditional_fields_features_api() {
       'name' => t('Conditional Fields'),
       'default_hook' => 'conditional_fields_default_fields',
       'default_file' => FEATURES_DEFAULTS_INCLUDED,
-      'features_source' => TRUE,
+      'feature_source' => TRUE,
       'file' => drupal_get_path('module', 'conditional_fields') . '/includes/conditional_fields.features.inc',
     ),
   );

@@ -294,3 +294,10 @@ function conditional_fields_update_7001() {
       ->execute();
   }
 }
+
+/**
+ * Updated dependency id menu arguments to argument loader function.
+ */
+function conditional_fields_update_7002() {
+  // Do nothing; it's here just to let Drupal rebuild the menu cache.
+}
